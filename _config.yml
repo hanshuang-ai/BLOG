@@ -178,9 +178,8 @@ path: baidusitemap.xml
 deploy:
   type: git
   repo:
-      github:
-      coding:
-  branch: master
+      github: git@github.com:hanshuang-ai/hanshuang-ai.github.io.git
+  branch: main
 
 ## share
 share: true
