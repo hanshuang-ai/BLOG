@@ -20,19 +20,19 @@ permalink_defaults:
 #Custom Setting Start
 
 # Site settings
-SEOTitle: Hexo-theme-snail
-email: hexo-theme-snail@mail.com
-description: "A hexo theme"
-keyword: "dusign, hexo-theme-snail"
+SEOTitle: 个人博客
+email: lcy15201053004@gmail.com
+description: "个人博客"
+keyword: "个人博客"
 header-img: img/header_img/home-bg-1-dark.jpg
 signature: true #show signature
 signature-img: img/signature/dusign.png
 
 # SNS settings
-github_username:    dusign
-twitter_username:   dusignr
-facebook_username:  Gang Du
-zhihu_username: dusignr
+github_username:    hanshuang-ai
+#twitter_username:   dusignr
+#facebook_username:  Gang Du
+#zhihu_username: dusignr
 
 # Build settings
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
@@ -46,7 +46,7 @@ ga_domain: yoursite
 
 # Sidebar settings
 sidebar: true                      # whether or not using Sidebar.
-sidebar-about-description: "Welcome to visit, I'm Dusign!"
+sidebar-about-description: "欢迎来到 hanshuang-ai 的个人博客"
 sidebar-avatar: img/ironman-draw.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 widgets:
 - search
@@ -79,18 +79,21 @@ featured-condition-size: 1              # A tag will be featured if the size of 
 ## Friends
 friends: [
     {
-        title: "Dusign's Blog",
-        href: "https://blog.csdn.net/d_Nail"
-    },{
-        title: "Dusign's Web",
-        href: "#"
-    },{
-        title: "Dusign's Github",
-        href: "https://github.com/dusign"
-    },{
-        title: "Other",
-        href: "#"
-    }
+        title: "个人简历",
+        href: "https://hanshuang-ai.github.io"
+    },
+    # {
+    #     title: "Dusign's Web",
+    #     href: "#"
+    # },
+    # {
+    #     title: "Dusign's Github",
+    #     href: "https://github.com/hanshuang-ai"
+    # },
+    # {
+    #     title: "Other",
+    #     href: "#"
+    # }
 ]
 
 math:
@@ -210,7 +213,7 @@ music:
 
 # Tip
 tip:
-  enable: true
+  enable: false
   copyright: This is copyright.
   content: false
 
@@ -239,7 +242,7 @@ bg_effects:
 ## light , dark or star
 ## If you set the value of the `color_theme` to `dark`, set the value of the `highlight_theme` to `night` in `/theme/snail/config.yml`
 ## `mouse_control` is only valid for star themes
-color_theme: light
+color_theme: dark
 mouse_control: false
 
 # Visitor statistics
