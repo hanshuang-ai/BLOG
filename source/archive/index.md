@@ -1,8 +1,7 @@
 ---
 layout: "archive"
 title: "Archives"
-header-img: "img/header_img/archive-bg.jpg"
-comments: false
+header-img: "img/header_img/archive_bg.jpg"
 date: 2017-03-20 20:49:56
-description: "Have goals that are actually meaningful to all of your brain, not just a piece, and immerse yourself in whatever it is you do."
+description: "Don't rush and never settle...... If it's meant to be, it will be......"
 ---
