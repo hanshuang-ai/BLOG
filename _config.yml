@@ -40,9 +40,9 @@ permalink_defaults:
 
 # Site settings
 SEOTitle: 寒霜
-email: hexo-theme-livemylife@gmail.com
-description: "It's an IT blog..."
-keyword: "v-vincen,v-vincen,livemylife,IT  blog,Blog"
+email: lcy15201053004@gmail.com
+description: "前端技术、全栈技术"
+keyword: "前端技术、全栈技术、AI自动化"
 header-img: img/header_img/newhome_bg.jpg
 archives-img: img/header_img/archive_bg2.jpg
 
@@ -62,13 +62,13 @@ wave: true
 
 # SNS Settings
 # RSS: true
-github_username: V-Vincen
-twitter_username: V_Vincen_
-instagram_username: v_vincen_
+github_username: hanshuang-ai
+# twitter_username: V_Vincen_
+# instagram_username: v_vincen_
 # facebook_username:  yourAccount
 # linkedin_username:  yourAccount
 # zhihu_username: WVincen
-weibo_username: WVincen
+# weibo_username: WVincen
 
 
 # Sidebar Settings
@@ -320,10 +320,10 @@ themecolor:
 mouseclick:
   enable: true
   content:
-    - The first step is as good as half over...
-    - Laugh and grow fat...
-    - Man proposes God disposes...
-    - When all else is lost the future still remains...
+    - hanshuang-ai
+    - 全栈工程师
+    - AI自动化
+    -
     - Wasting time is robbing oneself...
     - Sharp tools make good work...
     - Cease to struggle and you cease to live...
@@ -381,5 +381,5 @@ gitter:
 ##
 deploy:
   type: git
-  repo: https://github.com/<yourAccount>/<repo> # or https://gitee.com/<yourAccount>/<repo>
-  branch: <your-branch>
+  repo: git@github.com:hanshuang-ai/hanshuang-ai.github.io.git # or https://gitee.com/<yourAccount>/<repo>
+  branch: master

@@ -1,12 +1,11 @@
 ---
 title: genkins
+tag: ['genkins']
+categories: ['持续集成']
+catalog: true
 ---
 
+# centos安装jenkins
 
 
-# 安装
-
-# 构建前端项目
-
-## 安装nodejs插件
-
+# jenkins链接github
