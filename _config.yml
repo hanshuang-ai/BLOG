@@ -105,3 +105,8 @@ deploy:
   type: git
   repo: git@github.com:hanshuang-ai/hanshuang-ai.github.io.git # or https://gitee.com/<yourAccount>/<repo>
   branch: master
+
+# search
+search:
+  path: search.xml
+  field: post
