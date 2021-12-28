@@ -106,7 +106,12 @@ deploy:
   repo: git@github.com:hanshuang-ai/hanshuang-ai.github.io.git # or https://gitee.com/<yourAccount>/<repo>
   branch: master
 
-# search
+# search  搜索页
 search:
   path: search.xml
   field: post
+
+# 中文链接转拼音
+permalink_pinyin:
+  enable: true
+  separator: '-' # default: '-'
