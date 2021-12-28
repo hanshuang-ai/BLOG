@@ -465,6 +465,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -486,7 +489,19 @@
 <p>一般情况下，保存密匙的文件夹下不会存在config文件，这时我们需要自己创建。</p>
 <p><code>注意：文件名就叫config，不需要任何后缀</code></p>
 <p>创建config文件后，我们队不同的密匙进行分别配置，示例如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># ~/.ssh/github_rsa github的ssh密钥</span><br><span class="line">Host github.com  //对应的平台，这个值是随便写的，只要你知道代表的平台即可，只是一个标识作用</span><br><span class="line">    HostName github.com  // 这是对应平台的网址，这个一定要弄好，不可随意填写</span><br><span class="line">    User git //</span><br><span class="line">    IdentityFile ~/.ssh/github_rsa  //该平台对应的私匙名称</span><br><span class="line">    IdentitiesOnly yes</span><br><span class="line"></span><br><span class="line"># ~/.ssh/gitee_rsa gitee的ssh密钥</span><br><span class="line">Host gitee.com</span><br><span class="line">    HostName gitee.com</span><br><span class="line">    User git</span><br><span class="line">    IdentityFile ~/.ssh/gitee_rsa</span><br><span class="line">    IdentitiesOnly yes</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none"># ~&#x2F;.ssh&#x2F;github_rsa github的ssh密钥
+Host github.com  &#x2F;&#x2F;对应的平台，这个值是随便写的，只要你知道代表的平台即可，只是一个标识作用
+    HostName github.com  &#x2F;&#x2F; 这是对应平台的网址，这个一定要弄好，不可随意填写
+    User git &#x2F;&#x2F;
+    IdentityFile ~&#x2F;.ssh&#x2F;github_rsa  &#x2F;&#x2F;该平台对应的私匙名称
+    IdentitiesOnly yes
+
+# ~&#x2F;.ssh&#x2F;gitee_rsa gitee的ssh密钥
+Host gitee.com
+    HostName gitee.com
+    User git
+    IdentityFile ~&#x2F;.ssh&#x2F;gitee_rsa
+    IdentitiesOnly yes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>配置完成后（或者每配置一个平台后），可以通过<code>ssh -T git@配置平台的HostName</code>进行测试。</p>
 <p>出现欢迎语<code>Hi,....,You&#39;re successfully.....</code>时，即配置成功</p>
@@ -731,13 +746,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/12/28/%E5%85%B3%E4%BA%8Eftp%E6%97%A0%E6%B3%95%E9%93%BE%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%97%AE%E9%A2%98/">
+                <a href="/2021/12/28/%E5%90%8C%E4%B8%80%E5%8F%B0%E6%9C%BA%E5%99%A8%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%B8%AAgit%E8%B4%A6%E5%8F%B7/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="关于ftp无法链接服务器的问题">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="同一台机器配置多个git账号.md">
                         
-                        <span class="card-title">关于ftp无法链接服务器的问题</span>
+                        <span class="card-title">同一台机器配置多个git账号.md</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -759,14 +774,6 @@
                     </div>
                 </div>
                 
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">
-                        <span class="chip bg-color">服务器</span>
-                    </a>
-                    
-                </div>
-                
             </div>
         </div>
         
@@ -776,13 +783,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/28/nodeCanvas%E6%B8%B2%E6%9F%93/">
+                <a href="/2021/12/28/%E4%BD%BF%E7%94%A8nuxt%E5%88%9B%E5%BB%BA%E7%AB%99%E7%82%B9/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="nodeCanvas渲染">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="使用nuxt创建站点">
                         
-                        <span class="card-title">nodeCanvas渲染</span>
+                        <span class="card-title">使用nuxt创建站点</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -797,11 +804,23 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            寒霜
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
+                                    框架
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/nuxt/">
+                        <span class="chip bg-color">nuxt</span>
+                    </a>
+                    
                 </div>
                 
             </div>

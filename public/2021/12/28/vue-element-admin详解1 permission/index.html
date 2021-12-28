@@ -7,7 +7,7 @@
     <meta name="keywords" content="vue-element-admin详解1 permission.js, MyBlog">
     <meta name="description" content="vue-element-admin 内permission主要负责全局路由守卫和登录判断。在后台返回权限的时候，配合前端路由进行动态显示，可以使在url内输入的没有权限的页面不展示。
 代码解析
-12345678910111213141516">
+import router from &amp;#39">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -460,6 +460,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -467,7 +470,87 @@
             <div id="articleContent">
                 <p><code>vue-element-admin 内permission主要负责全局路由守卫和登录判断。在后台返回权限的时候，配合前端路由进行动态显示，可以使在url内输入的没有权限的页面不展示。</code></p>
 <p><strong>代码解析</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">import router from &#x27;./router&#x27;</span><br><span class="line">import store from &#x27;./store&#x27;</span><br><span class="line">import &#123; Message &#125; from &#x27;element-ui&#x27;</span><br><span class="line">import NProgress from &#x27;nprogress&#x27; </span><br><span class="line">import &#x27;nprogress/nprogress.css&#x27; </span><br><span class="line">//auth文件主要依赖js-cookie模块，把getToken，setToken，removeToken设置在这里</span><br><span class="line">import &#123; getToken &#125; from &#x27;@/utils/auth&#x27; </span><br><span class="line">//get-page-title文件主要是网站的标题，get-page-title通过依赖setting.js里的title变量修改网站标题</span><br><span class="line">//如果需要更改网站的标题，可以直接到setting.js修改title属性</span><br><span class="line">import getPageTitle from &#x27;@/utils/get-page-title&#x27;</span><br><span class="line"></span><br><span class="line">//NProgress是封装的进度条，基本不用动</span><br><span class="line">NProgress.configure(&#123; showSpinner: false &#125;) </span><br><span class="line"></span><br><span class="line">//路由白名单列表，把路由添加到这个数组，不用登陆也可以访问</span><br><span class="line">const whiteList = [&#x27;/login&#x27;] </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">router.beforeEach(async(to, from, next) =&gt; &#123; </span><br><span class="line">  // 请求路由时进度条开始</span><br><span class="line">  NProgress.start()</span><br><span class="line"></span><br><span class="line">  // 设置标题</span><br><span class="line">  document.title = getPageTitle(to.meta.title)</span><br><span class="line"></span><br><span class="line">  // 这里的getToken()就是在上面导入的auth.js里的getToken()方法</span><br><span class="line">  const hasToken = getToken()</span><br><span class="line"></span><br><span class="line">//如果存在token，即存在已登陆的令牌</span><br><span class="line">  if (hasToken) &#123;</span><br><span class="line">  //如果用户存在令牌的情况请求登录页面，就让用户直接跳转到首页，避免存在重复登录的情况</span><br><span class="line">    if (to.path === &#x27;/login&#x27;) &#123;</span><br><span class="line">      // 直接跳转到首页，当然取决于你的路由重定向到哪里</span><br><span class="line">      next(&#123; path: &#x27;/&#x27; &#125;)</span><br><span class="line">      //一定要关闭进度条</span><br><span class="line">      NProgress.done()</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      //如果已经有令牌的用户请求的不是登录页，是其他页面</span><br><span class="line">      //就从Vuex里拿到用户的信息，这里也证明用户不是第一次登录了</span><br><span class="line">      const hasGetUserInfo = store.getters.name</span><br><span class="line">      if (hasGetUserInfo) &#123;</span><br><span class="line">      //信息拿到后，用户请求哪就跳转哪</span><br><span class="line">        next()</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">          // 如果有令牌，但是没有用户信息，证明用户是第一次登录，通过Vuex设置用户信息</span><br><span class="line">          await store.dispatch(&#x27;user/getInfo&#x27;)</span><br><span class="line">        //设置好了之后，依然可以请求哪就跳转哪</span><br><span class="line">          next()</span><br><span class="line">        &#125; catch (error) &#123;</span><br><span class="line">          // 如果出错了，把令牌去掉，并让用户重新去到登录页面</span><br><span class="line">          await store.dispatch(&#x27;user/resetToken&#x27;)</span><br><span class="line">          Message.error(error || &#x27;Has Error&#x27;)</span><br><span class="line">          next(`/login?redirect=$&#123;to.path&#125;`)</span><br><span class="line">          //关闭进度条</span><br><span class="line">          NProgress.done()</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    //这里是没有令牌的情况</span><br><span class="line">    //还记得上面的白名单吗，现在起作用了</span><br><span class="line">    //whiteList.indexOf(to.path) !== -1)判断用户请求的路由是否在白名单里</span><br><span class="line">    if (whiteList.indexOf(to.path) !== -1) &#123;</span><br><span class="line">      // 不是-1就证明存在白名单里，不管你有没有令牌，都直接去到白名单路由对应的页面</span><br><span class="line">      next()</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      // 如果这个页面不在白名单里，直接跳转到登录页面</span><br><span class="line">      next(`/login?redirect=$&#123;to.path&#125;`)</span><br><span class="line">      //关闭进度条</span><br><span class="line">      NProgress.done()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">router.afterEach(() =&gt; &#123;</span><br><span class="line">  //每次请求结束后都需要关闭进度条</span><br><span class="line">  NProgress.done()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">import router from &#39;.&#x2F;router&#39;
+import store from &#39;.&#x2F;store&#39;
+import &#123; Message &#125; from &#39;element-ui&#39;
+import NProgress from &#39;nprogress&#39; 
+import &#39;nprogress&#x2F;nprogress.css&#39; 
+&#x2F;&#x2F;auth文件主要依赖js-cookie模块，把getToken，setToken，removeToken设置在这里
+import &#123; getToken &#125; from &#39;@&#x2F;utils&#x2F;auth&#39; 
+&#x2F;&#x2F;get-page-title文件主要是网站的标题，get-page-title通过依赖setting.js里的title变量修改网站标题
+&#x2F;&#x2F;如果需要更改网站的标题，可以直接到setting.js修改title属性
+import getPageTitle from &#39;@&#x2F;utils&#x2F;get-page-title&#39;
+
+&#x2F;&#x2F;NProgress是封装的进度条，基本不用动
+NProgress.configure(&#123; showSpinner: false &#125;) 
+
+&#x2F;&#x2F;路由白名单列表，把路由添加到这个数组，不用登陆也可以访问
+const whiteList &#x3D; [&#39;&#x2F;login&#39;] 
+
+
+router.beforeEach(async(to, from, next) &#x3D;&gt; &#123; 
+  &#x2F;&#x2F; 请求路由时进度条开始
+  NProgress.start()
+
+  &#x2F;&#x2F; 设置标题
+  document.title &#x3D; getPageTitle(to.meta.title)
+
+  &#x2F;&#x2F; 这里的getToken()就是在上面导入的auth.js里的getToken()方法
+  const hasToken &#x3D; getToken()
+
+&#x2F;&#x2F;如果存在token，即存在已登陆的令牌
+  if (hasToken) &#123;
+  &#x2F;&#x2F;如果用户存在令牌的情况请求登录页面，就让用户直接跳转到首页，避免存在重复登录的情况
+    if (to.path &#x3D;&#x3D;&#x3D; &#39;&#x2F;login&#39;) &#123;
+      &#x2F;&#x2F; 直接跳转到首页，当然取决于你的路由重定向到哪里
+      next(&#123; path: &#39;&#x2F;&#39; &#125;)
+      &#x2F;&#x2F;一定要关闭进度条
+      NProgress.done()
+    &#125; else &#123;
+      &#x2F;&#x2F;如果已经有令牌的用户请求的不是登录页，是其他页面
+      &#x2F;&#x2F;就从Vuex里拿到用户的信息，这里也证明用户不是第一次登录了
+      const hasGetUserInfo &#x3D; store.getters.name
+      if (hasGetUserInfo) &#123;
+      &#x2F;&#x2F;信息拿到后，用户请求哪就跳转哪
+        next()
+      &#125; else &#123;
+        try &#123;
+          &#x2F;&#x2F; 如果有令牌，但是没有用户信息，证明用户是第一次登录，通过Vuex设置用户信息
+          await store.dispatch(&#39;user&#x2F;getInfo&#39;)
+        &#x2F;&#x2F;设置好了之后，依然可以请求哪就跳转哪
+          next()
+        &#125; catch (error) &#123;
+          &#x2F;&#x2F; 如果出错了，把令牌去掉，并让用户重新去到登录页面
+          await store.dispatch(&#39;user&#x2F;resetToken&#39;)
+          Message.error(error || &#39;Has Error&#39;)
+          next(&#96;&#x2F;login?redirect&#x3D;$&#123;to.path&#125;&#96;)
+          &#x2F;&#x2F;关闭进度条
+          NProgress.done()
+        &#125;
+      &#125;
+    &#125;
+  &#125; else &#123;
+    &#x2F;&#x2F;这里是没有令牌的情况
+    &#x2F;&#x2F;还记得上面的白名单吗，现在起作用了
+    &#x2F;&#x2F;whiteList.indexOf(to.path) !&#x3D;&#x3D; -1)判断用户请求的路由是否在白名单里
+    if (whiteList.indexOf(to.path) !&#x3D;&#x3D; -1) &#123;
+      &#x2F;&#x2F; 不是-1就证明存在白名单里，不管你有没有令牌，都直接去到白名单路由对应的页面
+      next()
+    &#125; else &#123;
+      &#x2F;&#x2F; 如果这个页面不在白名单里，直接跳转到登录页面
+      next(&#96;&#x2F;login?redirect&#x3D;$&#123;to.path&#125;&#96;)
+      &#x2F;&#x2F;关闭进度条
+      NProgress.done()
+    &#125;
+  &#125;
+&#125;)
+
+router.afterEach(() &#x3D;&gt; &#123;
+  &#x2F;&#x2F;每次请求结束后都需要关闭进度条
+  NProgress.done()
+&#125;)
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -704,13 +787,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/12/28/sublime%E5%86%85%E4%BD%BF%E7%94%A8%E7%BB%88%E7%AB%AF/">
+                <a href="/2021/12/28/uniapp/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="sublime内使用终端">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="uniapp">
                         
-                        <span class="card-title">sublime内使用终端</span>
+                        <span class="card-title">uniapp</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -727,21 +810,13 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" class="post-category">
-                                    开发工具
+                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
+                                    框架
                                 </a>
                             
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/sublime/">
-                        <span class="chip bg-color">sublime</span>
-                    </a>
-                    
                 </div>
                 
             </div>

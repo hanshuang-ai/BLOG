@@ -7,7 +7,9 @@
     <meta name="keywords" content="vue-router, MyBlog">
     <meta name="description" content="官方网址：https://router.vuejs.org/zh/
 安装安装有3中方式
-123456789101112131415161、js网址链接先引入vue，再引入vue-router&amp;lt;script src=&amp;quot;/pat">
+1、js网址链接
+先引入vue，再引入vue-router
+&amp;lt;script src&amp;#x3D;&amp;quot;&amp;#x2F;path&amp;#x2F;to&amp;#">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -460,6 +462,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -467,7 +472,22 @@
             <div id="articleContent">
                 <p>官方网址：<a target="_blank" rel="noopener" href="https://router.vuejs.org/zh/">https://router.vuejs.org/zh/</a></p>
 <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><code>安装有3中方式</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">1、js网址链接</span><br><span class="line">先引入vue，再引入vue-router</span><br><span class="line">&lt;script src=&quot;/path/to/vue.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;/path/to/vue-router.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">2、NPM</span><br><span class="line">npm install vue-router</span><br><span class="line">如果在一个模块化工程中使用它，必须要通过 Vue.use() 明确地安装路由功能：</span><br><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">import VueRouter from &#x27;vue-router&#x27;</span><br><span class="line"></span><br><span class="line">Vue.use(VueRouter)</span><br><span class="line"></span><br><span class="line">3、在vue cli项目内用插件的方式</span><br><span class="line">vue add router</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">1、js网址链接
+先引入vue，再引入vue-router
+&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;
+&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue-router.js&quot;&gt;&lt;&#x2F;script&gt;
+
+2、NPM
+npm install vue-router
+如果在一个模块化工程中使用它，必须要通过 Vue.use() 明确地安装路由功能：
+import Vue from &#39;vue&#39;
+import VueRouter from &#39;vue-router&#39;
+
+Vue.use(VueRouter)
+
+3、在vue cli项目内用插件的方式
+vue add router
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><code>vue-router是基于路由和组件的路由用于设定访问路径，将路径和组件映射起来。在vue-router的单页面应用中, 页面的路径的改变就是组件的切换。</code></p>
 
@@ -744,13 +764,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/28/ssh%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+                <a href="/2021/12/28/js%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="ssh远程连接服务器">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="js面向对象编程思想">
                         
-                        <span class="card-title">ssh远程连接服务器</span>
+                        <span class="card-title">js面向对象编程思想</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -765,11 +785,23 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            寒霜
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%A6%82%E5%BF%B5/" class="post-category">
+                                    概念
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                        <span class="chip bg-color">面向对象</span>
+                    </a>
+                    
                 </div>
                 
             </div>

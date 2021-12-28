@@ -6,7 +6,9 @@
     <meta charset="utf-8">
     <meta name="keywords" content="nuxt内使用vant框架, MyBlog">
     <meta name="description" content="nuxt目录介绍1、assets: 资源目录，用来组织未编译的静态资源2、layouts: 
-12345布局文件目录，里面可以放些全局可用的布局，例如default、error。default表示默认布局，error可以用来展示404。如果">
+布局文件目录，里面可以放些全局可用的布局，例如default、error。
+default表示默认布局，error可以用来展示404。
+如果没有默">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -459,19 +461,32 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="nuxt目录介绍"><a href="#nuxt目录介绍" class="headerlink" title="nuxt目录介绍"></a>nuxt目录介绍</h1><p>1、<code>assets: 资源目录，用来组织未编译的静态资源</code><br>2、<code>layouts</code>: </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">布局文件目录，里面可以放些全局可用的布局，例如default、error。</span><br><span class="line">default表示默认布局，error可以用来展示404。</span><br><span class="line">如果没有默认布局的要求，直接放置一个error即可。</span><br><span class="line"></span><br><span class="line">注：并不需要特殊路由设置，在nuxt框架下，如果访问的路径不存在，(并且有error布局的情况下)则会直接使用该布局。</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">布局文件目录，里面可以放些全局可用的布局，例如default、error。
+default表示默认布局，error可以用来展示404。
+如果没有默认布局的要求，直接放置一个error即可。
+
+注：并不需要特殊路由设置，在nuxt框架下，如果访问的路径不存在，(并且有error布局的情况下)则会直接使用该布局。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 <h1 id="nuxt内使用vant（或者说是nuxt内使用第三方框架）"><a href="#nuxt内使用vant（或者说是nuxt内使用第三方框架）" class="headerlink" title="nuxt内使用vant（或者说是nuxt内使用第三方框架）"></a>nuxt内使用vant（或者说是nuxt内使用第三方框架）</h1><p>1、在plugins目录下新建vant.js文件，并引入vue和vant以及vant的样式。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#x27;vue&#x27;;</span><br><span class="line">import Vant from &#x27;vant&#x27;;</span><br><span class="line">import &#x27;vant/lib/index.css&#x27;</span><br><span class="line"></span><br><span class="line">Vue.use(Vant)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">import Vue from &#39;vue&#39;;
+import Vant from &#39;vant&#39;;
+import &#39;vant&#x2F;lib&#x2F;index.css&#39;
+
+Vue.use(Vant)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>2、在nuxt.config.js下引入vant</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugins: [</span><br><span class="line">    &#123;src: &#x27;~/plugins/vant.js&#x27;, ssr: true&#125;</span><br><span class="line">  ],</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">plugins: [
+    &#123;src: &#39;~&#x2F;plugins&#x2F;vant.js&#39;, ssr: true&#125;
+  ],<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -742,12 +757,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/node/">
-                        <span class="chip bg-color">node</span>
-                    </a>
-                    
                     <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/">
                         <span class="chip bg-color">代码片段</span>
+                    </a>
+                    
+                    <a href="/tags/node/">
+                        <span class="chip bg-color">node</span>
                     </a>
                     
                 </div>

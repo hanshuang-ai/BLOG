@@ -5,7 +5,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="微信小程序页面不同状态下的数据情况, MyBlog">
-    <meta name="description" content="微信小程序页面不同状态下的数据情况微信小程序页面生命周期1234567891011121314onload  监听页面加载onready 监听页面初次加载完成onshow  监听页面显示onhide  监听页面隐藏onUnload  监听页">
+    <meta name="description" content="微信小程序页面不同状态下的数据情况微信小程序页面生命周期onload  监听页面加载
+
+onready 监听页面初次加载完成
+
+onshow  监听页面显示
+
+onhide  监听页面隐藏
+
+onUnload  监听页面卸载，卸载本页跳转到">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -458,15 +466,32 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="微信小程序页面不同状态下的数据情况"><a href="#微信小程序页面不同状态下的数据情况" class="headerlink" title="微信小程序页面不同状态下的数据情况"></a>微信小程序页面不同状态下的数据情况</h1><h2 id="微信小程序页面生命周期"><a href="#微信小程序页面生命周期" class="headerlink" title="微信小程序页面生命周期"></a>微信小程序页面生命周期</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">onload  监听页面加载</span><br><span class="line"></span><br><span class="line">onready 监听页面初次加载完成</span><br><span class="line"></span><br><span class="line">onshow  监听页面显示</span><br><span class="line"></span><br><span class="line">onhide  监听页面隐藏</span><br><span class="line"></span><br><span class="line">onUnload  监听页面卸载，卸载本页跳转到其他页面</span><br><span class="line"></span><br><span class="line">onshow会在onready之前加载小程序</span><br><span class="line">wx.navigateTo只会触发（页面隐藏事件）onhide，不会触发（页面卸载事件）onload</span><br><span class="line">wx.redirectTo只会触发（页面卸载事件）onUnload，不会触发（页面隐藏时间）onhide</span><br><span class="line">wx.reLaunch同wx.redirectTo，但是wx.redirectTo只会卸载当前页面，wx.reLaunch会卸载所有页面，包括tab页。</span><br></pre></td></tr></table></figure>
+                <h1 id="微信小程序页面不同状态下的数据情况"><a href="#微信小程序页面不同状态下的数据情况" class="headerlink" title="微信小程序页面不同状态下的数据情况"></a>微信小程序页面不同状态下的数据情况</h1><h2 id="微信小程序页面生命周期"><a href="#微信小程序页面生命周期" class="headerlink" title="微信小程序页面生命周期"></a>微信小程序页面生命周期</h2><pre class="line-numbers language-none"><code class="language-none">onload  监听页面加载
+
+onready 监听页面初次加载完成
+
+onshow  监听页面显示
+
+onhide  监听页面隐藏
+
+onUnload  监听页面卸载，卸载本页跳转到其他页面
+
+onshow会在onready之前加载小程序
+wx.navigateTo只会触发（页面隐藏事件）onhide，不会触发（页面卸载事件）onload
+wx.redirectTo只会触发（页面卸载事件）onUnload，不会触发（页面隐藏时间）onhide
+wx.reLaunch同wx.redirectTo，但是wx.redirectTo只会卸载当前页面，wx.reLaunch会卸载所有页面，包括tab页。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
-<h2 id="微信小程序页面data内的数据和非data内的数据，在页面被卸载时的不同表现"><a href="#微信小程序页面data内的数据和非data内的数据，在页面被卸载时的不同表现" class="headerlink" title="微信小程序页面data内的数据和非data内的数据，在页面被卸载时的不同表现"></a>微信小程序页面data内的数据和非data内的数据，在页面被卸载时的不同表现</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">当页面卸载时，data内的数据会被清空，但是非data内的数据不会被卸载。</span><br><span class="line">再次进入该页面的时候，非data内的数据会被再次继续使用。</span><br></pre></td></tr></table></figure>
+<h2 id="微信小程序页面data内的数据和非data内的数据，在页面被卸载时的不同表现"><a href="#微信小程序页面data内的数据和非data内的数据，在页面被卸载时的不同表现" class="headerlink" title="微信小程序页面data内的数据和非data内的数据，在页面被卸载时的不同表现"></a>微信小程序页面data内的数据和非data内的数据，在页面被卸载时的不同表现</h2><pre class="line-numbers language-none"><code class="language-none">当页面卸载时，data内的数据会被清空，但是非data内的数据不会被卸载。
+再次进入该页面的时候，非data内的数据会被再次继续使用。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><img src="/image/1.png" alt="alt"></p>
 
                 
@@ -701,18 +726,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/12/28/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
+                <a href="/2021/12/28/%E5%B8%B8%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="微信小程序页面不同状态下的数据情况">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="常用正则表达式">
                         
-                        <span class="card-title">微信小程序页面不同状态下的数据情况</span>
+                        <span class="card-title">常用正则表达式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -722,18 +746,29 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-28
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-12-28
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            寒霜
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91/" class="post-category">
+                                    日常开发
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/">
+                        <span class="chip bg-color">代码片段</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -744,13 +779,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/28/%E7%BB%88%E7%AB%AF%E5%91%BD%E4%BB%A4/">
+                <a href="/2021/12/28/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93%E4%B8%8E%E9%A2%84%E6%B8%B2%E6%9F%93/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="终端命令">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="服务端渲染与预渲染">
                         
-                        <span class="card-title">终端命令</span>
+                        <span class="card-title">服务端渲染与预渲染</span>
                     </div>
                 </a>
                 <div class="card-content article-content">

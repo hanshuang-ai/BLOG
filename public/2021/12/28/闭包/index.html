@@ -7,7 +7,8 @@
     <meta name="keywords" content="闭包, MyBlog">
     <meta name="description" content="函数代码中只定义一次，但可能被执行多次或调用任意次的代码块都应当被封装起来作为函数。
 定义需要传参的函数时，需要一个形参，在使用的时候，传入一个实参。形参是作为局部变量使用的
-12345function sayHello(name)&amp;#12">
+function sayHello(name)&amp;#123;
+  ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -460,6 +461,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -467,15 +471,33 @@
             <div id="articleContent">
                 <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><p>代码中只定义一次，但可能被执行多次或调用任意次的代码块都应当被封装起来作为函数。</p>
 <p>定义需要传参的函数时，需要一个形参，在使用的时候，传入一个实参。<br><code>形参是作为局部变量使用的</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function sayHello(name)&#123;</span><br><span class="line">    console.log(&#x27;hello&#x27;+name);//局部变量，外界无法访问</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sayHello(&#x27;小明&#x27;)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">function sayHello(name)&#123;
+    console.log(&#39;hello&#39;+name);&#x2F;&#x2F;局部变量，外界无法访问
+&#125;
+
+sayHello(&#39;小明&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>如果函数挂载在对象上，那它们就是对象的方法。且js的函数可以嵌套在其他的函数中定义，它们可以访问它们被定义时所处的作用域中的任何变量，就形成了一个闭包。</p>
-<h2 id="函数的创建"><a href="#函数的创建" class="headerlink" title="函数的创建"></a>函数的创建</h2><h3 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let a = function()&#123;console.log(&#x27;123)&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="函数的创建"><a href="#函数的创建" class="headerlink" title="函数的创建"></a>函数的创建</h2><h3 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h3><pre class="line-numbers language-none"><code class="language-none">let a &#x3D; function()&#123;console.log(&#39;123)&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function a()&#123;</span><br><span class="line">    console.log(&#x27;124&#x27;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><pre class="line-numbers language-none"><code class="language-none">function a()&#123;
+    console.log(&#39;124&#39;)
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p><em><strong><code>注意函数的声明提前</code></strong></em><br>函数的声明提前就是在代码执行过程中，函数的调用可以在声明之前。也就是说在代码的编写过程中（或者在代码排版中），函数声明的位置即使在调用之后也可以。<br><code>但是函数表达式创建的函数是不能提前的</code></p>
 <p><em><strong>用表达式定义的函数，函数名是可选的</strong></em></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">let a = function()&#123;</span><br><span class="line">    console.log(&#x27;124&#x27;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let a = function b(x)&#123;</span><br><span class="line">    if(x&lt;=1&gt;)&#123;</span><br><span class="line">        return 1</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return x*b(x-1)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">函数表达式在包含名称的时候，对递归是很有用的。</span><br><span class="line">函数表达式定义的函数在包含函数名时，函数的局部作用域就会包含一个绑定到函数对象的名称，也就是说函数名就会成为函数内部的一个局部变量。</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">let a &#x3D; function()&#123;
+    console.log(&#39;124&#39;)
+&#125;
+
+let a &#x3D; function b(x)&#123;
+    if(x&lt;&#x3D;1&gt;)&#123;
+        return 1
+    &#125;else&#123;
+        return x*b(x-1)
+    &#125;
+&#125;
+函数表达式在包含名称的时候，对递归是很有用的。
+函数表达式定义的函数在包含函数名时，函数的局部作用域就会包含一个绑定到函数对象的名称，也就是说函数名就会成为函数内部的一个局部变量。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="函数的嵌套"><a href="#函数的嵌套" class="headerlink" title="函数的嵌套"></a>函数的嵌套</h2><p><code>被嵌套的函数可以访问嵌套函数里的参数和变量</code>，这也是闭包的条件</p>
 <h1 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h1><p>一个变量的作用域是程序源代码中定义这个变量的区域。</p>
@@ -725,13 +747,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/12/28/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%98%E6%B5%8B%E8%AF%95/">
+                <a href="/2021/12/28/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="浏览器回流与重绘测试">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="节流和防抖">
                         
-                        <span class="card-title">浏览器回流与重绘测试</span>
+                        <span class="card-title">节流和防抖</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -746,23 +768,11 @@
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8/" class="post-category">
-                                    浏览器
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            寒霜
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E6%B5%8B%E8%AF%95/">
-                        <span class="chip bg-color">测试</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -774,13 +784,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/28/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93%E4%B8%8E%E9%A2%84%E6%B8%B2%E6%9F%93/">
+                <a href="/2021/12/28/%E8%A7%A3%E6%9E%90URL/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="服务端渲染与预渲染">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="解析URL">
                         
-                        <span class="card-title">服务端渲染与预渲染</span>
+                        <span class="card-title">解析URL</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -800,6 +810,14 @@
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/">
+                        <span class="chip bg-color">代码片段</span>
+                    </a>
+                    
                 </div>
                 
             </div>

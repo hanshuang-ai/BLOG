@@ -476,6 +476,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -483,17 +486,52 @@
             <div id="articleContent">
                 <p><code>canvas可以将画布转为base64，而base64就是该图片的信息，但是node保存文件的时候需要buffer格式的信息，所以只需要将canvas转成的base64处理成buffer，就可以保存</code></p>
 <p>总结如下：<br><em><strong>1、将画布信息转为base64</strong></em><br><em><strong>2、处理base64为buffer，进行保存</strong></em></p>
-<h3 id="引入canvas模块"><a href="#引入canvas模块" class="headerlink" title="引入canvas模块"></a>引入canvas模块</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const &#123;createCanvas&#125; = require(&#x27;canvas&#x27;)</span><br></pre></td></tr></table></figure>
+<h3 id="引入canvas模块"><a href="#引入canvas模块" class="headerlink" title="引入canvas模块"></a>引入canvas模块</h3><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; require(&#39;canvas&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h3 id="canvas绘图"><a href="#canvas绘图" class="headerlink" title="canvas绘图"></a>canvas绘图</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const canvas = createCanvas(200,200)</span><br><span class="line">const ctx = canvas.getContext(&#x27;2d&#x27;)</span><br><span class="line"></span><br><span class="line">ctx.font = &#x27;30px&#x27;</span><br><span class="line">ctx.rotate(0.1)</span><br><span class="line">ctx.fillText(&#x27;Hello&#x27;,50,100)</span><br></pre></td></tr></table></figure>
+<h3 id="canvas绘图"><a href="#canvas绘图" class="headerlink" title="canvas绘图"></a>canvas绘图</h3><pre class="line-numbers language-none"><code class="language-none">const canvas &#x3D; createCanvas(200,200)
+const ctx &#x3D; canvas.getContext(&#39;2d&#39;)
 
-<h3 id="将画布信息转为base64"><a href="#将画布信息转为base64" class="headerlink" title="将画布信息转为base64"></a>将画布信息转为base64</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const dataURl = canvas.toDataURL(&#x27;image/png&#x27;)</span><br></pre></td></tr></table></figure>
+ctx.font &#x3D; &#39;30px&#39;
+ctx.rotate(0.1)
+ctx.fillText(&#39;Hello&#39;,50,100)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="处理base64为buffer"><a href="#处理base64为buffer" class="headerlink" title="处理base64为buffer"></a>处理base64为buffer</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const base64Data = dataURl.replace(/^data:image\/\w+;base64,/, &quot;&quot;);</span><br><span class="line">const bufferData = new Buffer(base64Data,&#x27;base64&#x27;)</span><br></pre></td></tr></table></figure>
+<h3 id="将画布信息转为base64"><a href="#将画布信息转为base64" class="headerlink" title="将画布信息转为base64"></a>将画布信息转为base64</h3><pre class="line-numbers language-none"><code class="language-none">const dataURl &#x3D; canvas.toDataURL(&#39;image&#x2F;png&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h3 id="保存buffer为图片格式"><a href="#保存buffer为图片格式" class="headerlink" title="保存buffer为图片格式"></a>保存buffer为图片格式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fs.writeFile(&#x27;2.png&#x27;,bufferData,function (err)&#123;</span><br><span class="line">    if (err)&#123;</span><br><span class="line">        console.log(err)</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">        console.log(&#x27;图片保存成功&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="处理base64为buffer"><a href="#处理base64为buffer" class="headerlink" title="处理base64为buffer"></a>处理base64为buffer</h3><pre class="line-numbers language-none"><code class="language-none">const base64Data &#x3D; dataURl.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);
+const bufferData &#x3D; new Buffer(base64Data,&#39;base64&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">const &#123;createCanvas&#125; = require(&#x27;canvas&#x27;)</span><br><span class="line">const fs = require(&#x27;fs&#x27;)</span><br><span class="line"></span><br><span class="line">const canvas = createCanvas(200,200)</span><br><span class="line">const ctx = canvas.getContext(&#x27;2d&#x27;)</span><br><span class="line"></span><br><span class="line">ctx.font = &#x27;30px&#x27;</span><br><span class="line">ctx.rotate(0.1)</span><br><span class="line">ctx.fillText(&#x27;Hello&#x27;,50,100)</span><br><span class="line"></span><br><span class="line">const dataURl = canvas.toDataURL(&#x27;image/png&#x27;)</span><br><span class="line">console.log(dataURl)</span><br><span class="line"></span><br><span class="line">const base64Data = dataURl.replace(/^data:image\/\w+;base64,/, &quot;&quot;);</span><br><span class="line">console.log(base64Data)</span><br><span class="line">const bufferData = new Buffer(base64Data,&#x27;base64&#x27;)</span><br><span class="line">fs.writeFile(&#x27;2.png&#x27;,bufferData,function (err)&#123;</span><br><span class="line">    if (err)&#123;</span><br><span class="line">        console.log(err)</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">        console.log(&#x27;图片保存成功&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="保存buffer为图片格式"><a href="#保存buffer为图片格式" class="headerlink" title="保存buffer为图片格式"></a>保存buffer为图片格式</h3><pre class="line-numbers language-none"><code class="language-none">fs.writeFile(&#39;2.png&#39;,bufferData,function (err)&#123;
+    if (err)&#123;
+        console.log(err)
+    &#125;else &#123;
+        console.log(&#39;图片保存成功&#39;)
+    &#125;
+&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; require(&#39;canvas&#39;)
+const fs &#x3D; require(&#39;fs&#39;)
+
+const canvas &#x3D; createCanvas(200,200)
+const ctx &#x3D; canvas.getContext(&#39;2d&#39;)
+
+ctx.font &#x3D; &#39;30px&#39;
+ctx.rotate(0.1)
+ctx.fillText(&#39;Hello&#39;,50,100)
+
+const dataURl &#x3D; canvas.toDataURL(&#39;image&#x2F;png&#39;)
+console.log(dataURl)
+
+const base64Data &#x3D; dataURl.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);
+console.log(base64Data)
+const bufferData &#x3D; new Buffer(base64Data,&#39;base64&#39;)
+fs.writeFile(&#39;2.png&#39;,bufferData,function (err)&#123;
+    if (err)&#123;
+        console.log(err)
+    &#125;else &#123;
+        console.log(&#39;图片保存成功&#39;)
+    &#125;
+&#125;)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -738,13 +776,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/12/28/node/">
+                <a href="/2021/12/28/mars3d%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="node">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="mars3d使用指南">
                         
-                        <span class="card-title">node</span>
+                        <span class="card-title">mars3d使用指南</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -759,11 +797,27 @@
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            寒霜
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
+                                    框架
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/">
+                        <span class="chip bg-color">可视化</span>
+                    </a>
+                    
+                    <a href="/tags/mars3d/">
+                        <span class="chip bg-color">mars3d</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -775,13 +829,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/28/macOS%E5%AE%89%E8%A3%85homebrew/">
+                <a href="/2021/12/28/node/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="macOS安装homebrew">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="node">
                         
-                        <span class="card-title">macOS安装homebrew</span>
+                        <span class="card-title">node</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -801,14 +855,6 @@
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/macOS/">
-                        <span class="chip bg-color">macOS</span>
-                    </a>
-                    
                 </div>
                 
             </div>

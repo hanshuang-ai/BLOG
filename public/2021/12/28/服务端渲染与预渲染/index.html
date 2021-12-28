@@ -5,12 +5,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="服务端渲染与预渲染, MyBlog">
-    <meta name="description" content="123服务端渲染（ssr）是在服务器内通过程序将页面片段拼接为完整的页面，然后再发送给浏览器呈现预渲染是直接接服务器内完整的静态页面发送给浏览器呈现
+    <meta name="description" content="服务端渲染（ssr）是在服务器内通过程序将页面片段拼接为完整的页面，然后再发送给浏览器呈现
+
+预渲染是直接接服务器内完整的静态页面发送给浏览器呈现
 
 
 
 实现方式不同：
-1234567SSR:服务端(node.js)通过一些包(vue-s">
+SSR:服务端(node.js)通过一些包(vue-server-re">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -463,19 +465,43 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">服务端渲染（ssr）是在服务器内通过程序将页面片段拼接为完整的页面，然后再发送给浏览器呈现</span><br><span class="line"></span><br><span class="line">预渲染是直接接服务器内完整的静态页面发送给浏览器呈现</span><br></pre></td></tr></table></figure>
+                <pre class="line-numbers language-none"><code class="language-none">服务端渲染（ssr）是在服务器内通过程序将页面片段拼接为完整的页面，然后再发送给浏览器呈现
+
+预渲染是直接接服务器内完整的静态页面发送给浏览器呈现<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <br>
 
 <p><strong>实现方式不同</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SSR:服务端(node.js)通过一些包(vue-server-renderer)把html页面转换成字符串之后吐给前端。</span><br><span class="line">Google 和 Bing 可以很好对同步 web 应用程序进行索引,所以此处称有利于seo。</span><br><span class="line">但是一些事件和一些DOMAPI是无法在服务端用的,所以需要把客户端打包好的js代码动态注入到html中,此处为异步获取js逻辑。</span><br><span class="line">所以此处seo是抓取不到任何有用的信息的。</span><br><span class="line">那么问题来了，什么时候用ajax获取数据？什么时候通过服务端获取数据？</span><br><span class="line">当利于seo有优化时，比如开发的新闻网站，购物网站。需要被搜索引擎索引到，就需要从服务端获取数据，然后生成html，再吐给浏览器。</span><br><span class="line">而一些无关紧要的数据通过ajax获取就行。</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Prerendering：预渲染并不需要服务端支持。</span><br><span class="line">它只能生成你在templete写好的dom结构,也就是只能生成静态的html文件。</span><br><span class="line">一般是每个路由对应一个静态的html文件，在服务器获取时就已经生成好了，而不需要diff再动态生成dom。</span><br><span class="line">假如你想通过ajax获取到的数据来优化seo,可以吗？可以，可以设置一个预渲染时常。</span><br><span class="line">假如你用prerender-spa-plugin插件，设置renderAfterTime：5000。可触发渲染的时间，用于获取数据(ajax)后再保存渲染结果。</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">预渲染的应用场景：营销页面（例如/,/about,/contact等）的 SEO，你可能需要预渲染。</span><br><span class="line">无需使用 web 服务器实时动态编译 HTML，而是使用预渲染方式，在构建时 (build time) 简单地生成针对特定路由的静态 HTML 文件。</span><br><span class="line">优点是设置预渲染更简单，并可以将你的前端作为一个完全静态的站点。</span><br><span class="line"></span><br><span class="line">预渲染不适用经常变化的数据，比如说股票代码网站，天气预报网站。因为此时的数据是动态的，而预渲染时已经生成好了dom节点。</span><br><span class="line">此时如果要兼容seo就需要使用SSR了。</span><br><span class="line">预渲染也不适用大量的路由页面，比如成千上百个路由，因为此时打包后预渲染将会非常慢。</span><br><span class="line">而SSR并没有这些问题。</span><br><span class="line"></span><br><span class="line">预渲染最好的应用场景是需要seo的活动页面。预渲染也可以配置骨架屏，当ajax获取到数据之后把骨架屏替换掉，可以减少白屏时间。</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">SSR:服务端(node.js)通过一些包(vue-server-renderer)把html页面转换成字符串之后吐给前端。
+Google 和 Bing 可以很好对同步 web 应用程序进行索引,所以此处称有利于seo。
+但是一些事件和一些DOMAPI是无法在服务端用的,所以需要把客户端打包好的js代码动态注入到html中,此处为异步获取js逻辑。
+所以此处seo是抓取不到任何有用的信息的。
+那么问题来了，什么时候用ajax获取数据？什么时候通过服务端获取数据？
+当利于seo有优化时，比如开发的新闻网站，购物网站。需要被搜索引擎索引到，就需要从服务端获取数据，然后生成html，再吐给浏览器。
+而一些无关紧要的数据通过ajax获取就行。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">Prerendering：预渲染并不需要服务端支持。
+它只能生成你在templete写好的dom结构,也就是只能生成静态的html文件。
+一般是每个路由对应一个静态的html文件，在服务器获取时就已经生成好了，而不需要diff再动态生成dom。
+假如你想通过ajax获取到的数据来优化seo,可以吗？可以，可以设置一个预渲染时常。
+假如你用prerender-spa-plugin插件，设置renderAfterTime：5000。可触发渲染的时间，用于获取数据(ajax)后再保存渲染结果。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">预渲染的应用场景：营销页面（例如&#x2F;,&#x2F;about,&#x2F;contact等）的 SEO，你可能需要预渲染。
+无需使用 web 服务器实时动态编译 HTML，而是使用预渲染方式，在构建时 (build time) 简单地生成针对特定路由的静态 HTML 文件。
+优点是设置预渲染更简单，并可以将你的前端作为一个完全静态的站点。
+
+预渲染不适用经常变化的数据，比如说股票代码网站，天气预报网站。因为此时的数据是动态的，而预渲染时已经生成好了dom节点。
+此时如果要兼容seo就需要使用SSR了。
+预渲染也不适用大量的路由页面，比如成千上百个路由，因为此时打包后预渲染将会非常慢。
+而SSR并没有这些问题。
+
+预渲染最好的应用场景是需要seo的活动页面。预渲染也可以配置骨架屏，当ajax获取到数据之后把骨架屏替换掉，可以减少白屏时间。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -713,13 +739,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/12/28/%E9%97%AD%E5%8C%85/">
+                <a href="/2021/12/28/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="闭包">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="微信小程序页面不同状态下的数据情况">
                         
-                        <span class="card-title">闭包</span>
+                        <span class="card-title">微信小程序页面不同状态下的数据情况</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -750,13 +776,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/28/%E4%BD%BF%E7%94%A8nuxt%E5%88%9B%E5%BB%BA%E7%AB%99%E7%82%B9/">
+                <a href="/2021/12/28/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%98%E6%B5%8B%E8%AF%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="使用nuxt创建站点">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="浏览器回流与重绘测试">
                         
-                        <span class="card-title">使用nuxt创建站点</span>
+                        <span class="card-title">浏览器回流与重绘测试</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -773,8 +799,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
-                                    框架
+                            <a href="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8/" class="post-category">
+                                    浏览器
                                 </a>
                             
                             
@@ -784,8 +810,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/nuxt/">
-                        <span class="chip bg-color">nuxt</span>
+                    <a href="/tags/%E6%B5%8B%E8%AF%95/">
+                        <span class="chip bg-color">测试</span>
                     </a>
                     
                 </div>

@@ -471,6 +471,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -479,14 +482,34 @@
                 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>js的所有数据都可以看成是对象，但是内置的对象还无法发挥面向对象编程的威力。<br>js的面向对象与其他语言严格的面向对象不太一样，js不区分类和实例的概念，而是通过原型来实现的（原型继承）。<br><code> 类：类是对象的类型模板，不表示具体的实例</code><br><code>实例：实例是根据类创建的对象</code></p>
 <h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><p>js对每个创建的对象都会设置一个原型，指向它的原型对象。</p>
 <h3 id="创建对象单的方法"><a href="#创建对象单的方法" class="headerlink" title="创建对象单的方法"></a>创建对象单的方法</h3><h4 id="对象直接量"><a href="#对象直接量" class="headerlink" title="对象直接量"></a>对象直接量</h4><p><code>用花括号括起来的名值对集合，一组名值之间用冒号（：），名值对之间用逗号（，）</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let a = &#123;</span><br><span class="line">    name:&#x27;1&#x27;,</span><br><span class="line">    age:&#x27;2&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">let a &#x3D; &#123;
+    name:&#39;1&#39;,
+    age:&#39;2&#39;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 <h4 id="通过new创建对象（构造函数）"><a href="#通过new创建对象（构造函数）" class="headerlink" title="通过new创建对象（构造函数）"></a>通过new创建对象（构造函数）</h4><p><code>new运算符创建并初始化一个新对象，关键字new后跟随一个函数进行调用</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let o = new Object();//通过new创建，等价于&#123;&#125;对象</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//通过构造函数创建</span><br><span class="line">function Student()&#123;</span><br><span class="line">    this.name = &#x27;name&#x27;,</span><br><span class="line">    this.age = &#x27;age&#x27;,</span><br><span class="line">    this.hello = function()&#123;</span><br><span class="line">        console.log(&#x27;hello&#x27;+this.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">let a = new Student(&#x27;小明&#x27;,18)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">let o &#x3D; new Object();&#x2F;&#x2F;通过new创建，等价于&#123;&#125;对象
+
+
+&#x2F;&#x2F;通过构造函数创建
+function Student()&#123;
+    this.name &#x3D; &#39;name&#39;,
+    this.age &#x3D; &#39;age&#39;,
+    this.hello &#x3D; function()&#123;
+        console.log(&#39;hello&#39;+this.name)
+    &#125;
+&#125;
+let a &#x3D; new Student(&#39;小明&#39;,18)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>调用构造函数的做一个重要特征就是：构造函数的prototye属性被用作新对象的原型，通同一个构造函数创建的所有对象都继承自一个相同的对象，因此它们都是同一个类的成员。</code></p>
 <h4 id="Object-create-函数创建"><a href="#Object-create-函数创建" class="headerlink" title="Object.create()函数创建"></a>Object.create()函数创建</h4><p><code>这是一个静态方法，作用是创建一个新对象。参数有两个，第一个是这个对象的原型，第二个参数可选（用来对对象属性的描述）</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let point = Object.create(&#123;</span><br><span class="line">    x:&#x27;1&#x27;,</span><br><span class="line">    y:&#x27;100&#x27;</span><br><span class="line">&#125;)</span><br><span class="line">point继承了属性x和y</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">let point &#x3D; Object.create(&#123;
+    x:&#39;1&#39;,
+    y:&#39;100&#39;
+&#125;)
+point继承了属性x和y
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>js的对象都是属性的集合，它们之间可能会有重叠的部分，这一部分可以单独提取出来进行’共享’，这就是类的组成。<br>换句话说<br><code>类就是不同对象之间共有属性的集合</code><br>通过同一个构造函数创建的所有对象都是该类的成员。</p>
 <p>js中基于原型的继承机制是动态的</p>
@@ -732,13 +755,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/12/28/ssh%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+                <a href="/2021/12/28/vue-router/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="ssh远程连接服务器">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="vue-router">
                         
-                        <span class="card-title">ssh远程连接服务器</span>
+                        <span class="card-title">vue-router</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -769,13 +792,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/28/macOS%E5%AE%89%E8%A3%85jenkins/">
+                <a href="/2021/12/28/live-server%E4%BD%BF%E7%94%A8/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="macOS安装jenkins">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="live-server使用">
                         
-                        <span class="card-title">macOS安装jenkins</span>
+                        <span class="card-title">live-server使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -795,14 +818,6 @@
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/jenkins/">
-                        <span class="chip bg-color">jenkins</span>
-                    </a>
-                    
                 </div>
                 
             </div>

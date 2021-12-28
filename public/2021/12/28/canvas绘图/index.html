@@ -471,20 +471,344 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="canvas点连线生成图片"><a href="#canvas点连线生成图片" class="headerlink" title="canvas点连线生成图片"></a>canvas点连线生成图片</h1><p>canvas点连线生成等值线就是将数组内索引为0的元素设置为起点，moveTo该点<br>其余点使用lineTo进行连接，<br><code>当涉及到多维数组的时候，需要进入到数组的最内部循环进行上述操作</code><br><strong>注意：如果需要绘制的图形铺满整个画布，则需要先计算出所有坐标点的极值点<br>，即最大最小的x、y，再结合画布width和height，算出每个方向上的缩放<br>倍率scaleX和scaleY，moveTo和lineTo的时候需要将缩放倍率计算进去</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line">let xmin, xmax;</span><br><span class="line">let ymin, ymax;</span><br><span class="line">let xArr = [];</span><br><span class="line">let yArr = [];</span><br><span class="line">let scalex, scaley;</span><br><span class="line"></span><br><span class="line">function drawChina() &#123;</span><br><span class="line">  // 解析边界线</span><br><span class="line">  let obj = fs.readFileSync(&quot;./data/china.json&quot;);</span><br><span class="line">  let object = JSON.parse(obj);</span><br><span class="line">  let features = object.features;</span><br><span class="line">  </span><br><span class="line">  // 计算极值</span><br><span class="line">  for (let i = 0; i &lt; features.length; i++) &#123;</span><br><span class="line">    let geo = features[i].geometry;</span><br><span class="line">    let coor = geo.coordinates;</span><br><span class="line">    for (let j = 0; j &lt; coor.length; j++) &#123;</span><br><span class="line">      for (let m = 0; m &lt; coor[j].length; m++) &#123;</span><br><span class="line">        for (let k = 0; k &lt; coor[j][m].length; k++) &#123;</span><br><span class="line">          xArr.push(coor[j][m][k][0]);</span><br><span class="line">          yArr.push(coor[j][m][k][1]);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  let b = Array.from(new Set(xArr));</span><br><span class="line">  let num1, num2; //最小值与最大值</span><br><span class="line">  num1 = b[0];</span><br><span class="line">  num2 = b[1];</span><br><span class="line">  for (let i = 0; i &lt; b.length - 1; i++) &#123;</span><br><span class="line">    if (b[i] &lt; num1) &#123;</span><br><span class="line">      num1 = b[i];</span><br><span class="line">    &#125;</span><br><span class="line">    if (b[i] &gt; num2) &#123;</span><br><span class="line">      num2 = b[i];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  // console.log(num1, num2);</span><br><span class="line">  xmin = num1;</span><br><span class="line">  xmax = num2;</span><br><span class="line"></span><br><span class="line">  let a = Array.from(new Set(yArr));</span><br><span class="line">  let num3, num4; //最小值与最大值</span><br><span class="line">  num3 = a[0];</span><br><span class="line">  num4 = a[1];</span><br><span class="line">  for (let i = 0; i &lt; a.length - 1; i++) &#123;</span><br><span class="line">    if (a[i] &lt; num3) &#123;</span><br><span class="line">      num3 = a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    if (a[i] &gt; num4) &#123;</span><br><span class="line">      num4 = a[i];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ymin = num3;</span><br><span class="line">  ymax = num4;</span><br><span class="line"></span><br><span class="line">  // 打印极值</span><br><span class="line">  console.log(xmin, xmax, ymin, ymax);</span><br><span class="line"></span><br><span class="line">  // 循环绘制</span><br><span class="line">  for (let i = 0; i &lt; features.length; i++) &#123;</span><br><span class="line">    let feature = features[i];</span><br><span class="line">    let geometry = feature.geometry;</span><br><span class="line">    let type = geometry.type;</span><br><span class="line">    let coordinates = geometry.coordinates;</span><br><span class="line">    // 得到不同方向上的倍率</span><br><span class="line">    scalex = (xmax - xmin) / width;</span><br><span class="line">    scaley = (ymax - ymin) / height;</span><br><span class="line">    if (type === &quot;Polygon&quot;) &#123;</span><br><span class="line">      drawPolygon0(coordinates, scalex, scaley);</span><br><span class="line">    &#125; else if (type === &quot;MultiPolygon&quot;) &#123;</span><br><span class="line">      for (let j = 0; j &lt; coordinates.length; j++) &#123;</span><br><span class="line">        let polygon = coordinates[j];</span><br><span class="line">        drawPolygon0(polygon, scalex, scaley);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // node环境保存图片，与绘制无关，可以不使用</span><br><span class="line">  function saveChina() &#123;</span><br><span class="line">    const image = canvas.toDataURL(&quot;image/png&quot;);</span><br><span class="line">    const base64Data = image.replace(/^data:image\/\w+;base64,/, &quot;&quot;);</span><br><span class="line">    const bufferData = new Buffer(base64Data, &quot;base64&quot;);</span><br><span class="line">    fs.writeFile(</span><br><span class="line">      &quot;./result/img/&quot; + new Date().getTime() + &quot;.png&quot;,</span><br><span class="line">      bufferData,</span><br><span class="line">      function (err) &#123;</span><br><span class="line">        if (err) &#123;</span><br><span class="line">          ////console.log(err);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          ////console.log(&quot;图片保存成功&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // saveChina()</span><br><span class="line"></span><br><span class="line">  function drawPolygon0(polygon, scalex, scaley) &#123;</span><br><span class="line">    ctx.beginPath();</span><br><span class="line">    let points = polygon[0];</span><br><span class="line">    for (let i = 0; i &lt; points.length; i++) &#123;</span><br><span class="line">      let point = points[i];</span><br><span class="line">      let x = Number(point[0]);</span><br><span class="line">      let y = Number(point[1]);</span><br><span class="line">      </span><br><span class="line">      // 根据倍率移动点位置，进行满铺</span><br><span class="line">      // 由于canvas坐标系左上角为顶点，越往下y值越大，所以需要翻转</span><br><span class="line">      let l = (x - xmin) / scalex;</span><br><span class="line">      let t = height - (y - ymin) / scaley;</span><br><span class="line">      if (t == 0) &#123;</span><br><span class="line">        // console.log(&quot;0&quot;);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      if (i === 0) &#123;</span><br><span class="line">        ctx.moveTo(l, t);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        ctx.lineTo(l, t);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ctx.fillStyle = &quot;rgba(255,255,255,1)&quot;;</span><br><span class="line">    ctx.strokeStyle = &quot;rgba(255,0,0,1)&quot;;</span><br><span class="line">    ctx.lineWidth = 2;</span><br><span class="line">    ctx.closePath();</span><br><span class="line">    ctx.stroke();</span><br><span class="line">    ctx.fill();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">let xmin, xmax;
+let ymin, ymax;
+let xArr &#x3D; [];
+let yArr &#x3D; [];
+let scalex, scaley;
+
+function drawChina() &#123;
+  &#x2F;&#x2F; 解析边界线
+  let obj &#x3D; fs.readFileSync(&quot;.&#x2F;data&#x2F;china.json&quot;);
+  let object &#x3D; JSON.parse(obj);
+  let features &#x3D; object.features;
+  
+  &#x2F;&#x2F; 计算极值
+  for (let i &#x3D; 0; i &lt; features.length; i++) &#123;
+    let geo &#x3D; features[i].geometry;
+    let coor &#x3D; geo.coordinates;
+    for (let j &#x3D; 0; j &lt; coor.length; j++) &#123;
+      for (let m &#x3D; 0; m &lt; coor[j].length; m++) &#123;
+        for (let k &#x3D; 0; k &lt; coor[j][m].length; k++) &#123;
+          xArr.push(coor[j][m][k][0]);
+          yArr.push(coor[j][m][k][1]);
+        &#125;
+      &#125;
+    &#125;
+  &#125;
+  let b &#x3D; Array.from(new Set(xArr));
+  let num1, num2; &#x2F;&#x2F;最小值与最大值
+  num1 &#x3D; b[0];
+  num2 &#x3D; b[1];
+  for (let i &#x3D; 0; i &lt; b.length - 1; i++) &#123;
+    if (b[i] &lt; num1) &#123;
+      num1 &#x3D; b[i];
+    &#125;
+    if (b[i] &gt; num2) &#123;
+      num2 &#x3D; b[i];
+    &#125;
+  &#125;
+  &#x2F;&#x2F; console.log(num1, num2);
+  xmin &#x3D; num1;
+  xmax &#x3D; num2;
+
+  let a &#x3D; Array.from(new Set(yArr));
+  let num3, num4; &#x2F;&#x2F;最小值与最大值
+  num3 &#x3D; a[0];
+  num4 &#x3D; a[1];
+  for (let i &#x3D; 0; i &lt; a.length - 1; i++) &#123;
+    if (a[i] &lt; num3) &#123;
+      num3 &#x3D; a[i];
+    &#125;
+    if (a[i] &gt; num4) &#123;
+      num4 &#x3D; a[i];
+    &#125;
+  &#125;
+  ymin &#x3D; num3;
+  ymax &#x3D; num4;
+
+  &#x2F;&#x2F; 打印极值
+  console.log(xmin, xmax, ymin, ymax);
+
+  &#x2F;&#x2F; 循环绘制
+  for (let i &#x3D; 0; i &lt; features.length; i++) &#123;
+    let feature &#x3D; features[i];
+    let geometry &#x3D; feature.geometry;
+    let type &#x3D; geometry.type;
+    let coordinates &#x3D; geometry.coordinates;
+    &#x2F;&#x2F; 得到不同方向上的倍率
+    scalex &#x3D; (xmax - xmin) &#x2F; width;
+    scaley &#x3D; (ymax - ymin) &#x2F; height;
+    if (type &#x3D;&#x3D;&#x3D; &quot;Polygon&quot;) &#123;
+      drawPolygon0(coordinates, scalex, scaley);
+    &#125; else if (type &#x3D;&#x3D;&#x3D; &quot;MultiPolygon&quot;) &#123;
+      for (let j &#x3D; 0; j &lt; coordinates.length; j++) &#123;
+        let polygon &#x3D; coordinates[j];
+        drawPolygon0(polygon, scalex, scaley);
+      &#125;
+    &#125;
+  &#125;
+
+  &#x2F;&#x2F; node环境保存图片，与绘制无关，可以不使用
+  function saveChina() &#123;
+    const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);
+    const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);
+    const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);
+    fs.writeFile(
+      &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,
+      bufferData,
+      function (err) &#123;
+        if (err) &#123;
+          &#x2F;&#x2F;&#x2F;&#x2F;console.log(err);
+        &#125; else &#123;
+          &#x2F;&#x2F;&#x2F;&#x2F;console.log(&quot;图片保存成功&quot;);
+        &#125;
+      &#125;
+    );
+  &#125;
+
+  &#x2F;&#x2F; saveChina()
+
+  function drawPolygon0(polygon, scalex, scaley) &#123;
+    ctx.beginPath();
+    let points &#x3D; polygon[0];
+    for (let i &#x3D; 0; i &lt; points.length; i++) &#123;
+      let point &#x3D; points[i];
+      let x &#x3D; Number(point[0]);
+      let y &#x3D; Number(point[1]);
+      
+      &#x2F;&#x2F; 根据倍率移动点位置，进行满铺
+      &#x2F;&#x2F; 由于canvas坐标系左上角为顶点，越往下y值越大，所以需要翻转
+      let l &#x3D; (x - xmin) &#x2F; scalex;
+      let t &#x3D; height - (y - ymin) &#x2F; scaley;
+      if (t &#x3D;&#x3D; 0) &#123;
+        &#x2F;&#x2F; console.log(&quot;0&quot;);
+      &#125;
+
+      if (i &#x3D;&#x3D;&#x3D; 0) &#123;
+        ctx.moveTo(l, t);
+      &#125; else &#123;
+        ctx.lineTo(l, t);
+      &#125;
+    &#125;
+    ctx.fillStyle &#x3D; &quot;rgba(255,255,255,1)&quot;;
+    ctx.strokeStyle &#x3D; &quot;rgba(255,0,0,1)&quot;;
+    ctx.lineWidth &#x3D; 2;
+    ctx.closePath();
+    ctx.stroke();
+    ctx.fill();
+  &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h1 id="canvas颜色的填充"><a href="#canvas颜色的填充" class="headerlink" title="canvas颜色的填充"></a>canvas颜色的填充</h1><p>canvas在绘制等值线（或者说是闭合区域的时候）往往需要在区域内填色，根据<br>globalCompositeOperation的不同属性值，会得到不同的结果，具体需要填色的情况<br>选择不同的属性值<br><code>在有要求的情况下，可以根据闭合区域不同的高度值（假如是等高线）进行不同的填色</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line">function drawOther() &#123;</span><br><span class="line">  let colors = &#123;</span><br><span class="line">    zuigaowen: [</span><br><span class="line">      &#123; Value_Min: 10, Value_Max: 15, color: &quot;#F3BF48&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 15, Value_Max: 20, color: &quot;#FFAF41&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 20, Value_Max: 25, color: &quot;#F98E20&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 25, Value_Max: 30, color: &quot;#FF760A&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 30, Value_Max: 35, color: &quot;#EC5418&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 35, Value_Max: 40, color: &quot;#EE0D20&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 40, Value_Max: 45, color: &quot;#C70321&quot; &#125;,</span><br><span class="line">    ],</span><br><span class="line">    dibiaowendushikuang: [</span><br><span class="line">      &#123; Value_Min: 10, Value_Max: 20, color: &quot;#A7DC32&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 20, Value_Max: 30, color: &quot;#F0C828&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 30, Value_Max: 40, color: &quot;#F09D29&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 40, Value_Max: 50, color: &quot;#F06429&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 50, Value_Max: 60, color: &quot;#DF3418&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 60, Value_Max: 70, color: &quot;#C20D0D&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 70, Value_Max: 80, color: &quot;#890323&quot; &#125;,</span><br><span class="line">    ],</span><br><span class="line">    bianwen: [</span><br><span class="line">      &#123; Value_Min: -6, Value_Max: -4, color: &quot;#66A6FF&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: -4, Value_Max: -2, color: &quot;#80CFFF&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: -2, Value_Max: 0, color: &quot;#9AF9FF&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 0, Value_Max: 2, color: &quot;#FFFB87&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 2, Value_Max: 4, color: &quot;#FCDF76&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 4, Value_Max: 6, color: &quot;#F8BE5C&quot; &#125;,</span><br><span class="line">    ],</span><br><span class="line">    jiangshui: [</span><br><span class="line">      // &#123; Value_Min: -10, Value_Max: 0.1, color: &quot;rgba(0,0,0,0)&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: -10, Value_Max: 0.1, color: &quot;rgba(0,0,0,0)&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 0.1, Value_Max: 10, color: &quot;#7DF0FF&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 10, Value_Max: 50, color: &quot;#0E3FD9&quot; &#125;,</span><br><span class="line">      &#123; Value_Min: 50, Value_Max: 75, color: &quot;#072586&quot; &#125;,</span><br><span class="line">    ],</span><br><span class="line">    fourteen: &#123;</span><br><span class="line">      zhongshu: &#123;</span><br><span class="line">        zs3: &quot;#EB9700&quot;,</span><br><span class="line">        zs4: &quot;#DC521E&quot;,</span><br><span class="line">        zs5: &quot;#B00808&quot;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  let name = &quot;./1.json&quot;;</span><br><span class="line">  fs.readFile(name, (err, result) =&gt; &#123;</span><br><span class="line">    if (err) &#123;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      let object = JSON.parse(result);</span><br><span class="line">      let &#123; CLOSED_CONTOURS &#125; = object;</span><br><span class="line">      let arr = [];</span><br><span class="line">      let color = &quot;&quot;;</span><br><span class="line">      let leixing = &quot;fourteen&quot;;</span><br><span class="line">      let leixing_child = &quot;zhongshu&quot;;</span><br><span class="line">      for (let i = 0; i &lt; CLOSED_CONTOURS.length; i++) &#123;</span><br><span class="line">        let CLOSED_CONTOURS_i = CLOSED_CONTOURS[i];</span><br><span class="line">        let &#123; linePoint &#125; = CLOSED_CONTOURS_i;</span><br><span class="line">        let &#123; markName &#125; = CLOSED_CONTOURS_i.lineMark;</span><br><span class="line">        console.log(colors[leixing][leixing_child][markName]);</span><br><span class="line"></span><br><span class="line">        arr.push(linePoint);</span><br><span class="line">        for (let m = 0; m &lt; arr.length; m++) &#123;</span><br><span class="line">          drawPolygon(</span><br><span class="line">            arr[m],</span><br><span class="line">            scalex,</span><br><span class="line">            scaley,</span><br><span class="line">            colors[leixing][leixing_child][markName]</span><br><span class="line">          );</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      const image = canvas.toDataURL(&quot;image/png&quot;);</span><br><span class="line">      const base64Data = image.replace(/^data:image\/\w+;base64,/, &quot;&quot;);</span><br><span class="line">      const bufferData = new Buffer(base64Data, &quot;base64&quot;);</span><br><span class="line">      fs.writeFile(</span><br><span class="line">        &quot;./result/img/&quot; + new Date().getTime() + &quot;.png&quot;,</span><br><span class="line">        bufferData,</span><br><span class="line">        function (err) &#123;</span><br><span class="line">          if (err) &#123;</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            console.log(&quot;图片保存成功&quot;);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  function drawPolygon(points, scalex, scaley, color) &#123;</span><br><span class="line">    // console.log(scalex, scaley);</span><br><span class="line">    ctx.beginPath();</span><br><span class="line">    for (let i = 0; i &lt; points.length; i++) &#123;</span><br><span class="line">      let point = points[i];</span><br><span class="line">      //   console.log(point);</span><br><span class="line">      let x = Number(point[&quot;lot&quot;]);</span><br><span class="line">      let y = Number(point[&quot;lat&quot;]);</span><br><span class="line">      //   console.log(x, y);</span><br><span class="line">      let l = (x - xmin) / scalex;</span><br><span class="line">      let t = height - (y - ymin) / scaley;</span><br><span class="line">      //   console.log(l, t);</span><br><span class="line">      if (i === 0) &#123;</span><br><span class="line">        ctx.moveTo(l, t);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        ctx.lineTo(l, t);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // ctx.globalCompositeOperation = &quot;destination-over&quot;;</span><br><span class="line">    ctx.fillStyle = color;</span><br><span class="line">    ctx.strokeStyle = &quot;#fff&quot;;</span><br><span class="line">    ctx.closePath();</span><br><span class="line">    ctx.stroke();</span><br><span class="line">    ctx.fill();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">function drawOther() &#123;
+  let colors &#x3D; &#123;
+    zuigaowen: [
+      &#123; Value_Min: 10, Value_Max: 15, color: &quot;#F3BF48&quot; &#125;,
+      &#123; Value_Min: 15, Value_Max: 20, color: &quot;#FFAF41&quot; &#125;,
+      &#123; Value_Min: 20, Value_Max: 25, color: &quot;#F98E20&quot; &#125;,
+      &#123; Value_Min: 25, Value_Max: 30, color: &quot;#FF760A&quot; &#125;,
+      &#123; Value_Min: 30, Value_Max: 35, color: &quot;#EC5418&quot; &#125;,
+      &#123; Value_Min: 35, Value_Max: 40, color: &quot;#EE0D20&quot; &#125;,
+      &#123; Value_Min: 40, Value_Max: 45, color: &quot;#C70321&quot; &#125;,
+    ],
+    dibiaowendushikuang: [
+      &#123; Value_Min: 10, Value_Max: 20, color: &quot;#A7DC32&quot; &#125;,
+      &#123; Value_Min: 20, Value_Max: 30, color: &quot;#F0C828&quot; &#125;,
+      &#123; Value_Min: 30, Value_Max: 40, color: &quot;#F09D29&quot; &#125;,
+      &#123; Value_Min: 40, Value_Max: 50, color: &quot;#F06429&quot; &#125;,
+      &#123; Value_Min: 50, Value_Max: 60, color: &quot;#DF3418&quot; &#125;,
+      &#123; Value_Min: 60, Value_Max: 70, color: &quot;#C20D0D&quot; &#125;,
+      &#123; Value_Min: 70, Value_Max: 80, color: &quot;#890323&quot; &#125;,
+    ],
+    bianwen: [
+      &#123; Value_Min: -6, Value_Max: -4, color: &quot;#66A6FF&quot; &#125;,
+      &#123; Value_Min: -4, Value_Max: -2, color: &quot;#80CFFF&quot; &#125;,
+      &#123; Value_Min: -2, Value_Max: 0, color: &quot;#9AF9FF&quot; &#125;,
+      &#123; Value_Min: 0, Value_Max: 2, color: &quot;#FFFB87&quot; &#125;,
+      &#123; Value_Min: 2, Value_Max: 4, color: &quot;#FCDF76&quot; &#125;,
+      &#123; Value_Min: 4, Value_Max: 6, color: &quot;#F8BE5C&quot; &#125;,
+    ],
+    jiangshui: [
+      &#x2F;&#x2F; &#123; Value_Min: -10, Value_Max: 0.1, color: &quot;rgba(0,0,0,0)&quot; &#125;,
+      &#123; Value_Min: -10, Value_Max: 0.1, color: &quot;rgba(0,0,0,0)&quot; &#125;,
+      &#123; Value_Min: 0.1, Value_Max: 10, color: &quot;#7DF0FF&quot; &#125;,
+      &#123; Value_Min: 10, Value_Max: 50, color: &quot;#0E3FD9&quot; &#125;,
+      &#123; Value_Min: 50, Value_Max: 75, color: &quot;#072586&quot; &#125;,
+    ],
+    fourteen: &#123;
+      zhongshu: &#123;
+        zs3: &quot;#EB9700&quot;,
+        zs4: &quot;#DC521E&quot;,
+        zs5: &quot;#B00808&quot;,
+      &#125;,
+    &#125;,
+  &#125;;
+
+  let name &#x3D; &quot;.&#x2F;1.json&quot;;
+  fs.readFile(name, (err, result) &#x3D;&gt; &#123;
+    if (err) &#123;
+    &#125; else &#123;
+      let object &#x3D; JSON.parse(result);
+      let &#123; CLOSED_CONTOURS &#125; &#x3D; object;
+      let arr &#x3D; [];
+      let color &#x3D; &quot;&quot;;
+      let leixing &#x3D; &quot;fourteen&quot;;
+      let leixing_child &#x3D; &quot;zhongshu&quot;;
+      for (let i &#x3D; 0; i &lt; CLOSED_CONTOURS.length; i++) &#123;
+        let CLOSED_CONTOURS_i &#x3D; CLOSED_CONTOURS[i];
+        let &#123; linePoint &#125; &#x3D; CLOSED_CONTOURS_i;
+        let &#123; markName &#125; &#x3D; CLOSED_CONTOURS_i.lineMark;
+        console.log(colors[leixing][leixing_child][markName]);
+
+        arr.push(linePoint);
+        for (let m &#x3D; 0; m &lt; arr.length; m++) &#123;
+          drawPolygon(
+            arr[m],
+            scalex,
+            scaley,
+            colors[leixing][leixing_child][markName]
+          );
+        &#125;
+      &#125;
+
+      const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);
+      const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);
+      const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);
+      fs.writeFile(
+        &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,
+        bufferData,
+        function (err) &#123;
+          if (err) &#123;
+          &#125; else &#123;
+            console.log(&quot;图片保存成功&quot;);
+          &#125;
+        &#125;
+      );
+    &#125;
+  &#125;);
+
+  function drawPolygon(points, scalex, scaley, color) &#123;
+    &#x2F;&#x2F; console.log(scalex, scaley);
+    ctx.beginPath();
+    for (let i &#x3D; 0; i &lt; points.length; i++) &#123;
+      let point &#x3D; points[i];
+      &#x2F;&#x2F;   console.log(point);
+      let x &#x3D; Number(point[&quot;lot&quot;]);
+      let y &#x3D; Number(point[&quot;lat&quot;]);
+      &#x2F;&#x2F;   console.log(x, y);
+      let l &#x3D; (x - xmin) &#x2F; scalex;
+      let t &#x3D; height - (y - ymin) &#x2F; scaley;
+      &#x2F;&#x2F;   console.log(l, t);
+      if (i &#x3D;&#x3D;&#x3D; 0) &#123;
+        ctx.moveTo(l, t);
+      &#125; else &#123;
+        ctx.lineTo(l, t);
+      &#125;
+    &#125;
+    &#x2F;&#x2F; ctx.globalCompositeOperation &#x3D; &quot;destination-over&quot;;
+    ctx.fillStyle &#x3D; color;
+    ctx.strokeStyle &#x3D; &quot;#fff&quot;;
+    ctx.closePath();
+    ctx.stroke();
+    ctx.fill();
+  &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h1 id="canvas图形形状的截取"><a href="#canvas图形形状的截取" class="headerlink" title="canvas图形形状的截取"></a>canvas图形形状的截取</h1><p>canvas形状的截取，尤其是既包含填色，又包含截取（按另一个图形的形状截取）的情况下，<br>强烈建议分两步</p>
 <h2 id="首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。"><a href="#首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。" class="headerlink" title="首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。"></a>首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。</h2><h2 id="然后将两张图片进行叠加截图"><a href="#然后将两张图片进行叠加截图" class="headerlink" title="然后将两张图片进行叠加截图"></a>然后将两张图片进行叠加截图</h2><p><strong>node环境为例</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 测试canvas图像截取</span><br><span class="line"> * 先画元素图</span><br><span class="line"> * 再画中国地图</span><br><span class="line"> * 再截取</span><br><span class="line"> */</span><br><span class="line">const fs = require(&quot;fs&quot;);</span><br><span class="line">const &#123;createCanvas, loadImage&#125; = require(&quot;canvas&quot;);</span><br><span class="line">const width = 800;</span><br><span class="line">const height = 800;</span><br><span class="line">const canvas = createCanvas(width, height);</span><br><span class="line">const ctx = canvas.getContext(&quot;2d&quot;);</span><br><span class="line"></span><br><span class="line">//降雨使用的方法(或者说是没有铺满中国的元素图的截取方法)</span><br><span class="line">function a()&#123;</span><br><span class="line">    loadImage(&#x27;./result/img/new/14/gaowen.png&#x27;).then((yuansu) =&gt; &#123;//加载元素图</span><br><span class="line">        console.log(&#x27;yuansu&#x27;,yuansu)</span><br><span class="line">        ctx.drawImage(yuansu, 0, 0, width, height)</span><br><span class="line">        loadImage(&#x27;./result/img/china.png&#x27;).then((china)=&gt;&#123;//加载中国地图</span><br><span class="line">            console.log(&#x27;china&#x27;,china)</span><br><span class="line">            ctx.globalCompositeOperation = &quot;destination-in&quot;;</span><br><span class="line">            ctx.drawImage(china,0,0,width,height)</span><br><span class="line">            function result() &#123;</span><br><span class="line">                const image = canvas.toDataURL(&quot;image/png&quot;);</span><br><span class="line">                const base64Data = image.replace(/^data:image\/\w+;base64,/, &quot;&quot;);</span><br><span class="line">                const bufferData = new Buffer(base64Data, &quot;base64&quot;);</span><br><span class="line">                fs.writeFile(</span><br><span class="line">                    &quot;./result/img/&quot; + new Date().getTime() + &quot;.png&quot;,</span><br><span class="line">                    bufferData,</span><br><span class="line">                    function (err) &#123;</span><br><span class="line">                        if (err) &#123;</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            console.log(&quot;图片保存成功&quot;);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">            // setTimeout(function ()&#123;result()&#125;,1000)</span><br><span class="line">            result()</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function b()&#123;</span><br><span class="line">    loadImage(&#x27;./result/img/china2.png&#x27;).then((china) =&gt; &#123;//加载中国地图</span><br><span class="line">        console.log(&#x27;china&#x27;,china)</span><br><span class="line">        ctx.drawImage(china, 0, 0, width, height)</span><br><span class="line">        loadImage(&#x27;./result/img/new/14/gaowen.png&#x27;).then((yuansu)=&gt;&#123;//加载元素图</span><br><span class="line">            console.log(&#x27;yuansu&#x27;,yuansu)</span><br><span class="line">            //todo:目前除去降雨数据，其他的都用下面的属性</span><br><span class="line">            // ctx.globalCompositeOperation = &quot;source-atop&quot;</span><br><span class="line">            //降雨时属性</span><br><span class="line">            // ctx.globalCompositeOperation = &quot;destination-in&quot;;</span><br><span class="line">            ctx.drawImage(yuansu,0,0,width,height)</span><br><span class="line">            function result() &#123;</span><br><span class="line">                const image = canvas.toDataURL(&quot;image/png&quot;);</span><br><span class="line">                const base64Data = image.replace(/^data:image\/\w+;base64,/, &quot;&quot;);</span><br><span class="line">                const bufferData = new Buffer(base64Data, &quot;base64&quot;);</span><br><span class="line">                fs.writeFile(</span><br><span class="line">                    &quot;./result/img/&quot; + new Date().getTime() + &quot;.png&quot;,</span><br><span class="line">                    bufferData,</span><br><span class="line">                    function (err) &#123;</span><br><span class="line">                        if (err) &#123;</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            console.log(&quot;图片保存成功&quot;);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">            // setTimeout(function ()&#123;result()&#125;,1000)</span><br><span class="line">            result()</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a()</span><br><span class="line">// b()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;**
+ * 测试canvas图像截取
+ * 先画元素图
+ * 再画中国地图
+ * 再截取
+ *&#x2F;
+const fs &#x3D; require(&quot;fs&quot;);
+const &#123;createCanvas, loadImage&#125; &#x3D; require(&quot;canvas&quot;);
+const width &#x3D; 800;
+const height &#x3D; 800;
+const canvas &#x3D; createCanvas(width, height);
+const ctx &#x3D; canvas.getContext(&quot;2d&quot;);
+
+&#x2F;&#x2F;降雨使用的方法(或者说是没有铺满中国的元素图的截取方法)
+function a()&#123;
+    loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;new&#x2F;14&#x2F;gaowen.png&#39;).then((yuansu) &#x3D;&gt; &#123;&#x2F;&#x2F;加载元素图
+        console.log(&#39;yuansu&#39;,yuansu)
+        ctx.drawImage(yuansu, 0, 0, width, height)
+        loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;china.png&#39;).then((china)&#x3D;&gt;&#123;&#x2F;&#x2F;加载中国地图
+            console.log(&#39;china&#39;,china)
+            ctx.globalCompositeOperation &#x3D; &quot;destination-in&quot;;
+            ctx.drawImage(china,0,0,width,height)
+            function result() &#123;
+                const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);
+                const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);
+                const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);
+                fs.writeFile(
+                    &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,
+                    bufferData,
+                    function (err) &#123;
+                        if (err) &#123;
+                        &#125; else &#123;
+                            console.log(&quot;图片保存成功&quot;);
+                        &#125;
+                    &#125;
+                );
+            &#125;
+            &#x2F;&#x2F; setTimeout(function ()&#123;result()&#125;,1000)
+            result()
+        &#125;)
+    &#125;)
+&#125;
+
+
+
+
+function b()&#123;
+    loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;china2.png&#39;).then((china) &#x3D;&gt; &#123;&#x2F;&#x2F;加载中国地图
+        console.log(&#39;china&#39;,china)
+        ctx.drawImage(china, 0, 0, width, height)
+        loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;new&#x2F;14&#x2F;gaowen.png&#39;).then((yuansu)&#x3D;&gt;&#123;&#x2F;&#x2F;加载元素图
+            console.log(&#39;yuansu&#39;,yuansu)
+            &#x2F;&#x2F;todo:目前除去降雨数据，其他的都用下面的属性
+            &#x2F;&#x2F; ctx.globalCompositeOperation &#x3D; &quot;source-atop&quot;
+            &#x2F;&#x2F;降雨时属性
+            &#x2F;&#x2F; ctx.globalCompositeOperation &#x3D; &quot;destination-in&quot;;
+            ctx.drawImage(yuansu,0,0,width,height)
+            function result() &#123;
+                const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);
+                const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);
+                const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);
+                fs.writeFile(
+                    &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,
+                    bufferData,
+                    function (err) &#123;
+                        if (err) &#123;
+                        &#125; else &#123;
+                            console.log(&quot;图片保存成功&quot;);
+                        &#125;
+                    &#125;
+                );
+            &#125;
+            &#x2F;&#x2F; setTimeout(function ()&#123;result()&#125;,1000)
+            result()
+        &#125;)
+    &#125;)
+&#125;
+
+a()
+&#x2F;&#x2F; b()
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><em><code>总结： 在绘制闭合区域（只有数组没有顺序）的时候，需要注意canvas涂色覆盖的问题， 同时，需要截取复杂图形的时候， 不建议直接在一个canvas对象内使用，可以使用两张图片叠加的形式。 本文所使用的的环境是node，可以直接生成图片保存在本地，然后进行读取。 可以猜想，利用不同变量保存每个canvas生成的base64也可以直接在浏览器生成类似效果， 但本人未做尝试，只是猜想。 另外，本文没有使用clip属性进行截图操作，因为没有思路。 在颜色填充部分本文尝试使用save和restore属性，但是产生的结果与未使用时一致， 如各位了解该如何使用上述属性或有兴趣技术沟通，可直接与我联系 </code></em></p>
 
@@ -728,13 +1052,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/12/28/macOS%E5%AE%89%E8%A3%85homebrew/">
+                <a href="/2021/12/28/node/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="macOS安装homebrew">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="node">
                         
-                        <span class="card-title">macOS安装homebrew</span>
+                        <span class="card-title">node</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -756,14 +1080,6 @@
                     </div>
                 </div>
                 
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/macOS/">
-                        <span class="chip bg-color">macOS</span>
-                    </a>
-                    
-                </div>
-                
             </div>
         </div>
         
@@ -773,13 +1089,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/28/cesium%E7%BB%98%E5%88%B6%E5%8D%AB%E6%98%9F%E4%BA%91%E5%9B%BE/">
+                <a href="/2021/12/28/cesium%E4%B8%93%E9%A2%98/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="cesium绘制卫星云图">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="cesium专题">
                         
-                        <span class="card-title">cesium绘制卫星云图</span>
+                        <span class="card-title">cesium专题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -794,31 +1110,11 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/gis/" class="post-category">
-                                    gis
-                                </a>
-                            
-                            <a href="/categories/gis/%E5%8F%AF%E8%A7%86%E5%8C%96/" class="post-category">
-                                    可视化
-                                </a>
-                            
-                            <a href="/categories/gis/%E5%8F%AF%E8%A7%86%E5%8C%96/3d/" class="post-category">
-                                    3d
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            寒霜
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/cesium/">
-                        <span class="chip bg-color">cesium</span>
-                    </a>
-                    
                 </div>
                 
             </div>

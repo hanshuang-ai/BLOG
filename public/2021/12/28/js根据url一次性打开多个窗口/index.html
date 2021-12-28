@@ -7,7 +7,7 @@
     <meta name="keywords" content="js根据url一次性打开多个窗口, MyBlog">
     <meta name="description" content="描述window.open如果只是直接调用window.open(‘url’),如果使用多个页面，页面肯定只会显示一个。
 需求在网站点击某个栏目链接的时候： 1、需要打开对应的栏目信息，显示相关资讯 2、跳转到网店，供用户购买
-实现1123">
+实现1win">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -464,6 +464,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -471,10 +474,22 @@
             <div id="articleContent">
                 <h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>window.open如果只是直接调用window.open(‘url’),如果使用多个页面，页面肯定只会显示一个。</p>
 <h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>在网站点击某个栏目链接的时候： 1、需要打开对应的栏目信息，显示相关资讯 2、跳转到网店，供用户购买</p>
-<h3 id="实现1"><a href="#实现1" class="headerlink" title="实现1"></a>实现1</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">window.open(&#x27;url&#x27;,a)</span><br><span class="line">window.open(&#x27;url&#x27;,b)</span><br><span class="line"></span><br><span class="line">关键点就是url后面的a和b对页面进行不同的区分</span><br><span class="line">这两个值不能不填，也不能填一样的，否则就只会打开一个页面</span><br></pre></td></tr></table></figure>
+<h3 id="实现1"><a href="#实现1" class="headerlink" title="实现1"></a>实现1</h3><pre class="line-numbers language-none"><code class="language-none">window.open(&#39;url&#39;,a)
+window.open(&#39;url&#39;,b)
+
+关键点就是url后面的a和b对页面进行不同的区分
+这两个值不能不填，也不能填一样的，否则就只会打开一个页面<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><code>注意：open()方法会都打开或者查找窗口，也就是说在浏览器未打开相应窗口的情况下 会打开该窗口，如果浏览器已经打开了相应窗口，则会跳转到该窗口，不会再次重新打开</code></p>
-<h2 id="实现2"><a href="#实现2" class="headerlink" title="实现2"></a>实现2</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var url = [&quot;url1&quot;, &quot;url2&quot;]</span><br><span class="line">  for (var i = 0; i &lt; url.length; i++) &#123;</span><br><span class="line">    //window.open(url[i], &#x27;_blank&#x27;);</span><br><span class="line">    window.open(url[i], &#x27;i&#x27;);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  window.open里面的&#x27;_blank&#x27;可以换成i,这样相当于给每个新开的窗口命名</span><br><span class="line">  这样再次点击的时候就会查找窗口，而不是再次新开窗口，如果使用&#x27;_blank&#x27;</span><br><span class="line">  则每次点击都是新开窗口，可以看作是命名了相同的名字。</span><br></pre></td></tr></table></figure>
+<h2 id="实现2"><a href="#实现2" class="headerlink" title="实现2"></a>实现2</h2><pre class="line-numbers language-none"><code class="language-none">var url &#x3D; [&quot;url1&quot;, &quot;url2&quot;]
+  for (var i &#x3D; 0; i &lt; url.length; i++) &#123;
+    &#x2F;&#x2F;window.open(url[i], &#39;_blank&#39;);
+    window.open(url[i], &#39;i&#39;);
+  &#125;
+  
+  window.open里面的&#39;_blank&#39;可以换成i,这样相当于给每个新开的窗口命名
+  这样再次点击的时候就会查找窗口，而不是再次新开窗口，如果使用&#39;_blank&#39;
+  则每次点击都是新开窗口，可以看作是命名了相同的名字。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -715,13 +730,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/12/28/git%E5%91%BD%E4%BB%A4/">
+                <a href="/2021/12/28/jq%20load%E6%96%B9%E6%B3%95%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="git命令">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="jq load方法注意事项">
                         
-                        <span class="card-title">git命令</span>
+                        <span class="card-title">jq load方法注意事项</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -736,15 +751,19 @@
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%91%BD%E4%BB%A4%E8%A1%8C/" class="post-category">
-                                    命令行
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            寒霜
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/jQuery/">
+                        <span class="chip bg-color">jQuery</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -756,13 +775,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/17/Hexo-Theme-LiveMyLife/">
+                <a href="/2021/12/28/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Hexo-Theme-LiveMyLife">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="js设计模式">
                         
-                        <span class="card-title">Hexo-Theme-LiveMyLife</span>
+                        <span class="card-title">js设计模式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -773,27 +792,15 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-17
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-28
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Hexo-Theme-LiveMyLife/" class="post-category">
-                                    Hexo-Theme-LiveMyLife
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            寒霜
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Hexo-Theme-LiveMyLife/">
-                        <span class="chip bg-color">Hexo-Theme-LiveMyLife</span>
-                    </a>
-                    
                 </div>
                 
             </div>

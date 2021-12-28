@@ -5,10 +5,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="节流和防抖, MyBlog">
-    <meta name="description" content="1234567函数防抖和函数节流都是防止某一时间频繁触发，但是这两兄弟之间的原理却不一样。函数防抖是某一段时间内只执行一次，而函数节流是间隔时间执行。防抖让函数在停止触发事件后的一段时间再执行节流让函数以固定的频率触发
+    <meta name="description" content="函数防抖和函数节流都是防止某一时间频繁触发，但是这两兄弟之间的原理却不一样。
+函数防抖是某一段时间内只执行一次，而函数节流是间隔时间执行。
+
+防抖
+让函数在停止触发事件后的一段时间再执行
+节流
+让函数以固定的频率触发
 
 防抖：
-12345">
+对于短时间内">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -461,15 +467,28 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">函数防抖和函数节流都是防止某一时间频繁触发，但是这两兄弟之间的原理却不一样。</span><br><span class="line">函数防抖是某一段时间内只执行一次，而函数节流是间隔时间执行。</span><br><span class="line"></span><br><span class="line">防抖</span><br><span class="line">让函数在停止触发事件后的一段时间再执行</span><br><span class="line">节流</span><br><span class="line">让函数以固定的频率触发</span><br></pre></td></tr></table></figure>
+                <pre class="line-numbers language-none"><code class="language-none">函数防抖和函数节流都是防止某一时间频繁触发，但是这两兄弟之间的原理却不一样。
+函数防抖是某一段时间内只执行一次，而函数节流是间隔时间执行。
+
+防抖
+让函数在停止触发事件后的一段时间再执行
+节流
+让函数以固定的频率触发<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>防抖：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对于短时间内连续触发的事件，</span><br><span class="line">防抖的含义就是让某个时间期限内，</span><br><span class="line">事件处理函数只执行一次。</span><br><span class="line"></span><br><span class="line">防抖的原理就是让函数让函数延时执行，如果期间触发了新事件，则取消原来的延时计划</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">对于短时间内连续触发的事件，
+防抖的含义就是让某个时间期限内，
+事件处理函数只执行一次。
+
+防抖的原理就是让函数让函数延时执行，如果期间触发了新事件，则取消原来的延时计划<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -743,13 +762,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/28/%E8%A7%A3%E6%9E%90URL/">
+                <a href="/2021/12/28/%E9%97%AD%E5%8C%85/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="解析URL">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="闭包">
                         
-                        <span class="card-title">解析URL</span>
+                        <span class="card-title">闭包</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -769,14 +788,6 @@
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/">
-                        <span class="chip bg-color">代码片段</span>
-                    </a>
-                    
                 </div>
                 
             </div>

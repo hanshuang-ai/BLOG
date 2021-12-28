@@ -459,6 +459,9 @@ mars3d本身提供了加载geojson、图片以及模型的API，但是在加载�
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -469,9 +472,15 @@ mars3d本身提供了加载geojson、图片以及模型的API，但是在加载�
 <p>`凡是引用包的地方，都需要先加载包，但是node canvas直接使用哪个npm引用有很大的几率会出现问题</p>
 <p>`</p>
 <h1 id="node加载数据"><a href="#node加载数据" class="headerlink" title="node加载数据"></a>node加载数据</h1><p>node加载数据使用的是自带的fs模块</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let fs = require(&#x27;fs&#x27;)</span><br><span class="line">let data = fs.readFileSync(&#x27;XXX.json&#x27;)</span><br><span class="line">let obj = JSON.parse(data)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">let fs &#x3D; require(&#39;fs&#39;)
+let data &#x3D; fs.readFileSync(&#39;XXX.json&#39;)
+let obj &#x3D; JSON.parse(data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<h1 id="使用node-canvas将数据绘制到canvas上"><a href="#使用node-canvas将数据绘制到canvas上" class="headerlink" title="使用node canvas将数据绘制到canvas上"></a>使用node canvas将数据绘制到canvas上</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const &#123;createCanvas&#125; = canvas</span><br><span class="line">const width = 2000</span><br><span class="line">const height = 2000</span><br><span class="line">const canvas = createCanvas(width,height)</span><br><span class="line">const context = canvas.getContext(&#x27;2d)</span><br></pre></td></tr></table></figure>
+<h1 id="使用node-canvas将数据绘制到canvas上"><a href="#使用node-canvas将数据绘制到canvas上" class="headerlink" title="使用node canvas将数据绘制到canvas上"></a>使用node canvas将数据绘制到canvas上</h1><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; canvas
+const width &#x3D; 2000
+const height &#x3D; 2000
+const canvas &#x3D; createCanvas(width,height)
+const context &#x3D; canvas.getContext(&#39;2d)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h1 id="处理node-canvas生成的base64数据，生成png"><a href="#处理node-canvas生成的base64数据，生成png" class="headerlink" title="处理node canvas生成的base64数据，生成png"></a>处理node canvas生成的base64数据，生成png</h1><h1 id="将png保存到本地"><a href="#将png保存到本地" class="headerlink" title="将png保存到本地"></a>将png保存到本地</h1>
                 
@@ -710,13 +719,13 @@ mars3d本身提供了加载geojson、图片以及模型的API，但是在加载�
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/12/28/%E5%90%8C%E4%B8%80%E5%8F%B0%E7%94%B5%E8%84%91%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%B8%AAgit%E5%AF%86%E5%8C%99/">
+                <a href="/2021/12/28/%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%9F%A5%E7%9C%8B%E6%9C%AC%E6%9C%BAip/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="同一台电脑配置多个git密匙">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="命令行查看本机ip">
                         
-                        <span class="card-title">同一台电脑配置多个git密匙</span>
+                        <span class="card-title">命令行查看本机ip</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -736,14 +745,6 @@ mars3d本身提供了加载geojson、图片以及模型的API，但是在加载�
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%AE%9E%E6%88%98/">
-                        <span class="chip bg-color">实战</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -789,12 +790,12 @@ mars3d本身提供了加载geojson、图片以及模型的API，但是在加载�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/node/">
-                        <span class="chip bg-color">node</span>
-                    </a>
-                    
                     <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/">
                         <span class="chip bg-color">代码片段</span>
+                    </a>
+                    
+                    <a href="/tags/node/">
+                        <span class="chip bg-color">node</span>
                     </a>
                     
                 </div>

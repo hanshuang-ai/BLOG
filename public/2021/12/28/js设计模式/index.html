@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <meta name="keywords" content="js设计模式, MyBlog">
     <meta name="description" content="面向对象的三大特征封装声明一个函数，保存在一个首字母大写的变量里
-通过this添加属性或者方法12345678let Student = function(id,name,age)&amp;#123;    this.id = id;  //通过t">
+通过this添加属性或者方法let Student &amp;#x3D; function(id,name,age)&amp;#123;
+    this.id &amp;#x3D; id;  &amp;#">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -459,15 +460,39 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="面向对象的三大特征"><a href="#面向对象的三大特征" class="headerlink" title="面向对象的三大特征"></a>面向对象的三大特征</h1><h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>声明一个函数，保存在一个首字母大写的变量里</p>
-<h3 id="通过this添加属性或者方法"><a href="#通过this添加属性或者方法" class="headerlink" title="通过this添加属性或者方法"></a>通过this添加属性或者方法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let Student = function(id,name,age)&#123;</span><br><span class="line">    this.id = id;  //通过this添加属性或者方法</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.age = age;</span><br><span class="line">    this.print = function()&#123;</span><br><span class="line">        console.log(this.name + this.age);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="通过this添加属性或者方法"><a href="#通过this添加属性或者方法" class="headerlink" title="通过this添加属性或者方法"></a>通过this添加属性或者方法</h3><pre class="line-numbers language-none"><code class="language-none">let Student &#x3D; function(id,name,age)&#123;
+    this.id &#x3D; id;  &#x2F;&#x2F;通过this添加属性或者方法
+    this.name &#x3D; name;
+    this.age &#x3D; age;
+    this.print &#x3D; function()&#123;
+        console.log(this.name + this.age);
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="通过prototype添加属性和方法"><a href="#通过prototype添加属性和方法" class="headerlink" title="通过prototype添加属性和方法"></a>通过prototype添加属性和方法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Stydent.prototype.display = function()&#123;</span><br><span class="line">    console.log(&#x27;1&#x27;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">Student.prototype = &#123;</span><br><span class="line">    display:function()&#123;</span><br><span class="line">        console.log(&#x27;2)</span><br><span class="line">    &#125;,</span><br><span class="line">    let score = function()&#123;</span><br><span class="line">        alert(&#x27;123&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="通过prototype添加属性和方法"><a href="#通过prototype添加属性和方法" class="headerlink" title="通过prototype添加属性和方法"></a>通过prototype添加属性和方法</h3><pre class="line-numbers language-none"><code class="language-none">Stydent.prototype.display &#x3D; function()&#123;
+    console.log(&#39;1&#39;)
+&#125;
+
+或者
+
+Student.prototype &#x3D; &#123;
+    display:function()&#123;
+        console.log(&#39;2)
+    &#125;,
+    let score &#x3D; function()&#123;
+        alert(&#39;123&#39;)
+    &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="通过this和prototype添加属性和方法的区别"><a href="#通过this和prototype添加属性和方法的区别" class="headerlink" title="通过this和prototype添加属性和方法的区别"></a>通过this和prototype添加属性和方法的区别</h3><p><code>通过this添加的属性和方法是添加在了当前对象上，在使用new构造函数创建新对象时，添加的属性和方法会被复制到新对象上。</code><br><code>通过prototype添加的属性和方法  并不是  添加到对象本身上，所以在使用new构造函数创建新对象时，添加的属性和方法  不会  复制到新对象上</code></p>
 <p><img src="http://qiniu.aoxuekj.com/WX20210330-150148.png"></p>
@@ -716,13 +741,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/12/28/jq%20load%E6%96%B9%E6%B3%95%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">
+                <a href="/2021/12/28/js%E6%A0%B9%E6%8D%AEurl%E4%B8%80%E6%AC%A1%E6%80%A7%E6%89%93%E5%BC%80%E5%A4%9A%E4%B8%AA%E7%AA%97%E5%8F%A3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="jq load方法注意事项">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="js根据url一次性打开多个窗口">
                         
-                        <span class="card-title">jq load方法注意事项</span>
+                        <span class="card-title">js根据url一次性打开多个窗口</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -746,8 +771,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/jQuery/">
-                        <span class="chip bg-color">jQuery</span>
+                    <a href="/tags/%E6%8A%80%E5%B7%A7/">
+                        <span class="chip bg-color">技巧</span>
                     </a>
                     
                 </div>
@@ -761,13 +786,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/28/git%E5%91%BD%E4%BB%A4/">
+                <a href="/2020/04/17/Hexo-Theme-LiveMyLife/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="git命令">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Hexo-Theme-LiveMyLife">
                         
-                        <span class="card-title">git命令</span>
+                        <span class="card-title">Hexo-Theme-LiveMyLife</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -778,19 +803,27 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-17
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%91%BD%E4%BB%A4%E8%A1%8C/" class="post-category">
-                                    命令行
+                            <a href="/categories/Hexo-Theme-LiveMyLife/" class="post-category">
+                                    Hexo-Theme-LiveMyLife
                                 </a>
                             
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Hexo-Theme-LiveMyLife/">
+                        <span class="chip bg-color">Hexo-Theme-LiveMyLife</span>
+                    </a>
+                    
                 </div>
                 
             </div>
