@@ -470,14 +470,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    747
+                    893
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    4 分
                 </div>
                 
 
@@ -596,6 +596,36 @@
 <span class="token constant">VUE_APP_BASE_URL</span> <span class="token operator">=</span> <span class="token string">"该模式下对应的baseURL"</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="只在本地使用的变量"><a href="#只在本地使用的变量" class="headerlink" title="只在本地使用的变量"></a>只在本地使用的变量</h2><p><code>有的时候你可能有一些不应该提交到代码仓库中的变量，尤其是当你的项目托管在公共仓库时。这种情况下你应该使用一个 .env.local 文件取而代之。本地环境文件默认会被忽略，且出现在 .gitignore 中。.local 也可以加在指定模式的环境文件上，比如 .env.development.local 将会在 development 模式下被载入，且被 git 忽略。</code></p>
+<h2 id="打包时隐藏-console-信息"><a href="#打包时隐藏-console-信息" class="headerlink" title="打包时隐藏 console 信息"></a>打包时隐藏 console 信息</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">npm install babel<span class="token operator">-</span>plugin<span class="token operator">-</span>transform<span class="token operator">-</span>remove<span class="token operator">-</span>console <span class="token operator">--</span>save<span class="token operator">-</span>dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="在-babel-config-js-里面进行配置"><a href="#在-babel-config-js-里面进行配置" class="headerlink" title="在 babel.config.js 里面进行配置"></a>在 babel.config.js 里面进行配置</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> prodPlugins <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">===</span> <span class="token string">"production"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  prodPlugins<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"transform-remove-console"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  presets<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"@vue/cli-plugin-babel/preset"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  plugins<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token operator">...</span>prodPlugins<span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="打包时添加时间戳"><a href="#打包时添加时间戳" class="headerlink" title="打包时添加时间戳"></a>打包时添加时间戳</h2><p><code>在vue.config.js内进行配置</code></p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 可以在这里打印环境变量信息</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">本次使用的url请求地址</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">VUE_APP_BASE_URL</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> \n</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> Version <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">.*(.&#123;8&#125;)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  publicPath<span class="token operator">:</span> <span class="token string">"./"</span><span class="token punctuation">,</span>
+  configureWebpack<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    output<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      filename<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">js/[name].</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Version<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.js</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+      chunkFilename<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">js/[name].</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Version<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.js</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -833,17 +863,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/12/29/vue-da-bao-shi-tian-jia-shi-jian-chuo/">
+                <a href="/2021/12/29/vue-huan-jing-wen-jian-pei-zhi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="vue打包时添加时间戳">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="vue环境文件配置">
                         
-                        <span class="card-title">vue打包时添加时间戳</span>
+                        <span class="card-title">vue环境文件配置</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -853,9 +884,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-12-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-29
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -868,6 +899,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     

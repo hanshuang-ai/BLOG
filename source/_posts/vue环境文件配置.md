@@ -125,3 +125,49 @@ VUE_APP_BASE_URL = "该模式下对应的baseURL";
 ## 只在本地使用的变量
 
 `有的时候你可能有一些不应该提交到代码仓库中的变量，尤其是当你的项目托管在公共仓库时。这种情况下你应该使用一个 .env.local 文件取而代之。本地环境文件默认会被忽略，且出现在 .gitignore 中。.local 也可以加在指定模式的环境文件上，比如 .env.development.local 将会在 development 模式下被载入，且被 git 忽略。`
+
+## 打包时隐藏 console 信息
+
+### 安装插件
+
+```javascript
+npm install babel-plugin-transform-remove-console --save-dev
+```
+
+### 在 babel.config.js 里面进行配置
+
+```javascript
+const prodPlugins = [];
+if (process.env.NODE_ENV === "production") {
+  prodPlugins.push("transform-remove-console");
+}
+
+module.exports = {
+  presets: ["@vue/cli-plugin-babel/preset"],
+  plugins: [...prodPlugins],
+};
+```
+
+## 打包时添加时间戳
+
+`在vue.config.js内进行配置`
+
+```javascript
+// 可以在这里打印环境变量信息
+console.log(`本次使用的url请求地址${process.env.VUE_APP_BASE_URL} \n`);
+console.log(process.env.NODE_ENV);
+
+const Version = new Date()
+  .getTime()
+  .toString()
+  .match(/.*(.{8})/)[1];
+module.exports = {
+  publicPath: "./",
+  configureWebpack: {
+    output: {
+      filename: `js/[name].${Version}.js`,
+      chunkFilename: `js/[name].${Version}.js`,
+    },
+  },
+};
+```
