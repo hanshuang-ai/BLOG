@@ -1,6 +1,6 @@
 ---
-title: ElementUI 
-categories: ['日常开发']
+title: ElementUI
+categories: ['日常开发','UI']
 tags: ['代码片段']
 ---
 

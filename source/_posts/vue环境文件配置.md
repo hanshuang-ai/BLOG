@@ -1,7 +1,7 @@
 ---
 title: vue环境文件配置
 tags: ["vue"]
-categories: ["框架"]
+categories: ["框架",'日常开发']
 ---
 
 [vue 文档说明链接地址](https://cli.vuejs.org/zh/guide/mode-and-env.html)
