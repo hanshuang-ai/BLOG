@@ -4,10 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="同一台机器配置多个git账号.md, MyBlog">
-    <meta name="description" content="不论是出于何种需要，我们有时候会有配置多个git账号的需求，下面是我个人实践的一种方式。（网上有许多可以实现的方法，但个人感觉它们都缺乏逻辑，不好记忆。）
-总的来说分以下几步：
-1、 删除已经配置的全局账号（如果还没有配置全局账号则可省略）">
+    <meta name="keywords" content="js基础, MyBlog">
+    <meta name="description" content="类型判断基础类型1、判断是否是NaN           isNaN
+let num = 0/0
+console.log(isNaN(num))
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +20,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>同一台机器配置多个git账号.md | MyBlog</title>
+    <title>js基础 | MyBlog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -311,12 +312,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">同一台机器配置多个git账号.md</h1>
+                    <h1 class="description center-align post-title">js基础</h1>
                 </div>
             </div>
         </div>
@@ -430,12 +431,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/js/">
+                                <span class="chip bg-color">js</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%9F%BA%E7%A1%80/">
+                                <span class="chip bg-color">基础</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91/" class="post-category">
+                                日常开发
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -444,21 +462,29 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+<<<<<<< HEAD:public/2021/12/30/tong-yi-tai-ji-qi-pei-zhi-duo-ge-git-zhang-hao/index.html
                     2021-12-30
+=======
+                    2022-01-04
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/04/js-ji-chu/index.html
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+<<<<<<< HEAD:public/2021/12/30/tong-yi-tai-ji-qi-pei-zhi-duo-ge-git-zhang-hao/index.html
                     2021-12-30
+=======
+                    2022-01-04
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/04/js-ji-chu/index.html
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    237
+                    24
                 </div>
                 
 
@@ -488,30 +514,10 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>不论是出于何种需要，我们有时候会有配置多个git账号的需求，下面是我个人实践的一种方式。（网上有许多可以实现的方法，但个人感觉它们都缺乏逻辑，不好记忆。）</p>
-<pre class="line-numbers language-none"><code class="language-none">总的来说分以下几步：
-1、 删除已经配置的全局账号（如果还没有配置全局账号则可省略）
+                <h2 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h2><h3 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token number">1</span>、判断是否是<span class="token number">NaN</span>           isNaN
+<span class="token keyword">let</span> num <span class="token operator">=</span> <span class="token number">0</span><span class="token operator">/</span><span class="token number">0</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">isNaN</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-2、 命令行生成不同的密匙（注意密匙文件不能同名，最好放在默认目录下）
-
-3、 在默认目录下添加config文件（文件名就是config，没有后缀）,配置哪个git账号使用哪个git密匙
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>示例</p>
-<pre class="line-numbers language-none"><code class="language-none"># github
-Host github.com    &#x2F;&#x2F;随便取
-HostName github.com  &#x2F;&#x2F;需要链接的网址
-IdentityFile ~&#x2F;.ssh&#x2F;id_rsa_office_github  &#x2F;&#x2F;对应的密匙文件名
-PreferredAuthentications publickey
-User hanshuang-ai  &#x2F;&#x2F;对应的git用户名
-
-
-# gitab
-Host gitlab
-HostName 49.233.21.66
-PreferredAuthentications publickey
-IdentityFile ~&#x2F;.ssh&#x2F;id_rsa
-User LCY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -537,7 +543,11 @@ User LCY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
                     </i>
                 </span>
                 <span class="reprint-info">
+<<<<<<< HEAD:public/2021/12/30/tong-yi-tai-ji-qi-pei-zhi-duo-ge-git-zhang-hao/index.html
                     <a href="http://example.com/2021/12/30/tong-yi-tai-ji-qi-pei-zhi-duo-ge-git-zhang-hao/">http://example.com/2021/12/30/tong-yi-tai-ji-qi-pei-zhi-duo-ge-git-zhang-hao/</a>
+=======
+                    <a href="https://hanshuang-ai.github.io/2022/01/04/js-ji-chu/">https://hanshuang-ai.github.io/2022/01/04/js-ji-chu/</a>
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/04/js-ji-chu/index.html
                 </span>
             </div>
             <div class="reprint__notice">
@@ -574,7 +584,15 @@ User LCY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/js/">
+                                    <span class="chip bg-color">js</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%9F%BA%E7%A1%80/">
+                                    <span class="chip bg-color">基础</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -748,6 +766,7 @@ User LCY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+<<<<<<< HEAD:public/2021/12/30/tong-yi-tai-ji-qi-pei-zhi-duo-ge-git-zhang-hao/index.html
                 <a href="/2021/12/30/qian-duan-ying-dui-gao-bing-fa/">
                     <div class="card-image">
                         
@@ -755,6 +774,15 @@ User LCY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
                         <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="前端应对高并发">
                         
                         <span class="card-title">前端应对高并发</span>
+=======
+                <a href="/2022/01/05/vue-quan-ju-guo-lu-qi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="vue全局过滤器">
+                        
+                        <span class="card-title">vue全局过滤器</span>
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/04/js-ji-chu/index.html
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -765,14 +793,27 @@ User LCY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
+<<<<<<< HEAD:public/2021/12/30/tong-yi-tai-ji-qi-pei-zhi-duo-ge-git-zhang-hao/index.html
                             <i class="far fa-clock fa-fw icon-date"></i>2021-12-30
+=======
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-05
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/04/js-ji-chu/index.html
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
+<<<<<<< HEAD:public/2021/12/30/tong-yi-tai-ji-qi-pei-zhi-duo-ge-git-zhang-hao/index.html
                             <a href="/categories/%E5%AE%9E%E6%88%98%E5%BA%94%E7%94%A8/" class="post-category">
                                     实战应用
+=======
+                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
+                                    框架
+                                </a>
+                            
+                            <a href="/categories/%E6%A1%86%E6%9E%B6/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91/" class="post-category">
+                                    日常开发
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/04/js-ji-chu/index.html
                                 </a>
                             
                             
@@ -780,6 +821,17 @@ User LCY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
                     </div>
                 </div>
                 
+<<<<<<< HEAD:public/2021/12/30/tong-yi-tai-ji-qi-pei-zhi-duo-ge-git-zhang-hao/index.html
+=======
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/vue/">
+                        <span class="chip bg-color">vue</span>
+                    </a>
+                    
+                </div>
+                
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/04/js-ji-chu/index.html
             </div>
         </div>
         
@@ -789,6 +841,7 @@ User LCY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
+<<<<<<< HEAD:public/2021/12/30/tong-yi-tai-ji-qi-pei-zhi-duo-ge-git-zhang-hao/index.html
                 <a href="/2021/12/30/san-fang-deng-lu/">
                     <div class="card-image">
                         
@@ -796,6 +849,15 @@ User LCY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
                         <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="三方登录">
                         
                         <span class="card-title">三方登录</span>
+=======
+                <a href="/2022/01/04/macos-ming-ling-xing/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="macos命令行">
+                        
+                        <span class="card-title">macos命令行</span>
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/04/js-ji-chu/index.html
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -806,15 +868,40 @@ User LCY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
+<<<<<<< HEAD:public/2021/12/30/tong-yi-tai-ji-qi-pei-zhi-duo-ge-git-zhang-hao/index.html
                                 <i class="far fa-clock fa-fw icon-date"></i>2021-12-30
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
                             寒霜
+=======
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%91%BD%E4%BB%A4%E8%A1%8C/" class="post-category">
+                                    命令行
+                                </a>
+                            
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/04/js-ji-chu/index.html
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/macos/">
+                        <span class="chip bg-color">macos</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%93%8D%E4%BD%9C/">
+                        <span class="chip bg-color">操作</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1008,7 +1095,7 @@ User LCY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2021</span>
+                <span id="year">2019-2022</span>
             
             <a href="/about" target="_blank">寒霜</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1016,7 +1103,11 @@ User LCY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+<<<<<<< HEAD:public/2021/12/30/tong-yi-tai-ji-qi-pei-zhi-duo-ge-git-zhang-hao/index.html
                         class="white-color">19.9k</span>
+=======
+                        class="white-color">21.2k</span>
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/04/js-ji-chu/index.html
             
             
             

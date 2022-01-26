@@ -4,10 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="vue打包时添加时间戳, MyBlog">
-    <meta name="description" content="// 可以在这里打印环境变量信息
-console.log(`本次使用的url请求地址$&amp;#123;process.env.VUE_APP_BASE_URL&amp;#125; \n`);
-console.log(process.env.NODE_E">
+    <meta name="keywords" content="vue全局过滤器, MyBlog">
+    <meta name="description" content="1、创建过滤器 js 文件在项目内创建盛放内容的 js 文件，目录和文件名可以根据项目自定义
+2、main.js 内引入import filter from &#34;./api/filter&#34;;
+Object.keys(filter).forEa">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +19,7 @@ console.log(process.env.NODE_E">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>vue打包时添加时间戳 | MyBlog</title>
+    <title>vue全局过滤器 | MyBlog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -311,12 +311,12 @@ console.log(process.env.NODE_E">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">vue打包时添加时间戳</h1>
+                    <h1 class="description center-align post-title">vue全局过滤器</h1>
                 </div>
             </div>
         </div>
@@ -448,6 +448,10 @@ console.log(process.env.NODE_E">
                                 框架
                             </a>
                         
+                            <a href="/categories/%E6%A1%86%E6%9E%B6/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91/" class="post-category">
+                                日常开发
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -457,21 +461,29 @@ console.log(process.env.NODE_E">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+<<<<<<< HEAD:public/2021/12/30/vue-da-bao-shi-tian-jia-shi-jian-chuo/index.html
                     2021-12-30
+=======
+                    2022-01-05
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/05/vue-quan-ju-guo-lu-qi/index.html
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+<<<<<<< HEAD:public/2021/12/30/vue-da-bao-shi-tian-jia-shi-jian-chuo/index.html
                     2021-12-30
+=======
+                    2022-01-05
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/05/vue-quan-ju-guo-lu-qi/index.html
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    72
+                    65
                 </div>
                 
 
@@ -501,21 +513,12 @@ console.log(process.env.NODE_E">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 可以在这里打印环境变量信息</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">本次使用的url请求地址</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">VUE_APP_BASE_URL</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> \n</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span><span class="token punctuation">)</span>
+                <h2 id="1、创建过滤器-js-文件"><a href="#1、创建过滤器-js-文件" class="headerlink" title="1、创建过滤器 js 文件"></a>1、创建过滤器 js 文件</h2><p>在项目内创建盛放内容的 js 文件，目录和文件名可以根据项目自定义<br><img src="/2022/01/05/vue-quan-ju-guo-lu-qi/WX20220105-130732.png" alt="WX20220105-130732"></p>
+<h2 id="2、main-js-内引入"><a href="#2、main-js-内引入" class="headerlink" title="2、main.js 内引入"></a>2、main.js 内引入</h2><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> filter <span class="token keyword">from</span> <span class="token string">"./api/filter"</span><span class="token punctuation">;</span>
+Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>filter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">key</span><span class="token punctuation">)</span> <span class="token operator">=></span> Vue<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> filter<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<span class="token keyword">const</span> Version <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">.*(.&#123;8&#125;)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
-module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    publicPath<span class="token operator">:</span> <span class="token string">'./'</span><span class="token punctuation">,</span>
-    configureWebpack<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-        output<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-            filename<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">js/[name].</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Version<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.js</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
-            chunkFilename<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">js/[name].</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Version<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.js</span><span class="token template-punctuation string">`</span></span>
-         <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="3、组件内使用"><a href="#3、组件内使用" class="headerlink" title="3、组件内使用"></a>3、组件内使用</h2><p><img src="/2022/01/05/vue-quan-ju-guo-lu-qi/WX20220105-130951.png" alt="WX20220105-130951"></p>
+
                 
             </div>
             <hr/>
@@ -541,7 +544,11 @@ module<span class="token punctuation">.</span>exports <span class="token operato
                     </i>
                 </span>
                 <span class="reprint-info">
+<<<<<<< HEAD:public/2021/12/30/vue-da-bao-shi-tian-jia-shi-jian-chuo/index.html
                     <a href="http://example.com/2021/12/30/vue-da-bao-shi-tian-jia-shi-jian-chuo/">http://example.com/2021/12/30/vue-da-bao-shi-tian-jia-shi-jian-chuo/</a>
+=======
+                    <a href="https://hanshuang-ai.github.io/2022/01/05/vue-quan-ju-guo-lu-qi/">https://hanshuang-ai.github.io/2022/01/05/vue-quan-ju-guo-lu-qi/</a>
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/05/vue-quan-ju-guo-lu-qi/index.html
                 </span>
             </div>
             <div class="reprint__notice">
@@ -756,6 +763,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+<<<<<<< HEAD:public/2021/12/30/vue-da-bao-shi-tian-jia-shi-jian-chuo/index.html
                 <a href="/2021/12/30/vue/">
                     <div class="card-image">
                         
@@ -763,6 +771,15 @@ module<span class="token punctuation">.</span>exports <span class="token operato
                         <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="vue">
                         
                         <span class="card-title">vue</span>
+=======
+                <a href="/2022/01/05/js-kai-fa-chang-yong-han-shu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="js开发常用函数">
+                        
+                        <span class="card-title">js开发常用函数</span>
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/05/vue-quan-ju-guo-lu-qi/index.html
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -773,16 +790,44 @@ module<span class="token punctuation">.</span>exports <span class="token operato
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
+<<<<<<< HEAD:public/2021/12/30/vue-da-bao-shi-tian-jia-shi-jian-chuo/index.html
                             <i class="far fa-clock fa-fw icon-date"></i>2021-12-30
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
                             寒霜
+=======
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-05
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    基础
+                                </a>
+                            
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91/" class="post-category">
+                                    日常开发
+                                </a>
+                            
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/05/vue-quan-ju-guo-lu-qi/index.html
                             
                         </span>
                     </div>
                 </div>
+<<<<<<< HEAD:public/2021/12/30/vue-da-bao-shi-tian-jia-shi-jian-chuo/index.html
+=======
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/js/">
+                        <span class="chip bg-color">js</span>
+                    </a>
+                    
+                </div>
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/05/vue-quan-ju-guo-lu-qi/index.html
                 
             </div>
         </div>
@@ -793,13 +838,17 @@ module<span class="token punctuation">.</span>exports <span class="token operato
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
+<<<<<<< HEAD:public/2021/12/30/vue-da-bao-shi-tian-jia-shi-jian-chuo/index.html
                 <a href="/2021/12/30/vue-huan-jing-wen-jian-pei-zhi/">
+=======
+                <a href="/2022/01/04/js-ji-chu/">
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/05/vue-quan-ju-guo-lu-qi/index.html
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="vue环境文件配置">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="js基础">
                         
-                        <span class="card-title">vue环境文件配置</span>
+                        <span class="card-title">js基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -810,14 +859,18 @@ module<span class="token punctuation">.</span>exports <span class="token operato
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
+<<<<<<< HEAD:public/2021/12/30/vue-da-bao-shi-tian-jia-shi-jian-chuo/index.html
                                 <i class="far fa-clock fa-fw icon-date"></i>2021-12-30
+=======
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-04
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/05/vue-quan-ju-guo-lu-qi/index.html
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
-                                    框架
+                            <a href="/categories/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91/" class="post-category">
+                                    日常开发
                                 </a>
                             
                             
@@ -827,8 +880,12 @@ module<span class="token punctuation">.</span>exports <span class="token operato
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/vue/">
-                        <span class="chip bg-color">vue</span>
+                    <a href="/tags/js/">
+                        <span class="chip bg-color">js</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">基础</span>
                     </a>
                     
                 </div>
@@ -1024,7 +1081,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2021</span>
+                <span id="year">2019-2022</span>
             
             <a href="/about" target="_blank">寒霜</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1032,7 +1089,11 @@ module<span class="token punctuation">.</span>exports <span class="token operato
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+<<<<<<< HEAD:public/2021/12/30/vue-da-bao-shi-tian-jia-shi-jian-chuo/index.html
                         class="white-color">19.9k</span>
+=======
+                        class="white-color">21.2k</span>
+>>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2022/01/05/vue-quan-ju-guo-lu-qi/index.html
             
             
             
