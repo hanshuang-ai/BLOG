@@ -4,11 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="闭包, MyBlog">
-    <meta name="description" content="函数代码中只定义一次，但可能被执行多次或调用任意次的代码块都应当被封装起来作为函数。
-定义需要传参的函数时，需要一个形参，在使用的时候，传入一个实参。形参是作为局部变量使用的
-function sayHello(name)&amp;#123;
-  ">
+    <meta name="keywords" content="微信小程序使用svga, MyBlog">
+    <meta name="description" content="const &amp;#123; Parser, Player &amp;#125; = require(&amp;quot;../../static/js/svgaplayer.weapp.js&amp;quot;);
+// 礼物特效
+let arr1 = that.d">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +19,7 @@ function sayHello(name)&amp;#123;
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>闭包 | MyBlog</title>
+    <title>微信小程序使用svga | MyBlog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -312,12 +311,12 @@ function sayHello(name)&amp;#123;
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">闭包</h1>
+                    <h1 class="description center-align post-title">微信小程序使用svga</h1>
                 </div>
             </div>
         </div>
@@ -431,12 +430,29 @@ function sayHello(name)&amp;#123;
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
+                                <span class="chip bg-color">小程序</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%89%B9%E6%95%88/">
+                                <span class="chip bg-color">特效</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" class="post-category">
+                                小程序
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -445,28 +461,28 @@ function sayHello(name)&amp;#123;
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-12-28
+                    2022-01-26
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-12-28
+                    2022-02-14
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    939
+                    209
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    1 分
                 </div>
                 
 
@@ -489,47 +505,59 @@ function sayHello(name)&amp;#123;
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><p>代码中只定义一次，但可能被执行多次或调用任意次的代码块都应当被封装起来作为函数。</p>
-<p>定义需要传参的函数时，需要一个形参，在使用的时候，传入一个实参。<br><code>形参是作为局部变量使用的</code></p>
-<pre class="line-numbers language-none"><code class="language-none">function sayHello(name)&#123;
-    console.log(&#39;hello&#39;+name);&#x2F;&#x2F;局部变量，外界无法访问
-&#125;
+                <p><code>const &#123; Parser, Player &#125; = require(&quot;../../static/js/svgaplayer.weapp.js&quot;);</code></p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 礼物特效</span>
+<span class="token keyword">let</span> arr1 <span class="token operator">=</span> that<span class="token punctuation">.</span>data<span class="token punctuation">.</span>giftListCanvas<span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>t<span class="token punctuation">.</span>ggif<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">"svga"</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  arr1<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    id<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">id</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+    ggif<span class="token operator">:</span> t<span class="token punctuation">.</span>ggif<span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>arr1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  that<span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    giftListCanvas<span class="token operator">:</span> arr1<span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-sayHello(&#39;小明&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token keyword">let</span> <span class="token function-variable function">svgaPlay</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">element<span class="token punctuation">,</span> ggif</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>arr1<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    that<span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+      showGiftCanvas<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> parser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Parser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>parser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> player <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Player</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    player<span class="token punctuation">.</span>loops <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">//循环1次</span>
+    player<span class="token punctuation">.</span>fillMode <span class="token operator">=</span> <span class="token string">"Forward"</span><span class="token punctuation">;</span> <span class="token comment">//播放结束后保留最后一帧</span>
+    player<span class="token punctuation">.</span>clearsAfterStop <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span> <span class="token comment">//播放结束后清空画布</span>
+    <span class="token keyword">await</span> player<span class="token punctuation">.</span><span class="token function">setCanvas</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>element<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> videoItem <span class="token operator">=</span> <span class="token keyword">await</span> parser<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>ggif<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>videoItem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">await</span> player<span class="token punctuation">.</span><span class="token function">setVideoItem</span><span class="token punctuation">(</span>videoItem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    player<span class="token punctuation">.</span><span class="token function">startAnimation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 礼物播放完的监听</span>
 
-<p>如果函数挂载在对象上，那它们就是对象的方法。且js的函数可以嵌套在其他的函数中定义，它们可以访问它们被定义时所处的作用域中的任何变量，就形成了一个闭包。</p>
-<h2 id="函数的创建"><a href="#函数的创建" class="headerlink" title="函数的创建"></a>函数的创建</h2><h3 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h3><pre class="line-numbers language-none"><code class="language-none">let a &#x3D; function()&#123;console.log(&#39;123)&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><pre class="line-numbers language-none"><code class="language-none">function a()&#123;
-    console.log(&#39;124&#39;)
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p><em><strong><code>注意函数的声明提前</code></strong></em><br>函数的声明提前就是在代码执行过程中，函数的调用可以在声明之前。也就是说在代码的编写过程中（或者在代码排版中），函数声明的位置即使在调用之后也可以。<br><code>但是函数表达式创建的函数是不能提前的</code></p>
-<p><em><strong>用表达式定义的函数，函数名是可选的</strong></em></p>
-<pre class="line-numbers language-none"><code class="language-none">let a &#x3D; function()&#123;
-    console.log(&#39;124&#39;)
-&#125;
-
-let a &#x3D; function b(x)&#123;
-    if(x&lt;&#x3D;1&gt;)&#123;
-        return 1
-    &#125;else&#123;
-        return x*b(x-1)
-    &#125;
-&#125;
-函数表达式在包含名称的时候，对递归是很有用的。
-函数表达式定义的函数在包含函数名时，函数的局部作用域就会包含一个绑定到函数对象的名称，也就是说函数名就会成为函数内部的一个局部变量。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="函数的嵌套"><a href="#函数的嵌套" class="headerlink" title="函数的嵌套"></a>函数的嵌套</h2><p><code>被嵌套的函数可以访问嵌套函数里的参数和变量</code>，这也是闭包的条件</p>
-<h1 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h1><p>一个变量的作用域是程序源代码中定义这个变量的区域。</p>
-<h2 id="全局作用域"><a href="#全局作用域" class="headerlink" title="全局作用域"></a>全局作用域</h2><p>全局变量拥有全局作用域，在代码的任何位置都能访问。</p>
-<h2 id="局部作用域"><a href="#局部作用域" class="headerlink" title="局部作用域"></a>局部作用域</h2><p>局部变量只能在局部作用域年内访问，外界无法按访问。<code>函数参数也是局部变量，只在函数体内有定义</code></p>
-<p>局部作用域优先级高于全局作用域</p>
-<h2 id="作用域链-1"><a href="#作用域链-1" class="headerlink" title="作用域链"></a>作用域链</h2><p>作用域链是一个对象列表或者链表，这组对象定义了这段代码的作用域。<code>作用域链的顶层是由全局对象组成的</code></p>
-<p>当在js中需要查找某个变量的时候，程序会从链中的第一个对象内开始查找，如果没有，则会继续查找下一个对象，以此类推，直到查找到为止。这个过程形成的链，就是作用域链。<br>如果查找到最后还是没有查找到，则会抛出一个引用错误。</p>
-<h3 id="不包含嵌套的函数体的作用域链"><a href="#不包含嵌套的函数体的作用域链" class="headerlink" title="不包含嵌套的函数体的作用域链"></a>不包含嵌套的函数体的作用域链</h3><p><code>两个对象: 1、定义函数参数和局部变量的对象 2、全局对象</code></p>
-<h3 id="包含嵌套函数体的作用域链"><a href="#包含嵌套函数体的作用域链" class="headerlink" title="包含嵌套函数体的作用域链"></a>包含嵌套函数体的作用域链</h3><p><code>三个对象： 1、定义函数参数和局部变量的对象 2、全局对象 3、被嵌套含税的外层函数体 </code></p>
-<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><p>函数的执行依赖于变量作用域，作用域是在函数定义时就决定的，不是在函数执行的时候确定的。函数可以通过作用域链连接起来，函数体内部的变量都可以保存在函数作用域内，这就是闭包。</p>
-<h2 id="常用应用场景"><a href="#常用应用场景" class="headerlink" title="常用应用场景"></a>常用应用场景</h2><p>一个函数嵌套另一个函数，外部函数将内部函数作为返回值时</p>
+    player<span class="token punctuation">.</span><span class="token function">onFinished</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"播放完了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      arr1<span class="token punctuation">.</span><span class="token function">shift</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      that<span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+        showGiftCanvas<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        giftListCanvas<span class="token operator">:</span> arr1<span class="token punctuation">,</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>arr1<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">svgaPlay</span><span class="token punctuation">(</span>arr1<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>id<span class="token punctuation">,</span> arr1<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>ggif<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>arr1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>arr1<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">svgaPlay</span><span class="token punctuation">(</span>arr1<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>id<span class="token punctuation">,</span> arr1<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>ggif<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+  wx<span class="token punctuation">.</span><span class="token function">showToast</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    title<span class="token operator">:</span> <span class="token string">"暂不支持"</span><span class="token punctuation">,</span>
+    icon<span class="token operator">:</span> <span class="token string">"none"</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -556,7 +584,7 @@ let a &#x3D; function b(x)&#123;
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hanshuang-ai.github.io/2021/12/28/bi-bao/">https://hanshuang-ai.github.io/2021/12/28/bi-bao/</a>
+                    <a href="https://hanshuang-ai.github.io/2022/01/26/wei-xin-xiao-cheng-xu-shi-yong-svga/">https://hanshuang-ai.github.io/2022/01/26/wei-xin-xiao-cheng-xu-shi-yong-svga/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -593,7 +621,15 @@ let a &#x3D; function b(x)&#123;
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
+                                    <span class="chip bg-color">小程序</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%89%B9%E6%95%88/">
+                                    <span class="chip bg-color">特效</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -767,13 +803,13 @@ let a &#x3D; function b(x)&#123;
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/12/28/jie-xi-url/">
+                <a href="/2022/01/28/js-ji-chu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="解析URL">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="js基础">
                         
-                        <span class="card-title">解析URL</span>
+                        <span class="card-title">js基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -784,12 +820,16 @@ let a &#x3D; function b(x)&#123;
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-12-28
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-28
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            寒霜
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91/" class="post-category">
+                                    日常开发
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -797,8 +837,12 @@ let a &#x3D; function b(x)&#123;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/">
-                        <span class="chip bg-color">代码片段</span>
+                    <a href="/tags/js/">
+                        <span class="chip bg-color">js</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">基础</span>
                     </a>
                     
                 </div>
@@ -812,13 +856,13 @@ let a &#x3D; function b(x)&#123;
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/28/vue/">
+                <a href="/2022/01/14/chang-yong-fang-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="vue">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="常用方法">
                         
-                        <span class="card-title">vue</span>
+                        <span class="card-title">常用方法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -829,15 +873,35 @@ let a &#x3D; function b(x)&#123;
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-14
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            寒霜
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91/" class="post-category">
+                                    日常开发
+                                </a>
+                            
+                            <a href="/categories/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" class="post-category">
+                                    代码片段
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/">
+                        <span class="chip bg-color">代码片段</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BC%80%E5%8F%91/">
+                        <span class="chip bg-color">开发</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1039,7 +1103,7 @@ let a &#x3D; function b(x)&#123;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">21.6k</span>
+                        class="white-color">22.7k</span>
             
             
             
