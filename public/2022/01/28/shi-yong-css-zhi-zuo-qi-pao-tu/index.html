@@ -4,9 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="vue环境文件配置, MyBlog">
-    <meta name="description" content="vue 文档说明链接地址
-当运行 vue-cli-service 命令时，所有的环境变量都从对应的环境文件中载入。如果文件内部不包含 NODE_ENV 变量，它的值将取决于模式，例如，在 production 模式下被设置为 &amp;quot;p">
+    <meta name="keywords" content="使用css制作气泡图, MyBlog">
+    <meta name="description" content="https://developer.mozilla.org/zh-CN/docs/Web/CSS/border-image-slice
+
+border-image-slice  指定图像的边界向内偏移  通过border-image-sou">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +19,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>vue环境文件配置 | MyBlog</title>
+    <title>使用css制作气泡图 | MyBlog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -310,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">vue环境文件配置</h1>
+                    <h1 class="description center-align post-title">使用css制作气泡图</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +432,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/vue/">
-                                <span class="chip bg-color">vue</span>
+                            <a href="/tags/%E7%89%B9%E6%95%88/">
+                                <span class="chip bg-color">特效</span>
                             </a>
                         
                     </div>
@@ -443,12 +444,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
-                                框架
-                            </a>
-                        
-                            <a href="/categories/%E6%A1%86%E6%9E%B6/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91/" class="post-category">
-                                日常开发
+                            <a href="/categories/%E7%89%B9%E6%95%88/" class="post-category">
+                                特效
                             </a>
                         
                     </div>
@@ -460,32 +457,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-12-30
+                    2022-01-28
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-<<<<<<< HEAD:public/2021/12/30/vue-huan-jing-wen-jian-pei-zhi/index.html
-                    2021-12-30
-=======
-                    2022-01-05
->>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2021/12/29/vue-huan-jing-wen-jian-pei-zhi/index.html
+                    2022-02-12
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    893
+                    176
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    1 分
                 </div>
                 
 
@@ -508,132 +501,13 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><a target="_blank" rel="noopener" href="https://cli.vuejs.org/zh/guide/mode-and-env.html">vue 文档说明链接地址</a></p>
-<p><code>当运行 vue-cli-service 命令时，所有的环境变量都从对应的环境文件中载入。如果文件内部不包含 NODE_ENV 变量，它的值将取决于模式，例如，在 production 模式下被设置为 &quot;production&quot;，在 test 模式下被设置为 &quot;test&quot;，默认则是 &quot;development&quot;。 </code></p>
+                <p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/border-image-slice">https://developer.mozilla.org/zh-CN/docs/Web/CSS/border-image-slice</a></p>
 <blockquote>
-<p>只有 NODE<em>ENV，BASE_URL 和以 VUE_APP</em> 开头的变量将通过 webpack.DefinePlugin 静态地嵌入到客户端侧的代码中。这是为了避免意外公开机器上可能具有相同名称的私钥。</p>
+<p>border-image-slice  指定图像的边界向内偏移<br>  通过border-image-source 引用边框图片后，border-image-slice属性会将图片分割为9个区域：四个角，四个边（edges）以及中心区域。四条切片线，从它们各自的侧面设置给定距离，控制区域的大小。<br><img src="/2022/01/28/shi-yong-css-zhi-zuo-qi-pao-tu/point9.png"></p>
 </blockquote>
-<p><strong>.env 环境文件是通过运行 vue-cli-service 命令载入的，因此环境文件发生变化，你需要重启服务。</strong></p>
-<h2 id="vue-创建的项目可以通过命令行进行运行或者打包（package-json），如下："><a href="#vue-创建的项目可以通过命令行进行运行或者打包（package-json），如下：" class="headerlink" title="vue 创建的项目可以通过命令行进行运行或者打包（package.json），如下："></a>vue 创建的项目可以通过命令行进行运行或者打包（package.json），如下：</h2><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
-  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"web"</span><span class="token punctuation">,</span>
-  <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"0.1.0"</span><span class="token punctuation">,</span>
-  <span class="token property">"private"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-  <span class="token comment">//运行或者打包，命令都在这，根据命令后面的 --进行不同环境的运行</span>
-  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token property">"serve"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service serve --mode development"</span><span class="token punctuation">,</span>
-    <span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service build"</span><span class="token punctuation">,</span>
-    <span class="token property">"build:test"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service build --mode test"</span><span class="token punctuation">,</span>
-    <span class="token property">"build:pro"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service build --mode prod"</span><span class="token punctuation">,</span>
-    <span class="token property">"build:dev"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service build --mode dev"</span><span class="token punctuation">,</span>
-    <span class="token property">"lint"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service lint"</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token property">"agora-rtc-sdk"</span><span class="token operator">:</span> <span class="token string">"^3.6.5"</span><span class="token punctuation">,</span>
-    <span class="token property">"agora-rtc-sdk-ng"</span><span class="token operator">:</span> <span class="token string">"^4.7.2"</span><span class="token punctuation">,</span>
-    <span class="token property">"agora-rtm-sdk"</span><span class="token operator">:</span> <span class="token string">"^1.4.3"</span><span class="token punctuation">,</span>
-    <span class="token property">"ali-oss"</span><span class="token operator">:</span> <span class="token string">"^6.16.0"</span><span class="token punctuation">,</span>
-    <span class="token property">"axios"</span><span class="token operator">:</span> <span class="token string">"^0.23.0"</span><span class="token punctuation">,</span>
-    <span class="token property">"babel-plugin-transform-remove-console"</span><span class="token operator">:</span> <span class="token string">"^6.9.4"</span><span class="token punctuation">,</span>
-    <span class="token property">"core-js"</span><span class="token operator">:</span> <span class="token string">"^3.6.5"</span><span class="token punctuation">,</span>
-    <span class="token property">"easemob-websdk"</span><span class="token operator">:</span> <span class="token string">"^4.0.0"</span><span class="token punctuation">,</span>
-    <span class="token property">"element-ui"</span><span class="token operator">:</span> <span class="token string">"^2.15.6"</span><span class="token punctuation">,</span>
-    <span class="token property">"image-tools"</span><span class="token operator">:</span> <span class="token string">"^1.4.0"</span><span class="token punctuation">,</span>
-    <span class="token property">"jquery"</span><span class="token operator">:</span> <span class="token string">"^3.6.0"</span><span class="token punctuation">,</span>
-    <span class="token property">"js-audio-recorder"</span><span class="token operator">:</span> <span class="token string">"^1.0.7"</span><span class="token punctuation">,</span>
-    <span class="token property">"js-base64"</span><span class="token operator">:</span> <span class="token string">"^3.7.2"</span><span class="token punctuation">,</span>
-    <span class="token property">"lamejs"</span><span class="token operator">:</span> <span class="token string">"^1.2.0"</span><span class="token punctuation">,</span>
-    <span class="token property">"moment"</span><span class="token operator">:</span> <span class="token string">"^2.29.1"</span><span class="token punctuation">,</span>
-    <span class="token property">"node-sass"</span><span class="token operator">:</span> <span class="token string">"^4.14.1"</span><span class="token punctuation">,</span>
-    <span class="token property">"qrcode.vue"</span><span class="token operator">:</span> <span class="token string">"^3.3.3"</span><span class="token punctuation">,</span>
-    <span class="token property">"qrcodejs2"</span><span class="token operator">:</span> <span class="token string">"0.0.2"</span><span class="token punctuation">,</span>
-    <span class="token property">"qs"</span><span class="token operator">:</span> <span class="token string">"^6.10.1"</span><span class="token punctuation">,</span>
-    <span class="token property">"sass-loader"</span><span class="token operator">:</span> <span class="token string">"^7.3.1"</span><span class="token punctuation">,</span>
-    <span class="token property">"svga"</span><span class="token operator">:</span> <span class="token string">"^2.0.4"</span><span class="token punctuation">,</span>
-    <span class="token property">"svgaplayerweb"</span><span class="token operator">:</span> <span class="token string">"^2.3.2"</span><span class="token punctuation">,</span>
-    <span class="token property">"swiper"</span><span class="token operator">:</span> <span class="token string">"^5.4.5"</span><span class="token punctuation">,</span>
-    <span class="token property">"uuid"</span><span class="token operator">:</span> <span class="token string">"^7.0.3"</span><span class="token punctuation">,</span>
-    <span class="token property">"vue"</span><span class="token operator">:</span> <span class="token string">"^2.6.11"</span><span class="token punctuation">,</span>
-    <span class="token property">"vue-awesome-swiper"</span><span class="token operator">:</span> <span class="token string">"^4.1.1"</span><span class="token punctuation">,</span>
-    <span class="token property">"vue-axios"</span><span class="token operator">:</span> <span class="token string">"^3.3.7"</span><span class="token punctuation">,</span>
-    <span class="token property">"vue-infinite-scroll"</span><span class="token operator">:</span> <span class="token string">"^2.0.2"</span><span class="token punctuation">,</span>
-    <span class="token property">"vue-qr"</span><span class="token operator">:</span> <span class="token string">"^3.2.2"</span><span class="token punctuation">,</span>
-    <span class="token property">"vue-router"</span><span class="token operator">:</span> <span class="token string">"^3.5.2"</span><span class="token punctuation">,</span>
-    <span class="token property">"vue-seamless-scroll"</span><span class="token operator">:</span> <span class="token string">"^1.1.23"</span><span class="token punctuation">,</span>
-    <span class="token property">"vuex"</span><span class="token operator">:</span> <span class="token string">"^3.6.2"</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token property">"devDependencies"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token property">"@vue/cli-plugin-babel"</span><span class="token operator">:</span> <span class="token string">"~4.5.0"</span><span class="token punctuation">,</span>
-    <span class="token property">"@vue/cli-plugin-eslint"</span><span class="token operator">:</span> <span class="token string">"~4.5.0"</span><span class="token punctuation">,</span>
-    <span class="token property">"@vue/cli-service"</span><span class="token operator">:</span> <span class="token string">"~4.5.0"</span><span class="token punctuation">,</span>
-    <span class="token property">"babel-eslint"</span><span class="token operator">:</span> <span class="token string">"^10.1.0"</span><span class="token punctuation">,</span>
-    <span class="token property">"eslint"</span><span class="token operator">:</span> <span class="token string">"^6.7.2"</span><span class="token punctuation">,</span>
-    <span class="token property">"eslint-plugin-vue"</span><span class="token operator">:</span> <span class="token string">"^6.2.2"</span><span class="token punctuation">,</span>
-    <span class="token property">"vue-awesome-swiper"</span><span class="token operator">:</span> <span class="token string">"^4.1.1"</span><span class="token punctuation">,</span>
-    <span class="token property">"vue-cropper"</span><span class="token operator">:</span> <span class="token string">"^0.5.7"</span><span class="token punctuation">,</span>
-    <span class="token property">"vue-template-compiler"</span><span class="token operator">:</span> <span class="token string">"^2.6.11"</span><span class="token punctuation">,</span>
-    <span class="token property">"vue-wxlogin"</span><span class="token operator">:</span> <span class="token string">"^1.0.4"</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token property">"eslintConfig"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token property">"root"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-    <span class="token property">"env"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-      <span class="token property">"node"</span><span class="token operator">:</span> <span class="token boolean">true</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token property">"extends"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"plugin:vue/essential"</span><span class="token punctuation">,</span> <span class="token string">"eslint:recommended"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token property">"parserOptions"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-      <span class="token property">"parser"</span><span class="token operator">:</span> <span class="token string">"babel-eslint"</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token property">"rules"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token property">"browserslist"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"> 1%"</span><span class="token punctuation">,</span> <span class="token string">"last 2 versions"</span><span class="token punctuation">,</span> <span class="token string">"not dead"</span><span class="token punctuation">]</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="项目目录结构如下："><a href="#项目目录结构如下：" class="headerlink" title="项目目录结构如下："></a>项目目录结构如下：</h2><p><img src="/2021/12/30/vue-huan-jing-wen-jian-pei-zhi/WX20211229-142309.png" alt="项目配置目录"></p>
-<h2 id="环境文件"><a href="#环境文件" class="headerlink" title="环境文件"></a>环境文件</h2><h3 id="env-dev"><a href="#env-dev" class="headerlink" title=".env.dev"></a>.env.dev</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token constant">NODE_ENV</span> <span class="token operator">=</span> <span class="token string">"development"</span><span class="token punctuation">;</span>
-<span class="token comment">//指定当前环境模式</span>
-<span class="token constant">VUE_APP_CURRENTMODE</span> <span class="token operator">=</span> <span class="token string">"dev"</span><span class="token punctuation">;</span>
-<span class="token constant">VUE_APP_BASE_URL</span> <span class="token operator">=</span> <span class="token string">"该模式下对应的baseURL"</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="env-development"><a href="#env-development" class="headerlink" title=".env.development"></a>.env.development</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token constant">NODE_ENV</span> <span class="token operator">=</span> <span class="token string">"development"</span><span class="token punctuation">;</span>
-<span class="token comment">//指定当前环境模式</span>
-<span class="token constant">VUE_APP_CURRENTMODE</span> <span class="token operator">=</span> <span class="token string">"development"</span><span class="token punctuation">;</span>
-<span class="token constant">VUE_APP_BASE_URL</span> <span class="token operator">=</span> <span class="token string">"该模式下对应的baseURL"</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="env-production-正式环境"><a href="#env-production-正式环境" class="headerlink" title=".env.production 正式环境"></a>.env.production 正式环境</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token constant">NODE_ENV</span> <span class="token operator">=</span> <span class="token string">"production"</span><span class="token punctuation">;</span>
-<span class="token comment">//指定当前环境模式</span>
-<span class="token constant">VUE_APP_CURRENTMODE</span> <span class="token operator">=</span> <span class="token string">"prod"</span><span class="token punctuation">;</span>
-<span class="token constant">VUE_APP_BASE_URL</span> <span class="token operator">=</span> <span class="token string">"该模式下对应的baseURL"</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="只在本地使用的变量"><a href="#只在本地使用的变量" class="headerlink" title="只在本地使用的变量"></a>只在本地使用的变量</h2><p><code>有的时候你可能有一些不应该提交到代码仓库中的变量，尤其是当你的项目托管在公共仓库时。这种情况下你应该使用一个 .env.local 文件取而代之。本地环境文件默认会被忽略，且出现在 .gitignore 中。.local 也可以加在指定模式的环境文件上，比如 .env.development.local 将会在 development 模式下被载入，且被 git 忽略。</code></p>
-<h2 id="打包时隐藏-console-信息"><a href="#打包时隐藏-console-信息" class="headerlink" title="打包时隐藏 console 信息"></a>打包时隐藏 console 信息</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">npm install babel<span class="token operator">-</span>plugin<span class="token operator">-</span>transform<span class="token operator">-</span>remove<span class="token operator">-</span>console <span class="token operator">--</span>save<span class="token operator">-</span>dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h3 id="在-babel-config-js-里面进行配置"><a href="#在-babel-config-js-里面进行配置" class="headerlink" title="在 babel.config.js 里面进行配置"></a>在 babel.config.js 里面进行配置</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> prodPlugins <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">===</span> <span class="token string">"production"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  prodPlugins<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"transform-remove-console"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  presets<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"@vue/cli-plugin-babel/preset"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-  plugins<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token operator">...</span>prodPlugins<span class="token punctuation">]</span><span class="token punctuation">,</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="打包时添加时间戳"><a href="#打包时添加时间戳" class="headerlink" title="打包时添加时间戳"></a>打包时添加时间戳</h2><p><code>在vue.config.js内进行配置</code></p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 可以在这里打印环境变量信息</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">本次使用的url请求地址</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">VUE_APP_BASE_URL</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> \n</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">const</span> Version <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">.*(.&#123;8&#125;)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  publicPath<span class="token operator">:</span> <span class="token string">"./"</span><span class="token punctuation">,</span>
-  configureWebpack<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    output<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-      filename<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">js/[name].</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Version<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.js</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
-      chunkFilename<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">js/[name].</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Version<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.js</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>中间的区域将不会被边框使用，但当设置有 fill 关键词时将会被作为 background-image。这个关键词可以被设置在属性的任何一个位置(前面、后面或者两个值之间)</p>
+<p>border-image-repeat, border-image-width, border-image-outset 属性则定义这些图片将如何使用。</p>
+<p><img src="/2022/01/28/shi-yong-css-zhi-zuo-qi-pao-tu/img.png"></p>
 
                 
             </div>
@@ -660,11 +534,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
                     </i>
                 </span>
                 <span class="reprint-info">
-<<<<<<< HEAD:public/2021/12/30/vue-huan-jing-wen-jian-pei-zhi/index.html
-                    <a href="http://example.com/2021/12/30/vue-huan-jing-wen-jian-pei-zhi/">http://example.com/2021/12/30/vue-huan-jing-wen-jian-pei-zhi/</a>
-=======
-                    <a href="https://hanshuang-ai.github.io/2021/12/29/vue-huan-jing-wen-jian-pei-zhi/">https://hanshuang-ai.github.io/2021/12/29/vue-huan-jing-wen-jian-pei-zhi/</a>
->>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2021/12/29/vue-huan-jing-wen-jian-pei-zhi/index.html
+                    <a href="https://hanshuang-ai.github.io/2022/01/28/shi-yong-css-zhi-zuo-qi-pao-tu/">https://hanshuang-ai.github.io/2022/01/28/shi-yong-css-zhi-zuo-qi-pao-tu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -702,8 +572,8 @@ module<span class="token punctuation">.</span>exports <span class="token operato
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/vue/">
-                                    <span class="chip bg-color">vue</span>
+                                <a href="/tags/%E7%89%B9%E6%95%88/">
+                                    <span class="chip bg-color">特效</span>
                                 </a>
                             
                         </div>
@@ -879,17 +749,13 @@ module<span class="token punctuation">.</span>exports <span class="token operato
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-<<<<<<< HEAD:public/2021/12/30/vue-huan-jing-wen-jian-pei-zhi/index.html
-                <a href="/2021/12/30/vue-da-bao-shi-tian-jia-shi-jian-chuo/">
-=======
-                <a href="/2021/12/30/wei-xin-gong-zhong-hao-h5-zhi-fu/">
->>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2021/12/29/vue-huan-jing-wen-jian-pei-zhi/index.html
+                <a href="/2022/02/12/elementui/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="微信公众号H5支付">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="ElementUI">
                         
-                        <span class="card-title">微信公众号H5支付</span>
+                        <span class="card-title">ElementUI</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -900,8 +766,61 @@ module<span class="token punctuation">.</span>exports <span class="token operato
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-12-30
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-12
                         </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91/" class="post-category">
+                                    日常开发
+                                </a>
+                            
+                            <a href="/categories/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91/UI/" class="post-category">
+                                    UI
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/">
+                        <span class="chip bg-color">代码片段</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/01/28/js-ji-chu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="js基础">
+                        
+                        <span class="card-title">js基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -917,61 +836,12 @@ module<span class="token punctuation">.</span>exports <span class="token operato
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%94%AF%E4%BB%98/">
-                        <span class="chip bg-color">支付</span>
+                    <a href="/tags/%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">基础</span>
                     </a>
                     
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7/">
-                        <span class="chip bg-color">微信公众号</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/12/30/sublime-nei-shi-yong-zhong-duan/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="sublime内使用终端">
-                        
-                        <span class="card-title">sublime内使用终端</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-30
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" class="post-category">
-                                    开发工具
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/sublime/">
-                        <span class="chip bg-color">sublime</span>
+                    <a href="/tags/js/">
+                        <span class="chip bg-color">js</span>
                     </a>
                     
                 </div>
@@ -1175,15 +1045,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-<<<<<<< HEAD:public/2021/12/29/vue-huan-jing-wen-jian-pei-zhi/index.html
-                        class="white-color">21.4k</span>
-=======
-<<<<<<< HEAD:public/2021/12/30/vue-huan-jing-wen-jian-pei-zhi/index.html
-                        class="white-color">19.9k</span>
-=======
-                        class="white-color">21.2k</span>
->>>>>>> 11d9c0cef005515b047b86af29cd504970ede4c9:public/2021/12/29/vue-huan-jing-wen-jian-pei-zhi/index.html
->>>>>>> 69a90ca8e25936f7c63a39d9499771e4c57bc090:public/2021/12/30/vue-huan-jing-wen-jian-pei-zhi/index.html
+                        class="white-color">22.1k</span>
             
             
             
