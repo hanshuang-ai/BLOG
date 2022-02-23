@@ -4,11 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="同一台电脑配置多个git密匙, MyBlog">
-    <meta name="description" content="首先由于需要配置多个git账户，可能是github、gitlab、gitee等等，所以不需要global email和username直接使用随便一个值覆盖即可。
-
-覆盖global email和userName后，需要3步
-1、 生成不同">
+    <meta name="keywords" content="js函数的节流和防抖, MyBlog">
+    <meta name="description" content="函数防抖和函数节流都是防止某一时间频繁触发，但是这两兄弟之间的原理却不一样。函数防抖是某一段时间内只执行一次，而函数节流是间隔时间执行。
+1、防抖
+频繁触发的情况下，必须满足有足够的空闲时间，才执行一次代码对于短时间内连续触发的事件，防抖的">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +19,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>同一台电脑配置多个git密匙 | MyBlog</title>
+    <title>js函数的节流和防抖 | MyBlog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -312,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">同一台电脑配置多个git密匙</h1>
+                    <h1 class="description center-align post-title">js函数的节流和防抖</h1>
                 </div>
             </div>
         </div>
@@ -442,6 +441,15 @@
                 </div>
                 <div class="col s5 right-align">
                     
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="post-category">
+                                性能优化
+                            </a>
+                        
+                    </div>
+                    
                 </div>
             </div>
 
@@ -449,36 +457,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-<<<<<<< HEAD:public/2022/01/26/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
-                    2022-01-26
-=======
-                    2021-12-28
->>>>>>> ac8e0997d7d1766ca3d93af5439b466405ba3655:public/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
+                    2022-02-18
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-<<<<<<< HEAD:public/2022/01/26/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
-                    2022-01-26
-=======
-                    2022-01-14
->>>>>>> ac8e0997d7d1766ca3d93af5439b466405ba3655:public/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
+                    2022-02-18
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    608
+                    196
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    1 分
                 </div>
                 
 
@@ -501,40 +501,14 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>首先由于需要配置多个git账户，可能是github、gitlab、gitee等等，所以<br><em><strong><code>不需要global email和username</code></strong></em><br>直接使用随便一个值覆盖即可。</p>
-<hr>
-<p>覆盖global email和userName后，需要3步</p>
-<h1 id="1、-生成不同的github密匙"><a href="#1、-生成不同的github密匙" class="headerlink" title="1、 生成不同的github密匙"></a>1、 生成不同的github密匙</h1><p><code>生成的时候一定要注意密匙名称，因为同名会被覆盖</code><br><code>另外，名称最好见名知意，不一定要id_rsa开头</code></p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">ssh<span class="token operator">-</span>keygen <span class="token operator">-</span>t rsa  <span class="token operator">-</span>f <span class="token operator">~</span><span class="token operator">/</span><span class="token punctuation">.</span>ssh<span class="token operator">/</span><span class="token constant">XXX</span>   <span class="token comment">//使用-f 来命名生成的文件名</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h1 id="2、-将对应的公匙放入对应的平台"><a href="#2、-将对应的公匙放入对应的平台" class="headerlink" title="2、 将对应的公匙放入对应的平台"></a>2、 将对应的公匙放入对应的平台</h1><p>github、gitlab、gitee操作都是大同小异的，将本地的公匙复制好放进去即可。</p>
-<p>假如本地有个github密匙名称是github_one，(公匙与私匙的区别就是公匙后面带.pub)，所以我们将github_one.pub里面的内容复制好放入网络平台即可。</p>
-<h1 id="3、配置本地密匙"><a href="#3、配置本地密匙" class="headerlink" title="3、配置本地密匙"></a>3、配置本地密匙</h1><p>这里有两种方法：</p>
-<h2 id="比较麻烦的方法"><a href="#比较麻烦的方法" class="headerlink" title="比较麻烦的方法"></a>比较麻烦的方法</h2><p>将生成的密匙以ssh-add的方法添加入本地</p>
-<p>还是以github_one为例，所以我们需要在<code>密匙所在目录下运行命令行</code>ssh-add github_one</p>
-<p>一般会提示<code>Identity added: github_one (你生成该密匙时使用的邮箱)</code></p>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p><code>但是这样的话可能重启电脑就会失效</code>，在使用的时候需要重新ssh-add下</p>
-<p>但是我觉得这样问题也不大，熟悉了就好</p>
-<h2 id="一劳永逸的方法"><a href="#一劳永逸的方法" class="headerlink" title="一劳永逸的方法"></a>一劳永逸的方法</h2><p><code>另一种方法就是在密匙所在目录下配置config文件</code></p>
-<p>一般情况下，保存密匙的文件夹下不会存在config文件，这时我们需要自己创建。</p>
-<p><code>注意：文件名就叫config，不需要任何后缀</code></p>
-<p>创建config文件后，我们队不同的密匙进行分别配置，示例如下</p>
-<pre class="line-numbers language-none"><code class="language-none"># ~&#x2F;.ssh&#x2F;github_rsa github的ssh密钥
-Host github.com  &#x2F;&#x2F;对应的平台，这个值是随便写的，只要你知道代表的平台即可，只是一个标识作用
-    HostName github.com  &#x2F;&#x2F; 这是对应平台的网址，这个一定要弄好，不可随意填写
-    User git &#x2F;&#x2F;
-    IdentityFile ~&#x2F;.ssh&#x2F;github_rsa  &#x2F;&#x2F;该平台对应的私匙名称
-    IdentitiesOnly yes
-
-# ~&#x2F;.ssh&#x2F;gitee_rsa gitee的ssh密钥
-Host gitee.com
-    HostName gitee.com
-    User git
-    IdentityFile ~&#x2F;.ssh&#x2F;gitee_rsa
-    IdentitiesOnly yes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>配置完成后（或者每配置一个平台后），可以通过<code>ssh -T git@配置平台的HostName</code>进行测试。</p>
-<p>出现欢迎语<code>Hi,....,You&#39;re successfully.....</code>时，即配置成功</p>
+                <p>函数防抖和函数节流都是防止某一时间频繁触发，但是这两兄弟之间的原理却不一样。<br>函数防抖是某一段时间内只执行一次，而函数节流是间隔时间执行。</p>
+<h2 id="1、防抖"><a href="#1、防抖" class="headerlink" title="1、防抖"></a>1、防抖</h2><blockquote>
+<p>频繁触发的情况下，必须满足有足够的空闲时间，才执行一次代码<br>对于短时间内连续触发的事件，防抖的含义就是让某个时间期限内，事件处理函数只执行一次。</p>
+</blockquote>
+<p><code>防抖的原理就是让函数让函数延时执行，如果期间触发了新事件，则取消原来的延时计划，重新开始新的延时计划</code></p>
+<h2 id="2、节流"><a href="#2、节流" class="headerlink" title="2、节流"></a>2、节流</h2><blockquote>
+<p>一定的时间内函数只执行一次</p>
+</blockquote>
 
                 
             </div>
@@ -561,11 +535,7 @@ Host gitee.com
                     </i>
                 </span>
                 <span class="reprint-info">
-<<<<<<< HEAD:public/2022/01/26/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
-                    <a href="https://hanshuang-ai.github.io/2022/01/26/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/">https://hanshuang-ai.github.io/2022/01/26/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/</a>
-=======
-                    <a href="https://hanshuang-ai.github.io/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/">https://hanshuang-ai.github.io/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/</a>
->>>>>>> ac8e0997d7d1766ca3d93af5439b466405ba3655:public/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
+                    <a href="https://hanshuang-ai.github.io/2022/02/18/js-han-shu-de-jie-liu-he-fang-dou/">https://hanshuang-ai.github.io/2022/02/18/js-han-shu-de-jie-liu-he-fang-dou/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -780,23 +750,13 @@ Host gitee.com
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-<<<<<<< HEAD:public/2022/01/26/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
-                <a href="/2022/01/26/vue-huan-jing-wen-jian-pei-zhi/">
+                <a href="/2022/02/18/jian-ce-liu-lan-qi-ye-mian-dom-shi-fou-bei-gai-dong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="vue环境文件配置">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="监测浏览器页面DOM是否被改动">
                         
-                        <span class="card-title">vue环境文件配置</span>
-=======
-                <a href="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="关于ftp无法链接服务器的问题">
-                        
-                        <span class="card-title">关于ftp无法链接服务器的问题</span>
->>>>>>> ac8e0997d7d1766ca3d93af5439b466405ba3655:public/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
+                        <span class="card-title">监测浏览器页面DOM是否被改动</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -807,29 +767,12 @@ Host gitee.com
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-<<<<<<< HEAD:public/2022/01/26/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-26
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
-                                    框架
-                                </a>
-                            
-                            <a href="/categories/%E6%A1%86%E6%9E%B6/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91/" class="post-category">
-                                    日常开发
-                                </a>
-                            
-=======
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-12-28
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-18
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
                             寒霜
->>>>>>> ac8e0997d7d1766ca3d93af5439b466405ba3655:public/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
                             
                         </span>
                     </div>
@@ -837,13 +780,8 @@ Host gitee.com
                 
                 <div class="card-action article-tags">
                     
-<<<<<<< HEAD:public/2022/01/26/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
-                    <a href="/tags/vue/">
-                        <span class="chip bg-color">vue</span>
-=======
-                    <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">
-                        <span class="chip bg-color">服务器</span>
->>>>>>> ac8e0997d7d1766ca3d93af5439b466405ba3655:public/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
+                    <a href="/tags/%E5%AE%9E%E6%88%98/">
+                        <span class="chip bg-color">实战</span>
                     </a>
                     
                 </div>
@@ -857,21 +795,13 @@ Host gitee.com
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-<<<<<<< HEAD:public/2022/01/26/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
-                <a href="/2022/01/26/tcp-san-ci-wo-shou-he-si-ci-hui-shou/">
-=======
-                <a href="/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/">
->>>>>>> ac8e0997d7d1766ca3d93af5439b466405ba3655:public/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
+                <a href="/2022/02/16/js-zhong-this-zhi-xiang-xing-wen-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="tcp三次握手和四次挥手">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="js中this指向性问题">
                         
-<<<<<<< HEAD:public/2022/01/26/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
-                        <span class="card-title">tcp三次握手和四次挥手</span>
-=======
-                        <span class="card-title">命令行查看本机ip</span>
->>>>>>> ac8e0997d7d1766ca3d93af5439b466405ba3655:public/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
+                        <span class="card-title">js中this指向性问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -882,19 +812,31 @@ Host gitee.com
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-<<<<<<< HEAD:public/2022/01/26/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-26
-=======
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-28
->>>>>>> ac8e0997d7d1766ca3d93af5439b466405ba3655:public/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-16
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            寒霜
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BF%9B%E9%98%B6/" class="post-category">
+                                    进阶
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/js/">
+                        <span class="chip bg-color">js</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%B8%93%E9%A2%98/">
+                        <span class="chip bg-color">专题</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1096,11 +1038,7 @@ Host gitee.com
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-<<<<<<< HEAD:public/2022/01/26/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
-                        class="white-color">22.1k</span>
-=======
-                        class="white-color">22.7k</span>
->>>>>>> ac8e0997d7d1766ca3d93af5439b466405ba3655:public/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/index.html
+                        class="white-color">23.2k</span>
             
             
             
