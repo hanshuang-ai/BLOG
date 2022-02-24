@@ -5,9 +5,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="js函数的节流和防抖, MyBlog">
-    <meta name="description" content="函数防抖和函数节流都是防止某一时间频繁触发，但是这两兄弟之间的原理却不一样。函数防抖是某一段时间内只执行一次，而函数节流是间隔时间执行。
-1、防抖
-频繁触发的情况下，必须满足有足够的空闲时间，才执行一次代码对于短时间内连续触发的事件，防抖的">
+    <meta name="description" content="防抖和节流，反反复复写了好几次，概念就是不容易记住，终于有一天看到一个总结，感觉很合理
+
+防抖 在指定的时间内 只响应最后一次节流 在指定的时间内 只响应第一次
+
+直接上代码
+防抖情景说明，在用户进入直播间内，超过一段时间没有任何操作，给用">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -464,14 +467,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-02-18
+                    2022-02-24
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    196
+                    360
                 </div>
                 
 
@@ -501,14 +504,37 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>函数防抖和函数节流都是防止某一时间频繁触发，但是这两兄弟之间的原理却不一样。<br>函数防抖是某一段时间内只执行一次，而函数节流是间隔时间执行。</p>
-<h2 id="1、防抖"><a href="#1、防抖" class="headerlink" title="1、防抖"></a>1、防抖</h2><blockquote>
-<p>频繁触发的情况下，必须满足有足够的空闲时间，才执行一次代码<br>对于短时间内连续触发的事件，防抖的含义就是让某个时间期限内，事件处理函数只执行一次。</p>
+                <p>防抖和节流，反反复复写了好几次，概念就是不容易记住，终于有一天看到一个总结，感觉很合理</p>
+<blockquote>
+<p>防抖 在指定的时间内 只响应最后一次<br>节流 在指定的时间内 只响应第一次</p>
 </blockquote>
-<p><code>防抖的原理就是让函数让函数延时执行，如果期间触发了新事件，则取消原来的延时计划，重新开始新的延时计划</code></p>
-<h2 id="2、节流"><a href="#2、节流" class="headerlink" title="2、节流"></a>2、节流</h2><blockquote>
-<p>一定的时间内函数只执行一次</p>
-</blockquote>
+<p>直接上代码</p>
+<h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><p><code>情景说明，在用户进入直播间内，超过一段时间没有任何操作，给用户弹出一个提示框，有操作的话则重新计时</code></p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>code <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// 兄弟组件传值，弹窗并不在本组件内，这并不重要</span>
+  <span class="token keyword">let</span> <span class="token function-variable function">sendMessage</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>data<span class="token punctuation">.</span>presidePosition<span class="token punctuation">.</span>member<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      that<span class="token punctuation">.</span>$bus<span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">"hudong"</span><span class="token punctuation">,</span> res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>data<span class="token punctuation">.</span>presidePosition<span class="token punctuation">.</span>member<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+      that<span class="token punctuation">.</span>$bus<span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">"hudong"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 关键代码</span>
+  <span class="token keyword">let</span> <span class="token function-variable function">debounce</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span> time</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> timeout <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span> <span class="token comment">// 创建一个标记用来存放定时器的返回值</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">clearTimeout</span><span class="token punctuation">(</span>timeout<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 每当用户输入的时候把前一个 setTimeout clear 掉</span>
+      timeout <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 然后又创建一个新的 setTimeout, 这样就能保证输入字符后的 interval 间隔内如果还有字符输入的话，就不会执行 fn 函数</span>
+        <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> arguments<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//arguments是传入的参数</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> time<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+  <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token function">debounce</span><span class="token punctuation">(</span>sendMessage<span class="token punctuation">,</span> showTime<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//由于下面添加的是click的监听事件，那么在进入直播间后，没有任何事件之前也是应该要计时的，所以添加了一个计时为0的固定定时器</span>
+  document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"click"</span><span class="token punctuation">,</span> <span class="token function">debounce</span><span class="token punctuation">(</span>sendMessage<span class="token punctuation">,</span> <span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -1038,7 +1064,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">23.4k</span>
+                        class="white-color">23.5k</span>
             
             
             

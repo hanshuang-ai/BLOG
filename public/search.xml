@@ -65,7 +65,7 @@
       <link href="/2022/02/18/js-han-shu-de-jie-liu-he-fang-dou/"/>
       <url>/2022/02/18/js-han-shu-de-jie-liu-he-fang-dou/</url>
       
-        <content type="html"><![CDATA[<p>函数防抖和函数节流都是防止某一时间频繁触发，但是这两兄弟之间的原理却不一样。<br>函数防抖是某一段时间内只执行一次，而函数节流是间隔时间执行。</p><h2 id="1、防抖"><a href="#1、防抖" class="headerlink" title="1、防抖"></a>1、防抖</h2><blockquote><p>频繁触发的情况下，必须满足有足够的空闲时间，才执行一次代码<br>对于短时间内连续触发的事件，防抖的含义就是让某个时间期限内，事件处理函数只执行一次。</p></blockquote><p><code>防抖的原理就是让函数让函数延时执行，如果期间触发了新事件，则取消原来的延时计划，重新开始新的延时计划</code></p><h2 id="2、节流"><a href="#2、节流" class="headerlink" title="2、节流"></a>2、节流</h2><blockquote><p>一定的时间内函数只执行一次</p></blockquote>]]></content>
+        <content type="html"><![CDATA[<p>防抖和节流，反反复复写了好几次，概念就是不容易记住，终于有一天看到一个总结，感觉很合理</p><blockquote><p>防抖 在指定的时间内 只响应最后一次<br>节流 在指定的时间内 只响应第一次</p></blockquote><p>直接上代码</p><h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><p><code>情景说明，在用户进入直播间内，超过一段时间没有任何操作，给用户弹出一个提示框，有操作的话则重新计时</code></p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>code <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>  <span class="token comment">// 兄弟组件传值，弹窗并不在本组件内，这并不重要</span>  <span class="token keyword">let</span> <span class="token function-variable function">sendMessage</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>data<span class="token punctuation">.</span>presidePosition<span class="token punctuation">.</span>member<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>      that<span class="token punctuation">.</span>$bus<span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">"hudong"</span><span class="token punctuation">,</span> res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>data<span class="token punctuation">.</span>presidePosition<span class="token punctuation">.</span>member<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>      that<span class="token punctuation">.</span>$bus<span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">"hudong"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">&#125;</span>  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>  <span class="token comment">// 关键代码</span>  <span class="token keyword">let</span> <span class="token function-variable function">debounce</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span> time</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">let</span> timeout <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span> <span class="token comment">// 创建一个标记用来存放定时器的返回值</span>    <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>      <span class="token function">clearTimeout</span><span class="token punctuation">(</span>timeout<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 每当用户输入的时候把前一个 setTimeout clear 掉</span>      timeout <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>        <span class="token comment">// 然后又创建一个新的 setTimeout, 这样就能保证输入字符后的 interval 间隔内如果还有字符输入的话，就不会执行 fn 函数</span>        <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> arguments<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//arguments是传入的参数</span>      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> time<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>  <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token function">debounce</span><span class="token punctuation">(</span>sendMessage<span class="token punctuation">,</span> showTime<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//由于下面添加的是click的监听事件，那么在进入直播间后，没有任何事件之前也是应该要计时的，所以添加了一个计时为0的固定定时器</span>  document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"click"</span><span class="token punctuation">,</span> <span class="token function">debounce</span><span class="token punctuation">(</span>sendMessage<span class="token punctuation">,</span> <span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       <categories>
@@ -773,19 +773,19 @@
     
     
     <entry>
-      <title>前端应对高并发</title>
-      <link href="/2021/12/28/qian-duan-ying-dui-gao-bing-fa/"/>
-      <url>/2021/12/28/qian-duan-ying-dui-gao-bing-fa/</url>
+      <title>关于ftp无法链接服务器的问题</title>
+      <link href="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/"/>
+      <url>/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/</url>
       
-        <content type="html"><![CDATA[<h2 id="什么是高并发"><a href="#什么是高并发" class="headerlink" title="什么是高并发"></a>什么是高并发</h2><p>高并发指的是软件系统在一段时间内能够处理大量的请求。</p><h2 id="高并发时经历了什么"><a href="#高并发时经历了什么" class="headerlink" title="高并发时经历了什么"></a>高并发时经历了什么</h2><p>高并发的基础是请求，所以可以在请求阶段做优化<br>1、DNS解析<br>2、s</p><h2 id="每个阶段的优化"><a href="#每个阶段的优化" class="headerlink" title="每个阶段的优化"></a>每个阶段的优化</h2>]]></content>
+        <content type="html"><![CDATA[<p>有时候，我们使用ftp软件连接远程ftp，会发现有的软件能连上，有的则连不上。究其原因，可能是软件设置的问题，毕竟链接的是同一个服务器上的ftp，相对来讲，服务器环境是稳定的。</p><p><code>本文环境：macOS Catalina 10.15.7，ftp软件 filezila 3.51.0</code></p><h3 id="错误代码227"><a href="#错误代码227" class="headerlink" title="错误代码227"></a>错误代码227</h3><pre class="line-numbers language-none"><code class="language-none">一般来讲，将服务器的链接模式改为被动  即可<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/1.png" alt="alt"></p><h3 id="错误代码220"><a href="#错误代码220" class="headerlink" title="错误代码220"></a>错误代码220</h3><pre class="line-numbers language-none"><code class="language-none">很可能是服务器不支持FTP over TLS的连接方式。解决方式就是在该站点内 加密方式  使用明文<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/2.png" alt="alt"></p><br><p><strong>特别声明：本次链接的网站是使用的宝塔面板，ftp也是宝塔生成，所以才可能会存在这个问题，不代表只要是服务器上的ftp一定会存在该问题</strong><br><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/3.png" alt="alt"><br><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/4.png" alt="alt"></p>]]></content>
       
       
-      <categories>
-          
-          <category> 实战应用 </category>
-          
-      </categories>
       
+        <tags>
+            
+            <tag> 服务器 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -811,6 +811,25 @@
     
     
     <entry>
+      <title>前端应对高并发</title>
+      <link href="/2021/12/28/qian-duan-ying-dui-gao-bing-fa/"/>
+      <url>/2021/12/28/qian-duan-ying-dui-gao-bing-fa/</url>
+      
+        <content type="html"><![CDATA[<h2 id="什么是高并发"><a href="#什么是高并发" class="headerlink" title="什么是高并发"></a>什么是高并发</h2><p>高并发指的是软件系统在一段时间内能够处理大量的请求。</p><h2 id="高并发时经历了什么"><a href="#高并发时经历了什么" class="headerlink" title="高并发时经历了什么"></a>高并发时经历了什么</h2><p>高并发的基础是请求，所以可以在请求阶段做优化<br>1、DNS解析<br>2、s</p><h2 id="每个阶段的优化"><a href="#每个阶段的优化" class="headerlink" title="每个阶段的优化"></a>每个阶段的优化</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 实战应用 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>同一台电脑配置多个git密匙</title>
       <link href="/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/"/>
       <url>/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/</url>
@@ -822,25 +841,6 @@
         <tags>
             
             <tag> 实战 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>关于ftp无法链接服务器的问题</title>
-      <link href="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/"/>
-      <url>/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/</url>
-      
-        <content type="html"><![CDATA[<p>有时候，我们使用ftp软件连接远程ftp，会发现有的软件能连上，有的则连不上。究其原因，可能是软件设置的问题，毕竟链接的是同一个服务器上的ftp，相对来讲，服务器环境是稳定的。</p><p><code>本文环境：macOS Catalina 10.15.7，ftp软件 filezila 3.51.0</code></p><h3 id="错误代码227"><a href="#错误代码227" class="headerlink" title="错误代码227"></a>错误代码227</h3><pre class="line-numbers language-none"><code class="language-none">一般来讲，将服务器的链接模式改为被动  即可<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/1.png" alt="alt"></p><h3 id="错误代码220"><a href="#错误代码220" class="headerlink" title="错误代码220"></a>错误代码220</h3><pre class="line-numbers language-none"><code class="language-none">很可能是服务器不支持FTP over TLS的连接方式。解决方式就是在该站点内 加密方式  使用明文<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/2.png" alt="alt"></p><br><p><strong>特别声明：本次链接的网站是使用的宝塔面板，ftp也是宝塔生成，所以才可能会存在这个问题，不代表只要是服务器上的ftp一定会存在该问题</strong><br><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/3.png" alt="alt"><br><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/4.png" alt="alt"></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 服务器 </tag>
             
         </tags>
       
@@ -915,11 +915,11 @@
     
     
     <entry>
-      <title>ssh远程连接服务器</title>
-      <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
-      <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
+      <title>nuxt内使用vant框架</title>
+      <link href="/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/"/>
+      <url>/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/</url>
       
-        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#114;&#x6f;&#x6f;&#x74;&#x40;&#x78;&#120;&#120;&#x2e;&#x78;&#120;&#120;&#x2e;&#120;&#120;&#x78;&#x2e;&#120;&#x78;&#120;">&#114;&#x6f;&#x6f;&#x74;&#x40;&#x78;&#120;&#120;&#x2e;&#x78;&#120;&#120;&#x2e;&#120;&#120;&#x78;&#x2e;&#120;&#x78;&#120;</a>(ip地址)</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="nuxt目录介绍"><a href="#nuxt目录介绍" class="headerlink" title="nuxt目录介绍"></a>nuxt目录介绍</h1><p>1、<code>assets: 资源目录，用来组织未编译的静态资源</code><br>2、<code>layouts</code>: </p><pre class="line-numbers language-none"><code class="language-none">布局文件目录，里面可以放些全局可用的布局，例如default、error。default表示默认布局，error可以用来展示404。如果没有默认布局的要求，直接放置一个error即可。注：并不需要特殊路由设置，在nuxt框架下，如果访问的路径不存在，(并且有error布局的情况下)则会直接使用该布局。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="nuxt内使用vant（或者说是nuxt内使用第三方框架）"><a href="#nuxt内使用vant（或者说是nuxt内使用第三方框架）" class="headerlink" title="nuxt内使用vant（或者说是nuxt内使用第三方框架）"></a>nuxt内使用vant（或者说是nuxt内使用第三方框架）</h1><p>1、在plugins目录下新建vant.js文件，并引入vue和vant以及vant的样式。</p><pre class="line-numbers language-none"><code class="language-none">import Vue from &#39;vue&#39;;import Vant from &#39;vant&#39;;import &#39;vant&#x2F;lib&#x2F;index.css&#39;Vue.use(Vant)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>2、在nuxt.config.js下引入vant</p><pre class="line-numbers language-none"><code class="language-none">plugins: [    &#123;src: &#39;~&#x2F;plugins&#x2F;vant.js&#39;, ssr: true&#125;  ],<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       
@@ -941,11 +941,11 @@
     
     
     <entry>
-      <title>nuxt内使用vant框架</title>
-      <link href="/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/"/>
-      <url>/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/</url>
+      <title>ssh远程连接服务器</title>
+      <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
+      <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
       
-        <content type="html"><![CDATA[<h1 id="nuxt目录介绍"><a href="#nuxt目录介绍" class="headerlink" title="nuxt目录介绍"></a>nuxt目录介绍</h1><p>1、<code>assets: 资源目录，用来组织未编译的静态资源</code><br>2、<code>layouts</code>: </p><pre class="line-numbers language-none"><code class="language-none">布局文件目录，里面可以放些全局可用的布局，例如default、error。default表示默认布局，error可以用来展示404。如果没有默认布局的要求，直接放置一个error即可。注：并不需要特殊路由设置，在nuxt框架下，如果访问的路径不存在，(并且有error布局的情况下)则会直接使用该布局。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="nuxt内使用vant（或者说是nuxt内使用第三方框架）"><a href="#nuxt内使用vant（或者说是nuxt内使用第三方框架）" class="headerlink" title="nuxt内使用vant（或者说是nuxt内使用第三方框架）"></a>nuxt内使用vant（或者说是nuxt内使用第三方框架）</h1><p>1、在plugins目录下新建vant.js文件，并引入vue和vant以及vant的样式。</p><pre class="line-numbers language-none"><code class="language-none">import Vue from &#39;vue&#39;;import Vant from &#39;vant&#39;;import &#39;vant&#x2F;lib&#x2F;index.css&#39;Vue.use(Vant)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>2、在nuxt.config.js下引入vant</p><pre class="line-numbers language-none"><code class="language-none">plugins: [    &#123;src: &#39;~&#x2F;plugins&#x2F;vant.js&#39;, ssr: true&#125;  ],<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#x72;&#x6f;&#x6f;&#x74;&#64;&#120;&#120;&#x78;&#46;&#120;&#x78;&#120;&#x2e;&#x78;&#x78;&#x78;&#x2e;&#120;&#x78;&#120;">&#x72;&#x6f;&#x6f;&#x74;&#64;&#120;&#120;&#x78;&#46;&#120;&#x78;&#120;&#x2e;&#x78;&#x78;&#x78;&#x2e;&#120;&#x78;&#120;</a>(ip地址)</p>]]></content>
       
       
       
@@ -992,11 +992,11 @@
     
     
     <entry>
-      <title>vue-router</title>
-      <link href="/2021/12/28/vue-router/"/>
-      <url>/2021/12/28/vue-router/</url>
+      <title>vue-element-admin详解1 permission.js</title>
+      <link href="/2021/12/28/vue-element-admin-xiang-jie-1-permission/"/>
+      <url>/2021/12/28/vue-element-admin-xiang-jie-1-permission/</url>
       
-        <content type="html"><![CDATA[<p>官方网址：<a href="https://router.vuejs.org/zh/">https://router.vuejs.org/zh/</a></p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><code>安装有3中方式</code></p><pre class="line-numbers language-none"><code class="language-none">1、js网址链接先引入vue，再引入vue-router&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue-router.js&quot;&gt;&lt;&#x2F;script&gt;2、NPMnpm install vue-router如果在一个模块化工程中使用它，必须要通过 Vue.use() 明确地安装路由功能：import Vue from &#39;vue&#39;import VueRouter from &#39;vue-router&#39;Vue.use(VueRouter)3、在vue cli项目内用插件的方式vue add router<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>vue-router是基于路由和组件的路由用于设定访问路径，将路径和组件映射起来。在vue-router的单页面应用中, 页面的路径的改变就是组件的切换。</code></p>]]></content>
+        <content type="html"><![CDATA[<p><code>vue-element-admin 内permission主要负责全局路由守卫和登录判断。在后台返回权限的时候，配合前端路由进行动态显示，可以使在url内输入的没有权限的页面不展示。</code></p><p><strong>代码解析</strong></p><pre class="line-numbers language-none"><code class="language-none">import router from &#39;.&#x2F;router&#39;import store from &#39;.&#x2F;store&#39;import &#123; Message &#125; from &#39;element-ui&#39;import NProgress from &#39;nprogress&#39; import &#39;nprogress&#x2F;nprogress.css&#39; &#x2F;&#x2F;auth文件主要依赖js-cookie模块，把getToken，setToken，removeToken设置在这里import &#123; getToken &#125; from &#39;@&#x2F;utils&#x2F;auth&#39; &#x2F;&#x2F;get-page-title文件主要是网站的标题，get-page-title通过依赖setting.js里的title变量修改网站标题&#x2F;&#x2F;如果需要更改网站的标题，可以直接到setting.js修改title属性import getPageTitle from &#39;@&#x2F;utils&#x2F;get-page-title&#39;&#x2F;&#x2F;NProgress是封装的进度条，基本不用动NProgress.configure(&#123; showSpinner: false &#125;) &#x2F;&#x2F;路由白名单列表，把路由添加到这个数组，不用登陆也可以访问const whiteList &#x3D; [&#39;&#x2F;login&#39;] router.beforeEach(async(to, from, next) &#x3D;&gt; &#123;   &#x2F;&#x2F; 请求路由时进度条开始  NProgress.start()  &#x2F;&#x2F; 设置标题  document.title &#x3D; getPageTitle(to.meta.title)  &#x2F;&#x2F; 这里的getToken()就是在上面导入的auth.js里的getToken()方法  const hasToken &#x3D; getToken()&#x2F;&#x2F;如果存在token，即存在已登陆的令牌  if (hasToken) &#123;  &#x2F;&#x2F;如果用户存在令牌的情况请求登录页面，就让用户直接跳转到首页，避免存在重复登录的情况    if (to.path &#x3D;&#x3D;&#x3D; &#39;&#x2F;login&#39;) &#123;      &#x2F;&#x2F; 直接跳转到首页，当然取决于你的路由重定向到哪里      next(&#123; path: &#39;&#x2F;&#39; &#125;)      &#x2F;&#x2F;一定要关闭进度条      NProgress.done()    &#125; else &#123;      &#x2F;&#x2F;如果已经有令牌的用户请求的不是登录页，是其他页面      &#x2F;&#x2F;就从Vuex里拿到用户的信息，这里也证明用户不是第一次登录了      const hasGetUserInfo &#x3D; store.getters.name      if (hasGetUserInfo) &#123;      &#x2F;&#x2F;信息拿到后，用户请求哪就跳转哪        next()      &#125; else &#123;        try &#123;          &#x2F;&#x2F; 如果有令牌，但是没有用户信息，证明用户是第一次登录，通过Vuex设置用户信息          await store.dispatch(&#39;user&#x2F;getInfo&#39;)        &#x2F;&#x2F;设置好了之后，依然可以请求哪就跳转哪          next()        &#125; catch (error) &#123;          &#x2F;&#x2F; 如果出错了，把令牌去掉，并让用户重新去到登录页面          await store.dispatch(&#39;user&#x2F;resetToken&#39;)          Message.error(error || &#39;Has Error&#39;)          next(&#96;&#x2F;login?redirect&#x3D;$&#123;to.path&#125;&#96;)          &#x2F;&#x2F;关闭进度条          NProgress.done()        &#125;      &#125;    &#125;  &#125; else &#123;    &#x2F;&#x2F;这里是没有令牌的情况    &#x2F;&#x2F;还记得上面的白名单吗，现在起作用了    &#x2F;&#x2F;whiteList.indexOf(to.path) !&#x3D;&#x3D; -1)判断用户请求的路由是否在白名单里    if (whiteList.indexOf(to.path) !&#x3D;&#x3D; -1) &#123;      &#x2F;&#x2F; 不是-1就证明存在白名单里，不管你有没有令牌，都直接去到白名单路由对应的页面      next()    &#125; else &#123;      &#x2F;&#x2F; 如果这个页面不在白名单里，直接跳转到登录页面      next(&#96;&#x2F;login?redirect&#x3D;$&#123;to.path&#125;&#96;)      &#x2F;&#x2F;关闭进度条      NProgress.done()    &#125;  &#125;&#125;)router.afterEach(() &#x3D;&gt; &#123;  &#x2F;&#x2F;每次请求结束后都需要关闭进度条  NProgress.done()&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       
@@ -1005,11 +1005,11 @@
     
     
     <entry>
-      <title>vue-element-admin详解1 permission.js</title>
-      <link href="/2021/12/28/vue-element-admin-xiang-jie-1-permission/"/>
-      <url>/2021/12/28/vue-element-admin-xiang-jie-1-permission/</url>
+      <title>vue-router</title>
+      <link href="/2021/12/28/vue-router/"/>
+      <url>/2021/12/28/vue-router/</url>
       
-        <content type="html"><![CDATA[<p><code>vue-element-admin 内permission主要负责全局路由守卫和登录判断。在后台返回权限的时候，配合前端路由进行动态显示，可以使在url内输入的没有权限的页面不展示。</code></p><p><strong>代码解析</strong></p><pre class="line-numbers language-none"><code class="language-none">import router from &#39;.&#x2F;router&#39;import store from &#39;.&#x2F;store&#39;import &#123; Message &#125; from &#39;element-ui&#39;import NProgress from &#39;nprogress&#39; import &#39;nprogress&#x2F;nprogress.css&#39; &#x2F;&#x2F;auth文件主要依赖js-cookie模块，把getToken，setToken，removeToken设置在这里import &#123; getToken &#125; from &#39;@&#x2F;utils&#x2F;auth&#39; &#x2F;&#x2F;get-page-title文件主要是网站的标题，get-page-title通过依赖setting.js里的title变量修改网站标题&#x2F;&#x2F;如果需要更改网站的标题，可以直接到setting.js修改title属性import getPageTitle from &#39;@&#x2F;utils&#x2F;get-page-title&#39;&#x2F;&#x2F;NProgress是封装的进度条，基本不用动NProgress.configure(&#123; showSpinner: false &#125;) &#x2F;&#x2F;路由白名单列表，把路由添加到这个数组，不用登陆也可以访问const whiteList &#x3D; [&#39;&#x2F;login&#39;] router.beforeEach(async(to, from, next) &#x3D;&gt; &#123;   &#x2F;&#x2F; 请求路由时进度条开始  NProgress.start()  &#x2F;&#x2F; 设置标题  document.title &#x3D; getPageTitle(to.meta.title)  &#x2F;&#x2F; 这里的getToken()就是在上面导入的auth.js里的getToken()方法  const hasToken &#x3D; getToken()&#x2F;&#x2F;如果存在token，即存在已登陆的令牌  if (hasToken) &#123;  &#x2F;&#x2F;如果用户存在令牌的情况请求登录页面，就让用户直接跳转到首页，避免存在重复登录的情况    if (to.path &#x3D;&#x3D;&#x3D; &#39;&#x2F;login&#39;) &#123;      &#x2F;&#x2F; 直接跳转到首页，当然取决于你的路由重定向到哪里      next(&#123; path: &#39;&#x2F;&#39; &#125;)      &#x2F;&#x2F;一定要关闭进度条      NProgress.done()    &#125; else &#123;      &#x2F;&#x2F;如果已经有令牌的用户请求的不是登录页，是其他页面      &#x2F;&#x2F;就从Vuex里拿到用户的信息，这里也证明用户不是第一次登录了      const hasGetUserInfo &#x3D; store.getters.name      if (hasGetUserInfo) &#123;      &#x2F;&#x2F;信息拿到后，用户请求哪就跳转哪        next()      &#125; else &#123;        try &#123;          &#x2F;&#x2F; 如果有令牌，但是没有用户信息，证明用户是第一次登录，通过Vuex设置用户信息          await store.dispatch(&#39;user&#x2F;getInfo&#39;)        &#x2F;&#x2F;设置好了之后，依然可以请求哪就跳转哪          next()        &#125; catch (error) &#123;          &#x2F;&#x2F; 如果出错了，把令牌去掉，并让用户重新去到登录页面          await store.dispatch(&#39;user&#x2F;resetToken&#39;)          Message.error(error || &#39;Has Error&#39;)          next(&#96;&#x2F;login?redirect&#x3D;$&#123;to.path&#125;&#96;)          &#x2F;&#x2F;关闭进度条          NProgress.done()        &#125;      &#125;    &#125;  &#125; else &#123;    &#x2F;&#x2F;这里是没有令牌的情况    &#x2F;&#x2F;还记得上面的白名单吗，现在起作用了    &#x2F;&#x2F;whiteList.indexOf(to.path) !&#x3D;&#x3D; -1)判断用户请求的路由是否在白名单里    if (whiteList.indexOf(to.path) !&#x3D;&#x3D; -1) &#123;      &#x2F;&#x2F; 不是-1就证明存在白名单里，不管你有没有令牌，都直接去到白名单路由对应的页面      next()    &#125; else &#123;      &#x2F;&#x2F; 如果这个页面不在白名单里，直接跳转到登录页面      next(&#96;&#x2F;login?redirect&#x3D;$&#123;to.path&#125;&#96;)      &#x2F;&#x2F;关闭进度条      NProgress.done()    &#125;  &#125;&#125;)router.afterEach(() &#x3D;&gt; &#123;  &#x2F;&#x2F;每次请求结束后都需要关闭进度条  NProgress.done()&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<p>官方网址：<a href="https://router.vuejs.org/zh/">https://router.vuejs.org/zh/</a></p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><code>安装有3中方式</code></p><pre class="line-numbers language-none"><code class="language-none">1、js网址链接先引入vue，再引入vue-router&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue-router.js&quot;&gt;&lt;&#x2F;script&gt;2、NPMnpm install vue-router如果在一个模块化工程中使用它，必须要通过 Vue.use() 明确地安装路由功能：import Vue from &#39;vue&#39;import VueRouter from &#39;vue-router&#39;Vue.use(VueRouter)3、在vue cli项目内用插件的方式vue add router<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>vue-router是基于路由和组件的路由用于设定访问路径，将路径和组件映射起来。在vue-router的单页面应用中, 页面的路径的改变就是组件的切换。</code></p>]]></content>
       
       
       
@@ -1094,13 +1094,27 @@
     
     
     <entry>
-      <title>node</title>
-      <link href="/2021/12/28/node/"/>
-      <url>/2021/12/28/node/</url>
+      <title>mars3d使用指南</title>
+      <link href="/2021/12/28/mars3d-shi-yong-zhi-nan/"/>
+      <url>/2021/12/28/mars3d-shi-yong-zhi-nan/</url>
       
-        <content type="html"><![CDATA[<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><h2 id="node原生引入的http创建的服务器解决跨域问题"><a href="#node原生引入的http创建的服务器解决跨域问题" class="headerlink" title="node原生引入的http创建的服务器解决跨域问题"></a>node原生引入的http创建的服务器解决跨域问题</h2><pre class="line-numbers language-none"><code class="language-none">const http &#x3D; require(&#39;http&#39;);http.createServer((req,res)&#x3D;&gt;&#123;    res.setHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);&#x2F;&#x2F;跨域    res.end(&#39;12&#39;)&#125;).listen(&#39;3000&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<p><code>本文只是mars3d的使用，并且使用的方式是直接在html内编写，不涉及Vue或其他方式</code></p><p>开发指南:<a href="http://mars3d.cn/apidoc">http://mars3d.cn/apidoc</a><br>官网demo:<a href="http://mars3d.cn/example">http://mars3d.cn/example</a></p><p><em><code>本文随时更新</code></em></p><h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>mars3d是在cesium基础上二次封装的一个前端框架，继承与扩展了cesium的功能，开源但是不能用于商业用途，会有水印与log信息。</p><h2 id="图层"><a href="#图层" class="headerlink" title="图层"></a>图层</h2><p>mars3d图层（个人理解）就是在canvas（webgl）上添加一类元素的容器。经常使用到的有geoLayer,imageLayer,divLayer、模型等</p><h3 id="geoLayer"><a href="#geoLayer" class="headerlink" title="geoLayer"></a>geoLayer</h3><p>geoLayer主要用来加载geoJson数据，并根据geoLayer数据的type值进行不同的渲染，可以生成点、线、面等</p><h3 id="imageLayer"><a href="#imageLayer" class="headerlink" title="imageLayer"></a>imageLayer</h3><p>imageLayer主要用来加载img图片，该图片会随earthMap一同缩放，这是它与divLayer最大的不同</p><h3 id="divLayer"><a href="#divLayer" class="headerlink" title="divLayer"></a>divLayer</h3><p>divLayer主要用来加载自定义div元素，它不同earthMap缩放，在检查代码中会发现它是脱离canvas元素的（随earthMap一同缩放的都是在canvas元素中的），由于它脱离canvas，但是又相对于earthMap有位置的定位，所以当earthMap宽高超出屏幕范围时，会导致浏览器滚动条的出现，如果没有特殊需求，不建议使用。<br><em><strong><code>由于divLayer脱离canvas元素，当使用canvas录屏的时候，是无法录取该元素的，这就导致操作时看到的内容与录屏后视频显示的内容不一致</code></strong></em></p><h3 id="模型加载"><a href="#模型加载" class="headerlink" title="模型加载"></a>模型加载</h3><p>mars3d是支持模型加载的，并且即使加载的是动态模型，也不会导致浏览器的回流与重绘。但是当imageLayer加载的是gif动图时，即使earthMap没有任何操作，也会因为gif序列帧的问题引起浏览器的回流与重绘。<br><em><strong><code>建议需要动图时，直接上模型</code></strong></em><br>相关测试可查看<a href="http://www.baidu.com/">浏览器回流与重绘测试</a></p><hr><h1 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h1><hr><h1 id="应用demo解析"><a href="#应用demo解析" class="headerlink" title="应用demo解析"></a>应用demo解析</h1><h2 id="加载离线地球"><a href="#加载离线地球" class="headerlink" title="加载离线地球"></a>加载离线地球</h2><h2 id="加载图片模拟克里金插值"><a href="#加载图片模拟克里金插值" class="headerlink" title="加载图片模拟克里金插值"></a>加载图片模拟克里金插值</h2><h2 id="加载icon图片作为图标方式"><a href="#加载icon图片作为图标方式" class="headerlink" title="加载icon图片作为图标方式"></a>加载icon图片作为图标方式</h2><h2 id="加载gif动图"><a href="#加载gif动图" class="headerlink" title="加载gif动图"></a>加载gif动图</h2><h2 id="加载3D模型图"><a href="#加载3D模型图" class="headerlink" title="加载3D模型图"></a>加载3D模型图</h2>]]></content>
       
       
+      <categories>
+          
+          <category> 框架 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 可视化 </tag>
+            
+            <tag> mars3d </tag>
+            
+        </tags>
       
     </entry>
     
@@ -1134,51 +1148,11 @@
     
     
     <entry>
-      <title>mars3d使用指南</title>
-      <link href="/2021/12/28/mars3d-shi-yong-zhi-nan/"/>
-      <url>/2021/12/28/mars3d-shi-yong-zhi-nan/</url>
+      <title>node</title>
+      <link href="/2021/12/28/node/"/>
+      <url>/2021/12/28/node/</url>
       
-        <content type="html"><![CDATA[<p><code>本文只是mars3d的使用，并且使用的方式是直接在html内编写，不涉及Vue或其他方式</code></p><p>开发指南:<a href="http://mars3d.cn/apidoc">http://mars3d.cn/apidoc</a><br>官网demo:<a href="http://mars3d.cn/example">http://mars3d.cn/example</a></p><p><em><code>本文随时更新</code></em></p><h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>mars3d是在cesium基础上二次封装的一个前端框架，继承与扩展了cesium的功能，开源但是不能用于商业用途，会有水印与log信息。</p><h2 id="图层"><a href="#图层" class="headerlink" title="图层"></a>图层</h2><p>mars3d图层（个人理解）就是在canvas（webgl）上添加一类元素的容器。经常使用到的有geoLayer,imageLayer,divLayer、模型等</p><h3 id="geoLayer"><a href="#geoLayer" class="headerlink" title="geoLayer"></a>geoLayer</h3><p>geoLayer主要用来加载geoJson数据，并根据geoLayer数据的type值进行不同的渲染，可以生成点、线、面等</p><h3 id="imageLayer"><a href="#imageLayer" class="headerlink" title="imageLayer"></a>imageLayer</h3><p>imageLayer主要用来加载img图片，该图片会随earthMap一同缩放，这是它与divLayer最大的不同</p><h3 id="divLayer"><a href="#divLayer" class="headerlink" title="divLayer"></a>divLayer</h3><p>divLayer主要用来加载自定义div元素，它不同earthMap缩放，在检查代码中会发现它是脱离canvas元素的（随earthMap一同缩放的都是在canvas元素中的），由于它脱离canvas，但是又相对于earthMap有位置的定位，所以当earthMap宽高超出屏幕范围时，会导致浏览器滚动条的出现，如果没有特殊需求，不建议使用。<br><em><strong><code>由于divLayer脱离canvas元素，当使用canvas录屏的时候，是无法录取该元素的，这就导致操作时看到的内容与录屏后视频显示的内容不一致</code></strong></em></p><h3 id="模型加载"><a href="#模型加载" class="headerlink" title="模型加载"></a>模型加载</h3><p>mars3d是支持模型加载的，并且即使加载的是动态模型，也不会导致浏览器的回流与重绘。但是当imageLayer加载的是gif动图时，即使earthMap没有任何操作，也会因为gif序列帧的问题引起浏览器的回流与重绘。<br><em><strong><code>建议需要动图时，直接上模型</code></strong></em><br>相关测试可查看<a href="http://www.baidu.com/">浏览器回流与重绘测试</a></p><hr><h1 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h1><hr><h1 id="应用demo解析"><a href="#应用demo解析" class="headerlink" title="应用demo解析"></a>应用demo解析</h1><h2 id="加载离线地球"><a href="#加载离线地球" class="headerlink" title="加载离线地球"></a>加载离线地球</h2><h2 id="加载图片模拟克里金插值"><a href="#加载图片模拟克里金插值" class="headerlink" title="加载图片模拟克里金插值"></a>加载图片模拟克里金插值</h2><h2 id="加载icon图片作为图标方式"><a href="#加载icon图片作为图标方式" class="headerlink" title="加载icon图片作为图标方式"></a>加载icon图片作为图标方式</h2><h2 id="加载gif动图"><a href="#加载gif动图" class="headerlink" title="加载gif动图"></a>加载gif动图</h2><h2 id="加载3D模型图"><a href="#加载3D模型图" class="headerlink" title="加载3D模型图"></a>加载3D模型图</h2>]]></content>
-      
-      
-      <categories>
-          
-          <category> 框架 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 可视化 </tag>
-            
-            <tag> mars3d </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>cesium专题</title>
-      <link href="/2021/12/28/cesium-zhuan-ti/"/>
-      <url>/2021/12/28/cesium-zhuan-ti/</url>
-      
-        <content type="html"><![CDATA[<p>CesiumJS 是一款用于创建虚拟场景的3D地理信息平台。目标是用于创建以基于Web的地图动态数据可视化。目前尽力提升平台的性能、准确率、虚拟化能力、易用性以及平台的各种支持。</p><ul><li>Cesium 是一个跨平台、跨浏览器的展示三维地球和地图的 javascript 库。</li><li>Cesium 使用WebGL 来进行硬件加速图形，使用时不需要任何插件支持，但是浏览器必须支持WebGL。</li><li>Cesium是基于Apache2.0 许可的开源程序。它可以免费的用于商业和非商业用途。</li></ul><h2 id="数据格式与功能特性"><a href="#数据格式与功能特性" class="headerlink" title="数据格式与功能特性"></a>数据格式与功能特性</h2><ul><li>支持2D,2.5D,3D 形式的地理（地图）数据展示，</li><li>可以绘制各种几何图形、高亮区域，支持导入图片，甚至三维模型等多种数据可视化展示</li><li>可用于动态数据可视化并提供良好的触摸支持，支持绝大多数的浏览器和移动端浏览器。</li><li>支持基于时间轴的动态流式数据展示</li></ul>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>es6</title>
-      <link href="/2021/12/28/es6/"/>
-      <url>/2021/12/28/es6/</url>
-      
-        <content type="html"><![CDATA[<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><p><code>从数组和对象中提取值，对变量进行赋值，这被称为解构</code></p><h2 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h2><pre class="line-numbers language-none"><code class="language-none">let [a,b,c] &#x3D; [1,2,3];console.log(a,b,c);&#x2F;&#x2F; 1 2 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><code>解构不成功，变量的值为undefined</code></p><pre class="line-numbers language-none"><code class="language-none">let [a,b] &#x3D; [1];console.log(a,b);&#x2F;&#x2F; 1 undefinedlet [a,b] &#x3D; &#39;1&#39;;console.log(a,b);&#x2F;&#x2F; 1 undefined<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>如果等号右边不是可遍历的结构，会报错</strong></p><p>会报错的常见形式：</p><p>1、 数字</p><p>2、 布尔</p><p>3、 NaN</p><p>4、 undefined</p><p>5、null</p><p>6、{}  对象</p><h2 id="解构赋值的应用"><a href="#解构赋值的应用" class="headerlink" title="解构赋值的应用"></a>解构赋值的应用</h2><pre class="line-numbers language-none"><code class="language-none">假设下面是某个请求的返回值，形参是res&#123;    &quot;status&quot;: 200,    &quot;msg&quot;: &quot;成功&quot;,    &quot;data&quot;: &#123;        &quot;pageNum&quot;: 1,        &quot;pageSize&quot;: 99,        &quot;size&quot;: 49,    &#125;&#125;1、不用解构赋值let data &#x3D; res;if(data.data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;写起来比较繁琐2、使用解构赋值let &#123;data&#125; &#x3D; res;if(data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>这里需要注意的一点就是：声明的变量必须是返回值里面的某个属性， 也就是说：返回值内必须包含被声明的这个变量字段。</code></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><h2 id="node原生引入的http创建的服务器解决跨域问题"><a href="#node原生引入的http创建的服务器解决跨域问题" class="headerlink" title="node原生引入的http创建的服务器解决跨域问题"></a>node原生引入的http创建的服务器解决跨域问题</h2><pre class="line-numbers language-none"><code class="language-none">const http &#x3D; require(&#39;http&#39;);http.createServer((req,res)&#x3D;&gt;&#123;    res.setHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);&#x2F;&#x2F;跨域    res.end(&#39;12&#39;)&#125;).listen(&#39;3000&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       
@@ -1206,6 +1180,19 @@
             <tag> canvas </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>cesium专题</title>
+      <link href="/2021/12/28/cesium-zhuan-ti/"/>
+      <url>/2021/12/28/cesium-zhuan-ti/</url>
+      
+        <content type="html"><![CDATA[<p>CesiumJS 是一款用于创建虚拟场景的3D地理信息平台。目标是用于创建以基于Web的地图动态数据可视化。目前尽力提升平台的性能、准确率、虚拟化能力、易用性以及平台的各种支持。</p><ul><li>Cesium 是一个跨平台、跨浏览器的展示三维地球和地图的 javascript 库。</li><li>Cesium 使用WebGL 来进行硬件加速图形，使用时不需要任何插件支持，但是浏览器必须支持WebGL。</li><li>Cesium是基于Apache2.0 许可的开源程序。它可以免费的用于商业和非商业用途。</li></ul><h2 id="数据格式与功能特性"><a href="#数据格式与功能特性" class="headerlink" title="数据格式与功能特性"></a>数据格式与功能特性</h2><ul><li>支持2D,2.5D,3D 形式的地理（地图）数据展示，</li><li>可以绘制各种几何图形、高亮区域，支持导入图片，甚至三维模型等多种数据可视化展示</li><li>可用于动态数据可视化并提供良好的触摸支持，支持绝大多数的浏览器和移动端浏览器。</li><li>支持基于时间轴的动态流式数据展示</li></ul>]]></content>
+      
+      
       
     </entry>
     
@@ -1241,18 +1228,12 @@
     
     
     <entry>
-      <title>git命令</title>
-      <link href="/2021/12/28/git-ming-ling/"/>
-      <url>/2021/12/28/git-ming-ling/</url>
+      <title>es6</title>
+      <link href="/2021/12/28/es6/"/>
+      <url>/2021/12/28/es6/</url>
       
-        <content type="html"><![CDATA[<p><code>git版本控制就是通过不同的节点保存代码的各个阶段，同时在每次提交代码的时候需要填写提交信息</code></p><h1 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h1><p><code>git clone 仓库地址</code><br><em>注意：如果配置了多个git账户，则需要区分仓库地址使用的事git还是https，要依据自己配置的config文件进行确定</em></p><h1 id="添加（暂存）"><a href="#添加（暂存）" class="headerlink" title="添加（暂存）"></a>添加（暂存）</h1><p><code>git add .</code><br><em>注意：后面的 . 不能省略，. 代表的是将所有的更改都暂存起来</em></p><h1 id="填写提交信息"><a href="#填写提交信息" class="headerlink" title="填写提交信息"></a>填写提交信息</h1><p><code>git commit -m &#39;提交信息&#39;</code><br><em>注意：提交信息一定要见名知意，这样在后续回退的时候能更快的知道需要回退到哪个版本，做到真正的版本管理</em></p><p><strong>每次在提交前填写 commit -m 的命令时，推荐使用vscode插件 <code>git-commit-plugin</code>，这样可以使我们的提交信息更加丰富，方便管理</strong></p><h1 id="提交到仓库"><a href="#提交到仓库" class="headerlink" title="提交到仓库"></a>提交到仓库</h1><h2 id="线上与线下分支不存在冲突的时候"><a href="#线上与线下分支不存在冲突的时候" class="headerlink" title="线上与线下分支不存在冲突的时候"></a>线上与线下分支不存在冲突的时候</h2><p>当明确知道线上分支与当前线下分支版本一致，不存在冲突的时候。可以直接使用<code>git push</code></p><h2 id="线上与线下存在冲突的时候"><a href="#线上与线下存在冲突的时候" class="headerlink" title="线上与线下存在冲突的时候"></a>线上与线下存在冲突的时候</h2><p>因为一个项目需要多人在同一个仓库后者分支上开发，有时候就会出现别人的代码已经上传到git，但是自己本地未更新，这样在本地开发完成后，需要上传的时候就会提示需要先拉取最新的线上版本，与本地处理冲突后，然后再提交到仓库。<br><code>冲突的产生是不同的开发者开发了同一个文件所导致，如果不同的开发者开发的不是同一个文件，则可以直接上传成功。</code><br><strong>这很好理解：不同的开发者开发不同的文件，git上传的时候直接直接替换即可，但是如果开发的是同一个文件，那么git就会产生以谁的文件为最终结果的疑问，这就是冲突的由来，我们只有解决好冲突后，才能在解决的基础上连同自己添加的文件一并上传</strong><br><code>所以一般的开发习惯就是在 git push之前，先git pull拉取下</code></p><p><em>注意：提交的时候git会自动根据本地当时所处的分支提交到线上对应的分支，这一点至关重要，假如线上、线下同时具有dev和version分支，且本地处于version分支，那么上传时会自动传输到version分支，造成混乱。所以需要确定当前所处分支，需要上传到线上的分支，当分支不对的时候就需要切换</em></p><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><h2 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h2><p>分支切换的前提是知道有哪些分支，所以需要先查看下</p><h3 id="查看本地分支（线下）"><a href="#查看本地分支（线下）" class="headerlink" title="查看本地分支（线下）"></a>查看本地分支（线下）</h3><p><code>git branch</code><br><em>命令输入后，如果本地存在分支，则会全部列出</em></p><h3 id="查看所有分支（线上和线下）"><a href="#查看所有分支（线上和线下）" class="headerlink" title="查看所有分支（线上和线下）"></a>查看所有分支（线上和线下）</h3><p><code>git branch -a</code></p><ul><li>-a 就是 -all的意思，即查看所有分支（线上和线下）*<h2 id="切换分支-1"><a href="#切换分支-1" class="headerlink" title="切换分支"></a>切换分支</h2>查看分支完毕，就需要切换分支<h3 id="切换到本地已经存在的分支"><a href="#切换到本地已经存在的分支" class="headerlink" title="切换到本地已经存在的分支"></a>切换到本地已经存在的分支</h3><code>git checkout 分支名称</code><h3 id="要切换的分支本地并不存在，想创建一个分支并切换过去"><a href="#要切换的分支本地并不存在，想创建一个分支并切换过去" class="headerlink" title="要切换的分支本地并不存在，想创建一个分支并切换过去"></a>要切换的分支本地并不存在，想创建一个分支并切换过去</h3><code>git checkout -b 分支名称</code></li><li>注意：当使用<code>git checkout -b 分支名称</code>创建一个新分支的时候，如果线上也没有这个分支，则<code>git push</code>的时候会自动在线上创建该分支，这也是刚在上面所说的<code>git push</code>的时候需要注意本地当前所处分支的原因*</li></ul><h1 id="下拉"><a href="#下拉" class="headerlink" title="下拉"></a>下拉</h1><h2 id="下拉之前先检查线上分支与本地分支是否一致"><a href="#下拉之前先检查线上分支与本地分支是否一致" class="headerlink" title="下拉之前先检查线上分支与本地分支是否一致"></a>下拉之前先检查线上分支与本地分支是否一致</h2><p><code>git fetch</code></p><h2 id="下拉之前不检查，直接下拉"><a href="#下拉之前不检查，直接下拉" class="headerlink" title="下拉之前不检查，直接下拉"></a>下拉之前不检查，直接下拉</h2><p><code>git pull</code><br><em>注意：git pull是在不检查的情况下直接拉取，有可能下拉下来后与本地分支存在冲突，需要手动解决</em></p><h2 id="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"><a href="#本地已经做的更改不想保存，直接下拉线上版本进行覆盖" class="headerlink" title="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"></a>本地已经做的更改不想保存，直接下拉线上版本进行覆盖</h2><p>…未完待续</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><p><code>从数组和对象中提取值，对变量进行赋值，这被称为解构</code></p><h2 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h2><pre class="line-numbers language-none"><code class="language-none">let [a,b,c] &#x3D; [1,2,3];console.log(a,b,c);&#x2F;&#x2F; 1 2 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><code>解构不成功，变量的值为undefined</code></p><pre class="line-numbers language-none"><code class="language-none">let [a,b] &#x3D; [1];console.log(a,b);&#x2F;&#x2F; 1 undefinedlet [a,b] &#x3D; &#39;1&#39;;console.log(a,b);&#x2F;&#x2F; 1 undefined<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>如果等号右边不是可遍历的结构，会报错</strong></p><p>会报错的常见形式：</p><p>1、 数字</p><p>2、 布尔</p><p>3、 NaN</p><p>4、 undefined</p><p>5、null</p><p>6、{}  对象</p><h2 id="解构赋值的应用"><a href="#解构赋值的应用" class="headerlink" title="解构赋值的应用"></a>解构赋值的应用</h2><pre class="line-numbers language-none"><code class="language-none">假设下面是某个请求的返回值，形参是res&#123;    &quot;status&quot;: 200,    &quot;msg&quot;: &quot;成功&quot;,    &quot;data&quot;: &#123;        &quot;pageNum&quot;: 1,        &quot;pageSize&quot;: 99,        &quot;size&quot;: 49,    &#125;&#125;1、不用解构赋值let data &#x3D; res;if(data.data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;写起来比较繁琐2、使用解构赋值let &#123;data&#125; &#x3D; res;if(data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>这里需要注意的一点就是：声明的变量必须是返回值里面的某个属性， 也就是说：返回值内必须包含被声明的这个变量字段。</code></p>]]></content>
       
-      
-      <categories>
-          
-          <category> 命令行 </category>
-          
-      </categories>
       
       
     </entry>
@@ -1279,6 +1260,25 @@
             <tag> genkins </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>git命令</title>
+      <link href="/2021/12/28/git-ming-ling/"/>
+      <url>/2021/12/28/git-ming-ling/</url>
+      
+        <content type="html"><![CDATA[<p><code>git版本控制就是通过不同的节点保存代码的各个阶段，同时在每次提交代码的时候需要填写提交信息</code></p><h1 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h1><p><code>git clone 仓库地址</code><br><em>注意：如果配置了多个git账户，则需要区分仓库地址使用的事git还是https，要依据自己配置的config文件进行确定</em></p><h1 id="添加（暂存）"><a href="#添加（暂存）" class="headerlink" title="添加（暂存）"></a>添加（暂存）</h1><p><code>git add .</code><br><em>注意：后面的 . 不能省略，. 代表的是将所有的更改都暂存起来</em></p><h1 id="填写提交信息"><a href="#填写提交信息" class="headerlink" title="填写提交信息"></a>填写提交信息</h1><p><code>git commit -m &#39;提交信息&#39;</code><br><em>注意：提交信息一定要见名知意，这样在后续回退的时候能更快的知道需要回退到哪个版本，做到真正的版本管理</em></p><p><strong>每次在提交前填写 commit -m 的命令时，推荐使用vscode插件 <code>git-commit-plugin</code>，这样可以使我们的提交信息更加丰富，方便管理</strong></p><h1 id="提交到仓库"><a href="#提交到仓库" class="headerlink" title="提交到仓库"></a>提交到仓库</h1><h2 id="线上与线下分支不存在冲突的时候"><a href="#线上与线下分支不存在冲突的时候" class="headerlink" title="线上与线下分支不存在冲突的时候"></a>线上与线下分支不存在冲突的时候</h2><p>当明确知道线上分支与当前线下分支版本一致，不存在冲突的时候。可以直接使用<code>git push</code></p><h2 id="线上与线下存在冲突的时候"><a href="#线上与线下存在冲突的时候" class="headerlink" title="线上与线下存在冲突的时候"></a>线上与线下存在冲突的时候</h2><p>因为一个项目需要多人在同一个仓库后者分支上开发，有时候就会出现别人的代码已经上传到git，但是自己本地未更新，这样在本地开发完成后，需要上传的时候就会提示需要先拉取最新的线上版本，与本地处理冲突后，然后再提交到仓库。<br><code>冲突的产生是不同的开发者开发了同一个文件所导致，如果不同的开发者开发的不是同一个文件，则可以直接上传成功。</code><br><strong>这很好理解：不同的开发者开发不同的文件，git上传的时候直接直接替换即可，但是如果开发的是同一个文件，那么git就会产生以谁的文件为最终结果的疑问，这就是冲突的由来，我们只有解决好冲突后，才能在解决的基础上连同自己添加的文件一并上传</strong><br><code>所以一般的开发习惯就是在 git push之前，先git pull拉取下</code></p><p><em>注意：提交的时候git会自动根据本地当时所处的分支提交到线上对应的分支，这一点至关重要，假如线上、线下同时具有dev和version分支，且本地处于version分支，那么上传时会自动传输到version分支，造成混乱。所以需要确定当前所处分支，需要上传到线上的分支，当分支不对的时候就需要切换</em></p><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><h2 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h2><p>分支切换的前提是知道有哪些分支，所以需要先查看下</p><h3 id="查看本地分支（线下）"><a href="#查看本地分支（线下）" class="headerlink" title="查看本地分支（线下）"></a>查看本地分支（线下）</h3><p><code>git branch</code><br><em>命令输入后，如果本地存在分支，则会全部列出</em></p><h3 id="查看所有分支（线上和线下）"><a href="#查看所有分支（线上和线下）" class="headerlink" title="查看所有分支（线上和线下）"></a>查看所有分支（线上和线下）</h3><p><code>git branch -a</code></p><ul><li>-a 就是 -all的意思，即查看所有分支（线上和线下）*<h2 id="切换分支-1"><a href="#切换分支-1" class="headerlink" title="切换分支"></a>切换分支</h2>查看分支完毕，就需要切换分支<h3 id="切换到本地已经存在的分支"><a href="#切换到本地已经存在的分支" class="headerlink" title="切换到本地已经存在的分支"></a>切换到本地已经存在的分支</h3><code>git checkout 分支名称</code><h3 id="要切换的分支本地并不存在，想创建一个分支并切换过去"><a href="#要切换的分支本地并不存在，想创建一个分支并切换过去" class="headerlink" title="要切换的分支本地并不存在，想创建一个分支并切换过去"></a>要切换的分支本地并不存在，想创建一个分支并切换过去</h3><code>git checkout -b 分支名称</code></li><li>注意：当使用<code>git checkout -b 分支名称</code>创建一个新分支的时候，如果线上也没有这个分支，则<code>git push</code>的时候会自动在线上创建该分支，这也是刚在上面所说的<code>git push</code>的时候需要注意本地当前所处分支的原因*</li></ul><h1 id="下拉"><a href="#下拉" class="headerlink" title="下拉"></a>下拉</h1><h2 id="下拉之前先检查线上分支与本地分支是否一致"><a href="#下拉之前先检查线上分支与本地分支是否一致" class="headerlink" title="下拉之前先检查线上分支与本地分支是否一致"></a>下拉之前先检查线上分支与本地分支是否一致</h2><p><code>git fetch</code></p><h2 id="下拉之前不检查，直接下拉"><a href="#下拉之前不检查，直接下拉" class="headerlink" title="下拉之前不检查，直接下拉"></a>下拉之前不检查，直接下拉</h2><p><code>git pull</code><br><em>注意：git pull是在不检查的情况下直接拉取，有可能下拉下来后与本地分支存在冲突，需要手动解决</em></p><h2 id="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"><a href="#本地已经做的更改不想保存，直接下拉线上版本进行覆盖" class="headerlink" title="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"></a>本地已经做的更改不想保存，直接下拉线上版本进行覆盖</h2><p>…未完待续</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 命令行 </category>
+          
+      </categories>
+      
       
     </entry>
     
