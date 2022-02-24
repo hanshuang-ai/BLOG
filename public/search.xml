@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>前端性能优化</title>
+      <link href="/2022/02/24/qian-duan-xing-neng-you-hua/"/>
+      <url>/2022/02/24/qian-duan-xing-neng-you-hua/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/115047733">转载地址</a></p><pre class="line-numbers language-none"><code class="language-none">移动互联网时代，用户对于网页的打开速度要求越来越高。首屏作为直面用户的第一屏，其重要性不言而喻。优化用户体验更是我们前端开发非常需要 focus 的东西之一。从用户的角度而言，当打开一个网页，往往关心的是从输入完网页地址后到最后展现完整页面这个过程需要的时间，这个时间越短，用户体验越好。所以作为网页的开发者，就从输入url到页面渲染呈现这个过程中去提升网页的性能。所以输入URL后发生了什么呢？在浏览器中输入url会经历域名解析、建立TCP连接、发送http请求、资源解析等步骤。http缓存优化是网页性能优化的重要一环，这一部分我会在后续笔记中做一个详细总结，所以本文暂不多做详细整理。本文主要从网页渲染过程、网页交互以及Vue应用优化三个角度对性能优化做一个小结。一、页面加载及渲染过程优化浏览器渲染流程首先谈谈拿到服务端资源后浏览器渲染的流程：1. 解析 HTML 文件，构建 DOM 树，同时浏览器主进程负责下载 CSS 文件2. CSS 文件下载完成，解析 CSS 文件成树形的数据结构，然后结合 DOM 树合并成 RenderObject 树3. 布局 RenderObject 树 （Layout&#x2F;reflow），负责 RenderObject 树中的元素的尺寸，位置等计算4. 绘制 RenderObject 树 （paint），绘制页面的像素信息5. 浏览器主进程将默认的图层和复合图层交给 GPU 进程，GPU 进程再将各个图层合成（composite），最后显示出页面CRP（关键渲染路径Critical Rendering Path）优化关键渲染路径是浏览器将 HTML、CSS、JavaScript 转换为在屏幕上呈现的像素内容所经历的一系列步骤。也就是我们刚刚提到的的的浏览器渲染流程。为尽快完成首次渲染，我们需要最大限度减小以下三种可变因素:* 关键资源的数量: 可能阻止网页首次渲染的资源。* 关键路径长度: 获取所有关键资源所需的往返次数或总时间。* 关键字节: 实现网页首次渲染所需的总字节数，等同于所有关键资源传送文件大小的总和。优化 DOM* 删除不必要的代码和注释包括空格，尽量做到最小化文件。* 可以利用 GZIP 压缩文件。* 结合 HTTP 缓存文件。优化 CSSOM首先，DOM 和 CSSOM 通常是并行构建的，所以 CSS 加载不会阻塞 DOM 的解析。然而，由于 Render Tree 是依赖于 DOM Tree 和 CSSOM Tree 的，所以他必须等待到 CSSOM Tree 构建完成，也就是 CSS 资源加载完成(或者 CSS 资源加载失败)后，才能开始渲染。因此，CSS 加载会阻塞 Dom 的渲染。由此可见，对于 CSSOM 缩小、压缩以及缓存同样重要，我们可以从这方面考虑去优化。* 减少关键 CSS 元素数量* 当我们声明样式表时，请密切关注媒体查询的类型，它们极大地影响了 CRP 的性能 。优化 JavaScript当浏览器遇到 script 标记时，会阻止解析器继续操作，直到 CSSOM 构建完毕，JavaScript 才会运行并继续完成 DOM 构建过程。* async: 当我们在 script 标记添加 async 属性以后，浏览器遇到这个 script 标记时会继续解析 DOM，同时脚本也不会被 CSSOM 阻止，即不会阻止 CRP。* defer: 与 async 的区别在于，脚本需要等到文档解析后（ DOMContentLoaded 事件前）执行，而 async 允许脚本在文档解析时位于后台运行（两者下载的过程不会阻塞 DOM，但执行会）。* 当我们的脚本不会修改 DOM 或 CSSOM 时，推荐使用 async 。* 预加载 —— preload &amp; prefetch 。* DNS 预解析 —— dns-prefetch 。小结* 分析并用 **关键资源数 关键字节数 关键路径长度** 来描述我们的 CRP 。* 最小化关键资源数: 消除它们（内联）、推迟它们的下载（defer）或者使它们异步解析（async）等等 。* 优化关键字节数（缩小、压缩）来减少下载时间 。* 优化加载剩余关键资源的顺序: 让关键资源（CSS）尽早下载以减少 CRP 长度 。补充阅读： 前端性能优化之关键路径渲染优化浏览器重绘（Repaint）和回流（Reflow）回流必将引起重绘，重绘不一定会引起回流。重绘（Repaint）当页面中元素样式的改变并不影响它在文档流中的位置时（例如：color、background-color、visibility 等），浏览器会将新样式赋予给元素并重新绘制它，这个过程称为重绘。回流（Reflow）当 Render Tree 中部分或全部元素的尺寸、结构、或某些属性发生改变时，浏览器重新渲染部分或全部文档的过程称为回流。会导致回流的操作：* 页面首次渲染* 浏览器窗口大小发生改变* 元素尺寸或位置发生改变元素内容变化（文字数量或图片大小等等）* 元素字体大小变化* 添加或者删除可见的 DOM 元素* 激活 CSS 伪类（例如:hover）* 查询某些属性或调用某些方法* 一些常用且会导致回流的属性和方法clientWidth、clientHeight、clientTop、clientLeftoffsetWidth、offsetHeight、offsetTop、offsetLeftscrollWidth、scrollHeight、scrollTop、scrollLeftscrollIntoView()、scrollIntoViewIfNeeded()、getComputedStyle()、getBoundingClientRect()、scrollTo()性能影响回流比重绘的代价要更高。有时即使仅仅回流一个单一的元素，它的父元素以及任何跟随它的元素也会产生回流。现代浏览器会对频繁的回流或重绘操作进行优化：浏览器会维护一个队列，把所有引起回流和重绘的操作放入队列中，如果队列中的任务数量或者时间间隔达到一个阈值的，浏览器就会将队列清空，进行一次批处理，这样可以把多次回流和重绘变成一次。当你访问以下属性或方法时，浏览器会立刻清空队列:clientWidth、clientHeight、clientTop、clientLeftoffsetWidth、offsetHeight、offsetTop、offsetLeftscrollWidth、scrollHeight、scrollTop、scrollLeftwidth、heightgetComputedStyle()getBoundingClientRect()因为队列中可能会有影响到这些属性或方法返回值的操作，即使你希望获取的信息与队列中操作引发的改变无关，浏览器也会强行清空队列，确保你拿到的值是最精确的。如何避免CSS* • 避免使用 table 布局。* • 尽可能在 DOM 树的最末端改变 class。* • 避免设置多层内联样式。* • 将动画效果应用到 position 属性为 absolute 或 fixed 的元素上。* • 避免使用 CSS 表达式（例如：calc()）。Javascript* • 避免频繁操作样式，最好一次性重写 style 属性，或者将样式列表定义为 class 并一次性更改 class 属性。&#x2F;&#x2F; 优化前const el &#x3D; document.getElementById(&#39;test&#39;);el.style.borderLeft &#x3D; &#39;1px&#39;;el.style.borderRight &#x3D; &#39;2px&#39;;el.style.padding &#x3D; &#39;5px&#39;;&#x2F;&#x2F; 优化后,一次性修改样式，这样可以将三次重排减少到一次重排const el &#x3D; document.getElementById(&#39;test&#39;);el.style.cssText +&#x3D; &#39;; border-left: 1px ;border-right: 2px; padding: 5px;&#39;* • 避免频繁操作 DOM，创建一个 documentFragment，在它上面应用所有 DOM 操作，最后再把它添加到文档中。* • 也可以先为元素设置 display: none，操作结束后再把它显示出来。因为在 display 属性为 none 的元素上进行的 DOM 操作不会引发回流和重绘。* • 避免频繁读取会引发回流&#x2F;重绘的属性，如果确实需要多次使用，就用一个变量缓存起来。* • 对具有复杂动画的元素使用绝对定位，使它脱离文档流，否则会引起父元素及后续元素频繁回流。图片懒加载图片懒加载在一些图片密集型的网站中运用比较多，通过图片懒加载可以让一些不可视的图片不去加载，避免一次性加载过多的图片导致请求阻塞（浏览器一般对同一域名下的并发请求的连接数有限制），这样就可以提高网站的加载速度，提高用户体验。原理将页面中的img标签src指向一张小图片或者src为空，然后定义data-src（这个属性可以自定义命名，我才用data-src）属性指向真实的图片。src指向一张默认的图片，否则当src为空时也会向服务器发送一次请求。可以指向loading的地址。注意，图片要指定宽高。&lt;img src&#x3D;&quot;default.jpg&quot; data-src&#x3D;&quot;666.jpg&quot; &#x2F;&gt;当载入页面时，先把可视区域内的img标签的data-src属性值负给src，然后监听滚动事件，把用户即将看到的图片加载。这样便实现了懒加载。实例&lt;!DOCTYPE html&gt;&lt;html lang&#x3D;&quot;en&quot;&gt;&lt;head&gt;  &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;  &lt;style&gt;    img &#123;      display: block;      margin-bottom: 50px;      width: 400px;      height: 400px;    &#125;  &lt;&#x2F;style&gt;&lt;&#x2F;head&gt;&lt;body&gt;  &lt;img src&#x3D;&quot;Go.png&quot; data-src&#x3D;&quot;.&#x2F;lifecycle.jpeg&quot; alt&#x3D;&quot;&quot;&gt;  &lt;img src&#x3D;&quot;Go.png&quot; data-src&#x3D;&quot;.&#x2F;lifecycle.jpeg&quot; alt&#x3D;&quot;&quot;&gt;  &lt;img src&#x3D;&quot;Go.png&quot; data-src&#x3D;&quot;.&#x2F;lifecycle.jpeg&quot; alt&#x3D;&quot;&quot;&gt;  &lt;img src&#x3D;&quot;Go.png&quot; data-src&#x3D;&quot;.&#x2F;lifecycle.jpeg&quot; alt&#x3D;&quot;&quot;&gt;  &lt;img src&#x3D;&quot;Go.png&quot; data-src&#x3D;&quot;.&#x2F;lifecycle.jpeg&quot; alt&#x3D;&quot;&quot;&gt;  &lt;img src&#x3D;&quot;Go.png&quot; data-src&#x3D;&quot;.&#x2F;lifecycle.jpeg&quot; alt&#x3D;&quot;&quot;&gt;  &lt;img src&#x3D;&quot;Go.png&quot; data-src&#x3D;&quot;.&#x2F;lifecycle.jpeg&quot; alt&#x3D;&quot;&quot;&gt;  &lt;img src&#x3D;&quot;Go.png&quot; data-src&#x3D;&quot;.&#x2F;lifecycle.jpeg&quot; alt&#x3D;&quot;&quot;&gt;  &lt;img src&#x3D;&quot;Go.png&quot; data-src&#x3D;&quot;.&#x2F;lifecycle.jpeg&quot; alt&#x3D;&quot;&quot;&gt;  &lt;img src&#x3D;&quot;Go.png&quot; data-src&#x3D;&quot;.&#x2F;lifecycle.jpeg&quot; alt&#x3D;&quot;&quot;&gt;  &lt;img src&#x3D;&quot;Go.png&quot; data-src&#x3D;&quot;.&#x2F;lifecycle.jpeg&quot; alt&#x3D;&quot;&quot;&gt;  &lt;script&gt;    let num &#x3D; document.getElementsByTagName(&#39;img&#39;).length;    let img &#x3D; document.getElementsByTagName(&quot;img&quot;);    let n &#x3D; 0; &#x2F;&#x2F;存储图片加载到的位置，避免每次都从第一张图片开始遍历    lazyload(); &#x2F;&#x2F;页面载入完毕加载可是区域内的图片    window.onscroll &#x3D; lazyload;    function lazyload() &#123; &#x2F;&#x2F;监听页面滚动事件      let seeHeight &#x3D; document.documentElement.clientHeight; &#x2F;&#x2F;可见区域高度      let scrollTop &#x3D; document.documentElement.scrollTop || document.body.scrollTop; &#x2F;&#x2F;滚动条距离顶部高度      for (let i &#x3D; n; i &lt; num; i++) &#123;        if (img[i].offsetTop &lt; seeHeight + scrollTop) &#123;          if (img[i].getAttribute(&quot;src&quot;) &#x3D;&#x3D; &quot;Go.png&quot;) &#123;            img[i].src &#x3D; img[i].getAttribute(&quot;data-src&quot;);          &#125;          n &#x3D; i + 1;        &#125;      &#125;    &#125;  &lt;&#x2F;script&gt;&lt;&#x2F;body&gt;&lt;&#x2F;html&gt;事件委托事件委托其实就是利用JS事件冒泡机制把原本需要绑定在子元素的响应事件（click、keydown……）委托给父元素，让父元素担当事件监听的职务。事件代理的原理是DOM元素的事件冒泡。优点：1. 大量减少内存占用，减少事件注册。2. 新增元素实现动态绑定事件例如有一个列表需要绑定点击事件，每一个列表项的点击都需要返回不同的结果。传统写法：&lt;ul id&#x3D;&quot;color-list&quot;&gt;    &lt;li&gt;red&lt;&#x2F;li&gt;    &lt;li&gt;yellow&lt;&#x2F;li&gt;    &lt;li&gt;blue&lt;&#x2F;li&gt;    &lt;li&gt;green&lt;&#x2F;li&gt;    &lt;li&gt;black&lt;&#x2F;li&gt;    &lt;li&gt;white&lt;&#x2F;li&gt;  &lt;&#x2F;ul&gt;  &lt;script&gt;    (function () &#123;      var color_list &#x3D; document.querySelectorAll(&#39;li&#39;)      console.log(&quot;color_list&quot;, color_list)      for (let item of color_list) &#123;        item.onclick &#x3D; showColor;      &#125;      function showColor(e) &#123;        alert(e.target.innerHTML)        console.log(&quot;showColor -&gt; e.target&quot;, e.target.innerHTML)      &#125;    &#125;)();  &lt;&#x2F;script&gt;传统方法会利用for循环遍历列表为每一个列表元素绑定点击事件，当列表中元素数量非常庞大时，需要绑定大量的点击事件，这种方式就会产生性能问题。这种情况下利用事件委托就能很好的解决这个问题。改用事件委托：&lt;ul id&#x3D;&quot;color-list&quot;&gt;    &lt;li&gt;red&lt;&#x2F;li&gt;    &lt;li&gt;yellow&lt;&#x2F;li&gt;    &lt;li&gt;blue&lt;&#x2F;li&gt;    &lt;li&gt;green&lt;&#x2F;li&gt;    &lt;li&gt;black&lt;&#x2F;li&gt;    &lt;li&gt;white&lt;&#x2F;li&gt;  &lt;&#x2F;ul&gt;  &lt;script&gt;    (function () &#123;      var color_list &#x3D; document.getElementByid(&#39;color-list&#39;);      color_list.addEventListener(&#39;click&#39;, showColor, true);      function showColor(e) &#123;        var x &#x3D; e.target;        if (x.nodeName.toLowerCase() &#x3D;&#x3D;&#x3D; &#39;li&#39;) &#123;          alert(x.innerHTML);        &#125;      &#125;    &#125;)();  &lt;&#x2F;script&gt;二、渲染完成后的页面交互优化：防抖（debounce）&#x2F;节流（throttle）防抖（debounce）输入搜索时，可以用防抖debounce等优化方式，减少http请求；这里以滚动条事件举例：防抖函数 onscroll 结束时触发一次，延迟执行function debounce(func， wait) &#123;  let timeout;  return function() &#123;    let context &#x3D; this; &#x2F;&#x2F; 指向全局    let args &#x3D; arguments;    if (timeout) &#123;      clearTimeout(timeout);    &#125;    timeout &#x3D; setTimeout(() &#x3D;&gt; &#123;      func.apply(context， args); &#x2F;&#x2F; context.func(args)    &#125;， wait);  &#125;;&#125;&#x2F;&#x2F; 使用window.onscroll &#x3D; debounce(function() &#123;  console.log(&#39;debounce&#39;);&#125;， 1000);节流（throttle）节流函数：只允许一个函数在N秒内执行一次。滚动条调用接口时，可以用节流throttle等优化方式，减少http请求；下面还是一个简单的滚动条事件节流函数：节流函数 onscroll 时，每隔一段时间触发一次，像水滴一样function throttle(fn， delay) &#123;  let prevTime &#x3D; Date.now();  return function() &#123;    let curTime &#x3D; Date.now();    if (curTime - prevTime &gt; delay) &#123;      fn.apply(this， arguments);      prevTime &#x3D; curTime;    &#125;  &#125;;&#125;&#x2F;&#x2F; 使用var throtteScroll &#x3D; throttle(function() &#123;  console.log(&#39;throtte&#39;);&#125;， 1000);window.onscroll &#x3D; throtteScroll;三、Vue相关性能优化如何定位 Vue 应用性能问题Vue 应用的性能问题可以分为两个部分，第一部分是运行时性能问题，第二部分是加载性能问题。和其他 web 应用一样，定位 Vue 应用性能问题最好的工具是 Chrome Devtool，通过 Performance 工具可以用来录制一段时间的 CPU 占用、内存占用、FPS 等运行时性能问题，通过 Network 工具可以用来分析加载性能问题。更多 Chrome Devtool 使用方式请参考 使用 Chrome Devtool 定位性能问题 的指南Vue 应用运行时性能优化建议运行时性能主要关注 Vue 应用初始化之后对 CPU、内存、本地存储等资源的占用，以及对用户交互的及时响应。引入生产环境的 Vue 文件开发环境下，Vue 会提供很多警告来帮你对付常见的错误与陷阱。而在生产环境下，这些警告语句没有用，反而会增加应用的体积。有些警告检查还有一些小的运行时开销。当使用 webpack 或 Browserify 类似的构建工具时，Vue 源码会根据 process.env.NODE_ENV 决定是否启用生产环境模式，默认情况为开发环境模式。在 webpack 与 Browserify 中都有方法来覆盖此变量，以启用 Vue 的生产环境模式，同时在构建过程中警告语句也会被压缩工具去除。详细的做法请参阅 生产环境部署使用单文件组件预编译模板当使用 DOM 内模板或 JavaScript 内的字符串模板时，模板会在运行时被编译为渲染函数。通常情况下这个过程已经足够快了，但对性能敏感的应用还是最好避免这种用法。预编译模板最简单的方式就是使用单文件组件——相关的构建设置会自动把预编译处理好，所以构建好的代码已经包含了编译出来的渲染函数而不是原始的模板字符串。详细的做法请参阅 预编译模板提取组件的 CSS 到单独到文件当使用单文件组件时，组件内的 CSS 会以 &lt;style&gt; 标签的方式通过 JavaScript 动态注入。这有一些小小的运行时开销，将所有组件的 CSS 提取到同一个文件可以避免这个问题，也会让 CSS 更好地进行压缩和缓存。查阅这个构建工具各自的文档来了解更多：* • webpack + vue-loader (vue-cli 的 webpack 模板已经预先配置好)* • Browserify + vueify* • Rollup + rollup-plugin-vue利用Object.freeze()提升性能Object.freeze() 可以冻结一个对象，冻结之后不能向这个对象添加新的属性，不能修改其已有属性的值，不能删除已有属性，以及不能修改该对象已有属性的可枚举性、可配置性、可写性。该方法返回被冻结的对象。当你把一个普通的 JavaScript 对象传给 Vue 实例的 data 选项，Vue 将遍历此对象所有的属性，并使用Object.defineProperty 把这些属性全部转为 getter&#x2F;setter，这些 getter&#x2F;setter 对用户来说是不可见的，但是在内部它们让 Vue 追踪依赖，在属性被访问和修改时通知变化。但 Vue 在遇到像 Object.freeze() 这样被设置为不可配置之后的对象属性时，不会为对象加上 setter getter 等数据劫持的方法。 参考 Vue 源码Object.freeze()### 应用场景由于 Object.freeze() 会把对象冻结，所以比较适合展示类的场景，如果你的数据属性需要改变，可以重新替换成一个新的 Object.freeze()的对象。扁平化 Store 数据结构很多时候，我们会发现接口返回的信息是如下的深层嵌套的树形结构：&#123;  &quot;id&quot;: &quot;123&quot;，  &quot;author&quot;: &#123;    &quot;id&quot;: &quot;1&quot;，    &quot;name&quot;: &quot;Paul&quot;  &#125;，  &quot;title&quot;: &quot;My awesome blog post&quot;，  &quot;comments&quot;: [    &#123;      &quot;id&quot;: &quot;324&quot;，      &quot;commenter&quot;: &#123;        &quot;id&quot;: &quot;2&quot;，        &quot;name&quot;: &quot;Nicole&quot;      &#125;    &#125;  ]&#125;假如直接把这样的结构存储在 store 中，如果想修改某个 commenter 的信息，我们需要一层层去遍历找到这个用户的信息，同时有可能这个用户的信息出现了多次，还需要把其他地方的用户信息也进行修改，每次遍历的过程会带来额外的性能开销。假设我们把用户信息在 store 内统一存放成 users[id]这样的结构，修改和读取用户信息的成本就变得非常低。你可以手动去把接口里的信息通过类似数据的表一样像这样存起来，也可以借助一些工具，这里就需要提到一个概念叫做 JSON数据规范化（normalize）， Normalizr 是一个开源的工具，可以将上面的深层嵌套的 JSON 对象通过定义好的 schema 转变成使用 id 作为字典的实体表示的对象。避免持久化 Store 数据带来的性能问题当你有让 Vue App 离线可用，或者有接口出错时候进行灾备的需求的时候，你可能会选择把 Store 数据进行持久化，这个时候需要注意以下几个方面：* • 持久化时写入数据的性能问题Vue 社区中比较流行的 vuex-persistedstate，利用了 store 的 subscribe 机制，来订阅 Store 数据的 mutation，如果发生了变化，就会写入 storage 中，默认用的是 localstorage 作为持久化存储。也就是说默认情况下每次 commit 都会向 localstorage 写入数据，localstorage 写入是同步的，而且存在不小的性能开销，如果你想打造 60fps 的应用，就必须避免频繁写入持久化数据。我们应该尽量减少直接写入 Storage 的频率：* 多次写入操作合并为一次，比如采用函数节流或者将数据先缓存在内存中，最后在一并写入* 只有在必要的时候才写入，比如只有关心的模块的数据发生变化的时候才写入* • 避免持久化存储的容量持续增长由于持久化缓存的容量有限，比如 localstorage 的缓存在某些浏览器只有 5M，我们不能无限制的将所有数据都存起来，这样很容易达到容量限制，同时数据过大时，读取和写入操作会增加一些性能开销，同时内存也会上涨。尤其是将 API 数据进行 normalize 数据扁平化后之后，会将一份数据散落在不同的实体上，下次请求到新的数据也会散落在其他不同的实体上，这样会带来持续的存储增长。因此，当设计了一套持久化的数据缓存策略的时候，同时应该设计旧数据的缓存清除策略，例如请求到新数据的时候将旧的实体逐个进行清除。优化无限列表性能如果你的应用存在非常长或者无限滚动的列表，那么采用 窗口化 的技术来优化性能，只需要渲染少部分区域的内容，减少重新渲染组件和创建 dom 节点的时间。vue-virtual-scroll-list 和 vue-virtual-scroller 都是解决这类问题的开源项目。你也可以参考 Google 工程师的文章 Complexities of an Infinite Scroller 来尝试自己实现一个虚拟的滚动列表来优化性能，主要使用到的技术是 DOM 回收、墓碑元素和滚动锚定。Google 工程师绘制的无限列表设计通过组件懒加载优化超长应用内容初始渲染性能上面提到的无限列表的场景，比较适合列表内元素非常相似的情况，不过有时候，你的 Vue 应用的超长列表内的内容往往不尽相同，例如在一个复杂的应用的主界面中，整个主界面由非常多不同的模块组成，而用户看到的往往只有首屏一两个模块。在初始渲染的时候不可见区域的模块也会执行和渲染，带来一些额外的性能开销。使用组件懒加载在不可见时只需要渲染一个骨架屏，不需要真正渲染组件你可以对组件直接进行懒加载，对于不可见区域的组件内容，直接不进行加载和初始化，避免初始化渲染运行时的开销。具体可以参考我们之前的专栏文章 性能优化之组件懒加载: Vue Lazy Component 介绍，了解如何做到组件粒度的懒加载。Vue 应用加载性能优化建议利用服务端渲染（SSR）和预渲染（Prerender）来优化加载性能在一个单页应用中，往往只有一个 html 文件，然后根据访问的 url 来匹配对应的路由脚本，动态地渲染页面内容。单页应用比较大的问题是首屏可见时间过长。单页面应用显示一个页面会发送多次请求，第一次拿到 html 资源，然后通过请求再去拿数据，再将数据渲染到页面上。而且由于现在微服务架构的存在，还有可能发出多次数据请求才能将网页渲染出来，每次数据请求都会产生 RTT（往返时延），会导致加载页面的时间拖的很长。服务端渲染、预渲染和客户端渲染的对比这种情况下可以采用服务端渲染（SSR）和预渲染（Prerender）来提升加载性能，这两种方案，用户读取到的直接就是网页内容，由于少了节省了很多 RTT（往返时延），同时，还可以对一些资源内联在页面，可以进一步提升加载的性能。可以参考专栏文章 优化向：单页应用多路由预渲染指南 了解如何利用预渲染进行优化。服务端渲染（SSR）可以考虑使用 Nuxt 或者按照 Vue 官方提供的 Vue SSR 指南 来一步步搭建。通过组件懒加载优化超长应用内容加载性能在上面提到的超长应用内容的场景中，通过组件懒加载方案可以优化初始渲染的运行性能，其实，这对于优化应用的加载性能也很有帮助。组件粒度的懒加载结合异步组件和 webpack 代码分片，可以保证按需加载组件，以及组件依赖的资源、接口请求等，比起通常单纯的对图片进行懒加载，更进一步的做到了按需加载资源。使用组件懒加载之前的请求瀑布图使用组件懒加载之后的请求瀑布图使用组件懒加载方案对于超长内容的应用初始化渲染很有帮助，可以减少大量必要的资源请求，缩短渲染关键路径，具体做法请参考我们之前的专栏文章 性能优化之组件懒加载: Vue Lazy Component 介绍 。总结上面部分总结了 Vue 应用运行时以及加载时的一些性能优化措施，下面做一个回顾和概括：* • Vue 应用运行时性能优化措施    * • 引入生产环境的 Vue 文件    * • 使用单文件组件预编译模板    * • 提取组件的 CSS 到单独到文件    * • 利用Object.freeze()提升性能    * • 扁平化 Store 数据结构    * • 合理使用持久化 Store 数据    * • 组件懒加载* • Vue 应用加载性能优化措施    * • 服务端渲染 &#x2F; 预渲染    * • 组件懒加载文章总结的这些性能优化手段当然不能覆盖所有的 Vue 应用性能问题，我们也会不断总结和补充其他问题及优化措施，希望文章中提到这些实践经验能给你的 Vue 应用性能优化工作带来小小的帮助。四、其他方面优化补充* • webpack模块打包和JavaScript 压缩（如gzip压缩）* • 利用CDN* • 按需加载资源* • 在使用 DOM 操作库时用上 array-ids* • 缓存优化* • 避免重定向* • 启用 HTTP&#x2F;2* • 应用性能分析* • 使用负载均衡方案* • 为了更快的启动时间考虑一下同构* • 使用索引加速数据库查询* • 使用更快的转译方案* • 避免或最小化 JavaScript 和 CSS 的使用而阻塞渲染* • 用于未来的一个建议：使用 service workers + 流* • 图片编码优化，尽量使用svg和字体图标<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 性能优化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>小程序的不同页面间传值</title>
+      <link href="/2022/02/24/xiao-cheng-xu-de-bu-tong-ye-mian-jian-chuan-zhi/"/>
+      <url>/2022/02/24/xiao-cheng-xu-de-bu-tong-ye-mian-jian-chuan-zhi/</url>
+      
+        <content type="html"><![CDATA[<p><img src="/2022/02/24/xiao-cheng-xu-de-bu-tong-ye-mian-jian-chuan-zhi/1.png" alt="小程序的不同页面间传值"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 小程序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>vue组件传值</title>
       <link href="/2022/02/23/vue-zu-jian-chuan-zhi/"/>
       <url>/2022/02/23/vue-zu-jian-chuan-zhi/</url>
@@ -928,24 +966,11 @@
     
     
     <entry>
-      <title>process.env.NODE_ENV</title>
-      <link href="/2021/12/28/process.env.node-env/"/>
-      <url>/2021/12/28/process.env.node-env/</url>
-      
-        <content type="html"><![CDATA[<p>1、在node当中，全局变量process代表的是node当中的进程。 process.env包含着关于系统环境的信息，<code>但是并不包含NODE_ENV这个属性</code></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>ssh远程连接服务器</title>
       <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
       <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
       
-        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#x72;&#x6f;&#x6f;&#x74;&#64;&#120;&#120;&#x78;&#46;&#120;&#x78;&#120;&#x2e;&#x78;&#x78;&#x78;&#x2e;&#120;&#x78;&#120;">&#x72;&#x6f;&#x6f;&#x74;&#64;&#120;&#120;&#x78;&#46;&#120;&#x78;&#120;&#x2e;&#x78;&#x78;&#x78;&#x2e;&#120;&#x78;&#120;</a>(ip地址)</p>]]></content>
+        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#114;&#x6f;&#x6f;&#116;&#x40;&#120;&#120;&#x78;&#x2e;&#120;&#120;&#x78;&#46;&#x78;&#x78;&#x78;&#46;&#120;&#120;&#120;">&#114;&#x6f;&#x6f;&#116;&#x40;&#120;&#120;&#x78;&#x2e;&#120;&#120;&#x78;&#46;&#x78;&#x78;&#x78;&#46;&#120;&#120;&#120;</a>(ip地址)</p>]]></content>
       
       
       
@@ -984,6 +1009,19 @@
       <url>/2021/12/28/tcp-san-ci-wo-shou-he-si-ci-hui-shou/</url>
       
         <content type="html"><![CDATA[<h1 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h1><p>客户端和服务端通信前要进行连接，<br><code>“3次握手”的作用就是</code><em><strong><code>双方都能明确自己和对方的收、发能力是正常的。</code></strong></em></p><p><img src="http://qiniu.aoxuekj.com/2019100611062917.png"></p><h2 id="第一次握手："><a href="#第一次握手：" class="headerlink" title="第一次握手："></a>第一次握手：</h2><p>客户端发送网络包，服务端收到了。这样服务端就能得出结论：客户端的发送能力、服务端的接收能力是正常的。</p><h2 id="第二次握手："><a href="#第二次握手：" class="headerlink" title="第二次握手："></a>第二次握手：</h2><p>服务端发包，客户端收到了。这样客户端就能得出结论：服务端的接收、发送能力，客户端的接收、发送能力是正常的。 从客户端的视角来看，我接到了服务端发送过来的响应数据包，说明服务端接收到了我在第一次握手时发送的网络包，并且成功发送了响应数据包，这就说明，服务端的接收、发送能力正常。而另一方面，我收到了服务端的响应数据包，说明我第一次发送的网络包成功到达服务端，这样，我自己的发送和接收能力也是正常的。<code>但是服务器还不知道我的接收能力</code></p><h2 id="第三次握手："><a href="#第三次握手：" class="headerlink" title="第三次握手："></a>第三次握手：</h2><p>客户端发包，服务端收到了。这样服务端就能得出结论：客户端的接收、发送能力，服务端的发送、接收能力是正常的。 第一、二次握手后，服务端并不知道客户端的接收能力以及自己的发送能力是否正常。而在第三次握手时，服务端收到了客户端对第二次握手作的回应。从服务端的角度，我在第二次握手时的响应数据发送出去了，客户端接收到了。所以，我的发送能力是正常的。而客户端的接收能力也是正常的。</p><h1 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h1><p><img src="http://qiniu.aoxuekj.com/20191006110633739.png"></p><ol><li>客户端发送一个FIN段，并包含一个希望接收者看到的自己当前的序列号K. 同时还包含一个ACK表示确认对方最近一次发过来的数据。 </li><li>服务端将K值加1作为ACK序号值，表明收到了上一个包。这时上层的应用程序会被告知另一端发起了关闭操作，通常这将引起应用程序发起自己的关闭操作。 </li><li>服务端发起自己的FIN段，ACK=K+1, Seq=L。</li><li>客户端确认。ACK=L+1。</li></ol><h1 id="为什么握手是三次，挥手是四次"><a href="#为什么握手是三次，挥手是四次" class="headerlink" title="为什么握手是三次，挥手是四次"></a>为什么握手是三次，挥手是四次</h1><p>这是因为服务端在LISTEN状态下，<code>收到建立连接请求的SYN报文后，把ACK和SYN放在一个报文里发送给客户端</code>(<em><strong>相当于将四次挥手中的第2、3次合并了</strong></em>)。而关闭连接时，当收到对方的FIN报文时，仅仅表示对方不再发送数据了但是还能接收数据，己方是否现在关闭发送数据通道，需要上层应用来决定，因此，己方ACK和FIN一般都会分开发送。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>process.env.NODE_ENV</title>
+      <link href="/2021/12/28/process.env.node-env/"/>
+      <url>/2021/12/28/process.env.node-env/</url>
+      
+        <content type="html"><![CDATA[<p>1、在node当中，全局变量process代表的是node当中的进程。 process.env包含着关于系统环境的信息，<code>但是并不包含NODE_ENV这个属性</code></p>]]></content>
       
       
       
@@ -1056,25 +1094,6 @@
     
     
     <entry>
-      <title>macOS安装homebrew</title>
-      <link href="/2021/12/28/macos-an-zhuang-homebrew/"/>
-      <url>/2021/12/28/macos-an-zhuang-homebrew/</url>
-      
-        <content type="html"><![CDATA[<p>Homebrew是一款Mac OS平台下的软件包管理工具，拥有安装、卸载、更新、查看、搜索等很多实用的功能。简单的一条指令，就可以实现包管理，而不用你关心各种依赖和文件路径的情况，十分方便快捷。</p><h2 id="官方安装方式-https-brew-sh-index-zh-cn"><a href="#官方安装方式-https-brew-sh-index-zh-cn" class="headerlink" title="官方安装方式(https://brew.sh/index_zh-cn)"></a>官方安装方式(<a href="https://brew.sh/index_zh-cn">https://brew.sh/index_zh-cn</a>)</h2><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;HEAD&#x2F;install.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><code>官方安装方法在国内很多时候都是无法直接安装问题的，因为网络问题，解决方法也有很多，这里就不一一介绍了，这里就介绍最简单的方法</code></p><h2 id="国内快速安装"><a href="#国内快速安装" class="headerlink" title="国内快速安装"></a>国内快速安装</h2><p><code>这里只推荐安装最全的方式，我一般选中科大的源</code></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;zsh -c &quot;$(curl -fsSL https:&#x2F;&#x2F;gitee.com&#x2F;cunkai&#x2F;HomebrewCN&#x2F;raw&#x2F;master&#x2F;Homebrew.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> macOS </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>macOS安装jenkins</title>
       <link href="/2021/12/28/macos-an-zhuang-jenkins/"/>
       <url>/2021/12/28/macos-an-zhuang-jenkins/</url>
@@ -1086,6 +1105,25 @@
         <tags>
             
             <tag> jenkins </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>macOS安装homebrew</title>
+      <link href="/2021/12/28/macos-an-zhuang-homebrew/"/>
+      <url>/2021/12/28/macos-an-zhuang-homebrew/</url>
+      
+        <content type="html"><![CDATA[<p>Homebrew是一款Mac OS平台下的软件包管理工具，拥有安装、卸载、更新、查看、搜索等很多实用的功能。简单的一条指令，就可以实现包管理，而不用你关心各种依赖和文件路径的情况，十分方便快捷。</p><h2 id="官方安装方式-https-brew-sh-index-zh-cn"><a href="#官方安装方式-https-brew-sh-index-zh-cn" class="headerlink" title="官方安装方式(https://brew.sh/index_zh-cn)"></a>官方安装方式(<a href="https://brew.sh/index_zh-cn">https://brew.sh/index_zh-cn</a>)</h2><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;HEAD&#x2F;install.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><code>官方安装方法在国内很多时候都是无法直接安装问题的，因为网络问题，解决方法也有很多，这里就不一一介绍了，这里就介绍最简单的方法</code></p><h2 id="国内快速安装"><a href="#国内快速安装" class="headerlink" title="国内快速安装"></a>国内快速安装</h2><p><code>这里只推荐安装最全的方式，我一般选中科大的源</code></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;zsh -c &quot;$(curl -fsSL https:&#x2F;&#x2F;gitee.com&#x2F;cunkai&#x2F;HomebrewCN&#x2F;raw&#x2F;master&#x2F;Homebrew.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> macOS </tag>
             
         </tags>
       
@@ -1228,19 +1266,6 @@
     
     
     <entry>
-      <title>es6</title>
-      <link href="/2021/12/28/es6/"/>
-      <url>/2021/12/28/es6/</url>
-      
-        <content type="html"><![CDATA[<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><p><code>从数组和对象中提取值，对变量进行赋值，这被称为解构</code></p><h2 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h2><pre class="line-numbers language-none"><code class="language-none">let [a,b,c] &#x3D; [1,2,3];console.log(a,b,c);&#x2F;&#x2F; 1 2 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><code>解构不成功，变量的值为undefined</code></p><pre class="line-numbers language-none"><code class="language-none">let [a,b] &#x3D; [1];console.log(a,b);&#x2F;&#x2F; 1 undefinedlet [a,b] &#x3D; &#39;1&#39;;console.log(a,b);&#x2F;&#x2F; 1 undefined<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>如果等号右边不是可遍历的结构，会报错</strong></p><p>会报错的常见形式：</p><p>1、 数字</p><p>2、 布尔</p><p>3、 NaN</p><p>4、 undefined</p><p>5、null</p><p>6、{}  对象</p><h2 id="解构赋值的应用"><a href="#解构赋值的应用" class="headerlink" title="解构赋值的应用"></a>解构赋值的应用</h2><pre class="line-numbers language-none"><code class="language-none">假设下面是某个请求的返回值，形参是res&#123;    &quot;status&quot;: 200,    &quot;msg&quot;: &quot;成功&quot;,    &quot;data&quot;: &#123;        &quot;pageNum&quot;: 1,        &quot;pageSize&quot;: 99,        &quot;size&quot;: 49,    &#125;&#125;1、不用解构赋值let data &#x3D; res;if(data.data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;写起来比较繁琐2、使用解构赋值let &#123;data&#125; &#x3D; res;if(data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>这里需要注意的一点就是：声明的变量必须是返回值里面的某个属性， 也就是说：返回值内必须包含被声明的这个变量字段。</code></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>genkins</title>
       <link href="/2021/12/28/genkins/"/>
       <url>/2021/12/28/genkins/</url>
@@ -1260,6 +1285,19 @@
             <tag> genkins </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>es6</title>
+      <link href="/2021/12/28/es6/"/>
+      <url>/2021/12/28/es6/</url>
+      
+        <content type="html"><![CDATA[<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><p><code>从数组和对象中提取值，对变量进行赋值，这被称为解构</code></p><h2 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h2><pre class="line-numbers language-none"><code class="language-none">let [a,b,c] &#x3D; [1,2,3];console.log(a,b,c);&#x2F;&#x2F; 1 2 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><code>解构不成功，变量的值为undefined</code></p><pre class="line-numbers language-none"><code class="language-none">let [a,b] &#x3D; [1];console.log(a,b);&#x2F;&#x2F; 1 undefinedlet [a,b] &#x3D; &#39;1&#39;;console.log(a,b);&#x2F;&#x2F; 1 undefined<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>如果等号右边不是可遍历的结构，会报错</strong></p><p>会报错的常见形式：</p><p>1、 数字</p><p>2、 布尔</p><p>3、 NaN</p><p>4、 undefined</p><p>5、null</p><p>6、{}  对象</p><h2 id="解构赋值的应用"><a href="#解构赋值的应用" class="headerlink" title="解构赋值的应用"></a>解构赋值的应用</h2><pre class="line-numbers language-none"><code class="language-none">假设下面是某个请求的返回值，形参是res&#123;    &quot;status&quot;: 200,    &quot;msg&quot;: &quot;成功&quot;,    &quot;data&quot;: &#123;        &quot;pageNum&quot;: 1,        &quot;pageSize&quot;: 99,        &quot;size&quot;: 49,    &#125;&#125;1、不用解构赋值let data &#x3D; res;if(data.data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;写起来比较繁琐2、使用解构赋值let &#123;data&#125; &#x3D; res;if(data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>这里需要注意的一点就是：声明的变量必须是返回值里面的某个属性， 也就是说：返回值内必须包含被声明的这个变量字段。</code></p>]]></content>
+      
+      
       
     </entry>
     
