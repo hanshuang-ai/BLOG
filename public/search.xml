@@ -8,7 +8,7 @@
       <link href="/2022/02/25/guan-cha-zhe-mo-shi-he-fa-bu-ding-yue-mo-shi/"/>
       <url>/2022/02/25/guan-cha-zhe-mo-shi-he-fa-bu-ding-yue-mo-shi/</url>
       
-        <content type="html"><![CDATA[<p><a href="https://juejin.cn/post/6978728619782701087">参考链接</a></p><h3 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h3><blockquote><p>观察者模式由观察者和被观察者组成，其中被观察者是重点。被观察者至少要有三个方法——添加观察者、移除观察者、通知观察者。<br><code>观察者模式 是 被观察者模式 主动推送通知 给 观察者 的</code></p></blockquote><h3 id="发布订阅模式"><a href="#发布订阅模式" class="headerlink" title="发布订阅模式"></a>发布订阅模式</h3><blockquote><p>发布订阅需要至少3个角色来组成，包括发布者、订阅者和发布订阅中心，其中<code>发布订阅中心是重点</code></p></blockquote><p><strong>发布者-&gt;事件中心&lt;=&gt;订阅者，订阅者需要向事件中心订阅指定的事件 -&gt; 发布者向事件中心发布指定事件内容 -&gt; 事件中心通知订阅者 -&gt; 订阅者收到消息（可能是多个订阅者），到此完成了一次订阅发布的流程。</strong></p>]]></content>
+        <content type="html"><![CDATA[<p><a href="https://juejin.cn/post/6978728619782701087">参考链接</a></p><h3 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h3><blockquote><p>观察者模式由观察者和被观察者组成，其中被观察者是重点。被观察者至少要有三个方法——添加观察者、移除观察者、通知观察者。<br><code>观察者模式 是 被观察者模式 主动推送通知 给 观察者 的</code></p></blockquote><h3 id="发布订阅模式"><a href="#发布订阅模式" class="headerlink" title="发布订阅模式"></a>发布订阅模式</h3><blockquote><p>发布订阅需要至少3个角色来组成，包括发布者、订阅者和发布订阅中心，其中<code>发布订阅中心是重点</code></p></blockquote><p><strong>发布者-&gt;事件中心&lt;=&gt;订阅者，订阅者需要向事件中心订阅指定的事件 -&gt; 发布者向事件中心发布指定事件内容 -&gt; 事件中心通知订阅者 -&gt; 订阅者收到消息（可能是多个订阅者），到此完成了一次订阅发布的流程。</strong></p><p><img src="/2022/02/25/guan-cha-zhe-mo-shi-he-fa-bu-ding-yue-mo-shi/1.png" alt="观察者模式和发布订阅模式"></p>]]></content>
       
       
       
@@ -839,6 +839,31 @@
     
     
     <entry>
+      <title>使用nuxt创建站点</title>
+      <link href="/2021/12/28/shi-yong-nuxt-chuang-jian-zhan-dian/"/>
+      <url>/2021/12/28/shi-yong-nuxt-chuang-jian-zhan-dian/</url>
+      
+        <content type="html"><![CDATA[<p><code>nuxt使用了Vue，但是令人兴奋的地方是支持seo，另外还具有自己的静态站点生成器，非常适合web站的开发。</code><br>nuxt中文官网链接：<a href="https://www.nuxtjs.cn/">https://www.nuxtjs.cn/</a></p><h1 id="安装与创建项目"><a href="#安装与创建项目" class="headerlink" title="安装与创建项目"></a>安装与创建项目</h1><h2 id="安装nuxt"><a href="#安装nuxt" class="headerlink" title="安装nuxt"></a>安装nuxt</h2><pre class="line-numbers language-none"><code class="language-none"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p><code>nuxt可以使用yarn、npx、npm三种方式创建项目</code></p><pre class="line-numbers language-none"><code class="language-none">1、yarnyarn create nuxt-app &lt;project-name&gt;2、npxnpx create-nuxt-app &lt;project-name&gt;3、npmnpm init nuxt-app &lt;project-name&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="创建项目时的可选项分析"><a href="#创建项目时的可选项分析" class="headerlink" title="创建项目时的可选项分析"></a>创建项目时的可选项分析</h2><p><a href="https://www.nuxtjs.cn/guide/installation">https://www.nuxtjs.cn/guide/installation</a></p><h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><p><img src="http://qiniu.aoxuekj.com/nuxt_catalog.png"></p><h2 id="assets"><a href="#assets" class="headerlink" title="assets"></a>assets</h2><p>资源目录，用来存在未编译的静态资源。LESS、SASS、JavaScript</p><h2 id="components"><a href="#components" class="headerlink" title="components"></a>components</h2><p>组件目录，用来存放组织应用的Vue组件</p><h2 id="layouts"><a href="#layouts" class="headerlink" title="layouts"></a>layouts</h2><p>布局目录，用来组织应用布局</p><h2 id="middleware"><a href="#middleware" class="headerlink" title="middleware"></a>middleware</h2><p>中间件目录，用来存放应用的中间件</p><h2 id="node-modules"><a href="#node-modules" class="headerlink" title="node_modules"></a>node_modules</h2><p>npm包目录，这是任何一个使用npm包的应用都存在的目录</p><h2 id="pages"><a href="#pages" class="headerlink" title="pages"></a>pages</h2><h2 id="plugins"><a href="#plugins" class="headerlink" title="plugins"></a>plugins</h2><p>插件目录，用来存放需要在根vue应用实例化之前就要运行js插件</p><h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><p>静态文件目录，但是不会被编译，服务器启动时，该目录的文件会映射到根路径下</p><h2 id="store"><a href="#store" class="headerlink" title="store"></a>store</h2><p>组织vuex状态树文件，在该目录下创建一个index.js文件就可激活这些配置</p><h2 id="其他根目录文件"><a href="#其他根目录文件" class="headerlink" title="其他根目录文件"></a>其他根目录文件</h2><h3 id="editorconfiig"><a href="#editorconfiig" class="headerlink" title=".editorconfiig"></a>.editorconfiig</h3><h3 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h3><h3 id="nuxt-config-js"><a href="#nuxt-config-js" class="headerlink" title="nuxt.config.js"></a>nuxt.config.js</h3><p>nuxt应用的个性化配置，高优先级，可以覆盖默认配置</p><h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p>用来描述应用依赖关系和对外暴露的脚本接口，<code>该文件不能被重命名</code></p><h3 id="package-lock-json"><a href="#package-lock-json" class="headerlink" title="package-lock.json"></a>package-lock.json</h3><h3 id="README-md"><a href="#README-md" class="headerlink" title="README.md"></a>README.md</h3><h2 id="nuxt创建的项目供局域网访问"><a href="#nuxt创建的项目供局域网访问" class="headerlink" title="nuxt创建的项目供局域网访问"></a>nuxt创建的项目供局域网访问</h2><h3 id="在当前项目安装依赖"><a href="#在当前项目安装依赖" class="headerlink" title="在当前项目安装依赖"></a>在当前项目安装依赖</h3><pre class="line-numbers language-none"><code class="language-none">npm install --save-dev cross-env<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在package.json中配置</p><pre class="line-numbers language-none"><code class="language-none">&quot;scripts&quot;: &#123;  &quot;dev&quot;: &quot;cross-env NUXT_HOST&#x3D;0.0.0.0 NUXT_PORT&#x3D;3333 nuxt&quot;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 框架 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> nuxt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于ftp无法链接服务器的问题</title>
       <link href="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/"/>
       <url>/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/</url>
@@ -871,31 +896,6 @@
           
       </categories>
       
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>使用nuxt创建站点</title>
-      <link href="/2021/12/28/shi-yong-nuxt-chuang-jian-zhan-dian/"/>
-      <url>/2021/12/28/shi-yong-nuxt-chuang-jian-zhan-dian/</url>
-      
-        <content type="html"><![CDATA[<p><code>nuxt使用了Vue，但是令人兴奋的地方是支持seo，另外还具有自己的静态站点生成器，非常适合web站的开发。</code><br>nuxt中文官网链接：<a href="https://www.nuxtjs.cn/">https://www.nuxtjs.cn/</a></p><h1 id="安装与创建项目"><a href="#安装与创建项目" class="headerlink" title="安装与创建项目"></a>安装与创建项目</h1><h2 id="安装nuxt"><a href="#安装nuxt" class="headerlink" title="安装nuxt"></a>安装nuxt</h2><pre class="line-numbers language-none"><code class="language-none"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p><code>nuxt可以使用yarn、npx、npm三种方式创建项目</code></p><pre class="line-numbers language-none"><code class="language-none">1、yarnyarn create nuxt-app &lt;project-name&gt;2、npxnpx create-nuxt-app &lt;project-name&gt;3、npmnpm init nuxt-app &lt;project-name&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="创建项目时的可选项分析"><a href="#创建项目时的可选项分析" class="headerlink" title="创建项目时的可选项分析"></a>创建项目时的可选项分析</h2><p><a href="https://www.nuxtjs.cn/guide/installation">https://www.nuxtjs.cn/guide/installation</a></p><h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><p><img src="http://qiniu.aoxuekj.com/nuxt_catalog.png"></p><h2 id="assets"><a href="#assets" class="headerlink" title="assets"></a>assets</h2><p>资源目录，用来存在未编译的静态资源。LESS、SASS、JavaScript</p><h2 id="components"><a href="#components" class="headerlink" title="components"></a>components</h2><p>组件目录，用来存放组织应用的Vue组件</p><h2 id="layouts"><a href="#layouts" class="headerlink" title="layouts"></a>layouts</h2><p>布局目录，用来组织应用布局</p><h2 id="middleware"><a href="#middleware" class="headerlink" title="middleware"></a>middleware</h2><p>中间件目录，用来存放应用的中间件</p><h2 id="node-modules"><a href="#node-modules" class="headerlink" title="node_modules"></a>node_modules</h2><p>npm包目录，这是任何一个使用npm包的应用都存在的目录</p><h2 id="pages"><a href="#pages" class="headerlink" title="pages"></a>pages</h2><h2 id="plugins"><a href="#plugins" class="headerlink" title="plugins"></a>plugins</h2><p>插件目录，用来存放需要在根vue应用实例化之前就要运行js插件</p><h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><p>静态文件目录，但是不会被编译，服务器启动时，该目录的文件会映射到根路径下</p><h2 id="store"><a href="#store" class="headerlink" title="store"></a>store</h2><p>组织vuex状态树文件，在该目录下创建一个index.js文件就可激活这些配置</p><h2 id="其他根目录文件"><a href="#其他根目录文件" class="headerlink" title="其他根目录文件"></a>其他根目录文件</h2><h3 id="editorconfiig"><a href="#editorconfiig" class="headerlink" title=".editorconfiig"></a>.editorconfiig</h3><h3 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h3><h3 id="nuxt-config-js"><a href="#nuxt-config-js" class="headerlink" title="nuxt.config.js"></a>nuxt.config.js</h3><p>nuxt应用的个性化配置，高优先级，可以覆盖默认配置</p><h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p>用来描述应用依赖关系和对外暴露的脚本接口，<code>该文件不能被重命名</code></p><h3 id="package-lock-json"><a href="#package-lock-json" class="headerlink" title="package-lock.json"></a>package-lock.json</h3><h3 id="README-md"><a href="#README-md" class="headerlink" title="README.md"></a>README.md</h3><h2 id="nuxt创建的项目供局域网访问"><a href="#nuxt创建的项目供局域网访问" class="headerlink" title="nuxt创建的项目供局域网访问"></a>nuxt创建的项目供局域网访问</h2><h3 id="在当前项目安装依赖"><a href="#在当前项目安装依赖" class="headerlink" title="在当前项目安装依赖"></a>在当前项目安装依赖</h3><pre class="line-numbers language-none"><code class="language-none">npm install --save-dev cross-env<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在package.json中配置</p><pre class="line-numbers language-none"><code class="language-none">&quot;scripts&quot;: &#123;  &quot;dev&quot;: &quot;cross-env NUXT_HOST&#x3D;0.0.0.0 NUXT_PORT&#x3D;3333 nuxt&quot;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> 框架 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> nuxt </tag>
-            
-        </tags>
       
     </entry>
     
@@ -966,6 +966,19 @@
     
     
     <entry>
+      <title>nodeCanvas渲染</title>
+      <link href="/2021/12/28/nodecanvas-xuan-ran/"/>
+      <url>/2021/12/28/nodecanvas-xuan-ran/</url>
+      
+        <content type="html"><![CDATA[<p>近期项目涉及地理系统，使用的框架是mars3d</p><p>mars3d本身提供了加载<a href="http://baidu.com/">geojson</a>、图片以及模型的API，<br>但是在加载这些资源的时候，尤其是涉及到计算量比较大的时候，浏览器承担过重。<br>经过测试，该框架加载本地图片资源的时候速度有明显提升，所以就需要性能优化，<br>在服务器直接生成png图片，在需要使用的时候直接加载图片。<br>由于项目对geojson数据，尤其是边界线精度要求较高，暂时未生成图片。</p><p>`凡是引用包的地方，都需要先加载包，但是node canvas直接使用哪个npm引用有很大的几率会出现问题</p><p>`</p><h1 id="node加载数据"><a href="#node加载数据" class="headerlink" title="node加载数据"></a>node加载数据</h1><p>node加载数据使用的是自带的fs模块</p><pre class="line-numbers language-none"><code class="language-none">let fs &#x3D; require(&#39;fs&#39;)let data &#x3D; fs.readFileSync(&#39;XXX.json&#39;)let obj &#x3D; JSON.parse(data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h1 id="使用node-canvas将数据绘制到canvas上"><a href="#使用node-canvas将数据绘制到canvas上" class="headerlink" title="使用node canvas将数据绘制到canvas上"></a>使用node canvas将数据绘制到canvas上</h1><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; canvasconst width &#x3D; 2000const height &#x3D; 2000const canvas &#x3D; createCanvas(width,height)const context &#x3D; canvas.getContext(&#39;2d)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="处理node-canvas生成的base64数据，生成png"><a href="#处理node-canvas生成的base64数据，生成png" class="headerlink" title="处理node canvas生成的base64数据，生成png"></a>处理node canvas生成的base64数据，生成png</h1><h1 id="将png保存到本地"><a href="#将png保存到本地" class="headerlink" title="将png保存到本地"></a>将png保存到本地</h1>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>nodejs打开浏览器</title>
       <link href="/2021/12/28/nodejs-da-kai-liu-lan-qi/"/>
       <url>/2021/12/28/nodejs-da-kai-liu-lan-qi/</url>
@@ -1006,11 +1019,11 @@
     
     
     <entry>
-      <title>nodeCanvas渲染</title>
-      <link href="/2021/12/28/nodecanvas-xuan-ran/"/>
-      <url>/2021/12/28/nodecanvas-xuan-ran/</url>
+      <title>process.env.NODE_ENV</title>
+      <link href="/2021/12/28/process.env.node-env/"/>
+      <url>/2021/12/28/process.env.node-env/</url>
       
-        <content type="html"><![CDATA[<p>近期项目涉及地理系统，使用的框架是mars3d</p><p>mars3d本身提供了加载<a href="http://baidu.com/">geojson</a>、图片以及模型的API，<br>但是在加载这些资源的时候，尤其是涉及到计算量比较大的时候，浏览器承担过重。<br>经过测试，该框架加载本地图片资源的时候速度有明显提升，所以就需要性能优化，<br>在服务器直接生成png图片，在需要使用的时候直接加载图片。<br>由于项目对geojson数据，尤其是边界线精度要求较高，暂时未生成图片。</p><p>`凡是引用包的地方，都需要先加载包，但是node canvas直接使用哪个npm引用有很大的几率会出现问题</p><p>`</p><h1 id="node加载数据"><a href="#node加载数据" class="headerlink" title="node加载数据"></a>node加载数据</h1><p>node加载数据使用的是自带的fs模块</p><pre class="line-numbers language-none"><code class="language-none">let fs &#x3D; require(&#39;fs&#39;)let data &#x3D; fs.readFileSync(&#39;XXX.json&#39;)let obj &#x3D; JSON.parse(data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h1 id="使用node-canvas将数据绘制到canvas上"><a href="#使用node-canvas将数据绘制到canvas上" class="headerlink" title="使用node canvas将数据绘制到canvas上"></a>使用node canvas将数据绘制到canvas上</h1><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; canvasconst width &#x3D; 2000const height &#x3D; 2000const canvas &#x3D; createCanvas(width,height)const context &#x3D; canvas.getContext(&#39;2d)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="处理node-canvas生成的base64数据，生成png"><a href="#处理node-canvas生成的base64数据，生成png" class="headerlink" title="处理node canvas生成的base64数据，生成png"></a>处理node canvas生成的base64数据，生成png</h1><h1 id="将png保存到本地"><a href="#将png保存到本地" class="headerlink" title="将png保存到本地"></a>将png保存到本地</h1>]]></content>
+        <content type="html"><![CDATA[<p>1、在node当中，全局变量process代表的是node当中的进程。 process.env包含着关于系统环境的信息，<code>但是并不包含NODE_ENV这个属性</code></p>]]></content>
       
       
       
@@ -1023,20 +1036,7 @@
       <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
       <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
       
-        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#x72;&#x6f;&#x6f;&#x74;&#64;&#x78;&#120;&#120;&#46;&#x78;&#120;&#x78;&#46;&#x78;&#120;&#120;&#x2e;&#120;&#120;&#x78;">&#x72;&#x6f;&#x6f;&#x74;&#64;&#x78;&#120;&#120;&#46;&#x78;&#120;&#x78;&#46;&#x78;&#120;&#120;&#x2e;&#120;&#120;&#x78;</a>(ip地址)</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>process.env.NODE_ENV</title>
-      <link href="/2021/12/28/process.env.node-env/"/>
-      <url>/2021/12/28/process.env.node-env/</url>
-      
-        <content type="html"><![CDATA[<p>1、在node当中，全局变量process代表的是node当中的进程。 process.env包含着关于系统环境的信息，<code>但是并不包含NODE_ENV这个属性</code></p>]]></content>
+        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#x72;&#111;&#x6f;&#x74;&#x40;&#x78;&#120;&#120;&#x2e;&#120;&#120;&#x78;&#x2e;&#120;&#x78;&#x78;&#x2e;&#x78;&#x78;&#120;">&#x72;&#111;&#x6f;&#x74;&#x40;&#x78;&#120;&#120;&#x2e;&#120;&#120;&#x78;&#x2e;&#120;&#x78;&#x78;&#x2e;&#x78;&#x78;&#120;</a>(ip地址)</p>]]></content>
       
       
       
@@ -1083,11 +1083,11 @@
     
     
     <entry>
-      <title>vue-router</title>
-      <link href="/2021/12/28/vue-router/"/>
-      <url>/2021/12/28/vue-router/</url>
+      <title>vue-element-admin详解1 permission.js</title>
+      <link href="/2021/12/28/vue-element-admin-xiang-jie-1-permission/"/>
+      <url>/2021/12/28/vue-element-admin-xiang-jie-1-permission/</url>
       
-        <content type="html"><![CDATA[<p>官方网址：<a href="https://router.vuejs.org/zh/">https://router.vuejs.org/zh/</a></p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><code>安装有3中方式</code></p><pre class="line-numbers language-none"><code class="language-none">1、js网址链接先引入vue，再引入vue-router&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue-router.js&quot;&gt;&lt;&#x2F;script&gt;2、NPMnpm install vue-router如果在一个模块化工程中使用它，必须要通过 Vue.use() 明确地安装路由功能：import Vue from &#39;vue&#39;import VueRouter from &#39;vue-router&#39;Vue.use(VueRouter)3、在vue cli项目内用插件的方式vue add router<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>vue-router是基于路由和组件的路由用于设定访问路径，将路径和组件映射起来。在vue-router的单页面应用中, 页面的路径的改变就是组件的切换。</code></p>]]></content>
+        <content type="html"><![CDATA[<p><code>vue-element-admin 内permission主要负责全局路由守卫和登录判断。在后台返回权限的时候，配合前端路由进行动态显示，可以使在url内输入的没有权限的页面不展示。</code></p><p><strong>代码解析</strong></p><pre class="line-numbers language-none"><code class="language-none">import router from &#39;.&#x2F;router&#39;import store from &#39;.&#x2F;store&#39;import &#123; Message &#125; from &#39;element-ui&#39;import NProgress from &#39;nprogress&#39; import &#39;nprogress&#x2F;nprogress.css&#39; &#x2F;&#x2F;auth文件主要依赖js-cookie模块，把getToken，setToken，removeToken设置在这里import &#123; getToken &#125; from &#39;@&#x2F;utils&#x2F;auth&#39; &#x2F;&#x2F;get-page-title文件主要是网站的标题，get-page-title通过依赖setting.js里的title变量修改网站标题&#x2F;&#x2F;如果需要更改网站的标题，可以直接到setting.js修改title属性import getPageTitle from &#39;@&#x2F;utils&#x2F;get-page-title&#39;&#x2F;&#x2F;NProgress是封装的进度条，基本不用动NProgress.configure(&#123; showSpinner: false &#125;) &#x2F;&#x2F;路由白名单列表，把路由添加到这个数组，不用登陆也可以访问const whiteList &#x3D; [&#39;&#x2F;login&#39;] router.beforeEach(async(to, from, next) &#x3D;&gt; &#123;   &#x2F;&#x2F; 请求路由时进度条开始  NProgress.start()  &#x2F;&#x2F; 设置标题  document.title &#x3D; getPageTitle(to.meta.title)  &#x2F;&#x2F; 这里的getToken()就是在上面导入的auth.js里的getToken()方法  const hasToken &#x3D; getToken()&#x2F;&#x2F;如果存在token，即存在已登陆的令牌  if (hasToken) &#123;  &#x2F;&#x2F;如果用户存在令牌的情况请求登录页面，就让用户直接跳转到首页，避免存在重复登录的情况    if (to.path &#x3D;&#x3D;&#x3D; &#39;&#x2F;login&#39;) &#123;      &#x2F;&#x2F; 直接跳转到首页，当然取决于你的路由重定向到哪里      next(&#123; path: &#39;&#x2F;&#39; &#125;)      &#x2F;&#x2F;一定要关闭进度条      NProgress.done()    &#125; else &#123;      &#x2F;&#x2F;如果已经有令牌的用户请求的不是登录页，是其他页面      &#x2F;&#x2F;就从Vuex里拿到用户的信息，这里也证明用户不是第一次登录了      const hasGetUserInfo &#x3D; store.getters.name      if (hasGetUserInfo) &#123;      &#x2F;&#x2F;信息拿到后，用户请求哪就跳转哪        next()      &#125; else &#123;        try &#123;          &#x2F;&#x2F; 如果有令牌，但是没有用户信息，证明用户是第一次登录，通过Vuex设置用户信息          await store.dispatch(&#39;user&#x2F;getInfo&#39;)        &#x2F;&#x2F;设置好了之后，依然可以请求哪就跳转哪          next()        &#125; catch (error) &#123;          &#x2F;&#x2F; 如果出错了，把令牌去掉，并让用户重新去到登录页面          await store.dispatch(&#39;user&#x2F;resetToken&#39;)          Message.error(error || &#39;Has Error&#39;)          next(&#96;&#x2F;login?redirect&#x3D;$&#123;to.path&#125;&#96;)          &#x2F;&#x2F;关闭进度条          NProgress.done()        &#125;      &#125;    &#125;  &#125; else &#123;    &#x2F;&#x2F;这里是没有令牌的情况    &#x2F;&#x2F;还记得上面的白名单吗，现在起作用了    &#x2F;&#x2F;whiteList.indexOf(to.path) !&#x3D;&#x3D; -1)判断用户请求的路由是否在白名单里    if (whiteList.indexOf(to.path) !&#x3D;&#x3D; -1) &#123;      &#x2F;&#x2F; 不是-1就证明存在白名单里，不管你有没有令牌，都直接去到白名单路由对应的页面      next()    &#125; else &#123;      &#x2F;&#x2F; 如果这个页面不在白名单里，直接跳转到登录页面      next(&#96;&#x2F;login?redirect&#x3D;$&#123;to.path&#125;&#96;)      &#x2F;&#x2F;关闭进度条      NProgress.done()    &#125;  &#125;&#125;)router.afterEach(() &#x3D;&gt; &#123;  &#x2F;&#x2F;每次请求结束后都需要关闭进度条  NProgress.done()&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       
@@ -1096,11 +1096,11 @@
     
     
     <entry>
-      <title>vue-element-admin详解1 permission.js</title>
-      <link href="/2021/12/28/vue-element-admin-xiang-jie-1-permission/"/>
-      <url>/2021/12/28/vue-element-admin-xiang-jie-1-permission/</url>
+      <title>vue-router</title>
+      <link href="/2021/12/28/vue-router/"/>
+      <url>/2021/12/28/vue-router/</url>
       
-        <content type="html"><![CDATA[<p><code>vue-element-admin 内permission主要负责全局路由守卫和登录判断。在后台返回权限的时候，配合前端路由进行动态显示，可以使在url内输入的没有权限的页面不展示。</code></p><p><strong>代码解析</strong></p><pre class="line-numbers language-none"><code class="language-none">import router from &#39;.&#x2F;router&#39;import store from &#39;.&#x2F;store&#39;import &#123; Message &#125; from &#39;element-ui&#39;import NProgress from &#39;nprogress&#39; import &#39;nprogress&#x2F;nprogress.css&#39; &#x2F;&#x2F;auth文件主要依赖js-cookie模块，把getToken，setToken，removeToken设置在这里import &#123; getToken &#125; from &#39;@&#x2F;utils&#x2F;auth&#39; &#x2F;&#x2F;get-page-title文件主要是网站的标题，get-page-title通过依赖setting.js里的title变量修改网站标题&#x2F;&#x2F;如果需要更改网站的标题，可以直接到setting.js修改title属性import getPageTitle from &#39;@&#x2F;utils&#x2F;get-page-title&#39;&#x2F;&#x2F;NProgress是封装的进度条，基本不用动NProgress.configure(&#123; showSpinner: false &#125;) &#x2F;&#x2F;路由白名单列表，把路由添加到这个数组，不用登陆也可以访问const whiteList &#x3D; [&#39;&#x2F;login&#39;] router.beforeEach(async(to, from, next) &#x3D;&gt; &#123;   &#x2F;&#x2F; 请求路由时进度条开始  NProgress.start()  &#x2F;&#x2F; 设置标题  document.title &#x3D; getPageTitle(to.meta.title)  &#x2F;&#x2F; 这里的getToken()就是在上面导入的auth.js里的getToken()方法  const hasToken &#x3D; getToken()&#x2F;&#x2F;如果存在token，即存在已登陆的令牌  if (hasToken) &#123;  &#x2F;&#x2F;如果用户存在令牌的情况请求登录页面，就让用户直接跳转到首页，避免存在重复登录的情况    if (to.path &#x3D;&#x3D;&#x3D; &#39;&#x2F;login&#39;) &#123;      &#x2F;&#x2F; 直接跳转到首页，当然取决于你的路由重定向到哪里      next(&#123; path: &#39;&#x2F;&#39; &#125;)      &#x2F;&#x2F;一定要关闭进度条      NProgress.done()    &#125; else &#123;      &#x2F;&#x2F;如果已经有令牌的用户请求的不是登录页，是其他页面      &#x2F;&#x2F;就从Vuex里拿到用户的信息，这里也证明用户不是第一次登录了      const hasGetUserInfo &#x3D; store.getters.name      if (hasGetUserInfo) &#123;      &#x2F;&#x2F;信息拿到后，用户请求哪就跳转哪        next()      &#125; else &#123;        try &#123;          &#x2F;&#x2F; 如果有令牌，但是没有用户信息，证明用户是第一次登录，通过Vuex设置用户信息          await store.dispatch(&#39;user&#x2F;getInfo&#39;)        &#x2F;&#x2F;设置好了之后，依然可以请求哪就跳转哪          next()        &#125; catch (error) &#123;          &#x2F;&#x2F; 如果出错了，把令牌去掉，并让用户重新去到登录页面          await store.dispatch(&#39;user&#x2F;resetToken&#39;)          Message.error(error || &#39;Has Error&#39;)          next(&#96;&#x2F;login?redirect&#x3D;$&#123;to.path&#125;&#96;)          &#x2F;&#x2F;关闭进度条          NProgress.done()        &#125;      &#125;    &#125;  &#125; else &#123;    &#x2F;&#x2F;这里是没有令牌的情况    &#x2F;&#x2F;还记得上面的白名单吗，现在起作用了    &#x2F;&#x2F;whiteList.indexOf(to.path) !&#x3D;&#x3D; -1)判断用户请求的路由是否在白名单里    if (whiteList.indexOf(to.path) !&#x3D;&#x3D; -1) &#123;      &#x2F;&#x2F; 不是-1就证明存在白名单里，不管你有没有令牌，都直接去到白名单路由对应的页面      next()    &#125; else &#123;      &#x2F;&#x2F; 如果这个页面不在白名单里，直接跳转到登录页面      next(&#96;&#x2F;login?redirect&#x3D;$&#123;to.path&#125;&#96;)      &#x2F;&#x2F;关闭进度条      NProgress.done()    &#125;  &#125;&#125;)router.afterEach(() &#x3D;&gt; &#123;  &#x2F;&#x2F;每次请求结束后都需要关闭进度条  NProgress.done()&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<p>官方网址：<a href="https://router.vuejs.org/zh/">https://router.vuejs.org/zh/</a></p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><code>安装有3中方式</code></p><pre class="line-numbers language-none"><code class="language-none">1、js网址链接先引入vue，再引入vue-router&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue-router.js&quot;&gt;&lt;&#x2F;script&gt;2、NPMnpm install vue-router如果在一个模块化工程中使用它，必须要通过 Vue.use() 明确地安装路由功能：import Vue from &#39;vue&#39;import VueRouter from &#39;vue-router&#39;Vue.use(VueRouter)3、在vue cli项目内用插件的方式vue add router<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>vue-router是基于路由和组件的路由用于设定访问路径，将路径和组件映射起来。在vue-router的单页面应用中, 页面的路径的改变就是组件的切换。</code></p>]]></content>
       
       
       
@@ -1147,6 +1147,25 @@
     
     
     <entry>
+      <title>macOS安装homebrew</title>
+      <link href="/2021/12/28/macos-an-zhuang-homebrew/"/>
+      <url>/2021/12/28/macos-an-zhuang-homebrew/</url>
+      
+        <content type="html"><![CDATA[<p>Homebrew是一款Mac OS平台下的软件包管理工具，拥有安装、卸载、更新、查看、搜索等很多实用的功能。简单的一条指令，就可以实现包管理，而不用你关心各种依赖和文件路径的情况，十分方便快捷。</p><h2 id="官方安装方式-https-brew-sh-index-zh-cn"><a href="#官方安装方式-https-brew-sh-index-zh-cn" class="headerlink" title="官方安装方式(https://brew.sh/index_zh-cn)"></a>官方安装方式(<a href="https://brew.sh/index_zh-cn">https://brew.sh/index_zh-cn</a>)</h2><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;HEAD&#x2F;install.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><code>官方安装方法在国内很多时候都是无法直接安装问题的，因为网络问题，解决方法也有很多，这里就不一一介绍了，这里就介绍最简单的方法</code></p><h2 id="国内快速安装"><a href="#国内快速安装" class="headerlink" title="国内快速安装"></a>国内快速安装</h2><p><code>这里只推荐安装最全的方式，我一般选中科大的源</code></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;zsh -c &quot;$(curl -fsSL https:&#x2F;&#x2F;gitee.com&#x2F;cunkai&#x2F;HomebrewCN&#x2F;raw&#x2F;master&#x2F;Homebrew.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> macOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>macOS安装jenkins</title>
       <link href="/2021/12/28/macos-an-zhuang-jenkins/"/>
       <url>/2021/12/28/macos-an-zhuang-jenkins/</url>
@@ -1158,6 +1177,33 @@
         <tags>
             
             <tag> jenkins </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>node canvas生成图片并保存</title>
+      <link href="/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/"/>
+      <url>/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/</url>
+      
+        <content type="html"><![CDATA[<p><code>canvas可以将画布转为base64，而base64就是该图片的信息，但是node保存文件的时候需要buffer格式的信息，所以只需要将canvas转成的base64处理成buffer，就可以保存</code></p><p>总结如下：<br><em><strong>1、将画布信息转为base64</strong></em><br><em><strong>2、处理base64为buffer，进行保存</strong></em></p><h3 id="引入canvas模块"><a href="#引入canvas模块" class="headerlink" title="引入canvas模块"></a>引入canvas模块</h3><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; require(&#39;canvas&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="canvas绘图"><a href="#canvas绘图" class="headerlink" title="canvas绘图"></a>canvas绘图</h3><pre class="line-numbers language-none"><code class="language-none">const canvas &#x3D; createCanvas(200,200)const ctx &#x3D; canvas.getContext(&#39;2d&#39;)ctx.font &#x3D; &#39;30px&#39;ctx.rotate(0.1)ctx.fillText(&#39;Hello&#39;,50,100)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="将画布信息转为base64"><a href="#将画布信息转为base64" class="headerlink" title="将画布信息转为base64"></a>将画布信息转为base64</h3><pre class="line-numbers language-none"><code class="language-none">const dataURl &#x3D; canvas.toDataURL(&#39;image&#x2F;png&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="处理base64为buffer"><a href="#处理base64为buffer" class="headerlink" title="处理base64为buffer"></a>处理base64为buffer</h3><pre class="line-numbers language-none"><code class="language-none">const base64Data &#x3D; dataURl.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);const bufferData &#x3D; new Buffer(base64Data,&#39;base64&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h3 id="保存buffer为图片格式"><a href="#保存buffer为图片格式" class="headerlink" title="保存buffer为图片格式"></a>保存buffer为图片格式</h3><pre class="line-numbers language-none"><code class="language-none">fs.writeFile(&#39;2.png&#39;,bufferData,function (err)&#123;    if (err)&#123;        console.log(err)    &#125;else &#123;        console.log(&#39;图片保存成功&#39;)    &#125;&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; require(&#39;canvas&#39;)const fs &#x3D; require(&#39;fs&#39;)const canvas &#x3D; createCanvas(200,200)const ctx &#x3D; canvas.getContext(&#39;2d&#39;)ctx.font &#x3D; &#39;30px&#39;ctx.rotate(0.1)ctx.fillText(&#39;Hello&#39;,50,100)const dataURl &#x3D; canvas.toDataURL(&#39;image&#x2F;png&#39;)console.log(dataURl)const base64Data &#x3D; dataURl.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);console.log(base64Data)const bufferData &#x3D; new Buffer(base64Data,&#39;base64&#39;)fs.writeFile(&#39;2.png&#39;,bufferData,function (err)&#123;    if (err)&#123;        console.log(err)    &#125;else &#123;        console.log(&#39;图片保存成功&#39;)    &#125;&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 框架 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 可视化 </tag>
+            
+            <tag> node </tag>
             
         </tags>
       
@@ -1193,25 +1239,6 @@
     
     
     <entry>
-      <title>macOS安装homebrew</title>
-      <link href="/2021/12/28/macos-an-zhuang-homebrew/"/>
-      <url>/2021/12/28/macos-an-zhuang-homebrew/</url>
-      
-        <content type="html"><![CDATA[<p>Homebrew是一款Mac OS平台下的软件包管理工具，拥有安装、卸载、更新、查看、搜索等很多实用的功能。简单的一条指令，就可以实现包管理，而不用你关心各种依赖和文件路径的情况，十分方便快捷。</p><h2 id="官方安装方式-https-brew-sh-index-zh-cn"><a href="#官方安装方式-https-brew-sh-index-zh-cn" class="headerlink" title="官方安装方式(https://brew.sh/index_zh-cn)"></a>官方安装方式(<a href="https://brew.sh/index_zh-cn">https://brew.sh/index_zh-cn</a>)</h2><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;HEAD&#x2F;install.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><code>官方安装方法在国内很多时候都是无法直接安装问题的，因为网络问题，解决方法也有很多，这里就不一一介绍了，这里就介绍最简单的方法</code></p><h2 id="国内快速安装"><a href="#国内快速安装" class="headerlink" title="国内快速安装"></a>国内快速安装</h2><p><code>这里只推荐安装最全的方式，我一般选中科大的源</code></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;zsh -c &quot;$(curl -fsSL https:&#x2F;&#x2F;gitee.com&#x2F;cunkai&#x2F;HomebrewCN&#x2F;raw&#x2F;master&#x2F;Homebrew.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> macOS </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>node</title>
       <link href="/2021/12/28/node/"/>
       <url>/2021/12/28/node/</url>
@@ -1219,33 +1246,6 @@
         <content type="html"><![CDATA[<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><h2 id="node原生引入的http创建的服务器解决跨域问题"><a href="#node原生引入的http创建的服务器解决跨域问题" class="headerlink" title="node原生引入的http创建的服务器解决跨域问题"></a>node原生引入的http创建的服务器解决跨域问题</h2><pre class="line-numbers language-none"><code class="language-none">const http &#x3D; require(&#39;http&#39;);http.createServer((req,res)&#x3D;&gt;&#123;    res.setHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);&#x2F;&#x2F;跨域    res.end(&#39;12&#39;)&#125;).listen(&#39;3000&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>node canvas生成图片并保存</title>
-      <link href="/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/"/>
-      <url>/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/</url>
-      
-        <content type="html"><![CDATA[<p><code>canvas可以将画布转为base64，而base64就是该图片的信息，但是node保存文件的时候需要buffer格式的信息，所以只需要将canvas转成的base64处理成buffer，就可以保存</code></p><p>总结如下：<br><em><strong>1、将画布信息转为base64</strong></em><br><em><strong>2、处理base64为buffer，进行保存</strong></em></p><h3 id="引入canvas模块"><a href="#引入canvas模块" class="headerlink" title="引入canvas模块"></a>引入canvas模块</h3><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; require(&#39;canvas&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="canvas绘图"><a href="#canvas绘图" class="headerlink" title="canvas绘图"></a>canvas绘图</h3><pre class="line-numbers language-none"><code class="language-none">const canvas &#x3D; createCanvas(200,200)const ctx &#x3D; canvas.getContext(&#39;2d&#39;)ctx.font &#x3D; &#39;30px&#39;ctx.rotate(0.1)ctx.fillText(&#39;Hello&#39;,50,100)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="将画布信息转为base64"><a href="#将画布信息转为base64" class="headerlink" title="将画布信息转为base64"></a>将画布信息转为base64</h3><pre class="line-numbers language-none"><code class="language-none">const dataURl &#x3D; canvas.toDataURL(&#39;image&#x2F;png&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="处理base64为buffer"><a href="#处理base64为buffer" class="headerlink" title="处理base64为buffer"></a>处理base64为buffer</h3><pre class="line-numbers language-none"><code class="language-none">const base64Data &#x3D; dataURl.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);const bufferData &#x3D; new Buffer(base64Data,&#39;base64&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h3 id="保存buffer为图片格式"><a href="#保存buffer为图片格式" class="headerlink" title="保存buffer为图片格式"></a>保存buffer为图片格式</h3><pre class="line-numbers language-none"><code class="language-none">fs.writeFile(&#39;2.png&#39;,bufferData,function (err)&#123;    if (err)&#123;        console.log(err)    &#125;else &#123;        console.log(&#39;图片保存成功&#39;)    &#125;&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; require(&#39;canvas&#39;)const fs &#x3D; require(&#39;fs&#39;)const canvas &#x3D; createCanvas(200,200)const ctx &#x3D; canvas.getContext(&#39;2d&#39;)ctx.font &#x3D; &#39;30px&#39;ctx.rotate(0.1)ctx.fillText(&#39;Hello&#39;,50,100)const dataURl &#x3D; canvas.toDataURL(&#39;image&#x2F;png&#39;)console.log(dataURl)const base64Data &#x3D; dataURl.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);console.log(base64Data)const bufferData &#x3D; new Buffer(base64Data,&#39;base64&#39;)fs.writeFile(&#39;2.png&#39;,bufferData,function (err)&#123;    if (err)&#123;        console.log(err)    &#125;else &#123;        console.log(&#39;图片保存成功&#39;)    &#125;&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> 框架 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 可视化 </tag>
-            
-            <tag> node </tag>
-            
-        </tags>
       
     </entry>
     
@@ -1306,18 +1306,25 @@
     
     
     <entry>
-      <title>git命令</title>
-      <link href="/2021/12/28/git-ming-ling/"/>
-      <url>/2021/12/28/git-ming-ling/</url>
+      <title>cesium专题</title>
+      <link href="/2021/12/28/cesium-zhuan-ti/"/>
+      <url>/2021/12/28/cesium-zhuan-ti/</url>
       
-        <content type="html"><![CDATA[<p><code>git版本控制就是通过不同的节点保存代码的各个阶段，同时在每次提交代码的时候需要填写提交信息</code></p><h1 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h1><p><code>git clone 仓库地址</code><br><em>注意：如果配置了多个git账户，则需要区分仓库地址使用的事git还是https，要依据自己配置的config文件进行确定</em></p><h1 id="添加（暂存）"><a href="#添加（暂存）" class="headerlink" title="添加（暂存）"></a>添加（暂存）</h1><p><code>git add .</code><br><em>注意：后面的 . 不能省略，. 代表的是将所有的更改都暂存起来</em></p><h1 id="填写提交信息"><a href="#填写提交信息" class="headerlink" title="填写提交信息"></a>填写提交信息</h1><p><code>git commit -m &#39;提交信息&#39;</code><br><em>注意：提交信息一定要见名知意，这样在后续回退的时候能更快的知道需要回退到哪个版本，做到真正的版本管理</em></p><p><strong>每次在提交前填写 commit -m 的命令时，推荐使用vscode插件 <code>git-commit-plugin</code>，这样可以使我们的提交信息更加丰富，方便管理</strong></p><h1 id="提交到仓库"><a href="#提交到仓库" class="headerlink" title="提交到仓库"></a>提交到仓库</h1><h2 id="线上与线下分支不存在冲突的时候"><a href="#线上与线下分支不存在冲突的时候" class="headerlink" title="线上与线下分支不存在冲突的时候"></a>线上与线下分支不存在冲突的时候</h2><p>当明确知道线上分支与当前线下分支版本一致，不存在冲突的时候。可以直接使用<code>git push</code></p><h2 id="线上与线下存在冲突的时候"><a href="#线上与线下存在冲突的时候" class="headerlink" title="线上与线下存在冲突的时候"></a>线上与线下存在冲突的时候</h2><p>因为一个项目需要多人在同一个仓库后者分支上开发，有时候就会出现别人的代码已经上传到git，但是自己本地未更新，这样在本地开发完成后，需要上传的时候就会提示需要先拉取最新的线上版本，与本地处理冲突后，然后再提交到仓库。<br><code>冲突的产生是不同的开发者开发了同一个文件所导致，如果不同的开发者开发的不是同一个文件，则可以直接上传成功。</code><br><strong>这很好理解：不同的开发者开发不同的文件，git上传的时候直接直接替换即可，但是如果开发的是同一个文件，那么git就会产生以谁的文件为最终结果的疑问，这就是冲突的由来，我们只有解决好冲突后，才能在解决的基础上连同自己添加的文件一并上传</strong><br><code>所以一般的开发习惯就是在 git push之前，先git pull拉取下</code></p><p><em>注意：提交的时候git会自动根据本地当时所处的分支提交到线上对应的分支，这一点至关重要，假如线上、线下同时具有dev和version分支，且本地处于version分支，那么上传时会自动传输到version分支，造成混乱。所以需要确定当前所处分支，需要上传到线上的分支，当分支不对的时候就需要切换</em></p><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><h2 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h2><p>分支切换的前提是知道有哪些分支，所以需要先查看下</p><h3 id="查看本地分支（线下）"><a href="#查看本地分支（线下）" class="headerlink" title="查看本地分支（线下）"></a>查看本地分支（线下）</h3><p><code>git branch</code><br><em>命令输入后，如果本地存在分支，则会全部列出</em></p><h3 id="查看所有分支（线上和线下）"><a href="#查看所有分支（线上和线下）" class="headerlink" title="查看所有分支（线上和线下）"></a>查看所有分支（线上和线下）</h3><p><code>git branch -a</code></p><ul><li>-a 就是 -all的意思，即查看所有分支（线上和线下）*<h2 id="切换分支-1"><a href="#切换分支-1" class="headerlink" title="切换分支"></a>切换分支</h2>查看分支完毕，就需要切换分支<h3 id="切换到本地已经存在的分支"><a href="#切换到本地已经存在的分支" class="headerlink" title="切换到本地已经存在的分支"></a>切换到本地已经存在的分支</h3><code>git checkout 分支名称</code><h3 id="要切换的分支本地并不存在，想创建一个分支并切换过去"><a href="#要切换的分支本地并不存在，想创建一个分支并切换过去" class="headerlink" title="要切换的分支本地并不存在，想创建一个分支并切换过去"></a>要切换的分支本地并不存在，想创建一个分支并切换过去</h3><code>git checkout -b 分支名称</code></li><li>注意：当使用<code>git checkout -b 分支名称</code>创建一个新分支的时候，如果线上也没有这个分支，则<code>git push</code>的时候会自动在线上创建该分支，这也是刚在上面所说的<code>git push</code>的时候需要注意本地当前所处分支的原因*</li></ul><h1 id="下拉"><a href="#下拉" class="headerlink" title="下拉"></a>下拉</h1><h2 id="下拉之前先检查线上分支与本地分支是否一致"><a href="#下拉之前先检查线上分支与本地分支是否一致" class="headerlink" title="下拉之前先检查线上分支与本地分支是否一致"></a>下拉之前先检查线上分支与本地分支是否一致</h2><p><code>git fetch</code></p><h2 id="下拉之前不检查，直接下拉"><a href="#下拉之前不检查，直接下拉" class="headerlink" title="下拉之前不检查，直接下拉"></a>下拉之前不检查，直接下拉</h2><p><code>git pull</code><br><em>注意：git pull是在不检查的情况下直接拉取，有可能下拉下来后与本地分支存在冲突，需要手动解决</em></p><h2 id="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"><a href="#本地已经做的更改不想保存，直接下拉线上版本进行覆盖" class="headerlink" title="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"></a>本地已经做的更改不想保存，直接下拉线上版本进行覆盖</h2><p>…未完待续</p>]]></content>
+        <content type="html"><![CDATA[<p>CesiumJS 是一款用于创建虚拟场景的3D地理信息平台。目标是用于创建以基于Web的地图动态数据可视化。目前尽力提升平台的性能、准确率、虚拟化能力、易用性以及平台的各种支持。</p><ul><li>Cesium 是一个跨平台、跨浏览器的展示三维地球和地图的 javascript 库。</li><li>Cesium 使用WebGL 来进行硬件加速图形，使用时不需要任何插件支持，但是浏览器必须支持WebGL。</li><li>Cesium是基于Apache2.0 许可的开源程序。它可以免费的用于商业和非商业用途。</li></ul><h2 id="数据格式与功能特性"><a href="#数据格式与功能特性" class="headerlink" title="数据格式与功能特性"></a>数据格式与功能特性</h2><ul><li>支持2D,2.5D,3D 形式的地理（地图）数据展示，</li><li>可以绘制各种几何图形、高亮区域，支持导入图片，甚至三维模型等多种数据可视化展示</li><li>可用于动态数据可视化并提供良好的触摸支持，支持绝大多数的浏览器和移动端浏览器。</li><li>支持基于时间轴的动态流式数据展示</li></ul>]]></content>
       
       
-      <categories>
-          
-          <category> 命令行 </category>
-          
-      </categories>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>es6</title>
+      <link href="/2021/12/28/es6/"/>
+      <url>/2021/12/28/es6/</url>
+      
+        <content type="html"><![CDATA[<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><p><code>从数组和对象中提取值，对变量进行赋值，这被称为解构</code></p><h2 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h2><pre class="line-numbers language-none"><code class="language-none">let [a,b,c] &#x3D; [1,2,3];console.log(a,b,c);&#x2F;&#x2F; 1 2 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><code>解构不成功，变量的值为undefined</code></p><pre class="line-numbers language-none"><code class="language-none">let [a,b] &#x3D; [1];console.log(a,b);&#x2F;&#x2F; 1 undefinedlet [a,b] &#x3D; &#39;1&#39;;console.log(a,b);&#x2F;&#x2F; 1 undefined<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>如果等号右边不是可遍历的结构，会报错</strong></p><p>会报错的常见形式：</p><p>1、 数字</p><p>2、 布尔</p><p>3、 NaN</p><p>4、 undefined</p><p>5、null</p><p>6、{}  对象</p><h2 id="解构赋值的应用"><a href="#解构赋值的应用" class="headerlink" title="解构赋值的应用"></a>解构赋值的应用</h2><pre class="line-numbers language-none"><code class="language-none">假设下面是某个请求的返回值，形参是res&#123;    &quot;status&quot;: 200,    &quot;msg&quot;: &quot;成功&quot;,    &quot;data&quot;: &#123;        &quot;pageNum&quot;: 1,        &quot;pageSize&quot;: 99,        &quot;size&quot;: 49,    &#125;&#125;1、不用解构赋值let data &#x3D; res;if(data.data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;写起来比较繁琐2、使用解构赋值let &#123;data&#125; &#x3D; res;if(data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>这里需要注意的一点就是：声明的变量必须是返回值里面的某个属性， 也就是说：返回值内必须包含被声明的这个变量字段。</code></p>]]></content>
+      
       
       
     </entry>
@@ -1350,6 +1357,25 @@
     
     
     <entry>
+      <title>git命令</title>
+      <link href="/2021/12/28/git-ming-ling/"/>
+      <url>/2021/12/28/git-ming-ling/</url>
+      
+        <content type="html"><![CDATA[<p><code>git版本控制就是通过不同的节点保存代码的各个阶段，同时在每次提交代码的时候需要填写提交信息</code></p><h1 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h1><p><code>git clone 仓库地址</code><br><em>注意：如果配置了多个git账户，则需要区分仓库地址使用的事git还是https，要依据自己配置的config文件进行确定</em></p><h1 id="添加（暂存）"><a href="#添加（暂存）" class="headerlink" title="添加（暂存）"></a>添加（暂存）</h1><p><code>git add .</code><br><em>注意：后面的 . 不能省略，. 代表的是将所有的更改都暂存起来</em></p><h1 id="填写提交信息"><a href="#填写提交信息" class="headerlink" title="填写提交信息"></a>填写提交信息</h1><p><code>git commit -m &#39;提交信息&#39;</code><br><em>注意：提交信息一定要见名知意，这样在后续回退的时候能更快的知道需要回退到哪个版本，做到真正的版本管理</em></p><p><strong>每次在提交前填写 commit -m 的命令时，推荐使用vscode插件 <code>git-commit-plugin</code>，这样可以使我们的提交信息更加丰富，方便管理</strong></p><h1 id="提交到仓库"><a href="#提交到仓库" class="headerlink" title="提交到仓库"></a>提交到仓库</h1><h2 id="线上与线下分支不存在冲突的时候"><a href="#线上与线下分支不存在冲突的时候" class="headerlink" title="线上与线下分支不存在冲突的时候"></a>线上与线下分支不存在冲突的时候</h2><p>当明确知道线上分支与当前线下分支版本一致，不存在冲突的时候。可以直接使用<code>git push</code></p><h2 id="线上与线下存在冲突的时候"><a href="#线上与线下存在冲突的时候" class="headerlink" title="线上与线下存在冲突的时候"></a>线上与线下存在冲突的时候</h2><p>因为一个项目需要多人在同一个仓库后者分支上开发，有时候就会出现别人的代码已经上传到git，但是自己本地未更新，这样在本地开发完成后，需要上传的时候就会提示需要先拉取最新的线上版本，与本地处理冲突后，然后再提交到仓库。<br><code>冲突的产生是不同的开发者开发了同一个文件所导致，如果不同的开发者开发的不是同一个文件，则可以直接上传成功。</code><br><strong>这很好理解：不同的开发者开发不同的文件，git上传的时候直接直接替换即可，但是如果开发的是同一个文件，那么git就会产生以谁的文件为最终结果的疑问，这就是冲突的由来，我们只有解决好冲突后，才能在解决的基础上连同自己添加的文件一并上传</strong><br><code>所以一般的开发习惯就是在 git push之前，先git pull拉取下</code></p><p><em>注意：提交的时候git会自动根据本地当时所处的分支提交到线上对应的分支，这一点至关重要，假如线上、线下同时具有dev和version分支，且本地处于version分支，那么上传时会自动传输到version分支，造成混乱。所以需要确定当前所处分支，需要上传到线上的分支，当分支不对的时候就需要切换</em></p><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><h2 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h2><p>分支切换的前提是知道有哪些分支，所以需要先查看下</p><h3 id="查看本地分支（线下）"><a href="#查看本地分支（线下）" class="headerlink" title="查看本地分支（线下）"></a>查看本地分支（线下）</h3><p><code>git branch</code><br><em>命令输入后，如果本地存在分支，则会全部列出</em></p><h3 id="查看所有分支（线上和线下）"><a href="#查看所有分支（线上和线下）" class="headerlink" title="查看所有分支（线上和线下）"></a>查看所有分支（线上和线下）</h3><p><code>git branch -a</code></p><ul><li>-a 就是 -all的意思，即查看所有分支（线上和线下）*<h2 id="切换分支-1"><a href="#切换分支-1" class="headerlink" title="切换分支"></a>切换分支</h2>查看分支完毕，就需要切换分支<h3 id="切换到本地已经存在的分支"><a href="#切换到本地已经存在的分支" class="headerlink" title="切换到本地已经存在的分支"></a>切换到本地已经存在的分支</h3><code>git checkout 分支名称</code><h3 id="要切换的分支本地并不存在，想创建一个分支并切换过去"><a href="#要切换的分支本地并不存在，想创建一个分支并切换过去" class="headerlink" title="要切换的分支本地并不存在，想创建一个分支并切换过去"></a>要切换的分支本地并不存在，想创建一个分支并切换过去</h3><code>git checkout -b 分支名称</code></li><li>注意：当使用<code>git checkout -b 分支名称</code>创建一个新分支的时候，如果线上也没有这个分支，则<code>git push</code>的时候会自动在线上创建该分支，这也是刚在上面所说的<code>git push</code>的时候需要注意本地当前所处分支的原因*</li></ul><h1 id="下拉"><a href="#下拉" class="headerlink" title="下拉"></a>下拉</h1><h2 id="下拉之前先检查线上分支与本地分支是否一致"><a href="#下拉之前先检查线上分支与本地分支是否一致" class="headerlink" title="下拉之前先检查线上分支与本地分支是否一致"></a>下拉之前先检查线上分支与本地分支是否一致</h2><p><code>git fetch</code></p><h2 id="下拉之前不检查，直接下拉"><a href="#下拉之前不检查，直接下拉" class="headerlink" title="下拉之前不检查，直接下拉"></a>下拉之前不检查，直接下拉</h2><p><code>git pull</code><br><em>注意：git pull是在不检查的情况下直接拉取，有可能下拉下来后与本地分支存在冲突，需要手动解决</em></p><h2 id="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"><a href="#本地已经做的更改不想保存，直接下拉线上版本进行覆盖" class="headerlink" title="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"></a>本地已经做的更改不想保存，直接下拉线上版本进行覆盖</h2><p>…未完待续</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 命令行 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>jq load方法注意事项</title>
       <link href="/2021/12/28/jq-load-fang-fa-zhu-yi-shi-xiang/"/>
       <url>/2021/12/28/jq-load-fang-fa-zhu-yi-shi-xiang/</url>
@@ -1363,32 +1389,6 @@
             <tag> jQuery </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>cesium专题</title>
-      <link href="/2021/12/28/cesium-zhuan-ti/"/>
-      <url>/2021/12/28/cesium-zhuan-ti/</url>
-      
-        <content type="html"><![CDATA[<p>CesiumJS 是一款用于创建虚拟场景的3D地理信息平台。目标是用于创建以基于Web的地图动态数据可视化。目前尽力提升平台的性能、准确率、虚拟化能力、易用性以及平台的各种支持。</p><ul><li>Cesium 是一个跨平台、跨浏览器的展示三维地球和地图的 javascript 库。</li><li>Cesium 使用WebGL 来进行硬件加速图形，使用时不需要任何插件支持，但是浏览器必须支持WebGL。</li><li>Cesium是基于Apache2.0 许可的开源程序。它可以免费的用于商业和非商业用途。</li></ul><h2 id="数据格式与功能特性"><a href="#数据格式与功能特性" class="headerlink" title="数据格式与功能特性"></a>数据格式与功能特性</h2><ul><li>支持2D,2.5D,3D 形式的地理（地图）数据展示，</li><li>可以绘制各种几何图形、高亮区域，支持导入图片，甚至三维模型等多种数据可视化展示</li><li>可用于动态数据可视化并提供良好的触摸支持，支持绝大多数的浏览器和移动端浏览器。</li><li>支持基于时间轴的动态流式数据展示</li></ul>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>es6</title>
-      <link href="/2021/12/28/es6/"/>
-      <url>/2021/12/28/es6/</url>
-      
-        <content type="html"><![CDATA[<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><p><code>从数组和对象中提取值，对变量进行赋值，这被称为解构</code></p><h2 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h2><pre class="line-numbers language-none"><code class="language-none">let [a,b,c] &#x3D; [1,2,3];console.log(a,b,c);&#x2F;&#x2F; 1 2 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><code>解构不成功，变量的值为undefined</code></p><pre class="line-numbers language-none"><code class="language-none">let [a,b] &#x3D; [1];console.log(a,b);&#x2F;&#x2F; 1 undefinedlet [a,b] &#x3D; &#39;1&#39;;console.log(a,b);&#x2F;&#x2F; 1 undefined<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>如果等号右边不是可遍历的结构，会报错</strong></p><p>会报错的常见形式：</p><p>1、 数字</p><p>2、 布尔</p><p>3、 NaN</p><p>4、 undefined</p><p>5、null</p><p>6、{}  对象</p><h2 id="解构赋值的应用"><a href="#解构赋值的应用" class="headerlink" title="解构赋值的应用"></a>解构赋值的应用</h2><pre class="line-numbers language-none"><code class="language-none">假设下面是某个请求的返回值，形参是res&#123;    &quot;status&quot;: 200,    &quot;msg&quot;: &quot;成功&quot;,    &quot;data&quot;: &#123;        &quot;pageNum&quot;: 1,        &quot;pageSize&quot;: 99,        &quot;size&quot;: 49,    &#125;&#125;1、不用解构赋值let data &#x3D; res;if(data.data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;写起来比较繁琐2、使用解构赋值let &#123;data&#125; &#x3D; res;if(data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>这里需要注意的一点就是：声明的变量必须是返回值里面的某个属性， 也就是说：返回值内必须包含被声明的这个变量字段。</code></p>]]></content>
-      
-      
       
     </entry>
     
