@@ -853,21 +853,27 @@ onUnload  监听页面卸载，卸载本页跳转到
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2021/12/28/liu-lan-qi-hui-liu-yu-chong-hui-ce-shi/">
+                    <a href="/2021/12/28/fu-wu-duan-xuan-ran-yu-yu-xuan-ran/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="浏览器回流与重绘测试">
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="服务端渲染与预渲染">
                             
-                            <span class="card-title">浏览器回流与重绘测试</span>
+                            <span class="card-title">服务端渲染与预渲染</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                名词解释回流（browser-reflow）重绘重绘也叫重排，可以简单理解为浏览器页面重新排版。重排是在浏览器中执行的一个流程，用来计算文档中（文档流）各元素的位置与几何形状，以便重新呈现该文档中的部分获全部内容。
-原因分析什么情况下会引起
+                                服务端渲染（ssr）是在服务器内通过程序将页面片段拼接为完整的页面，然后再发送给浏览器呈现
+
+预渲染是直接接服务器内完整的静态页面发送给浏览器呈现
+
+
+
+实现方式不同：
+SSR:服务端(node.js)通过一些包(vue-server-re
                             
                         </div>
                         <div class="publish-info">
@@ -876,25 +882,13 @@ onUnload  监听页面卸载，卸载本页跳转到
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8/" class="post-category">
-                                    浏览器
-                                </a>
-                                
+                                <i class="fas fa-user fa-fw"></i>
+                                寒霜
                                 
                             </span>
                         </div>
                     </div>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%B5%8B%E8%AF%95/">
-                            <span class="chip bg-color">测试</span>
-                        </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -943,22 +937,21 @@ macifconfig
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2021/12/28/jie-xi-url/">
+                    <a href="/2021/12/28/bian-ji-qi-chang-yong-sou-suo-pi-pei-ji-qiao/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="解析URL">
+                            <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="编辑器常用搜索匹配技巧">
                             
-                            <span class="card-title">解析URL</span>
+                            <span class="card-title">编辑器常用搜索匹配技巧</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                先根据 ？ 或者 &amp; 符进行将url分割成数组，再遍历数据，根据数组内每项的 = 号，分别取值赋给 key 和 value。最后将 key 和 value 组合成一个对象
-&#x2F;&#x2F; 解析URL
-let url &#x
+                                编辑器内删除所有代码空行^\s*(?=\r?$)\n
+
                             
                         </div>
                         <div class="publish-info">
@@ -974,14 +967,6 @@ let url &#x
                         </div>
                     </div>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/">
-                            <span class="chip bg-color">代码片段</span>
-                        </a>
-                        
-                    </div>
                     
                 </div>
             </div>
