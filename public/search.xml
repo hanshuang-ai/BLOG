@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>vue路由传参的四种方式</title>
+      <link href="/2022/02/28/vue-lu-you-chuan-can-de-si-chong-fang-shi/"/>
+      <url>/2022/02/28/vue-lu-you-chuan-can-de-si-chong-fang-shi/</url>
+      
+        <content type="html"><![CDATA[<p><img src="/2022/02/28/vue-lu-you-chuan-can-de-si-chong-fang-shi/1.png" alt="vue路由传参的四种方式"></p><h3 id="1、router-link"><a href="#1、router-link" class="headerlink" title="1、router-link"></a>1、router-link</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 父组件传值</span><span class="token operator">&lt;</span>router<span class="token operator">-</span>link to<span class="token operator">=</span><span class="token string">"/room"</span><span class="token operator">></span><span class="token comment">// 子组件接收  this.$route.params</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><h3 id="2、-router-push"><a href="#2、-router-push" class="headerlink" title="2、$router.push"></a>2、$router.push</h3><h4 id="2-1、path"><a href="#2-1、path" class="headerlink" title="2.1、path"></a>2.1、path</h4><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 父组件传值</span><span class="token operator">&lt;</span>button @click<span class="token operator">=</span><span class="token string">"deliverParams(123)"</span><span class="token operator">></span>push传参<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>  methods<span class="token operator">:</span> <span class="token punctuation">&#123;</span>    <span class="token function">deliverParams</span> <span class="token punctuation">(</span><span class="token parameter">id</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>      <span class="token keyword">this</span><span class="token punctuation">.</span>$router<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>        path<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">/d/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>id<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span>      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>    <span class="token punctuation">&#125;</span>  <span class="token punctuation">&#125;</span>  <span class="token comment">// 子组件接收</span><span class="token function">mounted</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>  <span class="token keyword">this</span><span class="token punctuation">.</span>id <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$route<span class="token punctuation">.</span>params<span class="token punctuation">.</span>id<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h4 id="2-2、name-params"><a href="#2-2、name-params" class="headerlink" title="2.2、name,params"></a>2.2、name,params</h4><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 父组件传值</span><span class="token operator">&lt;</span>button @click<span class="token operator">=</span><span class="token string">"deliverByName()"</span><span class="token operator">></span>params传参<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>    <span class="token function">deliverByName</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>      <span class="token keyword">this</span><span class="token punctuation">.</span>$router<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>        name<span class="token operator">:</span> <span class="token string">'B'</span><span class="token punctuation">,</span>        params<span class="token operator">:</span> <span class="token punctuation">&#123;</span>          sometext<span class="token operator">:</span> <span class="token string">'一只羊出没'</span>        <span class="token punctuation">&#125;</span>      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>    <span class="token punctuation">&#125;</span><span class="token comment">// 子组件接收</span><span class="token operator">&lt;</span>template<span class="token operator">></span>  <span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"b"</span><span class="token operator">></span>    This is page <span class="token constant">B</span><span class="token operator">!</span>    <span class="token operator">&lt;</span>p<span class="token operator">></span>传入参数：<span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>$route<span class="token punctuation">.</span>params<span class="token punctuation">.</span>sometext<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h4 id="2-3、name-query"><a href="#2-3、name-query" class="headerlink" title="2.3、name,query"></a>2.3、name,query</h4><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 父组件传值</span><span class="token operator">&lt;</span>button @click<span class="token operator">=</span><span class="token string">"deliverQuery()"</span><span class="token operator">></span>query传参<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>    <span class="token function">deliverQuery</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>      <span class="token keyword">this</span><span class="token punctuation">.</span>$router<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>        path<span class="token operator">:</span> <span class="token string">'/c'</span><span class="token punctuation">,</span>        query<span class="token operator">:</span> <span class="token punctuation">&#123;</span>          sometext<span class="token operator">:</span> <span class="token string">'这是小羊同学'</span>        <span class="token punctuation">&#125;</span>      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>    <span class="token punctuation">&#125;</span><span class="token comment">// 子组件接收</span><span class="token operator">&lt;</span>template<span class="token operator">></span>  <span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"C"</span><span class="token operator">></span>    This is page <span class="token constant">C</span><span class="token operator">!</span>    <span class="token operator">&lt;</span>p<span class="token operator">></span>这是父组件传入的数据<span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>$route<span class="token punctuation">.</span>query<span class="token punctuation">.</span>sometext<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>观察者模式和发布订阅模式</title>
       <link href="/2022/02/25/guan-cha-zhe-mo-shi-he-fa-bu-ding-yue-mo-shi/"/>
       <url>/2022/02/25/guan-cha-zhe-mo-shi-he-fa-bu-ding-yue-mo-shi/</url>
@@ -794,13 +813,19 @@
     
     
     <entry>
-      <title>服务端渲染与预渲染</title>
-      <link href="/2021/12/28/fu-wu-duan-xuan-ran-yu-yu-xuan-ran/"/>
-      <url>/2021/12/28/fu-wu-duan-xuan-ran-yu-yu-xuan-ran/</url>
+      <title>解析URL</title>
+      <link href="/2021/12/28/jie-xi-url/"/>
+      <url>/2021/12/28/jie-xi-url/</url>
       
-        <content type="html"><![CDATA[<pre class="line-numbers language-none"><code class="language-none">服务端渲染（ssr）是在服务器内通过程序将页面片段拼接为完整的页面，然后再发送给浏览器呈现预渲染是直接接服务器内完整的静态页面发送给浏览器呈现<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><br><p><strong>实现方式不同</strong>：</p><pre class="line-numbers language-none"><code class="language-none">SSR:服务端(node.js)通过一些包(vue-server-renderer)把html页面转换成字符串之后吐给前端。Google 和 Bing 可以很好对同步 web 应用程序进行索引,所以此处称有利于seo。但是一些事件和一些DOMAPI是无法在服务端用的,所以需要把客户端打包好的js代码动态注入到html中,此处为异步获取js逻辑。所以此处seo是抓取不到任何有用的信息的。那么问题来了，什么时候用ajax获取数据？什么时候通过服务端获取数据？当利于seo有优化时，比如开发的新闻网站，购物网站。需要被搜索引擎索引到，就需要从服务端获取数据，然后生成html，再吐给浏览器。而一些无关紧要的数据通过ajax获取就行。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-none"><code class="language-none">Prerendering：预渲染并不需要服务端支持。它只能生成你在templete写好的dom结构,也就是只能生成静态的html文件。一般是每个路由对应一个静态的html文件，在服务器获取时就已经生成好了，而不需要diff再动态生成dom。假如你想通过ajax获取到的数据来优化seo,可以吗？可以，可以设置一个预渲染时常。假如你用prerender-spa-plugin插件，设置renderAfterTime：5000。可触发渲染的时间，用于获取数据(ajax)后再保存渲染结果。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-none"><code class="language-none">预渲染的应用场景：营销页面（例如&#x2F;,&#x2F;about,&#x2F;contact等）的 SEO，你可能需要预渲染。无需使用 web 服务器实时动态编译 HTML，而是使用预渲染方式，在构建时 (build time) 简单地生成针对特定路由的静态 HTML 文件。优点是设置预渲染更简单，并可以将你的前端作为一个完全静态的站点。预渲染不适用经常变化的数据，比如说股票代码网站，天气预报网站。因为此时的数据是动态的，而预渲染时已经生成好了dom节点。此时如果要兼容seo就需要使用SSR了。预渲染也不适用大量的路由页面，比如成千上百个路由，因为此时打包后预渲染将会非常慢。而SSR并没有这些问题。预渲染最好的应用场景是需要seo的活动页面。预渲染也可以配置骨架屏，当ajax获取到数据之后把骨架屏替换掉，可以减少白屏时间。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<p><code>先根据 ？ 或者 &amp; 符进行将url分割成数组，再遍历数据，根据数组内每项的 = 号，分别取值赋给 key 和 value。最后将 key 和 value 组合成一个对象</code></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; 解析URLlet url &#x3D; window.location.href;let reg &#x3D; &#x2F;[?&amp;][^?&amp;]+&#x3D;[^?&amp;]+&#x2F;g;let arr &#x3D; url.match(reg);let params &#x3D; &#123;&#125;;if (arr) &#123;    arr.forEach((item) &#x3D;&gt; &#123;        let tempArr &#x3D; item.substring(1).split(&#39;&#x3D;&#39;);        let key &#x3D; tempArr[0];        let val &#x3D; tempArr[1];        params[key] &#x3D; val;    &#125;)&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> 代码片段 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -820,17 +845,30 @@
     
     
     <entry>
-      <title>解析URL</title>
-      <link href="/2021/12/28/jie-xi-url/"/>
-      <url>/2021/12/28/jie-xi-url/</url>
+      <title>服务端渲染与预渲染</title>
+      <link href="/2021/12/28/fu-wu-duan-xuan-ran-yu-yu-xuan-ran/"/>
+      <url>/2021/12/28/fu-wu-duan-xuan-ran-yu-yu-xuan-ran/</url>
       
-        <content type="html"><![CDATA[<p><code>先根据 ？ 或者 &amp; 符进行将url分割成数组，再遍历数据，根据数组内每项的 = 号，分别取值赋给 key 和 value。最后将 key 和 value 组合成一个对象</code></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; 解析URLlet url &#x3D; window.location.href;let reg &#x3D; &#x2F;[?&amp;][^?&amp;]+&#x3D;[^?&amp;]+&#x2F;g;let arr &#x3D; url.match(reg);let params &#x3D; &#123;&#125;;if (arr) &#123;    arr.forEach((item) &#x3D;&gt; &#123;        let tempArr &#x3D; item.substring(1).split(&#39;&#x3D;&#39;);        let key &#x3D; tempArr[0];        let val &#x3D; tempArr[1];        params[key] &#x3D; val;    &#125;)&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<pre class="line-numbers language-none"><code class="language-none">服务端渲染（ssr）是在服务器内通过程序将页面片段拼接为完整的页面，然后再发送给浏览器呈现预渲染是直接接服务器内完整的静态页面发送给浏览器呈现<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><br><p><strong>实现方式不同</strong>：</p><pre class="line-numbers language-none"><code class="language-none">SSR:服务端(node.js)通过一些包(vue-server-renderer)把html页面转换成字符串之后吐给前端。Google 和 Bing 可以很好对同步 web 应用程序进行索引,所以此处称有利于seo。但是一些事件和一些DOMAPI是无法在服务端用的,所以需要把客户端打包好的js代码动态注入到html中,此处为异步获取js逻辑。所以此处seo是抓取不到任何有用的信息的。那么问题来了，什么时候用ajax获取数据？什么时候通过服务端获取数据？当利于seo有优化时，比如开发的新闻网站，购物网站。需要被搜索引擎索引到，就需要从服务端获取数据，然后生成html，再吐给浏览器。而一些无关紧要的数据通过ajax获取就行。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-none"><code class="language-none">Prerendering：预渲染并不需要服务端支持。它只能生成你在templete写好的dom结构,也就是只能生成静态的html文件。一般是每个路由对应一个静态的html文件，在服务器获取时就已经生成好了，而不需要diff再动态生成dom。假如你想通过ajax获取到的数据来优化seo,可以吗？可以，可以设置一个预渲染时常。假如你用prerender-spa-plugin插件，设置renderAfterTime：5000。可触发渲染的时间，用于获取数据(ajax)后再保存渲染结果。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-none"><code class="language-none">预渲染的应用场景：营销页面（例如&#x2F;,&#x2F;about,&#x2F;contact等）的 SEO，你可能需要预渲染。无需使用 web 服务器实时动态编译 HTML，而是使用预渲染方式，在构建时 (build time) 简单地生成针对特定路由的静态 HTML 文件。优点是设置预渲染更简单，并可以将你的前端作为一个完全静态的站点。预渲染不适用经常变化的数据，比如说股票代码网站，天气预报网站。因为此时的数据是动态的，而预渲染时已经生成好了dom节点。此时如果要兼容seo就需要使用SSR了。预渲染也不适用大量的路由页面，比如成千上百个路由，因为此时打包后预渲染将会非常慢。而SSR并没有这些问题。预渲染最好的应用场景是需要seo的活动页面。预渲染也可以配置骨架屏，当ajax获取到数据之后把骨架屏替换掉，可以减少白屏时间。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>关于ftp无法链接服务器的问题</title>
+      <link href="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/"/>
+      <url>/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/</url>
+      
+        <content type="html"><![CDATA[<p>有时候，我们使用ftp软件连接远程ftp，会发现有的软件能连上，有的则连不上。究其原因，可能是软件设置的问题，毕竟链接的是同一个服务器上的ftp，相对来讲，服务器环境是稳定的。</p><p><code>本文环境：macOS Catalina 10.15.7，ftp软件 filezila 3.51.0</code></p><h3 id="错误代码227"><a href="#错误代码227" class="headerlink" title="错误代码227"></a>错误代码227</h3><pre class="line-numbers language-none"><code class="language-none">一般来讲，将服务器的链接模式改为被动  即可<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/1.png" alt="alt"></p><h3 id="错误代码220"><a href="#错误代码220" class="headerlink" title="错误代码220"></a>错误代码220</h3><pre class="line-numbers language-none"><code class="language-none">很可能是服务器不支持FTP over TLS的连接方式。解决方式就是在该站点内 加密方式  使用明文<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/2.png" alt="alt"></p><br><p><strong>特别声明：本次链接的网站是使用的宝塔面板，ftp也是宝塔生成，所以才可能会存在这个问题，不代表只要是服务器上的ftp一定会存在该问题</strong><br><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/3.png" alt="alt"><br><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/4.png" alt="alt"></p>]]></content>
       
       
       
         <tags>
             
-            <tag> 代码片段 </tag>
+            <tag> 服务器 </tag>
             
         </tags>
       
@@ -856,25 +894,6 @@
         <tags>
             
             <tag> nuxt </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>关于ftp无法链接服务器的问题</title>
-      <link href="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/"/>
-      <url>/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/</url>
-      
-        <content type="html"><![CDATA[<p>有时候，我们使用ftp软件连接远程ftp，会发现有的软件能连上，有的则连不上。究其原因，可能是软件设置的问题，毕竟链接的是同一个服务器上的ftp，相对来讲，服务器环境是稳定的。</p><p><code>本文环境：macOS Catalina 10.15.7，ftp软件 filezila 3.51.0</code></p><h3 id="错误代码227"><a href="#错误代码227" class="headerlink" title="错误代码227"></a>错误代码227</h3><pre class="line-numbers language-none"><code class="language-none">一般来讲，将服务器的链接模式改为被动  即可<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/1.png" alt="alt"></p><h3 id="错误代码220"><a href="#错误代码220" class="headerlink" title="错误代码220"></a>错误代码220</h3><pre class="line-numbers language-none"><code class="language-none">很可能是服务器不支持FTP over TLS的连接方式。解决方式就是在该站点内 加密方式  使用明文<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/2.png" alt="alt"></p><br><p><strong>特别声明：本次链接的网站是使用的宝塔面板，ftp也是宝塔生成，所以才可能会存在这个问题，不代表只要是服务器上的ftp一定会存在该问题</strong><br><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/3.png" alt="alt"><br><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/4.png" alt="alt"></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 服务器 </tag>
             
         </tags>
       
@@ -921,6 +940,19 @@
     
     
     <entry>
+      <title>命令行查看本机ip</title>
+      <link href="/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/"/>
+      <url>/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/</url>
+      
+        <content type="html"><![CDATA[<p><code>ifconfig</code></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>同一台电脑配置多个git密匙</title>
       <link href="/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/"/>
       <url>/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/</url>
@@ -945,19 +977,6 @@
       <url>/2021/12/28/ji-yu-rgb-yuan-li-zhi-zuo-jian-bian-se-sheng-cheng-qi/</url>
       
         <content type="html"><![CDATA[<p>基于rgb原理制作渐变色生成器</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>命令行查看本机ip</title>
-      <link href="/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/"/>
-      <url>/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/</url>
-      
-        <content type="html"><![CDATA[<p><code>ifconfig</code></p>]]></content>
       
       
       
@@ -1032,19 +1051,6 @@
     
     
     <entry>
-      <title>ssh远程连接服务器</title>
-      <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
-      <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
-      
-        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#x72;&#111;&#x6f;&#x74;&#x40;&#x78;&#120;&#120;&#x2e;&#120;&#120;&#x78;&#x2e;&#120;&#x78;&#x78;&#x2e;&#x78;&#x78;&#120;">&#x72;&#111;&#x6f;&#x74;&#x40;&#x78;&#120;&#120;&#x2e;&#120;&#120;&#x78;&#x2e;&#120;&#x78;&#x78;&#x2e;&#x78;&#x78;&#120;</a>(ip地址)</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>sublime内使用终端</title>
       <link href="/2021/12/28/sublime-nei-shi-yong-zhong-duan/"/>
       <url>/2021/12/28/sublime-nei-shi-yong-zhong-duan/</url>
@@ -1064,6 +1070,19 @@
             <tag> sublime </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ssh远程连接服务器</title>
+      <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
+      <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
+      
+        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#114;&#x6f;&#111;&#116;&#x40;&#x78;&#x78;&#x78;&#x2e;&#x78;&#x78;&#x78;&#46;&#x78;&#x78;&#120;&#x2e;&#x78;&#120;&#x78;">&#114;&#x6f;&#111;&#116;&#x40;&#x78;&#x78;&#x78;&#x2e;&#x78;&#x78;&#x78;&#46;&#x78;&#x78;&#120;&#x2e;&#x78;&#120;&#x78;</a>(ip地址)</p>]]></content>
+      
+      
       
     </entry>
     
@@ -1134,6 +1153,52 @@
     
     
     <entry>
+      <title>macOS安装jenkins</title>
+      <link href="/2021/12/28/macos-an-zhuang-jenkins/"/>
+      <url>/2021/12/28/macos-an-zhuang-jenkins/</url>
+      
+        <content type="html"><![CDATA[<p><code>官方推荐使用Homebrew的方式安装，本机安装的方式已经不支[下载](https://www.jenkins.io/download/lts/macos/)</code></p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="安装最新版"><a href="#安装最新版" class="headerlink" title="安装最新版"></a>安装最新版</h2><pre class="line-numbers language-none"><code class="language-none">brew install jenkins-lts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="安装稳定版"><a href="#安装稳定版" class="headerlink" title="安装稳定版"></a>安装稳定版</h2><pre class="line-numbers language-none"><code class="language-none">brew install jenkins-lts@YOUR_VERSION<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><pre class="line-numbers language-none"><code class="language-none">brew services start jenkins-lts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h1 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h1><pre class="line-numbers language-none"><code class="language-none">brew services restart jenkins-lts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h1 id="更新jenkins"><a href="#更新jenkins" class="headerlink" title="更新jenkins"></a>更新jenkins</h1><pre class="line-numbers language-none"><code class="language-none">brew upgrade jenkins-lts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><code>但是要启动jenkins，必须要有java jdk，所以还需下载(https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)</code></p><p>下载安装版即可</p><p>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 </p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> jenkins </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>mars3d使用指南</title>
+      <link href="/2021/12/28/mars3d-shi-yong-zhi-nan/"/>
+      <url>/2021/12/28/mars3d-shi-yong-zhi-nan/</url>
+      
+        <content type="html"><![CDATA[<p><code>本文只是mars3d的使用，并且使用的方式是直接在html内编写，不涉及Vue或其他方式</code></p><p>开发指南:<a href="http://mars3d.cn/apidoc">http://mars3d.cn/apidoc</a><br>官网demo:<a href="http://mars3d.cn/example">http://mars3d.cn/example</a></p><p><em><code>本文随时更新</code></em></p><h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>mars3d是在cesium基础上二次封装的一个前端框架，继承与扩展了cesium的功能，开源但是不能用于商业用途，会有水印与log信息。</p><h2 id="图层"><a href="#图层" class="headerlink" title="图层"></a>图层</h2><p>mars3d图层（个人理解）就是在canvas（webgl）上添加一类元素的容器。经常使用到的有geoLayer,imageLayer,divLayer、模型等</p><h3 id="geoLayer"><a href="#geoLayer" class="headerlink" title="geoLayer"></a>geoLayer</h3><p>geoLayer主要用来加载geoJson数据，并根据geoLayer数据的type值进行不同的渲染，可以生成点、线、面等</p><h3 id="imageLayer"><a href="#imageLayer" class="headerlink" title="imageLayer"></a>imageLayer</h3><p>imageLayer主要用来加载img图片，该图片会随earthMap一同缩放，这是它与divLayer最大的不同</p><h3 id="divLayer"><a href="#divLayer" class="headerlink" title="divLayer"></a>divLayer</h3><p>divLayer主要用来加载自定义div元素，它不同earthMap缩放，在检查代码中会发现它是脱离canvas元素的（随earthMap一同缩放的都是在canvas元素中的），由于它脱离canvas，但是又相对于earthMap有位置的定位，所以当earthMap宽高超出屏幕范围时，会导致浏览器滚动条的出现，如果没有特殊需求，不建议使用。<br><em><strong><code>由于divLayer脱离canvas元素，当使用canvas录屏的时候，是无法录取该元素的，这就导致操作时看到的内容与录屏后视频显示的内容不一致</code></strong></em></p><h3 id="模型加载"><a href="#模型加载" class="headerlink" title="模型加载"></a>模型加载</h3><p>mars3d是支持模型加载的，并且即使加载的是动态模型，也不会导致浏览器的回流与重绘。但是当imageLayer加载的是gif动图时，即使earthMap没有任何操作，也会因为gif序列帧的问题引起浏览器的回流与重绘。<br><em><strong><code>建议需要动图时，直接上模型</code></strong></em><br>相关测试可查看<a href="http://www.baidu.com/">浏览器回流与重绘测试</a></p><hr><h1 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h1><hr><h1 id="应用demo解析"><a href="#应用demo解析" class="headerlink" title="应用demo解析"></a>应用demo解析</h1><h2 id="加载离线地球"><a href="#加载离线地球" class="headerlink" title="加载离线地球"></a>加载离线地球</h2><h2 id="加载图片模拟克里金插值"><a href="#加载图片模拟克里金插值" class="headerlink" title="加载图片模拟克里金插值"></a>加载图片模拟克里金插值</h2><h2 id="加载icon图片作为图标方式"><a href="#加载icon图片作为图标方式" class="headerlink" title="加载icon图片作为图标方式"></a>加载icon图片作为图标方式</h2><h2 id="加载gif动图"><a href="#加载gif动图" class="headerlink" title="加载gif动图"></a>加载gif动图</h2><h2 id="加载3D模型图"><a href="#加载3D模型图" class="headerlink" title="加载3D模型图"></a>加载3D模型图</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 框架 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 可视化 </tag>
+            
+            <tag> mars3d </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>live-server使用</title>
       <link href="/2021/12/28/live-server-shi-yong/"/>
       <url>/2021/12/28/live-server-shi-yong/</url>
@@ -1166,25 +1231,6 @@
     
     
     <entry>
-      <title>macOS安装jenkins</title>
-      <link href="/2021/12/28/macos-an-zhuang-jenkins/"/>
-      <url>/2021/12/28/macos-an-zhuang-jenkins/</url>
-      
-        <content type="html"><![CDATA[<p><code>官方推荐使用Homebrew的方式安装，本机安装的方式已经不支[下载](https://www.jenkins.io/download/lts/macos/)</code></p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="安装最新版"><a href="#安装最新版" class="headerlink" title="安装最新版"></a>安装最新版</h2><pre class="line-numbers language-none"><code class="language-none">brew install jenkins-lts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="安装稳定版"><a href="#安装稳定版" class="headerlink" title="安装稳定版"></a>安装稳定版</h2><pre class="line-numbers language-none"><code class="language-none">brew install jenkins-lts@YOUR_VERSION<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><pre class="line-numbers language-none"><code class="language-none">brew services start jenkins-lts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h1 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h1><pre class="line-numbers language-none"><code class="language-none">brew services restart jenkins-lts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h1 id="更新jenkins"><a href="#更新jenkins" class="headerlink" title="更新jenkins"></a>更新jenkins</h1><pre class="line-numbers language-none"><code class="language-none">brew upgrade jenkins-lts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><code>但是要启动jenkins，必须要有java jdk，所以还需下载(https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)</code></p><p>下载安装版即可</p><p>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 </p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> jenkins </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>node canvas生成图片并保存</title>
       <link href="/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/"/>
       <url>/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/</url>
@@ -1204,33 +1250,6 @@
             <tag> 可视化 </tag>
             
             <tag> node </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>mars3d使用指南</title>
-      <link href="/2021/12/28/mars3d-shi-yong-zhi-nan/"/>
-      <url>/2021/12/28/mars3d-shi-yong-zhi-nan/</url>
-      
-        <content type="html"><![CDATA[<p><code>本文只是mars3d的使用，并且使用的方式是直接在html内编写，不涉及Vue或其他方式</code></p><p>开发指南:<a href="http://mars3d.cn/apidoc">http://mars3d.cn/apidoc</a><br>官网demo:<a href="http://mars3d.cn/example">http://mars3d.cn/example</a></p><p><em><code>本文随时更新</code></em></p><h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>mars3d是在cesium基础上二次封装的一个前端框架，继承与扩展了cesium的功能，开源但是不能用于商业用途，会有水印与log信息。</p><h2 id="图层"><a href="#图层" class="headerlink" title="图层"></a>图层</h2><p>mars3d图层（个人理解）就是在canvas（webgl）上添加一类元素的容器。经常使用到的有geoLayer,imageLayer,divLayer、模型等</p><h3 id="geoLayer"><a href="#geoLayer" class="headerlink" title="geoLayer"></a>geoLayer</h3><p>geoLayer主要用来加载geoJson数据，并根据geoLayer数据的type值进行不同的渲染，可以生成点、线、面等</p><h3 id="imageLayer"><a href="#imageLayer" class="headerlink" title="imageLayer"></a>imageLayer</h3><p>imageLayer主要用来加载img图片，该图片会随earthMap一同缩放，这是它与divLayer最大的不同</p><h3 id="divLayer"><a href="#divLayer" class="headerlink" title="divLayer"></a>divLayer</h3><p>divLayer主要用来加载自定义div元素，它不同earthMap缩放，在检查代码中会发现它是脱离canvas元素的（随earthMap一同缩放的都是在canvas元素中的），由于它脱离canvas，但是又相对于earthMap有位置的定位，所以当earthMap宽高超出屏幕范围时，会导致浏览器滚动条的出现，如果没有特殊需求，不建议使用。<br><em><strong><code>由于divLayer脱离canvas元素，当使用canvas录屏的时候，是无法录取该元素的，这就导致操作时看到的内容与录屏后视频显示的内容不一致</code></strong></em></p><h3 id="模型加载"><a href="#模型加载" class="headerlink" title="模型加载"></a>模型加载</h3><p>mars3d是支持模型加载的，并且即使加载的是动态模型，也不会导致浏览器的回流与重绘。但是当imageLayer加载的是gif动图时，即使earthMap没有任何操作，也会因为gif序列帧的问题引起浏览器的回流与重绘。<br><em><strong><code>建议需要动图时，直接上模型</code></strong></em><br>相关测试可查看<a href="http://www.baidu.com/">浏览器回流与重绘测试</a></p><hr><h1 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h1><hr><h1 id="应用demo解析"><a href="#应用demo解析" class="headerlink" title="应用demo解析"></a>应用demo解析</h1><h2 id="加载离线地球"><a href="#加载离线地球" class="headerlink" title="加载离线地球"></a>加载离线地球</h2><h2 id="加载图片模拟克里金插值"><a href="#加载图片模拟克里金插值" class="headerlink" title="加载图片模拟克里金插值"></a>加载图片模拟克里金插值</h2><h2 id="加载icon图片作为图标方式"><a href="#加载icon图片作为图标方式" class="headerlink" title="加载icon图片作为图标方式"></a>加载icon图片作为图标方式</h2><h2 id="加载gif动图"><a href="#加载gif动图" class="headerlink" title="加载gif动图"></a>加载gif动图</h2><h2 id="加载3D模型图"><a href="#加载3D模型图" class="headerlink" title="加载3D模型图"></a>加载3D模型图</h2>]]></content>
-      
-      
-      <categories>
-          
-          <category> 框架 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 可视化 </tag>
-            
-            <tag> mars3d </tag>
             
         </tags>
       
@@ -1277,6 +1296,32 @@
     
     
     <entry>
+      <title>cesium专题</title>
+      <link href="/2021/12/28/cesium-zhuan-ti/"/>
+      <url>/2021/12/28/cesium-zhuan-ti/</url>
+      
+        <content type="html"><![CDATA[<p>CesiumJS 是一款用于创建虚拟场景的3D地理信息平台。目标是用于创建以基于Web的地图动态数据可视化。目前尽力提升平台的性能、准确率、虚拟化能力、易用性以及平台的各种支持。</p><ul><li>Cesium 是一个跨平台、跨浏览器的展示三维地球和地图的 javascript 库。</li><li>Cesium 使用WebGL 来进行硬件加速图形，使用时不需要任何插件支持，但是浏览器必须支持WebGL。</li><li>Cesium是基于Apache2.0 许可的开源程序。它可以免费的用于商业和非商业用途。</li></ul><h2 id="数据格式与功能特性"><a href="#数据格式与功能特性" class="headerlink" title="数据格式与功能特性"></a>数据格式与功能特性</h2><ul><li>支持2D,2.5D,3D 形式的地理（地图）数据展示，</li><li>可以绘制各种几何图形、高亮区域，支持导入图片，甚至三维模型等多种数据可视化展示</li><li>可用于动态数据可视化并提供良好的触摸支持，支持绝大多数的浏览器和移动端浏览器。</li><li>支持基于时间轴的动态流式数据展示</li></ul>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>es6</title>
+      <link href="/2021/12/28/es6/"/>
+      <url>/2021/12/28/es6/</url>
+      
+        <content type="html"><![CDATA[<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><p><code>从数组和对象中提取值，对变量进行赋值，这被称为解构</code></p><h2 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h2><pre class="line-numbers language-none"><code class="language-none">let [a,b,c] &#x3D; [1,2,3];console.log(a,b,c);&#x2F;&#x2F; 1 2 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><code>解构不成功，变量的值为undefined</code></p><pre class="line-numbers language-none"><code class="language-none">let [a,b] &#x3D; [1];console.log(a,b);&#x2F;&#x2F; 1 undefinedlet [a,b] &#x3D; &#39;1&#39;;console.log(a,b);&#x2F;&#x2F; 1 undefined<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>如果等号右边不是可遍历的结构，会报错</strong></p><p>会报错的常见形式：</p><p>1、 数字</p><p>2、 布尔</p><p>3、 NaN</p><p>4、 undefined</p><p>5、null</p><p>6、{}  对象</p><h2 id="解构赋值的应用"><a href="#解构赋值的应用" class="headerlink" title="解构赋值的应用"></a>解构赋值的应用</h2><pre class="line-numbers language-none"><code class="language-none">假设下面是某个请求的返回值，形参是res&#123;    &quot;status&quot;: 200,    &quot;msg&quot;: &quot;成功&quot;,    &quot;data&quot;: &#123;        &quot;pageNum&quot;: 1,        &quot;pageSize&quot;: 99,        &quot;size&quot;: 49,    &#125;&#125;1、不用解构赋值let data &#x3D; res;if(data.data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;写起来比较繁琐2、使用解构赋值let &#123;data&#125; &#x3D; res;if(data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>这里需要注意的一点就是：声明的变量必须是返回值里面的某个属性， 也就是说：返回值内必须包含被声明的这个变量字段。</code></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>cesium绘制卫星云图</title>
       <link href="/2021/12/28/cesium-hui-zhi-wei-xing-yun-tu/"/>
       <url>/2021/12/28/cesium-hui-zhi-wei-xing-yun-tu/</url>
@@ -1306,26 +1351,19 @@
     
     
     <entry>
-      <title>cesium专题</title>
-      <link href="/2021/12/28/cesium-zhuan-ti/"/>
-      <url>/2021/12/28/cesium-zhuan-ti/</url>
+      <title>jq load方法注意事项</title>
+      <link href="/2021/12/28/jq-load-fang-fa-zhu-yi-shi-xiang/"/>
+      <url>/2021/12/28/jq-load-fang-fa-zhu-yi-shi-xiang/</url>
       
-        <content type="html"><![CDATA[<p>CesiumJS 是一款用于创建虚拟场景的3D地理信息平台。目标是用于创建以基于Web的地图动态数据可视化。目前尽力提升平台的性能、准确率、虚拟化能力、易用性以及平台的各种支持。</p><ul><li>Cesium 是一个跨平台、跨浏览器的展示三维地球和地图的 javascript 库。</li><li>Cesium 使用WebGL 来进行硬件加速图形，使用时不需要任何插件支持，但是浏览器必须支持WebGL。</li><li>Cesium是基于Apache2.0 许可的开源程序。它可以免费的用于商业和非商业用途。</li></ul><h2 id="数据格式与功能特性"><a href="#数据格式与功能特性" class="headerlink" title="数据格式与功能特性"></a>数据格式与功能特性</h2><ul><li>支持2D,2.5D,3D 形式的地理（地图）数据展示，</li><li>可以绘制各种几何图形、高亮区域，支持导入图片，甚至三维模型等多种数据可视化展示</li><li>可用于动态数据可视化并提供良好的触摸支持，支持绝大多数的浏览器和移动端浏览器。</li><li>支持基于时间轴的动态流式数据展示</li></ul>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>es6</title>
-      <link href="/2021/12/28/es6/"/>
-      <url>/2021/12/28/es6/</url>
-      
-        <content type="html"><![CDATA[<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><p><code>从数组和对象中提取值，对变量进行赋值，这被称为解构</code></p><h2 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h2><pre class="line-numbers language-none"><code class="language-none">let [a,b,c] &#x3D; [1,2,3];console.log(a,b,c);&#x2F;&#x2F; 1 2 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><code>解构不成功，变量的值为undefined</code></p><pre class="line-numbers language-none"><code class="language-none">let [a,b] &#x3D; [1];console.log(a,b);&#x2F;&#x2F; 1 undefinedlet [a,b] &#x3D; &#39;1&#39;;console.log(a,b);&#x2F;&#x2F; 1 undefined<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>如果等号右边不是可遍历的结构，会报错</strong></p><p>会报错的常见形式：</p><p>1、 数字</p><p>2、 布尔</p><p>3、 NaN</p><p>4、 undefined</p><p>5、null</p><p>6、{}  对象</p><h2 id="解构赋值的应用"><a href="#解构赋值的应用" class="headerlink" title="解构赋值的应用"></a>解构赋值的应用</h2><pre class="line-numbers language-none"><code class="language-none">假设下面是某个请求的返回值，形参是res&#123;    &quot;status&quot;: 200,    &quot;msg&quot;: &quot;成功&quot;,    &quot;data&quot;: &#123;        &quot;pageNum&quot;: 1,        &quot;pageSize&quot;: 99,        &quot;size&quot;: 49,    &#125;&#125;1、不用解构赋值let data &#x3D; res;if(data.data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;写起来比较繁琐2、使用解构赋值let &#123;data&#125; &#x3D; res;if(data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>这里需要注意的一点就是：声明的变量必须是返回值里面的某个属性， 也就是说：返回值内必须包含被声明的这个变量字段。</code></p>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
       
+      
+        <tags>
+            
+            <tag> jQuery </tag>
+            
+        </tags>
       
     </entry>
     
@@ -1370,25 +1408,6 @@
           
       </categories>
       
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>jq load方法注意事项</title>
-      <link href="/2021/12/28/jq-load-fang-fa-zhu-yi-shi-xiang/"/>
-      <url>/2021/12/28/jq-load-fang-fa-zhu-yi-shi-xiang/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> jQuery </tag>
-            
-        </tags>
       
     </entry>
     
