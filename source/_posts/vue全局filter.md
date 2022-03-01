@@ -23,6 +23,8 @@ export default { random30 };
 ### 2、添加到 vue 全局中，main.js 中引入
 
 ```javascript
+import filter from "./api/filter"
+
 Object.keys(filter).forEach((key) => Vue.filter(key, filter[key]));
 ```
 
