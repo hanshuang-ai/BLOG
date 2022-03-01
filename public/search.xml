@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>vue循环中为什么不建议使用index做key值</title>
+      <link href="/2022/03/01/vue-xun-huan-zhong-wei-shi-me-bu-jian-yi-shi-yong-index-zuo-key-zhi/"/>
+      <url>/2022/03/01/vue-xun-huan-zhong-wei-shi-me-bu-jian-yi-shi-yong-index-zuo-key-zhi/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://cn.vuejs.org/v2/guide/list.html">vue2 中对循环的解释</a></p><blockquote><p>当 Vue 正在更新使用 v-for 渲染的元素列表时，它默认使用“就地更新”的策略。如果数据项的顺序被改变，Vue 将不会移动 DOM 元素来匹配数据项的顺序，而是就地更新每个元素，并且确保它们在每个索引位置正确渲染。这个类似 Vue 1.x 的 track-by=”$index”。</p></blockquote><p><code>这个默认的模式是高效的，但是只适用于不依赖子组件状态或临时 DOM 状态 (例如：表单输入值) 的列表渲染输出。</code></p><p><code>为了给 Vue 一个提示，以便它能跟踪每个节点的身份，从而重用和重新排序现有元素，你需要为每项提供一个唯一 key attribute：</code></p><hr><p>上面的意思是说，vue在循环的时候使用key会更好的进行渲染，在<code>数据更改时</code>会使虚拟dom有更小的消耗。</p><p>所以：</p><blockquote><p>当有数据需要修改的时候，尽量不要使用index作为key值，比如：管理后台添加列表数据、选择器内添加选项等<br>那么在不需要修改数据的时候（单纯的给用户进行展示的时候）是可以使用index作为key值的，因为不存在二次渲染的问题</p></blockquote><p><code>手写虚拟滚动的时候，因为是在同一个页面区域内进行渲染，也不建议使用index作为key值</code></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>vue全局filter</title>
       <link href="/2022/02/28/vue-quan-ju-filter/"/>
       <url>/2022/02/28/vue-quan-ju-filter/</url>
@@ -959,6 +978,19 @@
     
     
     <entry>
+      <title>命令行查看本机ip</title>
+      <link href="/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/"/>
+      <url>/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/</url>
+      
+        <content type="html"><![CDATA[<p><code>ifconfig</code></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>同一台电脑配置多个git密匙</title>
       <link href="/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/"/>
       <url>/2021/12/28/tong-yi-tai-dian-nao-pei-zhi-duo-ge-git-mi-chi/</url>
@@ -978,11 +1010,11 @@
     
     
     <entry>
-      <title>命令行查看本机ip</title>
-      <link href="/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/"/>
-      <url>/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/</url>
+      <title>基于rgb原理制作渐变色生成器</title>
+      <link href="/2021/12/28/ji-yu-rgb-yuan-li-zhi-zuo-jian-bian-se-sheng-cheng-qi/"/>
+      <url>/2021/12/28/ji-yu-rgb-yuan-li-zhi-zuo-jian-bian-se-sheng-cheng-qi/</url>
       
-        <content type="html"><![CDATA[<p><code>ifconfig</code></p>]]></content>
+        <content type="html"><![CDATA[<p>基于rgb原理制作渐变色生成器</p>]]></content>
       
       
       
@@ -991,11 +1023,24 @@
     
     
     <entry>
-      <title>基于rgb原理制作渐变色生成器</title>
-      <link href="/2021/12/28/ji-yu-rgb-yuan-li-zhi-zuo-jian-bian-se-sheng-cheng-qi/"/>
-      <url>/2021/12/28/ji-yu-rgb-yuan-li-zhi-zuo-jian-bian-se-sheng-cheng-qi/</url>
+      <title>nodeCanvas渲染</title>
+      <link href="/2021/12/28/nodecanvas-xuan-ran/"/>
+      <url>/2021/12/28/nodecanvas-xuan-ran/</url>
       
-        <content type="html"><![CDATA[<p>基于rgb原理制作渐变色生成器</p>]]></content>
+        <content type="html"><![CDATA[<p>近期项目涉及地理系统，使用的框架是mars3d</p><p>mars3d本身提供了加载<a href="http://baidu.com/">geojson</a>、图片以及模型的API，<br>但是在加载这些资源的时候，尤其是涉及到计算量比较大的时候，浏览器承担过重。<br>经过测试，该框架加载本地图片资源的时候速度有明显提升，所以就需要性能优化，<br>在服务器直接生成png图片，在需要使用的时候直接加载图片。<br>由于项目对geojson数据，尤其是边界线精度要求较高，暂时未生成图片。</p><p>`凡是引用包的地方，都需要先加载包，但是node canvas直接使用哪个npm引用有很大的几率会出现问题</p><p>`</p><h1 id="node加载数据"><a href="#node加载数据" class="headerlink" title="node加载数据"></a>node加载数据</h1><p>node加载数据使用的是自带的fs模块</p><pre class="line-numbers language-none"><code class="language-none">let fs &#x3D; require(&#39;fs&#39;)let data &#x3D; fs.readFileSync(&#39;XXX.json&#39;)let obj &#x3D; JSON.parse(data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h1 id="使用node-canvas将数据绘制到canvas上"><a href="#使用node-canvas将数据绘制到canvas上" class="headerlink" title="使用node canvas将数据绘制到canvas上"></a>使用node canvas将数据绘制到canvas上</h1><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; canvasconst width &#x3D; 2000const height &#x3D; 2000const canvas &#x3D; createCanvas(width,height)const context &#x3D; canvas.getContext(&#39;2d)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="处理node-canvas生成的base64数据，生成png"><a href="#处理node-canvas生成的base64数据，生成png" class="headerlink" title="处理node canvas生成的base64数据，生成png"></a>处理node canvas生成的base64数据，生成png</h1><h1 id="将png保存到本地"><a href="#将png保存到本地" class="headerlink" title="将png保存到本地"></a>将png保存到本地</h1>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>nuxt内使用vant框架</title>
+      <link href="/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/"/>
+      <url>/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/</url>
+      
+        <content type="html"><![CDATA[<h1 id="nuxt目录介绍"><a href="#nuxt目录介绍" class="headerlink" title="nuxt目录介绍"></a>nuxt目录介绍</h1><p>1、<code>assets: 资源目录，用来组织未编译的静态资源</code><br>2、<code>layouts</code>: </p><pre class="line-numbers language-none"><code class="language-none">布局文件目录，里面可以放些全局可用的布局，例如default、error。default表示默认布局，error可以用来展示404。如果没有默认布局的要求，直接放置一个error即可。注：并不需要特殊路由设置，在nuxt框架下，如果访问的路径不存在，(并且有error布局的情况下)则会直接使用该布局。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="nuxt内使用vant（或者说是nuxt内使用第三方框架）"><a href="#nuxt内使用vant（或者说是nuxt内使用第三方框架）" class="headerlink" title="nuxt内使用vant（或者说是nuxt内使用第三方框架）"></a>nuxt内使用vant（或者说是nuxt内使用第三方框架）</h1><p>1、在plugins目录下新建vant.js文件，并引入vue和vant以及vant的样式。</p><pre class="line-numbers language-none"><code class="language-none">import Vue from &#39;vue&#39;;import Vant from &#39;vant&#39;;import &#39;vant&#x2F;lib&#x2F;index.css&#39;Vue.use(Vant)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>2、在nuxt.config.js下引入vant</p><pre class="line-numbers language-none"><code class="language-none">plugins: [    &#123;src: &#39;~&#x2F;plugins&#x2F;vant.js&#39;, ssr: true&#125;  ],<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       
@@ -1031,50 +1076,11 @@
     
     
     <entry>
-      <title>nodeCanvas渲染</title>
-      <link href="/2021/12/28/nodecanvas-xuan-ran/"/>
-      <url>/2021/12/28/nodecanvas-xuan-ran/</url>
-      
-        <content type="html"><![CDATA[<p>近期项目涉及地理系统，使用的框架是mars3d</p><p>mars3d本身提供了加载<a href="http://baidu.com/">geojson</a>、图片以及模型的API，<br>但是在加载这些资源的时候，尤其是涉及到计算量比较大的时候，浏览器承担过重。<br>经过测试，该框架加载本地图片资源的时候速度有明显提升，所以就需要性能优化，<br>在服务器直接生成png图片，在需要使用的时候直接加载图片。<br>由于项目对geojson数据，尤其是边界线精度要求较高，暂时未生成图片。</p><p>`凡是引用包的地方，都需要先加载包，但是node canvas直接使用哪个npm引用有很大的几率会出现问题</p><p>`</p><h1 id="node加载数据"><a href="#node加载数据" class="headerlink" title="node加载数据"></a>node加载数据</h1><p>node加载数据使用的是自带的fs模块</p><pre class="line-numbers language-none"><code class="language-none">let fs &#x3D; require(&#39;fs&#39;)let data &#x3D; fs.readFileSync(&#39;XXX.json&#39;)let obj &#x3D; JSON.parse(data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h1 id="使用node-canvas将数据绘制到canvas上"><a href="#使用node-canvas将数据绘制到canvas上" class="headerlink" title="使用node canvas将数据绘制到canvas上"></a>使用node canvas将数据绘制到canvas上</h1><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; canvasconst width &#x3D; 2000const height &#x3D; 2000const canvas &#x3D; createCanvas(width,height)const context &#x3D; canvas.getContext(&#39;2d)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="处理node-canvas生成的base64数据，生成png"><a href="#处理node-canvas生成的base64数据，生成png" class="headerlink" title="处理node canvas生成的base64数据，生成png"></a>处理node canvas生成的base64数据，生成png</h1><h1 id="将png保存到本地"><a href="#将png保存到本地" class="headerlink" title="将png保存到本地"></a>将png保存到本地</h1>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>process.env.NODE_ENV</title>
       <link href="/2021/12/28/process.env.node-env/"/>
       <url>/2021/12/28/process.env.node-env/</url>
       
         <content type="html"><![CDATA[<p>1、在node当中，全局变量process代表的是node当中的进程。 process.env包含着关于系统环境的信息，<code>但是并不包含NODE_ENV这个属性</code></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>nuxt内使用vant框架</title>
-      <link href="/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/"/>
-      <url>/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/</url>
-      
-        <content type="html"><![CDATA[<h1 id="nuxt目录介绍"><a href="#nuxt目录介绍" class="headerlink" title="nuxt目录介绍"></a>nuxt目录介绍</h1><p>1、<code>assets: 资源目录，用来组织未编译的静态资源</code><br>2、<code>layouts</code>: </p><pre class="line-numbers language-none"><code class="language-none">布局文件目录，里面可以放些全局可用的布局，例如default、error。default表示默认布局，error可以用来展示404。如果没有默认布局的要求，直接放置一个error即可。注：并不需要特殊路由设置，在nuxt框架下，如果访问的路径不存在，(并且有error布局的情况下)则会直接使用该布局。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="nuxt内使用vant（或者说是nuxt内使用第三方框架）"><a href="#nuxt内使用vant（或者说是nuxt内使用第三方框架）" class="headerlink" title="nuxt内使用vant（或者说是nuxt内使用第三方框架）"></a>nuxt内使用vant（或者说是nuxt内使用第三方框架）</h1><p>1、在plugins目录下新建vant.js文件，并引入vue和vant以及vant的样式。</p><pre class="line-numbers language-none"><code class="language-none">import Vue from &#39;vue&#39;;import Vant from &#39;vant&#39;;import &#39;vant&#x2F;lib&#x2F;index.css&#39;Vue.use(Vant)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>2、在nuxt.config.js下引入vant</p><pre class="line-numbers language-none"><code class="language-none">plugins: [    &#123;src: &#39;~&#x2F;plugins&#x2F;vant.js&#39;, ssr: true&#125;  ],<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>ssh远程连接服务器</title>
-      <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
-      <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
-      
-        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#x72;&#x6f;&#x6f;&#116;&#x40;&#x78;&#120;&#x78;&#x2e;&#120;&#120;&#120;&#46;&#x78;&#120;&#x78;&#46;&#x78;&#120;&#120;">&#x72;&#x6f;&#x6f;&#116;&#x40;&#x78;&#120;&#x78;&#x2e;&#120;&#120;&#120;&#46;&#x78;&#120;&#x78;&#46;&#x78;&#120;&#120;</a>(ip地址)</p>]]></content>
       
       
       
@@ -1113,6 +1119,19 @@
       <url>/2021/12/28/tcp-san-ci-wo-shou-he-si-ci-hui-shou/</url>
       
         <content type="html"><![CDATA[<h1 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h1><p>客户端和服务端通信前要进行连接，<br><code>“3次握手”的作用就是</code><em><strong><code>双方都能明确自己和对方的收、发能力是正常的。</code></strong></em></p><p><img src="http://qiniu.aoxuekj.com/2019100611062917.png"></p><h2 id="第一次握手："><a href="#第一次握手：" class="headerlink" title="第一次握手："></a>第一次握手：</h2><p>客户端发送网络包，服务端收到了。这样服务端就能得出结论：客户端的发送能力、服务端的接收能力是正常的。</p><h2 id="第二次握手："><a href="#第二次握手：" class="headerlink" title="第二次握手："></a>第二次握手：</h2><p>服务端发包，客户端收到了。这样客户端就能得出结论：服务端的接收、发送能力，客户端的接收、发送能力是正常的。 从客户端的视角来看，我接到了服务端发送过来的响应数据包，说明服务端接收到了我在第一次握手时发送的网络包，并且成功发送了响应数据包，这就说明，服务端的接收、发送能力正常。而另一方面，我收到了服务端的响应数据包，说明我第一次发送的网络包成功到达服务端，这样，我自己的发送和接收能力也是正常的。<code>但是服务器还不知道我的接收能力</code></p><h2 id="第三次握手："><a href="#第三次握手：" class="headerlink" title="第三次握手："></a>第三次握手：</h2><p>客户端发包，服务端收到了。这样服务端就能得出结论：客户端的接收、发送能力，服务端的发送、接收能力是正常的。 第一、二次握手后，服务端并不知道客户端的接收能力以及自己的发送能力是否正常。而在第三次握手时，服务端收到了客户端对第二次握手作的回应。从服务端的角度，我在第二次握手时的响应数据发送出去了，客户端接收到了。所以，我的发送能力是正常的。而客户端的接收能力也是正常的。</p><h1 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h1><p><img src="http://qiniu.aoxuekj.com/20191006110633739.png"></p><ol><li>客户端发送一个FIN段，并包含一个希望接收者看到的自己当前的序列号K. 同时还包含一个ACK表示确认对方最近一次发过来的数据。 </li><li>服务端将K值加1作为ACK序号值，表明收到了上一个包。这时上层的应用程序会被告知另一端发起了关闭操作，通常这将引起应用程序发起自己的关闭操作。 </li><li>服务端发起自己的FIN段，ACK=K+1, Seq=L。</li><li>客户端确认。ACK=L+1。</li></ol><h1 id="为什么握手是三次，挥手是四次"><a href="#为什么握手是三次，挥手是四次" class="headerlink" title="为什么握手是三次，挥手是四次"></a>为什么握手是三次，挥手是四次</h1><p>这是因为服务端在LISTEN状态下，<code>收到建立连接请求的SYN报文后，把ACK和SYN放在一个报文里发送给客户端</code>(<em><strong>相当于将四次挥手中的第2、3次合并了</strong></em>)。而关闭连接时，当收到对方的FIN报文时，仅仅表示对方不再发送数据了但是还能接收数据，己方是否现在关闭发送数据通道，需要上层应用来决定，因此，己方ACK和FIN一般都会分开发送。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ssh远程连接服务器</title>
+      <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
+      <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
+      
+        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#x72;&#x6f;&#111;&#x74;&#x40;&#120;&#x78;&#x78;&#x2e;&#x78;&#120;&#x78;&#46;&#x78;&#120;&#x78;&#x2e;&#120;&#x78;&#x78;">&#x72;&#x6f;&#111;&#x74;&#x40;&#120;&#x78;&#x78;&#x2e;&#x78;&#120;&#x78;&#46;&#x78;&#120;&#x78;&#x2e;&#120;&#x78;&#x78;</a>(ip地址)</p>]]></content>
       
       
       
@@ -1166,19 +1185,6 @@
             <tag> 面向对象 </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>live-server使用</title>
-      <link href="/2021/12/28/live-server-shi-yong/"/>
-      <url>/2021/12/28/live-server-shi-yong/</url>
-      
-        <content type="html"><![CDATA[<p><code>本文适用于使用cnpm下载的live-server，使用npm或者其他方式下载的安装包未做测试</code></p><pre class="line-numbers language-none"><code class="language-none">与http-server比，live-server是一种自动热更新的工具包。但是在启动http-server的时候，会自动启动127.0.0.1与本机ip地址两个链接以供访问，这就使得内网内的设备都能访问。但是live-server默认只会启动127.0.0.1（在没有修改包文件内index.js的时候）导致每次想换启动地址时都需要去修改index.js文件，导致非常麻烦。目前本机安装的live-server版本，可以通过在命令行内直接使用命令指定的方式修改端口和链接。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>修改端口</strong></p><pre class="line-numbers language-none"><code class="language-none">live-server --port&#x3D;&#39;8081&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><br><p><strong>修改地址</strong></p><pre class="line-numbers language-none"><code class="language-none">live-server --host&#x3D;&#39;192.168.1.1&#39;注意host内应该是本机的内网ip地址，这样在同一个内网下，不同的设备才能访问我们开放的页面<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
       
     </entry>
     
@@ -1250,6 +1256,19 @@
     
     
     <entry>
+      <title>node</title>
+      <link href="/2021/12/28/node/"/>
+      <url>/2021/12/28/node/</url>
+      
+        <content type="html"><![CDATA[<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><h2 id="node原生引入的http创建的服务器解决跨域问题"><a href="#node原生引入的http创建的服务器解决跨域问题" class="headerlink" title="node原生引入的http创建的服务器解决跨域问题"></a>node原生引入的http创建的服务器解决跨域问题</h2><pre class="line-numbers language-none"><code class="language-none">const http &#x3D; require(&#39;http&#39;);http.createServer((req,res)&#x3D;&gt;&#123;    res.setHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);&#x2F;&#x2F;跨域    res.end(&#39;12&#39;)&#125;).listen(&#39;3000&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>node canvas生成图片并保存</title>
       <link href="/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/"/>
       <url>/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/</url>
@@ -1277,24 +1296,11 @@
     
     
     <entry>
-      <title>node</title>
-      <link href="/2021/12/28/node/"/>
-      <url>/2021/12/28/node/</url>
+      <title>live-server使用</title>
+      <link href="/2021/12/28/live-server-shi-yong/"/>
+      <url>/2021/12/28/live-server-shi-yong/</url>
       
-        <content type="html"><![CDATA[<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><h2 id="node原生引入的http创建的服务器解决跨域问题"><a href="#node原生引入的http创建的服务器解决跨域问题" class="headerlink" title="node原生引入的http创建的服务器解决跨域问题"></a>node原生引入的http创建的服务器解决跨域问题</h2><pre class="line-numbers language-none"><code class="language-none">const http &#x3D; require(&#39;http&#39;);http.createServer((req,res)&#x3D;&gt;&#123;    res.setHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);&#x2F;&#x2F;跨域    res.end(&#39;12&#39;)&#125;).listen(&#39;3000&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>cesium专题</title>
-      <link href="/2021/12/28/cesium-zhuan-ti/"/>
-      <url>/2021/12/28/cesium-zhuan-ti/</url>
-      
-        <content type="html"><![CDATA[<p>CesiumJS 是一款用于创建虚拟场景的3D地理信息平台。目标是用于创建以基于Web的地图动态数据可视化。目前尽力提升平台的性能、准确率、虚拟化能力、易用性以及平台的各种支持。</p><ul><li>Cesium 是一个跨平台、跨浏览器的展示三维地球和地图的 javascript 库。</li><li>Cesium 使用WebGL 来进行硬件加速图形，使用时不需要任何插件支持，但是浏览器必须支持WebGL。</li><li>Cesium是基于Apache2.0 许可的开源程序。它可以免费的用于商业和非商业用途。</li></ul><h2 id="数据格式与功能特性"><a href="#数据格式与功能特性" class="headerlink" title="数据格式与功能特性"></a>数据格式与功能特性</h2><ul><li>支持2D,2.5D,3D 形式的地理（地图）数据展示，</li><li>可以绘制各种几何图形、高亮区域，支持导入图片，甚至三维模型等多种数据可视化展示</li><li>可用于动态数据可视化并提供良好的触摸支持，支持绝大多数的浏览器和移动端浏览器。</li><li>支持基于时间轴的动态流式数据展示</li></ul>]]></content>
+        <content type="html"><![CDATA[<p><code>本文适用于使用cnpm下载的live-server，使用npm或者其他方式下载的安装包未做测试</code></p><pre class="line-numbers language-none"><code class="language-none">与http-server比，live-server是一种自动热更新的工具包。但是在启动http-server的时候，会自动启动127.0.0.1与本机ip地址两个链接以供访问，这就使得内网内的设备都能访问。但是live-server默认只会启动127.0.0.1（在没有修改包文件内index.js的时候）导致每次想换启动地址时都需要去修改index.js文件，导致非常麻烦。目前本机安装的live-server版本，可以通过在命令行内直接使用命令指定的方式修改端口和链接。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>修改端口</strong></p><pre class="line-numbers language-none"><code class="language-none">live-server --port&#x3D;&#39;8081&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><br><p><strong>修改地址</strong></p><pre class="line-numbers language-none"><code class="language-none">live-server --host&#x3D;&#39;192.168.1.1&#39;注意host内应该是本机的内网ip地址，这样在同一个内网下，不同的设备才能访问我们开放的页面<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       
@@ -1322,6 +1328,19 @@
             <tag> canvas </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>cesium专题</title>
+      <link href="/2021/12/28/cesium-zhuan-ti/"/>
+      <url>/2021/12/28/cesium-zhuan-ti/</url>
+      
+        <content type="html"><![CDATA[<p>CesiumJS 是一款用于创建虚拟场景的3D地理信息平台。目标是用于创建以基于Web的地图动态数据可视化。目前尽力提升平台的性能、准确率、虚拟化能力、易用性以及平台的各种支持。</p><ul><li>Cesium 是一个跨平台、跨浏览器的展示三维地球和地图的 javascript 库。</li><li>Cesium 使用WebGL 来进行硬件加速图形，使用时不需要任何插件支持，但是浏览器必须支持WebGL。</li><li>Cesium是基于Apache2.0 许可的开源程序。它可以免费的用于商业和非商业用途。</li></ul><h2 id="数据格式与功能特性"><a href="#数据格式与功能特性" class="headerlink" title="数据格式与功能特性"></a>数据格式与功能特性</h2><ul><li>支持2D,2.5D,3D 形式的地理（地图）数据展示，</li><li>可以绘制各种几何图形、高亮区域，支持导入图片，甚至三维模型等多种数据可视化展示</li><li>可用于动态数据可视化并提供良好的触摸支持，支持绝大多数的浏览器和移动端浏览器。</li><li>支持基于时间轴的动态流式数据展示</li></ul>]]></content>
+      
+      
       
     </entry>
     
