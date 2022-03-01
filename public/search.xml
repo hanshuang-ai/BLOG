@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>浏览器环境判断</title>
+      <link href="/2022/03/01/liu-lan-qi-huan-jing-pan-duan/"/>
+      <url>/2022/03/01/liu-lan-qi-huan-jing-pan-duan/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>根据浏览器的userAgent进行判断</p></blockquote><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> isMobil<span class="token punctuation">,</span> mobilInfo<span class="token punctuation">,</span> isWx<span class="token punctuation">;</span><span class="token comment">// 判断是在手机还是电脑</span><span class="token keyword">function</span> <span class="token function">isMobile_pc</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>  <span class="token keyword">let</span> flag <span class="token operator">=</span> navigator<span class="token punctuation">.</span>userAgent<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>    <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)</span><span class="token regex-delimiter">/</span><span class="token regex-flags">i</span></span>  <span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token keyword">if</span> <span class="token punctuation">(</span>flag<span class="token punctuation">)</span> isMobil <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>  <span class="token keyword">return</span> isMobil<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span class="token comment">// 判断是在安卓还是ios打开</span><span class="token keyword">function</span> <span class="token function">is_android_ios</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>  <span class="token keyword">let</span> u <span class="token operator">=</span> navigator<span class="token punctuation">.</span>userAgent<span class="token punctuation">;</span>  mobilInfo <span class="token operator">=</span> <span class="token punctuation">&#123;</span>    <span class="token comment">//移动终端浏览器版本信息</span>    trident<span class="token operator">:</span> u<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">"Trident"</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">//IE内核</span>    presto<span class="token operator">:</span> u<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">"Presto"</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">//opera内核</span>    webKit<span class="token operator">:</span> u<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">"AppleWebKit"</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">//苹果、谷歌内核</span>    gecko<span class="token operator">:</span> u<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">"Gecko"</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">&amp;&amp;</span> u<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">"KHTML"</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">//火狐内核</span>    mobile<span class="token operator">:</span>      <span class="token operator">!</span><span class="token operator">!</span>u<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">AppleWebKit.*Mobile</span><span class="token regex-delimiter">/</span><span class="token regex-flags">i</span></span><span class="token punctuation">)</span> <span class="token operator">||</span>      <span class="token operator">!</span><span class="token operator">!</span>u<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>        <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE</span><span class="token regex-delimiter">/</span></span>      <span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">//是否为移动终端</span>    ios<span class="token operator">:</span> <span class="token operator">!</span><span class="token operator">!</span>u<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\(i[^;]+;( U;)? CPU.+Mac OS X</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">//ios终端</span>    android<span class="token operator">:</span> u<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">"Android"</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">||</span> u<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">"Linux"</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">//android终端或者uc浏览器</span>    iPhone<span class="token operator">:</span> u<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">"iPhone"</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">||</span> u<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">"Mac"</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">//是否为iPhone或者QQHD浏览器</span>    iPad<span class="token operator">:</span> u<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">"iPad"</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">//是否iPad</span>    webApp<span class="token operator">:</span> u<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">"Safari"</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">//是否web应该程序，没有头部与底部</span>  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span class="token comment">//判断是否是微信环境</span><span class="token keyword">function</span> <span class="token function">isWeixin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>  isWx <span class="token operator">=</span> navigator<span class="token punctuation">.</span>userAgent<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">"MicroMessenger"</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span>  <span class="token keyword">return</span> isWx<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span class="token function">isMobile_pc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">is_android_ios</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">isWeixin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 实战 </tag>
+            
+            <tag> 封装 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>vue循环中为什么不建议使用index做key值</title>
       <link href="/2022/03/01/vue-xun-huan-zhong-wei-shi-me-bu-jian-yi-shi-yong-index-zuo-key-zhi/"/>
       <url>/2022/03/01/vue-xun-huan-zhong-wei-shi-me-bu-jian-yi-shi-yong-index-zuo-key-zhi/</url>
@@ -500,9 +521,9 @@
       
         <tags>
             
-            <tag> axios </tag>
-            
             <tag> 封装 </tag>
+            
+            <tag> axios </tag>
             
             <tag> http </tag>
             
@@ -641,9 +662,9 @@
             
             <tag> 支付 </tag>
             
-            <tag> 微信 </tag>
-            
             <tag> 扫码 </tag>
+            
+            <tag> 微信 </tag>
             
         </tags>
       
@@ -670,9 +691,9 @@
             
             <tag> 支付 </tag>
             
-            <tag> 扫码 </tag>
-            
             <tag> 支付宝 </tag>
+            
+            <tag> 扫码 </tag>
             
         </tags>
       
@@ -813,6 +834,19 @@
     
     
     <entry>
+      <title>服务端渲染与预渲染</title>
+      <link href="/2021/12/28/fu-wu-duan-xuan-ran-yu-yu-xuan-ran/"/>
+      <url>/2021/12/28/fu-wu-duan-xuan-ran-yu-yu-xuan-ran/</url>
+      
+        <content type="html"><![CDATA[<pre class="line-numbers language-none"><code class="language-none">服务端渲染（ssr）是在服务器内通过程序将页面片段拼接为完整的页面，然后再发送给浏览器呈现预渲染是直接接服务器内完整的静态页面发送给浏览器呈现<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><br><p><strong>实现方式不同</strong>：</p><pre class="line-numbers language-none"><code class="language-none">SSR:服务端(node.js)通过一些包(vue-server-renderer)把html页面转换成字符串之后吐给前端。Google 和 Bing 可以很好对同步 web 应用程序进行索引,所以此处称有利于seo。但是一些事件和一些DOMAPI是无法在服务端用的,所以需要把客户端打包好的js代码动态注入到html中,此处为异步获取js逻辑。所以此处seo是抓取不到任何有用的信息的。那么问题来了，什么时候用ajax获取数据？什么时候通过服务端获取数据？当利于seo有优化时，比如开发的新闻网站，购物网站。需要被搜索引擎索引到，就需要从服务端获取数据，然后生成html，再吐给浏览器。而一些无关紧要的数据通过ajax获取就行。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-none"><code class="language-none">Prerendering：预渲染并不需要服务端支持。它只能生成你在templete写好的dom结构,也就是只能生成静态的html文件。一般是每个路由对应一个静态的html文件，在服务器获取时就已经生成好了，而不需要diff再动态生成dom。假如你想通过ajax获取到的数据来优化seo,可以吗？可以，可以设置一个预渲染时常。假如你用prerender-spa-plugin插件，设置renderAfterTime：5000。可触发渲染的时间，用于获取数据(ajax)后再保存渲染结果。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-none"><code class="language-none">预渲染的应用场景：营销页面（例如&#x2F;,&#x2F;about,&#x2F;contact等）的 SEO，你可能需要预渲染。无需使用 web 服务器实时动态编译 HTML，而是使用预渲染方式，在构建时 (build time) 简单地生成针对特定路由的静态 HTML 文件。优点是设置预渲染更简单，并可以将你的前端作为一个完全静态的站点。预渲染不适用经常变化的数据，比如说股票代码网站，天气预报网站。因为此时的数据是动态的，而预渲染时已经生成好了dom节点。此时如果要兼容seo就需要使用SSR了。预渲染也不适用大量的路由页面，比如成千上百个路由，因为此时打包后预渲染将会非常慢。而SSR并没有这些问题。预渲染最好的应用场景是需要seo的活动页面。预渲染也可以配置骨架屏，当ajax获取到数据之后把骨架屏替换掉，可以减少白屏时间。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>浏览器回流与重绘测试</title>
       <link href="/2021/12/28/liu-lan-qi-hui-liu-yu-chong-hui-ce-shi/"/>
       <url>/2021/12/28/liu-lan-qi-hui-liu-yu-chong-hui-ce-shi/</url>
@@ -832,19 +866,6 @@
             <tag> 测试 </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>服务端渲染与预渲染</title>
-      <link href="/2021/12/28/fu-wu-duan-xuan-ran-yu-yu-xuan-ran/"/>
-      <url>/2021/12/28/fu-wu-duan-xuan-ran-yu-yu-xuan-ran/</url>
-      
-        <content type="html"><![CDATA[<pre class="line-numbers language-none"><code class="language-none">服务端渲染（ssr）是在服务器内通过程序将页面片段拼接为完整的页面，然后再发送给浏览器呈现预渲染是直接接服务器内完整的静态页面发送给浏览器呈现<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><br><p><strong>实现方式不同</strong>：</p><pre class="line-numbers language-none"><code class="language-none">SSR:服务端(node.js)通过一些包(vue-server-renderer)把html页面转换成字符串之后吐给前端。Google 和 Bing 可以很好对同步 web 应用程序进行索引,所以此处称有利于seo。但是一些事件和一些DOMAPI是无法在服务端用的,所以需要把客户端打包好的js代码动态注入到html中,此处为异步获取js逻辑。所以此处seo是抓取不到任何有用的信息的。那么问题来了，什么时候用ajax获取数据？什么时候通过服务端获取数据？当利于seo有优化时，比如开发的新闻网站，购物网站。需要被搜索引擎索引到，就需要从服务端获取数据，然后生成html，再吐给浏览器。而一些无关紧要的数据通过ajax获取就行。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-none"><code class="language-none">Prerendering：预渲染并不需要服务端支持。它只能生成你在templete写好的dom结构,也就是只能生成静态的html文件。一般是每个路由对应一个静态的html文件，在服务器获取时就已经生成好了，而不需要diff再动态生成dom。假如你想通过ajax获取到的数据来优化seo,可以吗？可以，可以设置一个预渲染时常。假如你用prerender-spa-plugin插件，设置renderAfterTime：5000。可触发渲染的时间，用于获取数据(ajax)后再保存渲染结果。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-none"><code class="language-none">预渲染的应用场景：营销页面（例如&#x2F;,&#x2F;about,&#x2F;contact等）的 SEO，你可能需要预渲染。无需使用 web 服务器实时动态编译 HTML，而是使用预渲染方式，在构建时 (build time) 简单地生成针对特定路由的静态 HTML 文件。优点是设置预渲染更简单，并可以将你的前端作为一个完全静态的站点。预渲染不适用经常变化的数据，比如说股票代码网站，天气预报网站。因为此时的数据是动态的，而预渲染时已经生成好了dom节点。此时如果要兼容seo就需要使用SSR了。预渲染也不适用大量的路由页面，比如成千上百个路由，因为此时打包后预渲染将会非常慢。而SSR并没有这些问题。预渲染最好的应用场景是需要seo的活动页面。预渲染也可以配置骨架屏，当ajax获取到数据之后把骨架屏替换掉，可以减少白屏时间。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
       
     </entry>
     
@@ -940,6 +961,25 @@
     
     
     <entry>
+      <title>前端应对高并发</title>
+      <link href="/2021/12/28/qian-duan-ying-dui-gao-bing-fa/"/>
+      <url>/2021/12/28/qian-duan-ying-dui-gao-bing-fa/</url>
+      
+        <content type="html"><![CDATA[<h2 id="什么是高并发"><a href="#什么是高并发" class="headerlink" title="什么是高并发"></a>什么是高并发</h2><p>高并发指的是软件系统在一段时间内能够处理大量的请求。</p><h2 id="高并发时经历了什么"><a href="#高并发时经历了什么" class="headerlink" title="高并发时经历了什么"></a>高并发时经历了什么</h2><p>高并发的基础是请求，所以可以在请求阶段做优化<br>1、DNS解析<br>2、s</p><h2 id="每个阶段的优化"><a href="#每个阶段的优化" class="headerlink" title="每个阶段的优化"></a>每个阶段的优化</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 实战应用 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>前后端分离的思考</title>
       <link href="/2021/12/28/qian-hou-duan-fen-chi-de-si-kao/"/>
       <url>/2021/12/28/qian-hou-duan-fen-chi-de-si-kao/</url>
@@ -959,18 +999,12 @@
     
     
     <entry>
-      <title>前端应对高并发</title>
-      <link href="/2021/12/28/qian-duan-ying-dui-gao-bing-fa/"/>
-      <url>/2021/12/28/qian-duan-ying-dui-gao-bing-fa/</url>
+      <title>命令行查看本机ip</title>
+      <link href="/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/"/>
+      <url>/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/</url>
       
-        <content type="html"><![CDATA[<h2 id="什么是高并发"><a href="#什么是高并发" class="headerlink" title="什么是高并发"></a>什么是高并发</h2><p>高并发指的是软件系统在一段时间内能够处理大量的请求。</p><h2 id="高并发时经历了什么"><a href="#高并发时经历了什么" class="headerlink" title="高并发时经历了什么"></a>高并发时经历了什么</h2><p>高并发的基础是请求，所以可以在请求阶段做优化<br>1、DNS解析<br>2、s</p><h2 id="每个阶段的优化"><a href="#每个阶段的优化" class="headerlink" title="每个阶段的优化"></a>每个阶段的优化</h2>]]></content>
+        <content type="html"><![CDATA[<p><code>ifconfig</code></p>]]></content>
       
-      
-      <categories>
-          
-          <category> 实战应用 </category>
-          
-      </categories>
       
       
     </entry>
@@ -1010,24 +1044,11 @@
     
     
     <entry>
-      <title>命令行查看本机ip</title>
-      <link href="/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/"/>
-      <url>/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/</url>
+      <title>nuxt内使用vant框架</title>
+      <link href="/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/"/>
+      <url>/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/</url>
       
-        <content type="html"><![CDATA[<p><code>ifconfig</code></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>nodeCanvas渲染</title>
-      <link href="/2021/12/28/nodecanvas-xuan-ran/"/>
-      <url>/2021/12/28/nodecanvas-xuan-ran/</url>
-      
-        <content type="html"><![CDATA[<p>近期项目涉及地理系统，使用的框架是mars3d</p><p>mars3d本身提供了加载<a href="http://baidu.com/">geojson</a>、图片以及模型的API，<br>但是在加载这些资源的时候，尤其是涉及到计算量比较大的时候，浏览器承担过重。<br>经过测试，该框架加载本地图片资源的时候速度有明显提升，所以就需要性能优化，<br>在服务器直接生成png图片，在需要使用的时候直接加载图片。<br>由于项目对geojson数据，尤其是边界线精度要求较高，暂时未生成图片。</p><p>`凡是引用包的地方，都需要先加载包，但是node canvas直接使用哪个npm引用有很大的几率会出现问题</p><p>`</p><h1 id="node加载数据"><a href="#node加载数据" class="headerlink" title="node加载数据"></a>node加载数据</h1><p>node加载数据使用的是自带的fs模块</p><pre class="line-numbers language-none"><code class="language-none">let fs &#x3D; require(&#39;fs&#39;)let data &#x3D; fs.readFileSync(&#39;XXX.json&#39;)let obj &#x3D; JSON.parse(data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h1 id="使用node-canvas将数据绘制到canvas上"><a href="#使用node-canvas将数据绘制到canvas上" class="headerlink" title="使用node canvas将数据绘制到canvas上"></a>使用node canvas将数据绘制到canvas上</h1><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; canvasconst width &#x3D; 2000const height &#x3D; 2000const canvas &#x3D; createCanvas(width,height)const context &#x3D; canvas.getContext(&#39;2d)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="处理node-canvas生成的base64数据，生成png"><a href="#处理node-canvas生成的base64数据，生成png" class="headerlink" title="处理node canvas生成的base64数据，生成png"></a>处理node canvas生成的base64数据，生成png</h1><h1 id="将png保存到本地"><a href="#将png保存到本地" class="headerlink" title="将png保存到本地"></a>将png保存到本地</h1>]]></content>
+        <content type="html"><![CDATA[<h1 id="nuxt目录介绍"><a href="#nuxt目录介绍" class="headerlink" title="nuxt目录介绍"></a>nuxt目录介绍</h1><p>1、<code>assets: 资源目录，用来组织未编译的静态资源</code><br>2、<code>layouts</code>: </p><pre class="line-numbers language-none"><code class="language-none">布局文件目录，里面可以放些全局可用的布局，例如default、error。default表示默认布局，error可以用来展示404。如果没有默认布局的要求，直接放置一个error即可。注：并不需要特殊路由设置，在nuxt框架下，如果访问的路径不存在，(并且有error布局的情况下)则会直接使用该布局。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="nuxt内使用vant（或者说是nuxt内使用第三方框架）"><a href="#nuxt内使用vant（或者说是nuxt内使用第三方框架）" class="headerlink" title="nuxt内使用vant（或者说是nuxt内使用第三方框架）"></a>nuxt内使用vant（或者说是nuxt内使用第三方框架）</h1><p>1、在plugins目录下新建vant.js文件，并引入vue和vant以及vant的样式。</p><pre class="line-numbers language-none"><code class="language-none">import Vue from &#39;vue&#39;;import Vant from &#39;vant&#39;;import &#39;vant&#x2F;lib&#x2F;index.css&#39;Vue.use(Vant)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>2、在nuxt.config.js下引入vant</p><pre class="line-numbers language-none"><code class="language-none">plugins: [    &#123;src: &#39;~&#x2F;plugins&#x2F;vant.js&#39;, ssr: true&#125;  ],<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       
@@ -1063,11 +1084,11 @@
     
     
     <entry>
-      <title>nuxt内使用vant框架</title>
-      <link href="/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/"/>
-      <url>/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/</url>
+      <title>process.env.NODE_ENV</title>
+      <link href="/2021/12/28/process.env.node-env/"/>
+      <url>/2021/12/28/process.env.node-env/</url>
       
-        <content type="html"><![CDATA[<h1 id="nuxt目录介绍"><a href="#nuxt目录介绍" class="headerlink" title="nuxt目录介绍"></a>nuxt目录介绍</h1><p>1、<code>assets: 资源目录，用来组织未编译的静态资源</code><br>2、<code>layouts</code>: </p><pre class="line-numbers language-none"><code class="language-none">布局文件目录，里面可以放些全局可用的布局，例如default、error。default表示默认布局，error可以用来展示404。如果没有默认布局的要求，直接放置一个error即可。注：并不需要特殊路由设置，在nuxt框架下，如果访问的路径不存在，(并且有error布局的情况下)则会直接使用该布局。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="nuxt内使用vant（或者说是nuxt内使用第三方框架）"><a href="#nuxt内使用vant（或者说是nuxt内使用第三方框架）" class="headerlink" title="nuxt内使用vant（或者说是nuxt内使用第三方框架）"></a>nuxt内使用vant（或者说是nuxt内使用第三方框架）</h1><p>1、在plugins目录下新建vant.js文件，并引入vue和vant以及vant的样式。</p><pre class="line-numbers language-none"><code class="language-none">import Vue from &#39;vue&#39;;import Vant from &#39;vant&#39;;import &#39;vant&#x2F;lib&#x2F;index.css&#39;Vue.use(Vant)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>2、在nuxt.config.js下引入vant</p><pre class="line-numbers language-none"><code class="language-none">plugins: [    &#123;src: &#39;~&#x2F;plugins&#x2F;vant.js&#39;, ssr: true&#125;  ],<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<p>1、在node当中，全局变量process代表的是node当中的进程。 process.env包含着关于系统环境的信息，<code>但是并不包含NODE_ENV这个属性</code></p>]]></content>
       
       
       
@@ -1076,11 +1097,11 @@
     
     
     <entry>
-      <title>process.env.NODE_ENV</title>
-      <link href="/2021/12/28/process.env.node-env/"/>
-      <url>/2021/12/28/process.env.node-env/</url>
+      <title>ssh远程连接服务器</title>
+      <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
+      <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
       
-        <content type="html"><![CDATA[<p>1、在node当中，全局变量process代表的是node当中的进程。 process.env包含着关于系统环境的信息，<code>但是并不包含NODE_ENV这个属性</code></p>]]></content>
+        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#x72;&#x6f;&#x6f;&#116;&#x40;&#120;&#120;&#x78;&#46;&#x78;&#x78;&#120;&#x2e;&#120;&#x78;&#x78;&#46;&#120;&#120;&#x78;">&#x72;&#x6f;&#x6f;&#116;&#x40;&#120;&#120;&#x78;&#46;&#x78;&#x78;&#120;&#x2e;&#120;&#x78;&#x78;&#46;&#120;&#120;&#x78;</a>(ip地址)</p>]]></content>
       
       
       
@@ -1114,11 +1135,11 @@
     
     
     <entry>
-      <title>ssh远程连接服务器</title>
-      <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
-      <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
+      <title>nodeCanvas渲染</title>
+      <link href="/2021/12/28/nodecanvas-xuan-ran/"/>
+      <url>/2021/12/28/nodecanvas-xuan-ran/</url>
       
-        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#x72;&#x6f;&#111;&#116;&#64;&#x78;&#120;&#x78;&#x2e;&#120;&#120;&#x78;&#46;&#120;&#x78;&#120;&#46;&#120;&#x78;&#120;">&#x72;&#x6f;&#111;&#116;&#64;&#x78;&#120;&#x78;&#x2e;&#120;&#120;&#x78;&#46;&#120;&#x78;&#120;&#46;&#120;&#x78;&#120;</a>(ip地址)</p>]]></content>
+        <content type="html"><![CDATA[<p>近期项目涉及地理系统，使用的框架是mars3d</p><p>mars3d本身提供了加载<a href="http://baidu.com/">geojson</a>、图片以及模型的API，<br>但是在加载这些资源的时候，尤其是涉及到计算量比较大的时候，浏览器承担过重。<br>经过测试，该框架加载本地图片资源的时候速度有明显提升，所以就需要性能优化，<br>在服务器直接生成png图片，在需要使用的时候直接加载图片。<br>由于项目对geojson数据，尤其是边界线精度要求较高，暂时未生成图片。</p><p>`凡是引用包的地方，都需要先加载包，但是node canvas直接使用哪个npm引用有很大的几率会出现问题</p><p>`</p><h1 id="node加载数据"><a href="#node加载数据" class="headerlink" title="node加载数据"></a>node加载数据</h1><p>node加载数据使用的是自带的fs模块</p><pre class="line-numbers language-none"><code class="language-none">let fs &#x3D; require(&#39;fs&#39;)let data &#x3D; fs.readFileSync(&#39;XXX.json&#39;)let obj &#x3D; JSON.parse(data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h1 id="使用node-canvas将数据绘制到canvas上"><a href="#使用node-canvas将数据绘制到canvas上" class="headerlink" title="使用node canvas将数据绘制到canvas上"></a>使用node canvas将数据绘制到canvas上</h1><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; canvasconst width &#x3D; 2000const height &#x3D; 2000const canvas &#x3D; createCanvas(width,height)const context &#x3D; canvas.getContext(&#39;2d)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="处理node-canvas生成的base64数据，生成png"><a href="#处理node-canvas生成的base64数据，生成png" class="headerlink" title="处理node canvas生成的base64数据，生成png"></a>处理node canvas生成的base64数据，生成png</h1><h1 id="将png保存到本地"><a href="#将png保存到本地" class="headerlink" title="将png保存到本地"></a>将png保存到本地</h1>]]></content>
       
       
       
@@ -1140,19 +1161,6 @@
     
     
     <entry>
-      <title>vue-element-admin详解1 permission.js</title>
-      <link href="/2021/12/28/vue-element-admin-xiang-jie-1-permission/"/>
-      <url>/2021/12/28/vue-element-admin-xiang-jie-1-permission/</url>
-      
-        <content type="html"><![CDATA[<p><code>vue-element-admin 内permission主要负责全局路由守卫和登录判断。在后台返回权限的时候，配合前端路由进行动态显示，可以使在url内输入的没有权限的页面不展示。</code></p><p><strong>代码解析</strong></p><pre class="line-numbers language-none"><code class="language-none">import router from &#39;.&#x2F;router&#39;import store from &#39;.&#x2F;store&#39;import &#123; Message &#125; from &#39;element-ui&#39;import NProgress from &#39;nprogress&#39; import &#39;nprogress&#x2F;nprogress.css&#39; &#x2F;&#x2F;auth文件主要依赖js-cookie模块，把getToken，setToken，removeToken设置在这里import &#123; getToken &#125; from &#39;@&#x2F;utils&#x2F;auth&#39; &#x2F;&#x2F;get-page-title文件主要是网站的标题，get-page-title通过依赖setting.js里的title变量修改网站标题&#x2F;&#x2F;如果需要更改网站的标题，可以直接到setting.js修改title属性import getPageTitle from &#39;@&#x2F;utils&#x2F;get-page-title&#39;&#x2F;&#x2F;NProgress是封装的进度条，基本不用动NProgress.configure(&#123; showSpinner: false &#125;) &#x2F;&#x2F;路由白名单列表，把路由添加到这个数组，不用登陆也可以访问const whiteList &#x3D; [&#39;&#x2F;login&#39;] router.beforeEach(async(to, from, next) &#x3D;&gt; &#123;   &#x2F;&#x2F; 请求路由时进度条开始  NProgress.start()  &#x2F;&#x2F; 设置标题  document.title &#x3D; getPageTitle(to.meta.title)  &#x2F;&#x2F; 这里的getToken()就是在上面导入的auth.js里的getToken()方法  const hasToken &#x3D; getToken()&#x2F;&#x2F;如果存在token，即存在已登陆的令牌  if (hasToken) &#123;  &#x2F;&#x2F;如果用户存在令牌的情况请求登录页面，就让用户直接跳转到首页，避免存在重复登录的情况    if (to.path &#x3D;&#x3D;&#x3D; &#39;&#x2F;login&#39;) &#123;      &#x2F;&#x2F; 直接跳转到首页，当然取决于你的路由重定向到哪里      next(&#123; path: &#39;&#x2F;&#39; &#125;)      &#x2F;&#x2F;一定要关闭进度条      NProgress.done()    &#125; else &#123;      &#x2F;&#x2F;如果已经有令牌的用户请求的不是登录页，是其他页面      &#x2F;&#x2F;就从Vuex里拿到用户的信息，这里也证明用户不是第一次登录了      const hasGetUserInfo &#x3D; store.getters.name      if (hasGetUserInfo) &#123;      &#x2F;&#x2F;信息拿到后，用户请求哪就跳转哪        next()      &#125; else &#123;        try &#123;          &#x2F;&#x2F; 如果有令牌，但是没有用户信息，证明用户是第一次登录，通过Vuex设置用户信息          await store.dispatch(&#39;user&#x2F;getInfo&#39;)        &#x2F;&#x2F;设置好了之后，依然可以请求哪就跳转哪          next()        &#125; catch (error) &#123;          &#x2F;&#x2F; 如果出错了，把令牌去掉，并让用户重新去到登录页面          await store.dispatch(&#39;user&#x2F;resetToken&#39;)          Message.error(error || &#39;Has Error&#39;)          next(&#96;&#x2F;login?redirect&#x3D;$&#123;to.path&#125;&#96;)          &#x2F;&#x2F;关闭进度条          NProgress.done()        &#125;      &#125;    &#125;  &#125; else &#123;    &#x2F;&#x2F;这里是没有令牌的情况    &#x2F;&#x2F;还记得上面的白名单吗，现在起作用了    &#x2F;&#x2F;whiteList.indexOf(to.path) !&#x3D;&#x3D; -1)判断用户请求的路由是否在白名单里    if (whiteList.indexOf(to.path) !&#x3D;&#x3D; -1) &#123;      &#x2F;&#x2F; 不是-1就证明存在白名单里，不管你有没有令牌，都直接去到白名单路由对应的页面      next()    &#125; else &#123;      &#x2F;&#x2F; 如果这个页面不在白名单里，直接跳转到登录页面      next(&#96;&#x2F;login?redirect&#x3D;$&#123;to.path&#125;&#96;)      &#x2F;&#x2F;关闭进度条      NProgress.done()    &#125;  &#125;&#125;)router.afterEach(() &#x3D;&gt; &#123;  &#x2F;&#x2F;每次请求结束后都需要关闭进度条  NProgress.done()&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>vue-router</title>
       <link href="/2021/12/28/vue-router/"/>
       <url>/2021/12/28/vue-router/</url>
@@ -1166,32 +1174,13 @@
     
     
     <entry>
-      <title>live-server使用</title>
-      <link href="/2021/12/28/live-server-shi-yong/"/>
-      <url>/2021/12/28/live-server-shi-yong/</url>
+      <title>vue-element-admin详解1 permission.js</title>
+      <link href="/2021/12/28/vue-element-admin-xiang-jie-1-permission/"/>
+      <url>/2021/12/28/vue-element-admin-xiang-jie-1-permission/</url>
       
-        <content type="html"><![CDATA[<p><code>本文适用于使用cnpm下载的live-server，使用npm或者其他方式下载的安装包未做测试</code></p><pre class="line-numbers language-none"><code class="language-none">与http-server比，live-server是一种自动热更新的工具包。但是在启动http-server的时候，会自动启动127.0.0.1与本机ip地址两个链接以供访问，这就使得内网内的设备都能访问。但是live-server默认只会启动127.0.0.1（在没有修改包文件内index.js的时候）导致每次想换启动地址时都需要去修改index.js文件，导致非常麻烦。目前本机安装的live-server版本，可以通过在命令行内直接使用命令指定的方式修改端口和链接。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>修改端口</strong></p><pre class="line-numbers language-none"><code class="language-none">live-server --port&#x3D;&#39;8081&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><br><p><strong>修改地址</strong></p><pre class="line-numbers language-none"><code class="language-none">live-server --host&#x3D;&#39;192.168.1.1&#39;注意host内应该是本机的内网ip地址，这样在同一个内网下，不同的设备才能访问我们开放的页面<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>macOS安装homebrew</title>
-      <link href="/2021/12/28/macos-an-zhuang-homebrew/"/>
-      <url>/2021/12/28/macos-an-zhuang-homebrew/</url>
-      
-        <content type="html"><![CDATA[<p>Homebrew是一款Mac OS平台下的软件包管理工具，拥有安装、卸载、更新、查看、搜索等很多实用的功能。简单的一条指令，就可以实现包管理，而不用你关心各种依赖和文件路径的情况，十分方便快捷。</p><h2 id="官方安装方式-https-brew-sh-index-zh-cn"><a href="#官方安装方式-https-brew-sh-index-zh-cn" class="headerlink" title="官方安装方式(https://brew.sh/index_zh-cn)"></a>官方安装方式(<a href="https://brew.sh/index_zh-cn">https://brew.sh/index_zh-cn</a>)</h2><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;HEAD&#x2F;install.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><code>官方安装方法在国内很多时候都是无法直接安装问题的，因为网络问题，解决方法也有很多，这里就不一一介绍了，这里就介绍最简单的方法</code></p><h2 id="国内快速安装"><a href="#国内快速安装" class="headerlink" title="国内快速安装"></a>国内快速安装</h2><p><code>这里只推荐安装最全的方式，我一般选中科大的源</code></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;zsh -c &quot;$(curl -fsSL https:&#x2F;&#x2F;gitee.com&#x2F;cunkai&#x2F;HomebrewCN&#x2F;raw&#x2F;master&#x2F;Homebrew.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<p><code>vue-element-admin 内permission主要负责全局路由守卫和登录判断。在后台返回权限的时候，配合前端路由进行动态显示，可以使在url内输入的没有权限的页面不展示。</code></p><p><strong>代码解析</strong></p><pre class="line-numbers language-none"><code class="language-none">import router from &#39;.&#x2F;router&#39;import store from &#39;.&#x2F;store&#39;import &#123; Message &#125; from &#39;element-ui&#39;import NProgress from &#39;nprogress&#39; import &#39;nprogress&#x2F;nprogress.css&#39; &#x2F;&#x2F;auth文件主要依赖js-cookie模块，把getToken，setToken，removeToken设置在这里import &#123; getToken &#125; from &#39;@&#x2F;utils&#x2F;auth&#39; &#x2F;&#x2F;get-page-title文件主要是网站的标题，get-page-title通过依赖setting.js里的title变量修改网站标题&#x2F;&#x2F;如果需要更改网站的标题，可以直接到setting.js修改title属性import getPageTitle from &#39;@&#x2F;utils&#x2F;get-page-title&#39;&#x2F;&#x2F;NProgress是封装的进度条，基本不用动NProgress.configure(&#123; showSpinner: false &#125;) &#x2F;&#x2F;路由白名单列表，把路由添加到这个数组，不用登陆也可以访问const whiteList &#x3D; [&#39;&#x2F;login&#39;] router.beforeEach(async(to, from, next) &#x3D;&gt; &#123;   &#x2F;&#x2F; 请求路由时进度条开始  NProgress.start()  &#x2F;&#x2F; 设置标题  document.title &#x3D; getPageTitle(to.meta.title)  &#x2F;&#x2F; 这里的getToken()就是在上面导入的auth.js里的getToken()方法  const hasToken &#x3D; getToken()&#x2F;&#x2F;如果存在token，即存在已登陆的令牌  if (hasToken) &#123;  &#x2F;&#x2F;如果用户存在令牌的情况请求登录页面，就让用户直接跳转到首页，避免存在重复登录的情况    if (to.path &#x3D;&#x3D;&#x3D; &#39;&#x2F;login&#39;) &#123;      &#x2F;&#x2F; 直接跳转到首页，当然取决于你的路由重定向到哪里      next(&#123; path: &#39;&#x2F;&#39; &#125;)      &#x2F;&#x2F;一定要关闭进度条      NProgress.done()    &#125; else &#123;      &#x2F;&#x2F;如果已经有令牌的用户请求的不是登录页，是其他页面      &#x2F;&#x2F;就从Vuex里拿到用户的信息，这里也证明用户不是第一次登录了      const hasGetUserInfo &#x3D; store.getters.name      if (hasGetUserInfo) &#123;      &#x2F;&#x2F;信息拿到后，用户请求哪就跳转哪        next()      &#125; else &#123;        try &#123;          &#x2F;&#x2F; 如果有令牌，但是没有用户信息，证明用户是第一次登录，通过Vuex设置用户信息          await store.dispatch(&#39;user&#x2F;getInfo&#39;)        &#x2F;&#x2F;设置好了之后，依然可以请求哪就跳转哪          next()        &#125; catch (error) &#123;          &#x2F;&#x2F; 如果出错了，把令牌去掉，并让用户重新去到登录页面          await store.dispatch(&#39;user&#x2F;resetToken&#39;)          Message.error(error || &#39;Has Error&#39;)          next(&#96;&#x2F;login?redirect&#x3D;$&#123;to.path&#125;&#96;)          &#x2F;&#x2F;关闭进度条          NProgress.done()        &#125;      &#125;    &#125;  &#125; else &#123;    &#x2F;&#x2F;这里是没有令牌的情况    &#x2F;&#x2F;还记得上面的白名单吗，现在起作用了    &#x2F;&#x2F;whiteList.indexOf(to.path) !&#x3D;&#x3D; -1)判断用户请求的路由是否在白名单里    if (whiteList.indexOf(to.path) !&#x3D;&#x3D; -1) &#123;      &#x2F;&#x2F; 不是-1就证明存在白名单里，不管你有没有令牌，都直接去到白名单路由对应的页面      next()    &#125; else &#123;      &#x2F;&#x2F; 如果这个页面不在白名单里，直接跳转到登录页面      next(&#96;&#x2F;login?redirect&#x3D;$&#123;to.path&#125;&#96;)      &#x2F;&#x2F;关闭进度条      NProgress.done()    &#125;  &#125;&#125;)router.afterEach(() &#x3D;&gt; &#123;  &#x2F;&#x2F;每次请求结束后都需要关闭进度条  NProgress.done()&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
-      
-        <tags>
-            
-            <tag> macOS </tag>
-            
-        </tags>
       
     </entry>
     
@@ -1223,6 +1212,38 @@
     
     
     <entry>
+      <title>macOS安装homebrew</title>
+      <link href="/2021/12/28/macos-an-zhuang-homebrew/"/>
+      <url>/2021/12/28/macos-an-zhuang-homebrew/</url>
+      
+        <content type="html"><![CDATA[<p>Homebrew是一款Mac OS平台下的软件包管理工具，拥有安装、卸载、更新、查看、搜索等很多实用的功能。简单的一条指令，就可以实现包管理，而不用你关心各种依赖和文件路径的情况，十分方便快捷。</p><h2 id="官方安装方式-https-brew-sh-index-zh-cn"><a href="#官方安装方式-https-brew-sh-index-zh-cn" class="headerlink" title="官方安装方式(https://brew.sh/index_zh-cn)"></a>官方安装方式(<a href="https://brew.sh/index_zh-cn">https://brew.sh/index_zh-cn</a>)</h2><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;HEAD&#x2F;install.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><code>官方安装方法在国内很多时候都是无法直接安装问题的，因为网络问题，解决方法也有很多，这里就不一一介绍了，这里就介绍最简单的方法</code></p><h2 id="国内快速安装"><a href="#国内快速安装" class="headerlink" title="国内快速安装"></a>国内快速安装</h2><p><code>这里只推荐安装最全的方式，我一般选中科大的源</code></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;zsh -c &quot;$(curl -fsSL https:&#x2F;&#x2F;gitee.com&#x2F;cunkai&#x2F;HomebrewCN&#x2F;raw&#x2F;master&#x2F;Homebrew.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> macOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>live-server使用</title>
+      <link href="/2021/12/28/live-server-shi-yong/"/>
+      <url>/2021/12/28/live-server-shi-yong/</url>
+      
+        <content type="html"><![CDATA[<p><code>本文适用于使用cnpm下载的live-server，使用npm或者其他方式下载的安装包未做测试</code></p><pre class="line-numbers language-none"><code class="language-none">与http-server比，live-server是一种自动热更新的工具包。但是在启动http-server的时候，会自动启动127.0.0.1与本机ip地址两个链接以供访问，这就使得内网内的设备都能访问。但是live-server默认只会启动127.0.0.1（在没有修改包文件内index.js的时候）导致每次想换启动地址时都需要去修改index.js文件，导致非常麻烦。目前本机安装的live-server版本，可以通过在命令行内直接使用命令指定的方式修改端口和链接。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>修改端口</strong></p><pre class="line-numbers language-none"><code class="language-none">live-server --port&#x3D;&#39;8081&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><br><p><strong>修改地址</strong></p><pre class="line-numbers language-none"><code class="language-none">live-server --host&#x3D;&#39;192.168.1.1&#39;注意host内应该是本机的内网ip地址，这样在同一个内网下，不同的设备才能访问我们开放的页面<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>macOS安装jenkins</title>
       <link href="/2021/12/28/macos-an-zhuang-jenkins/"/>
       <url>/2021/12/28/macos-an-zhuang-jenkins/</url>
@@ -1234,33 +1255,6 @@
         <tags>
             
             <tag> jenkins </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>node canvas生成图片并保存</title>
-      <link href="/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/"/>
-      <url>/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/</url>
-      
-        <content type="html"><![CDATA[<p><code>canvas可以将画布转为base64，而base64就是该图片的信息，但是node保存文件的时候需要buffer格式的信息，所以只需要将canvas转成的base64处理成buffer，就可以保存</code></p><p>总结如下：<br><em><strong>1、将画布信息转为base64</strong></em><br><em><strong>2、处理base64为buffer，进行保存</strong></em></p><h3 id="引入canvas模块"><a href="#引入canvas模块" class="headerlink" title="引入canvas模块"></a>引入canvas模块</h3><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; require(&#39;canvas&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="canvas绘图"><a href="#canvas绘图" class="headerlink" title="canvas绘图"></a>canvas绘图</h3><pre class="line-numbers language-none"><code class="language-none">const canvas &#x3D; createCanvas(200,200)const ctx &#x3D; canvas.getContext(&#39;2d&#39;)ctx.font &#x3D; &#39;30px&#39;ctx.rotate(0.1)ctx.fillText(&#39;Hello&#39;,50,100)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="将画布信息转为base64"><a href="#将画布信息转为base64" class="headerlink" title="将画布信息转为base64"></a>将画布信息转为base64</h3><pre class="line-numbers language-none"><code class="language-none">const dataURl &#x3D; canvas.toDataURL(&#39;image&#x2F;png&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="处理base64为buffer"><a href="#处理base64为buffer" class="headerlink" title="处理base64为buffer"></a>处理base64为buffer</h3><pre class="line-numbers language-none"><code class="language-none">const base64Data &#x3D; dataURl.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);const bufferData &#x3D; new Buffer(base64Data,&#39;base64&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h3 id="保存buffer为图片格式"><a href="#保存buffer为图片格式" class="headerlink" title="保存buffer为图片格式"></a>保存buffer为图片格式</h3><pre class="line-numbers language-none"><code class="language-none">fs.writeFile(&#39;2.png&#39;,bufferData,function (err)&#123;    if (err)&#123;        console.log(err)    &#125;else &#123;        console.log(&#39;图片保存成功&#39;)    &#125;&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; require(&#39;canvas&#39;)const fs &#x3D; require(&#39;fs&#39;)const canvas &#x3D; createCanvas(200,200)const ctx &#x3D; canvas.getContext(&#39;2d&#39;)ctx.font &#x3D; &#39;30px&#39;ctx.rotate(0.1)ctx.fillText(&#39;Hello&#39;,50,100)const dataURl &#x3D; canvas.toDataURL(&#39;image&#x2F;png&#39;)console.log(dataURl)const base64Data &#x3D; dataURl.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);console.log(base64Data)const bufferData &#x3D; new Buffer(base64Data,&#39;base64&#39;)fs.writeFile(&#39;2.png&#39;,bufferData,function (err)&#123;    if (err)&#123;        console.log(err)    &#125;else &#123;        console.log(&#39;图片保存成功&#39;)    &#125;&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> 框架 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 可视化 </tag>
-            
-            <tag> node </tag>
             
         </tags>
       
@@ -1296,6 +1290,33 @@
     
     
     <entry>
+      <title>node canvas生成图片并保存</title>
+      <link href="/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/"/>
+      <url>/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/</url>
+      
+        <content type="html"><![CDATA[<p><code>canvas可以将画布转为base64，而base64就是该图片的信息，但是node保存文件的时候需要buffer格式的信息，所以只需要将canvas转成的base64处理成buffer，就可以保存</code></p><p>总结如下：<br><em><strong>1、将画布信息转为base64</strong></em><br><em><strong>2、处理base64为buffer，进行保存</strong></em></p><h3 id="引入canvas模块"><a href="#引入canvas模块" class="headerlink" title="引入canvas模块"></a>引入canvas模块</h3><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; require(&#39;canvas&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="canvas绘图"><a href="#canvas绘图" class="headerlink" title="canvas绘图"></a>canvas绘图</h3><pre class="line-numbers language-none"><code class="language-none">const canvas &#x3D; createCanvas(200,200)const ctx &#x3D; canvas.getContext(&#39;2d&#39;)ctx.font &#x3D; &#39;30px&#39;ctx.rotate(0.1)ctx.fillText(&#39;Hello&#39;,50,100)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="将画布信息转为base64"><a href="#将画布信息转为base64" class="headerlink" title="将画布信息转为base64"></a>将画布信息转为base64</h3><pre class="line-numbers language-none"><code class="language-none">const dataURl &#x3D; canvas.toDataURL(&#39;image&#x2F;png&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="处理base64为buffer"><a href="#处理base64为buffer" class="headerlink" title="处理base64为buffer"></a>处理base64为buffer</h3><pre class="line-numbers language-none"><code class="language-none">const base64Data &#x3D; dataURl.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);const bufferData &#x3D; new Buffer(base64Data,&#39;base64&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h3 id="保存buffer为图片格式"><a href="#保存buffer为图片格式" class="headerlink" title="保存buffer为图片格式"></a>保存buffer为图片格式</h3><pre class="line-numbers language-none"><code class="language-none">fs.writeFile(&#39;2.png&#39;,bufferData,function (err)&#123;    if (err)&#123;        console.log(err)    &#125;else &#123;        console.log(&#39;图片保存成功&#39;)    &#125;&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; require(&#39;canvas&#39;)const fs &#x3D; require(&#39;fs&#39;)const canvas &#x3D; createCanvas(200,200)const ctx &#x3D; canvas.getContext(&#39;2d&#39;)ctx.font &#x3D; &#39;30px&#39;ctx.rotate(0.1)ctx.fillText(&#39;Hello&#39;,50,100)const dataURl &#x3D; canvas.toDataURL(&#39;image&#x2F;png&#39;)console.log(dataURl)const base64Data &#x3D; dataURl.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);console.log(base64Data)const bufferData &#x3D; new Buffer(base64Data,&#39;base64&#39;)fs.writeFile(&#39;2.png&#39;,bufferData,function (err)&#123;    if (err)&#123;        console.log(err)    &#125;else &#123;        console.log(&#39;图片保存成功&#39;)    &#125;&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 框架 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 可视化 </tag>
+            
+            <tag> node </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>node</title>
       <link href="/2021/12/28/node/"/>
       <url>/2021/12/28/node/</url>
@@ -1309,49 +1330,24 @@
     
     
     <entry>
-      <title>cesium专题</title>
-      <link href="/2021/12/28/cesium-zhuan-ti/"/>
-      <url>/2021/12/28/cesium-zhuan-ti/</url>
-      
-        <content type="html"><![CDATA[<p>CesiumJS 是一款用于创建虚拟场景的3D地理信息平台。目标是用于创建以基于Web的地图动态数据可视化。目前尽力提升平台的性能、准确率、虚拟化能力、易用性以及平台的各种支持。</p><ul><li>Cesium 是一个跨平台、跨浏览器的展示三维地球和地图的 javascript 库。</li><li>Cesium 使用WebGL 来进行硬件加速图形，使用时不需要任何插件支持，但是浏览器必须支持WebGL。</li><li>Cesium是基于Apache2.0 许可的开源程序。它可以免费的用于商业和非商业用途。</li></ul><h2 id="数据格式与功能特性"><a href="#数据格式与功能特性" class="headerlink" title="数据格式与功能特性"></a>数据格式与功能特性</h2><ul><li>支持2D,2.5D,3D 形式的地理（地图）数据展示，</li><li>可以绘制各种几何图形、高亮区域，支持导入图片，甚至三维模型等多种数据可视化展示</li><li>可用于动态数据可视化并提供良好的触摸支持，支持绝大多数的浏览器和移动端浏览器。</li><li>支持基于时间轴的动态流式数据展示</li></ul>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>canvas绘图</title>
-      <link href="/2021/12/28/canvas-hui-tu/"/>
-      <url>/2021/12/28/canvas-hui-tu/</url>
-      
-        <content type="html"><![CDATA[<h1 id="canvas点连线生成图片"><a href="#canvas点连线生成图片" class="headerlink" title="canvas点连线生成图片"></a>canvas点连线生成图片</h1><p>canvas点连线生成等值线就是将数组内索引为0的元素设置为起点，moveTo该点<br>其余点使用lineTo进行连接，<br><code>当涉及到多维数组的时候，需要进入到数组的最内部循环进行上述操作</code><br><strong>注意：如果需要绘制的图形铺满整个画布，则需要先计算出所有坐标点的极值点<br>，即最大最小的x、y，再结合画布width和height，算出每个方向上的缩放<br>倍率scaleX和scaleY，moveTo和lineTo的时候需要将缩放倍率计算进去</strong></p><pre class="line-numbers language-none"><code class="language-none">let xmin, xmax;let ymin, ymax;let xArr &#x3D; [];let yArr &#x3D; [];let scalex, scaley;function drawChina() &#123;  &#x2F;&#x2F; 解析边界线  let obj &#x3D; fs.readFileSync(&quot;.&#x2F;data&#x2F;china.json&quot;);  let object &#x3D; JSON.parse(obj);  let features &#x3D; object.features;    &#x2F;&#x2F; 计算极值  for (let i &#x3D; 0; i &lt; features.length; i++) &#123;    let geo &#x3D; features[i].geometry;    let coor &#x3D; geo.coordinates;    for (let j &#x3D; 0; j &lt; coor.length; j++) &#123;      for (let m &#x3D; 0; m &lt; coor[j].length; m++) &#123;        for (let k &#x3D; 0; k &lt; coor[j][m].length; k++) &#123;          xArr.push(coor[j][m][k][0]);          yArr.push(coor[j][m][k][1]);        &#125;      &#125;    &#125;  &#125;  let b &#x3D; Array.from(new Set(xArr));  let num1, num2; &#x2F;&#x2F;最小值与最大值  num1 &#x3D; b[0];  num2 &#x3D; b[1];  for (let i &#x3D; 0; i &lt; b.length - 1; i++) &#123;    if (b[i] &lt; num1) &#123;      num1 &#x3D; b[i];    &#125;    if (b[i] &gt; num2) &#123;      num2 &#x3D; b[i];    &#125;  &#125;  &#x2F;&#x2F; console.log(num1, num2);  xmin &#x3D; num1;  xmax &#x3D; num2;  let a &#x3D; Array.from(new Set(yArr));  let num3, num4; &#x2F;&#x2F;最小值与最大值  num3 &#x3D; a[0];  num4 &#x3D; a[1];  for (let i &#x3D; 0; i &lt; a.length - 1; i++) &#123;    if (a[i] &lt; num3) &#123;      num3 &#x3D; a[i];    &#125;    if (a[i] &gt; num4) &#123;      num4 &#x3D; a[i];    &#125;  &#125;  ymin &#x3D; num3;  ymax &#x3D; num4;  &#x2F;&#x2F; 打印极值  console.log(xmin, xmax, ymin, ymax);  &#x2F;&#x2F; 循环绘制  for (let i &#x3D; 0; i &lt; features.length; i++) &#123;    let feature &#x3D; features[i];    let geometry &#x3D; feature.geometry;    let type &#x3D; geometry.type;    let coordinates &#x3D; geometry.coordinates;    &#x2F;&#x2F; 得到不同方向上的倍率    scalex &#x3D; (xmax - xmin) &#x2F; width;    scaley &#x3D; (ymax - ymin) &#x2F; height;    if (type &#x3D;&#x3D;&#x3D; &quot;Polygon&quot;) &#123;      drawPolygon0(coordinates, scalex, scaley);    &#125; else if (type &#x3D;&#x3D;&#x3D; &quot;MultiPolygon&quot;) &#123;      for (let j &#x3D; 0; j &lt; coordinates.length; j++) &#123;        let polygon &#x3D; coordinates[j];        drawPolygon0(polygon, scalex, scaley);      &#125;    &#125;  &#125;  &#x2F;&#x2F; node环境保存图片，与绘制无关，可以不使用  function saveChina() &#123;    const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);    const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);    const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);    fs.writeFile(      &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,      bufferData,      function (err) &#123;        if (err) &#123;          &#x2F;&#x2F;&#x2F;&#x2F;console.log(err);        &#125; else &#123;          &#x2F;&#x2F;&#x2F;&#x2F;console.log(&quot;图片保存成功&quot;);        &#125;      &#125;    );  &#125;  &#x2F;&#x2F; saveChina()  function drawPolygon0(polygon, scalex, scaley) &#123;    ctx.beginPath();    let points &#x3D; polygon[0];    for (let i &#x3D; 0; i &lt; points.length; i++) &#123;      let point &#x3D; points[i];      let x &#x3D; Number(point[0]);      let y &#x3D; Number(point[1]);            &#x2F;&#x2F; 根据倍率移动点位置，进行满铺      &#x2F;&#x2F; 由于canvas坐标系左上角为顶点，越往下y值越大，所以需要翻转      let l &#x3D; (x - xmin) &#x2F; scalex;      let t &#x3D; height - (y - ymin) &#x2F; scaley;      if (t &#x3D;&#x3D; 0) &#123;        &#x2F;&#x2F; console.log(&quot;0&quot;);      &#125;      if (i &#x3D;&#x3D;&#x3D; 0) &#123;        ctx.moveTo(l, t);      &#125; else &#123;        ctx.lineTo(l, t);      &#125;    &#125;    ctx.fillStyle &#x3D; &quot;rgba(255,255,255,1)&quot;;    ctx.strokeStyle &#x3D; &quot;rgba(255,0,0,1)&quot;;    ctx.lineWidth &#x3D; 2;    ctx.closePath();    ctx.stroke();    ctx.fill();  &#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="canvas颜色的填充"><a href="#canvas颜色的填充" class="headerlink" title="canvas颜色的填充"></a>canvas颜色的填充</h1><p>canvas在绘制等值线（或者说是闭合区域的时候）往往需要在区域内填色，根据<br>globalCompositeOperation的不同属性值，会得到不同的结果，具体需要填色的情况<br>选择不同的属性值<br><code>在有要求的情况下，可以根据闭合区域不同的高度值（假如是等高线）进行不同的填色</code></p><pre class="line-numbers language-none"><code class="language-none">function drawOther() &#123;  let colors &#x3D; &#123;    zuigaowen: [      &#123; Value_Min: 10, Value_Max: 15, color: &quot;#F3BF48&quot; &#125;,      &#123; Value_Min: 15, Value_Max: 20, color: &quot;#FFAF41&quot; &#125;,      &#123; Value_Min: 20, Value_Max: 25, color: &quot;#F98E20&quot; &#125;,      &#123; Value_Min: 25, Value_Max: 30, color: &quot;#FF760A&quot; &#125;,      &#123; Value_Min: 30, Value_Max: 35, color: &quot;#EC5418&quot; &#125;,      &#123; Value_Min: 35, Value_Max: 40, color: &quot;#EE0D20&quot; &#125;,      &#123; Value_Min: 40, Value_Max: 45, color: &quot;#C70321&quot; &#125;,    ],    dibiaowendushikuang: [      &#123; Value_Min: 10, Value_Max: 20, color: &quot;#A7DC32&quot; &#125;,      &#123; Value_Min: 20, Value_Max: 30, color: &quot;#F0C828&quot; &#125;,      &#123; Value_Min: 30, Value_Max: 40, color: &quot;#F09D29&quot; &#125;,      &#123; Value_Min: 40, Value_Max: 50, color: &quot;#F06429&quot; &#125;,      &#123; Value_Min: 50, Value_Max: 60, color: &quot;#DF3418&quot; &#125;,      &#123; Value_Min: 60, Value_Max: 70, color: &quot;#C20D0D&quot; &#125;,      &#123; Value_Min: 70, Value_Max: 80, color: &quot;#890323&quot; &#125;,    ],    bianwen: [      &#123; Value_Min: -6, Value_Max: -4, color: &quot;#66A6FF&quot; &#125;,      &#123; Value_Min: -4, Value_Max: -2, color: &quot;#80CFFF&quot; &#125;,      &#123; Value_Min: -2, Value_Max: 0, color: &quot;#9AF9FF&quot; &#125;,      &#123; Value_Min: 0, Value_Max: 2, color: &quot;#FFFB87&quot; &#125;,      &#123; Value_Min: 2, Value_Max: 4, color: &quot;#FCDF76&quot; &#125;,      &#123; Value_Min: 4, Value_Max: 6, color: &quot;#F8BE5C&quot; &#125;,    ],    jiangshui: [      &#x2F;&#x2F; &#123; Value_Min: -10, Value_Max: 0.1, color: &quot;rgba(0,0,0,0)&quot; &#125;,      &#123; Value_Min: -10, Value_Max: 0.1, color: &quot;rgba(0,0,0,0)&quot; &#125;,      &#123; Value_Min: 0.1, Value_Max: 10, color: &quot;#7DF0FF&quot; &#125;,      &#123; Value_Min: 10, Value_Max: 50, color: &quot;#0E3FD9&quot; &#125;,      &#123; Value_Min: 50, Value_Max: 75, color: &quot;#072586&quot; &#125;,    ],    fourteen: &#123;      zhongshu: &#123;        zs3: &quot;#EB9700&quot;,        zs4: &quot;#DC521E&quot;,        zs5: &quot;#B00808&quot;,      &#125;,    &#125;,  &#125;;  let name &#x3D; &quot;.&#x2F;1.json&quot;;  fs.readFile(name, (err, result) &#x3D;&gt; &#123;    if (err) &#123;    &#125; else &#123;      let object &#x3D; JSON.parse(result);      let &#123; CLOSED_CONTOURS &#125; &#x3D; object;      let arr &#x3D; [];      let color &#x3D; &quot;&quot;;      let leixing &#x3D; &quot;fourteen&quot;;      let leixing_child &#x3D; &quot;zhongshu&quot;;      for (let i &#x3D; 0; i &lt; CLOSED_CONTOURS.length; i++) &#123;        let CLOSED_CONTOURS_i &#x3D; CLOSED_CONTOURS[i];        let &#123; linePoint &#125; &#x3D; CLOSED_CONTOURS_i;        let &#123; markName &#125; &#x3D; CLOSED_CONTOURS_i.lineMark;        console.log(colors[leixing][leixing_child][markName]);        arr.push(linePoint);        for (let m &#x3D; 0; m &lt; arr.length; m++) &#123;          drawPolygon(            arr[m],            scalex,            scaley,            colors[leixing][leixing_child][markName]          );        &#125;      &#125;      const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);      const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);      const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);      fs.writeFile(        &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,        bufferData,        function (err) &#123;          if (err) &#123;          &#125; else &#123;            console.log(&quot;图片保存成功&quot;);          &#125;        &#125;      );    &#125;  &#125;);  function drawPolygon(points, scalex, scaley, color) &#123;    &#x2F;&#x2F; console.log(scalex, scaley);    ctx.beginPath();    for (let i &#x3D; 0; i &lt; points.length; i++) &#123;      let point &#x3D; points[i];      &#x2F;&#x2F;   console.log(point);      let x &#x3D; Number(point[&quot;lot&quot;]);      let y &#x3D; Number(point[&quot;lat&quot;]);      &#x2F;&#x2F;   console.log(x, y);      let l &#x3D; (x - xmin) &#x2F; scalex;      let t &#x3D; height - (y - ymin) &#x2F; scaley;      &#x2F;&#x2F;   console.log(l, t);      if (i &#x3D;&#x3D;&#x3D; 0) &#123;        ctx.moveTo(l, t);      &#125; else &#123;        ctx.lineTo(l, t);      &#125;    &#125;    &#x2F;&#x2F; ctx.globalCompositeOperation &#x3D; &quot;destination-over&quot;;    ctx.fillStyle &#x3D; color;    ctx.strokeStyle &#x3D; &quot;#fff&quot;;    ctx.closePath();    ctx.stroke();    ctx.fill();  &#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="canvas图形形状的截取"><a href="#canvas图形形状的截取" class="headerlink" title="canvas图形形状的截取"></a>canvas图形形状的截取</h1><p>canvas形状的截取，尤其是既包含填色，又包含截取（按另一个图形的形状截取）的情况下，<br>强烈建议分两步</p><h2 id="首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。"><a href="#首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。" class="headerlink" title="首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。"></a>首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。</h2><h2 id="然后将两张图片进行叠加截图"><a href="#然后将两张图片进行叠加截图" class="headerlink" title="然后将两张图片进行叠加截图"></a>然后将两张图片进行叠加截图</h2><p><strong>node环境为例</strong></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;** * 测试canvas图像截取 * 先画元素图 * 再画中国地图 * 再截取 *&#x2F;const fs &#x3D; require(&quot;fs&quot;);const &#123;createCanvas, loadImage&#125; &#x3D; require(&quot;canvas&quot;);const width &#x3D; 800;const height &#x3D; 800;const canvas &#x3D; createCanvas(width, height);const ctx &#x3D; canvas.getContext(&quot;2d&quot;);&#x2F;&#x2F;降雨使用的方法(或者说是没有铺满中国的元素图的截取方法)function a()&#123;    loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;new&#x2F;14&#x2F;gaowen.png&#39;).then((yuansu) &#x3D;&gt; &#123;&#x2F;&#x2F;加载元素图        console.log(&#39;yuansu&#39;,yuansu)        ctx.drawImage(yuansu, 0, 0, width, height)        loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;china.png&#39;).then((china)&#x3D;&gt;&#123;&#x2F;&#x2F;加载中国地图            console.log(&#39;china&#39;,china)            ctx.globalCompositeOperation &#x3D; &quot;destination-in&quot;;            ctx.drawImage(china,0,0,width,height)            function result() &#123;                const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);                const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);                const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);                fs.writeFile(                    &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,                    bufferData,                    function (err) &#123;                        if (err) &#123;                        &#125; else &#123;                            console.log(&quot;图片保存成功&quot;);                        &#125;                    &#125;                );            &#125;            &#x2F;&#x2F; setTimeout(function ()&#123;result()&#125;,1000)            result()        &#125;)    &#125;)&#125;function b()&#123;    loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;china2.png&#39;).then((china) &#x3D;&gt; &#123;&#x2F;&#x2F;加载中国地图        console.log(&#39;china&#39;,china)        ctx.drawImage(china, 0, 0, width, height)        loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;new&#x2F;14&#x2F;gaowen.png&#39;).then((yuansu)&#x3D;&gt;&#123;&#x2F;&#x2F;加载元素图            console.log(&#39;yuansu&#39;,yuansu)            &#x2F;&#x2F;todo:目前除去降雨数据，其他的都用下面的属性            &#x2F;&#x2F; ctx.globalCompositeOperation &#x3D; &quot;source-atop&quot;            &#x2F;&#x2F;降雨时属性            &#x2F;&#x2F; ctx.globalCompositeOperation &#x3D; &quot;destination-in&quot;;            ctx.drawImage(yuansu,0,0,width,height)            function result() &#123;                const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);                const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);                const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);                fs.writeFile(                    &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,                    bufferData,                    function (err) &#123;                        if (err) &#123;                        &#125; else &#123;                            console.log(&quot;图片保存成功&quot;);                        &#125;                    &#125;                );            &#125;            &#x2F;&#x2F; setTimeout(function ()&#123;result()&#125;,1000)            result()        &#125;)    &#125;)&#125;a()&#x2F;&#x2F; b()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><em><code>总结： 在绘制闭合区域（只有数组没有顺序）的时候，需要注意canvas涂色覆盖的问题， 同时，需要截取复杂图形的时候， 不建议直接在一个canvas对象内使用，可以使用两张图片叠加的形式。 本文所使用的的环境是node，可以直接生成图片保存在本地，然后进行读取。 可以猜想，利用不同变量保存每个canvas生成的base64也可以直接在浏览器生成类似效果， 但本人未做尝试，只是猜想。 另外，本文没有使用clip属性进行截图操作，因为没有思路。 在颜色填充部分本文尝试使用save和restore属性，但是产生的结果与未使用时一致， 如各位了解该如何使用上述属性或有兴趣技术沟通，可直接与我联系 </code></em></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 可视化 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> canvas </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>es6</title>
       <link href="/2021/12/28/es6/"/>
       <url>/2021/12/28/es6/</url>
       
         <content type="html"><![CDATA[<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><p><code>从数组和对象中提取值，对变量进行赋值，这被称为解构</code></p><h2 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h2><pre class="line-numbers language-none"><code class="language-none">let [a,b,c] &#x3D; [1,2,3];console.log(a,b,c);&#x2F;&#x2F; 1 2 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><code>解构不成功，变量的值为undefined</code></p><pre class="line-numbers language-none"><code class="language-none">let [a,b] &#x3D; [1];console.log(a,b);&#x2F;&#x2F; 1 undefinedlet [a,b] &#x3D; &#39;1&#39;;console.log(a,b);&#x2F;&#x2F; 1 undefined<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>如果等号右边不是可遍历的结构，会报错</strong></p><p>会报错的常见形式：</p><p>1、 数字</p><p>2、 布尔</p><p>3、 NaN</p><p>4、 undefined</p><p>5、null</p><p>6、{}  对象</p><h2 id="解构赋值的应用"><a href="#解构赋值的应用" class="headerlink" title="解构赋值的应用"></a>解构赋值的应用</h2><pre class="line-numbers language-none"><code class="language-none">假设下面是某个请求的返回值，形参是res&#123;    &quot;status&quot;: 200,    &quot;msg&quot;: &quot;成功&quot;,    &quot;data&quot;: &#123;        &quot;pageNum&quot;: 1,        &quot;pageSize&quot;: 99,        &quot;size&quot;: 49,    &#125;&#125;1、不用解构赋值let data &#x3D; res;if(data.data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;写起来比较繁琐2、使用解构赋值let &#123;data&#125; &#x3D; res;if(data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>这里需要注意的一点就是：声明的变量必须是返回值里面的某个属性， 也就是说：返回值内必须包含被声明的这个变量字段。</code></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>cesium专题</title>
+      <link href="/2021/12/28/cesium-zhuan-ti/"/>
+      <url>/2021/12/28/cesium-zhuan-ti/</url>
+      
+        <content type="html"><![CDATA[<p>CesiumJS 是一款用于创建虚拟场景的3D地理信息平台。目标是用于创建以基于Web的地图动态数据可视化。目前尽力提升平台的性能、准确率、虚拟化能力、易用性以及平台的各种支持。</p><ul><li>Cesium 是一个跨平台、跨浏览器的展示三维地球和地图的 javascript 库。</li><li>Cesium 使用WebGL 来进行硬件加速图形，使用时不需要任何插件支持，但是浏览器必须支持WebGL。</li><li>Cesium是基于Apache2.0 许可的开源程序。它可以免费的用于商业和非商业用途。</li></ul><h2 id="数据格式与功能特性"><a href="#数据格式与功能特性" class="headerlink" title="数据格式与功能特性"></a>数据格式与功能特性</h2><ul><li>支持2D,2.5D,3D 形式的地理（地图）数据展示，</li><li>可以绘制各种几何图形、高亮区域，支持导入图片，甚至三维模型等多种数据可视化展示</li><li>可用于动态数据可视化并提供良好的触摸支持，支持绝大多数的浏览器和移动端浏览器。</li><li>支持基于时间轴的动态流式数据展示</li></ul>]]></content>
       
       
       
@@ -1389,25 +1385,6 @@
     
     
     <entry>
-      <title>git命令</title>
-      <link href="/2021/12/28/git-ming-ling/"/>
-      <url>/2021/12/28/git-ming-ling/</url>
-      
-        <content type="html"><![CDATA[<p><code>git版本控制就是通过不同的节点保存代码的各个阶段，同时在每次提交代码的时候需要填写提交信息</code></p><h1 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h1><p><code>git clone 仓库地址</code><br><em>注意：如果配置了多个git账户，则需要区分仓库地址使用的事git还是https，要依据自己配置的config文件进行确定</em></p><h1 id="添加（暂存）"><a href="#添加（暂存）" class="headerlink" title="添加（暂存）"></a>添加（暂存）</h1><p><code>git add .</code><br><em>注意：后面的 . 不能省略，. 代表的是将所有的更改都暂存起来</em></p><h1 id="填写提交信息"><a href="#填写提交信息" class="headerlink" title="填写提交信息"></a>填写提交信息</h1><p><code>git commit -m &#39;提交信息&#39;</code><br><em>注意：提交信息一定要见名知意，这样在后续回退的时候能更快的知道需要回退到哪个版本，做到真正的版本管理</em></p><p><strong>每次在提交前填写 commit -m 的命令时，推荐使用vscode插件 <code>git-commit-plugin</code>，这样可以使我们的提交信息更加丰富，方便管理</strong></p><h1 id="提交到仓库"><a href="#提交到仓库" class="headerlink" title="提交到仓库"></a>提交到仓库</h1><h2 id="线上与线下分支不存在冲突的时候"><a href="#线上与线下分支不存在冲突的时候" class="headerlink" title="线上与线下分支不存在冲突的时候"></a>线上与线下分支不存在冲突的时候</h2><p>当明确知道线上分支与当前线下分支版本一致，不存在冲突的时候。可以直接使用<code>git push</code></p><h2 id="线上与线下存在冲突的时候"><a href="#线上与线下存在冲突的时候" class="headerlink" title="线上与线下存在冲突的时候"></a>线上与线下存在冲突的时候</h2><p>因为一个项目需要多人在同一个仓库后者分支上开发，有时候就会出现别人的代码已经上传到git，但是自己本地未更新，这样在本地开发完成后，需要上传的时候就会提示需要先拉取最新的线上版本，与本地处理冲突后，然后再提交到仓库。<br><code>冲突的产生是不同的开发者开发了同一个文件所导致，如果不同的开发者开发的不是同一个文件，则可以直接上传成功。</code><br><strong>这很好理解：不同的开发者开发不同的文件，git上传的时候直接直接替换即可，但是如果开发的是同一个文件，那么git就会产生以谁的文件为最终结果的疑问，这就是冲突的由来，我们只有解决好冲突后，才能在解决的基础上连同自己添加的文件一并上传</strong><br><code>所以一般的开发习惯就是在 git push之前，先git pull拉取下</code></p><p><em>注意：提交的时候git会自动根据本地当时所处的分支提交到线上对应的分支，这一点至关重要，假如线上、线下同时具有dev和version分支，且本地处于version分支，那么上传时会自动传输到version分支，造成混乱。所以需要确定当前所处分支，需要上传到线上的分支，当分支不对的时候就需要切换</em></p><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><h2 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h2><p>分支切换的前提是知道有哪些分支，所以需要先查看下</p><h3 id="查看本地分支（线下）"><a href="#查看本地分支（线下）" class="headerlink" title="查看本地分支（线下）"></a>查看本地分支（线下）</h3><p><code>git branch</code><br><em>命令输入后，如果本地存在分支，则会全部列出</em></p><h3 id="查看所有分支（线上和线下）"><a href="#查看所有分支（线上和线下）" class="headerlink" title="查看所有分支（线上和线下）"></a>查看所有分支（线上和线下）</h3><p><code>git branch -a</code></p><ul><li>-a 就是 -all的意思，即查看所有分支（线上和线下）*<h2 id="切换分支-1"><a href="#切换分支-1" class="headerlink" title="切换分支"></a>切换分支</h2>查看分支完毕，就需要切换分支<h3 id="切换到本地已经存在的分支"><a href="#切换到本地已经存在的分支" class="headerlink" title="切换到本地已经存在的分支"></a>切换到本地已经存在的分支</h3><code>git checkout 分支名称</code><h3 id="要切换的分支本地并不存在，想创建一个分支并切换过去"><a href="#要切换的分支本地并不存在，想创建一个分支并切换过去" class="headerlink" title="要切换的分支本地并不存在，想创建一个分支并切换过去"></a>要切换的分支本地并不存在，想创建一个分支并切换过去</h3><code>git checkout -b 分支名称</code></li><li>注意：当使用<code>git checkout -b 分支名称</code>创建一个新分支的时候，如果线上也没有这个分支，则<code>git push</code>的时候会自动在线上创建该分支，这也是刚在上面所说的<code>git push</code>的时候需要注意本地当前所处分支的原因*</li></ul><h1 id="下拉"><a href="#下拉" class="headerlink" title="下拉"></a>下拉</h1><h2 id="下拉之前先检查线上分支与本地分支是否一致"><a href="#下拉之前先检查线上分支与本地分支是否一致" class="headerlink" title="下拉之前先检查线上分支与本地分支是否一致"></a>下拉之前先检查线上分支与本地分支是否一致</h2><p><code>git fetch</code></p><h2 id="下拉之前不检查，直接下拉"><a href="#下拉之前不检查，直接下拉" class="headerlink" title="下拉之前不检查，直接下拉"></a>下拉之前不检查，直接下拉</h2><p><code>git pull</code><br><em>注意：git pull是在不检查的情况下直接拉取，有可能下拉下来后与本地分支存在冲突，需要手动解决</em></p><h2 id="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"><a href="#本地已经做的更改不想保存，直接下拉线上版本进行覆盖" class="headerlink" title="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"></a>本地已经做的更改不想保存，直接下拉线上版本进行覆盖</h2><p>…未完待续</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 命令行 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>genkins</title>
       <link href="/2021/12/28/genkins/"/>
       <url>/2021/12/28/genkins/</url>
@@ -1427,6 +1404,50 @@
             <tag> genkins </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>canvas绘图</title>
+      <link href="/2021/12/28/canvas-hui-tu/"/>
+      <url>/2021/12/28/canvas-hui-tu/</url>
+      
+        <content type="html"><![CDATA[<h1 id="canvas点连线生成图片"><a href="#canvas点连线生成图片" class="headerlink" title="canvas点连线生成图片"></a>canvas点连线生成图片</h1><p>canvas点连线生成等值线就是将数组内索引为0的元素设置为起点，moveTo该点<br>其余点使用lineTo进行连接，<br><code>当涉及到多维数组的时候，需要进入到数组的最内部循环进行上述操作</code><br><strong>注意：如果需要绘制的图形铺满整个画布，则需要先计算出所有坐标点的极值点<br>，即最大最小的x、y，再结合画布width和height，算出每个方向上的缩放<br>倍率scaleX和scaleY，moveTo和lineTo的时候需要将缩放倍率计算进去</strong></p><pre class="line-numbers language-none"><code class="language-none">let xmin, xmax;let ymin, ymax;let xArr &#x3D; [];let yArr &#x3D; [];let scalex, scaley;function drawChina() &#123;  &#x2F;&#x2F; 解析边界线  let obj &#x3D; fs.readFileSync(&quot;.&#x2F;data&#x2F;china.json&quot;);  let object &#x3D; JSON.parse(obj);  let features &#x3D; object.features;    &#x2F;&#x2F; 计算极值  for (let i &#x3D; 0; i &lt; features.length; i++) &#123;    let geo &#x3D; features[i].geometry;    let coor &#x3D; geo.coordinates;    for (let j &#x3D; 0; j &lt; coor.length; j++) &#123;      for (let m &#x3D; 0; m &lt; coor[j].length; m++) &#123;        for (let k &#x3D; 0; k &lt; coor[j][m].length; k++) &#123;          xArr.push(coor[j][m][k][0]);          yArr.push(coor[j][m][k][1]);        &#125;      &#125;    &#125;  &#125;  let b &#x3D; Array.from(new Set(xArr));  let num1, num2; &#x2F;&#x2F;最小值与最大值  num1 &#x3D; b[0];  num2 &#x3D; b[1];  for (let i &#x3D; 0; i &lt; b.length - 1; i++) &#123;    if (b[i] &lt; num1) &#123;      num1 &#x3D; b[i];    &#125;    if (b[i] &gt; num2) &#123;      num2 &#x3D; b[i];    &#125;  &#125;  &#x2F;&#x2F; console.log(num1, num2);  xmin &#x3D; num1;  xmax &#x3D; num2;  let a &#x3D; Array.from(new Set(yArr));  let num3, num4; &#x2F;&#x2F;最小值与最大值  num3 &#x3D; a[0];  num4 &#x3D; a[1];  for (let i &#x3D; 0; i &lt; a.length - 1; i++) &#123;    if (a[i] &lt; num3) &#123;      num3 &#x3D; a[i];    &#125;    if (a[i] &gt; num4) &#123;      num4 &#x3D; a[i];    &#125;  &#125;  ymin &#x3D; num3;  ymax &#x3D; num4;  &#x2F;&#x2F; 打印极值  console.log(xmin, xmax, ymin, ymax);  &#x2F;&#x2F; 循环绘制  for (let i &#x3D; 0; i &lt; features.length; i++) &#123;    let feature &#x3D; features[i];    let geometry &#x3D; feature.geometry;    let type &#x3D; geometry.type;    let coordinates &#x3D; geometry.coordinates;    &#x2F;&#x2F; 得到不同方向上的倍率    scalex &#x3D; (xmax - xmin) &#x2F; width;    scaley &#x3D; (ymax - ymin) &#x2F; height;    if (type &#x3D;&#x3D;&#x3D; &quot;Polygon&quot;) &#123;      drawPolygon0(coordinates, scalex, scaley);    &#125; else if (type &#x3D;&#x3D;&#x3D; &quot;MultiPolygon&quot;) &#123;      for (let j &#x3D; 0; j &lt; coordinates.length; j++) &#123;        let polygon &#x3D; coordinates[j];        drawPolygon0(polygon, scalex, scaley);      &#125;    &#125;  &#125;  &#x2F;&#x2F; node环境保存图片，与绘制无关，可以不使用  function saveChina() &#123;    const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);    const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);    const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);    fs.writeFile(      &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,      bufferData,      function (err) &#123;        if (err) &#123;          &#x2F;&#x2F;&#x2F;&#x2F;console.log(err);        &#125; else &#123;          &#x2F;&#x2F;&#x2F;&#x2F;console.log(&quot;图片保存成功&quot;);        &#125;      &#125;    );  &#125;  &#x2F;&#x2F; saveChina()  function drawPolygon0(polygon, scalex, scaley) &#123;    ctx.beginPath();    let points &#x3D; polygon[0];    for (let i &#x3D; 0; i &lt; points.length; i++) &#123;      let point &#x3D; points[i];      let x &#x3D; Number(point[0]);      let y &#x3D; Number(point[1]);            &#x2F;&#x2F; 根据倍率移动点位置，进行满铺      &#x2F;&#x2F; 由于canvas坐标系左上角为顶点，越往下y值越大，所以需要翻转      let l &#x3D; (x - xmin) &#x2F; scalex;      let t &#x3D; height - (y - ymin) &#x2F; scaley;      if (t &#x3D;&#x3D; 0) &#123;        &#x2F;&#x2F; console.log(&quot;0&quot;);      &#125;      if (i &#x3D;&#x3D;&#x3D; 0) &#123;        ctx.moveTo(l, t);      &#125; else &#123;        ctx.lineTo(l, t);      &#125;    &#125;    ctx.fillStyle &#x3D; &quot;rgba(255,255,255,1)&quot;;    ctx.strokeStyle &#x3D; &quot;rgba(255,0,0,1)&quot;;    ctx.lineWidth &#x3D; 2;    ctx.closePath();    ctx.stroke();    ctx.fill();  &#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="canvas颜色的填充"><a href="#canvas颜色的填充" class="headerlink" title="canvas颜色的填充"></a>canvas颜色的填充</h1><p>canvas在绘制等值线（或者说是闭合区域的时候）往往需要在区域内填色，根据<br>globalCompositeOperation的不同属性值，会得到不同的结果，具体需要填色的情况<br>选择不同的属性值<br><code>在有要求的情况下，可以根据闭合区域不同的高度值（假如是等高线）进行不同的填色</code></p><pre class="line-numbers language-none"><code class="language-none">function drawOther() &#123;  let colors &#x3D; &#123;    zuigaowen: [      &#123; Value_Min: 10, Value_Max: 15, color: &quot;#F3BF48&quot; &#125;,      &#123; Value_Min: 15, Value_Max: 20, color: &quot;#FFAF41&quot; &#125;,      &#123; Value_Min: 20, Value_Max: 25, color: &quot;#F98E20&quot; &#125;,      &#123; Value_Min: 25, Value_Max: 30, color: &quot;#FF760A&quot; &#125;,      &#123; Value_Min: 30, Value_Max: 35, color: &quot;#EC5418&quot; &#125;,      &#123; Value_Min: 35, Value_Max: 40, color: &quot;#EE0D20&quot; &#125;,      &#123; Value_Min: 40, Value_Max: 45, color: &quot;#C70321&quot; &#125;,    ],    dibiaowendushikuang: [      &#123; Value_Min: 10, Value_Max: 20, color: &quot;#A7DC32&quot; &#125;,      &#123; Value_Min: 20, Value_Max: 30, color: &quot;#F0C828&quot; &#125;,      &#123; Value_Min: 30, Value_Max: 40, color: &quot;#F09D29&quot; &#125;,      &#123; Value_Min: 40, Value_Max: 50, color: &quot;#F06429&quot; &#125;,      &#123; Value_Min: 50, Value_Max: 60, color: &quot;#DF3418&quot; &#125;,      &#123; Value_Min: 60, Value_Max: 70, color: &quot;#C20D0D&quot; &#125;,      &#123; Value_Min: 70, Value_Max: 80, color: &quot;#890323&quot; &#125;,    ],    bianwen: [      &#123; Value_Min: -6, Value_Max: -4, color: &quot;#66A6FF&quot; &#125;,      &#123; Value_Min: -4, Value_Max: -2, color: &quot;#80CFFF&quot; &#125;,      &#123; Value_Min: -2, Value_Max: 0, color: &quot;#9AF9FF&quot; &#125;,      &#123; Value_Min: 0, Value_Max: 2, color: &quot;#FFFB87&quot; &#125;,      &#123; Value_Min: 2, Value_Max: 4, color: &quot;#FCDF76&quot; &#125;,      &#123; Value_Min: 4, Value_Max: 6, color: &quot;#F8BE5C&quot; &#125;,    ],    jiangshui: [      &#x2F;&#x2F; &#123; Value_Min: -10, Value_Max: 0.1, color: &quot;rgba(0,0,0,0)&quot; &#125;,      &#123; Value_Min: -10, Value_Max: 0.1, color: &quot;rgba(0,0,0,0)&quot; &#125;,      &#123; Value_Min: 0.1, Value_Max: 10, color: &quot;#7DF0FF&quot; &#125;,      &#123; Value_Min: 10, Value_Max: 50, color: &quot;#0E3FD9&quot; &#125;,      &#123; Value_Min: 50, Value_Max: 75, color: &quot;#072586&quot; &#125;,    ],    fourteen: &#123;      zhongshu: &#123;        zs3: &quot;#EB9700&quot;,        zs4: &quot;#DC521E&quot;,        zs5: &quot;#B00808&quot;,      &#125;,    &#125;,  &#125;;  let name &#x3D; &quot;.&#x2F;1.json&quot;;  fs.readFile(name, (err, result) &#x3D;&gt; &#123;    if (err) &#123;    &#125; else &#123;      let object &#x3D; JSON.parse(result);      let &#123; CLOSED_CONTOURS &#125; &#x3D; object;      let arr &#x3D; [];      let color &#x3D; &quot;&quot;;      let leixing &#x3D; &quot;fourteen&quot;;      let leixing_child &#x3D; &quot;zhongshu&quot;;      for (let i &#x3D; 0; i &lt; CLOSED_CONTOURS.length; i++) &#123;        let CLOSED_CONTOURS_i &#x3D; CLOSED_CONTOURS[i];        let &#123; linePoint &#125; &#x3D; CLOSED_CONTOURS_i;        let &#123; markName &#125; &#x3D; CLOSED_CONTOURS_i.lineMark;        console.log(colors[leixing][leixing_child][markName]);        arr.push(linePoint);        for (let m &#x3D; 0; m &lt; arr.length; m++) &#123;          drawPolygon(            arr[m],            scalex,            scaley,            colors[leixing][leixing_child][markName]          );        &#125;      &#125;      const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);      const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);      const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);      fs.writeFile(        &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,        bufferData,        function (err) &#123;          if (err) &#123;          &#125; else &#123;            console.log(&quot;图片保存成功&quot;);          &#125;        &#125;      );    &#125;  &#125;);  function drawPolygon(points, scalex, scaley, color) &#123;    &#x2F;&#x2F; console.log(scalex, scaley);    ctx.beginPath();    for (let i &#x3D; 0; i &lt; points.length; i++) &#123;      let point &#x3D; points[i];      &#x2F;&#x2F;   console.log(point);      let x &#x3D; Number(point[&quot;lot&quot;]);      let y &#x3D; Number(point[&quot;lat&quot;]);      &#x2F;&#x2F;   console.log(x, y);      let l &#x3D; (x - xmin) &#x2F; scalex;      let t &#x3D; height - (y - ymin) &#x2F; scaley;      &#x2F;&#x2F;   console.log(l, t);      if (i &#x3D;&#x3D;&#x3D; 0) &#123;        ctx.moveTo(l, t);      &#125; else &#123;        ctx.lineTo(l, t);      &#125;    &#125;    &#x2F;&#x2F; ctx.globalCompositeOperation &#x3D; &quot;destination-over&quot;;    ctx.fillStyle &#x3D; color;    ctx.strokeStyle &#x3D; &quot;#fff&quot;;    ctx.closePath();    ctx.stroke();    ctx.fill();  &#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="canvas图形形状的截取"><a href="#canvas图形形状的截取" class="headerlink" title="canvas图形形状的截取"></a>canvas图形形状的截取</h1><p>canvas形状的截取，尤其是既包含填色，又包含截取（按另一个图形的形状截取）的情况下，<br>强烈建议分两步</p><h2 id="首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。"><a href="#首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。" class="headerlink" title="首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。"></a>首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。</h2><h2 id="然后将两张图片进行叠加截图"><a href="#然后将两张图片进行叠加截图" class="headerlink" title="然后将两张图片进行叠加截图"></a>然后将两张图片进行叠加截图</h2><p><strong>node环境为例</strong></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;** * 测试canvas图像截取 * 先画元素图 * 再画中国地图 * 再截取 *&#x2F;const fs &#x3D; require(&quot;fs&quot;);const &#123;createCanvas, loadImage&#125; &#x3D; require(&quot;canvas&quot;);const width &#x3D; 800;const height &#x3D; 800;const canvas &#x3D; createCanvas(width, height);const ctx &#x3D; canvas.getContext(&quot;2d&quot;);&#x2F;&#x2F;降雨使用的方法(或者说是没有铺满中国的元素图的截取方法)function a()&#123;    loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;new&#x2F;14&#x2F;gaowen.png&#39;).then((yuansu) &#x3D;&gt; &#123;&#x2F;&#x2F;加载元素图        console.log(&#39;yuansu&#39;,yuansu)        ctx.drawImage(yuansu, 0, 0, width, height)        loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;china.png&#39;).then((china)&#x3D;&gt;&#123;&#x2F;&#x2F;加载中国地图            console.log(&#39;china&#39;,china)            ctx.globalCompositeOperation &#x3D; &quot;destination-in&quot;;            ctx.drawImage(china,0,0,width,height)            function result() &#123;                const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);                const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);                const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);                fs.writeFile(                    &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,                    bufferData,                    function (err) &#123;                        if (err) &#123;                        &#125; else &#123;                            console.log(&quot;图片保存成功&quot;);                        &#125;                    &#125;                );            &#125;            &#x2F;&#x2F; setTimeout(function ()&#123;result()&#125;,1000)            result()        &#125;)    &#125;)&#125;function b()&#123;    loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;china2.png&#39;).then((china) &#x3D;&gt; &#123;&#x2F;&#x2F;加载中国地图        console.log(&#39;china&#39;,china)        ctx.drawImage(china, 0, 0, width, height)        loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;new&#x2F;14&#x2F;gaowen.png&#39;).then((yuansu)&#x3D;&gt;&#123;&#x2F;&#x2F;加载元素图            console.log(&#39;yuansu&#39;,yuansu)            &#x2F;&#x2F;todo:目前除去降雨数据，其他的都用下面的属性            &#x2F;&#x2F; ctx.globalCompositeOperation &#x3D; &quot;source-atop&quot;            &#x2F;&#x2F;降雨时属性            &#x2F;&#x2F; ctx.globalCompositeOperation &#x3D; &quot;destination-in&quot;;            ctx.drawImage(yuansu,0,0,width,height)            function result() &#123;                const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);                const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);                const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);                fs.writeFile(                    &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,                    bufferData,                    function (err) &#123;                        if (err) &#123;                        &#125; else &#123;                            console.log(&quot;图片保存成功&quot;);                        &#125;                    &#125;                );            &#125;            &#x2F;&#x2F; setTimeout(function ()&#123;result()&#125;,1000)            result()        &#125;)    &#125;)&#125;a()&#x2F;&#x2F; b()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><em><code>总结： 在绘制闭合区域（只有数组没有顺序）的时候，需要注意canvas涂色覆盖的问题， 同时，需要截取复杂图形的时候， 不建议直接在一个canvas对象内使用，可以使用两张图片叠加的形式。 本文所使用的的环境是node，可以直接生成图片保存在本地，然后进行读取。 可以猜想，利用不同变量保存每个canvas生成的base64也可以直接在浏览器生成类似效果， 但本人未做尝试，只是猜想。 另外，本文没有使用clip属性进行截图操作，因为没有思路。 在颜色填充部分本文尝试使用save和restore属性，但是产生的结果与未使用时一致， 如各位了解该如何使用上述属性或有兴趣技术沟通，可直接与我联系 </code></em></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 可视化 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> canvas </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>git命令</title>
+      <link href="/2021/12/28/git-ming-ling/"/>
+      <url>/2021/12/28/git-ming-ling/</url>
+      
+        <content type="html"><![CDATA[<p><code>git版本控制就是通过不同的节点保存代码的各个阶段，同时在每次提交代码的时候需要填写提交信息</code></p><h1 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h1><p><code>git clone 仓库地址</code><br><em>注意：如果配置了多个git账户，则需要区分仓库地址使用的事git还是https，要依据自己配置的config文件进行确定</em></p><h1 id="添加（暂存）"><a href="#添加（暂存）" class="headerlink" title="添加（暂存）"></a>添加（暂存）</h1><p><code>git add .</code><br><em>注意：后面的 . 不能省略，. 代表的是将所有的更改都暂存起来</em></p><h1 id="填写提交信息"><a href="#填写提交信息" class="headerlink" title="填写提交信息"></a>填写提交信息</h1><p><code>git commit -m &#39;提交信息&#39;</code><br><em>注意：提交信息一定要见名知意，这样在后续回退的时候能更快的知道需要回退到哪个版本，做到真正的版本管理</em></p><p><strong>每次在提交前填写 commit -m 的命令时，推荐使用vscode插件 <code>git-commit-plugin</code>，这样可以使我们的提交信息更加丰富，方便管理</strong></p><h1 id="提交到仓库"><a href="#提交到仓库" class="headerlink" title="提交到仓库"></a>提交到仓库</h1><h2 id="线上与线下分支不存在冲突的时候"><a href="#线上与线下分支不存在冲突的时候" class="headerlink" title="线上与线下分支不存在冲突的时候"></a>线上与线下分支不存在冲突的时候</h2><p>当明确知道线上分支与当前线下分支版本一致，不存在冲突的时候。可以直接使用<code>git push</code></p><h2 id="线上与线下存在冲突的时候"><a href="#线上与线下存在冲突的时候" class="headerlink" title="线上与线下存在冲突的时候"></a>线上与线下存在冲突的时候</h2><p>因为一个项目需要多人在同一个仓库后者分支上开发，有时候就会出现别人的代码已经上传到git，但是自己本地未更新，这样在本地开发完成后，需要上传的时候就会提示需要先拉取最新的线上版本，与本地处理冲突后，然后再提交到仓库。<br><code>冲突的产生是不同的开发者开发了同一个文件所导致，如果不同的开发者开发的不是同一个文件，则可以直接上传成功。</code><br><strong>这很好理解：不同的开发者开发不同的文件，git上传的时候直接直接替换即可，但是如果开发的是同一个文件，那么git就会产生以谁的文件为最终结果的疑问，这就是冲突的由来，我们只有解决好冲突后，才能在解决的基础上连同自己添加的文件一并上传</strong><br><code>所以一般的开发习惯就是在 git push之前，先git pull拉取下</code></p><p><em>注意：提交的时候git会自动根据本地当时所处的分支提交到线上对应的分支，这一点至关重要，假如线上、线下同时具有dev和version分支，且本地处于version分支，那么上传时会自动传输到version分支，造成混乱。所以需要确定当前所处分支，需要上传到线上的分支，当分支不对的时候就需要切换</em></p><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><h2 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h2><p>分支切换的前提是知道有哪些分支，所以需要先查看下</p><h3 id="查看本地分支（线下）"><a href="#查看本地分支（线下）" class="headerlink" title="查看本地分支（线下）"></a>查看本地分支（线下）</h3><p><code>git branch</code><br><em>命令输入后，如果本地存在分支，则会全部列出</em></p><h3 id="查看所有分支（线上和线下）"><a href="#查看所有分支（线上和线下）" class="headerlink" title="查看所有分支（线上和线下）"></a>查看所有分支（线上和线下）</h3><p><code>git branch -a</code></p><ul><li>-a 就是 -all的意思，即查看所有分支（线上和线下）*<h2 id="切换分支-1"><a href="#切换分支-1" class="headerlink" title="切换分支"></a>切换分支</h2>查看分支完毕，就需要切换分支<h3 id="切换到本地已经存在的分支"><a href="#切换到本地已经存在的分支" class="headerlink" title="切换到本地已经存在的分支"></a>切换到本地已经存在的分支</h3><code>git checkout 分支名称</code><h3 id="要切换的分支本地并不存在，想创建一个分支并切换过去"><a href="#要切换的分支本地并不存在，想创建一个分支并切换过去" class="headerlink" title="要切换的分支本地并不存在，想创建一个分支并切换过去"></a>要切换的分支本地并不存在，想创建一个分支并切换过去</h3><code>git checkout -b 分支名称</code></li><li>注意：当使用<code>git checkout -b 分支名称</code>创建一个新分支的时候，如果线上也没有这个分支，则<code>git push</code>的时候会自动在线上创建该分支，这也是刚在上面所说的<code>git push</code>的时候需要注意本地当前所处分支的原因*</li></ul><h1 id="下拉"><a href="#下拉" class="headerlink" title="下拉"></a>下拉</h1><h2 id="下拉之前先检查线上分支与本地分支是否一致"><a href="#下拉之前先检查线上分支与本地分支是否一致" class="headerlink" title="下拉之前先检查线上分支与本地分支是否一致"></a>下拉之前先检查线上分支与本地分支是否一致</h2><p><code>git fetch</code></p><h2 id="下拉之前不检查，直接下拉"><a href="#下拉之前不检查，直接下拉" class="headerlink" title="下拉之前不检查，直接下拉"></a>下拉之前不检查，直接下拉</h2><p><code>git pull</code><br><em>注意：git pull是在不检查的情况下直接拉取，有可能下拉下来后与本地分支存在冲突，需要手动解决</em></p><h2 id="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"><a href="#本地已经做的更改不想保存，直接下拉线上版本进行覆盖" class="headerlink" title="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"></a>本地已经做的更改不想保存，直接下拉线上版本进行覆盖</h2><p>…未完待续</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 命令行 </category>
+          
+      </categories>
+      
       
     </entry>
     
