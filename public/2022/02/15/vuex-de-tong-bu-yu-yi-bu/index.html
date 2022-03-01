@@ -5,9 +5,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="vuex的同步与异步, MyBlog">
-    <meta name="description" content="vueX官方文档
+    <meta name="description" content="vueX 官方文档
 
-">
+1、创建 storecosnt store = new Vuex.Store(&amp;#123;
+    //数据存储
+    state:&amp;#123;
+        showLoginComponents:false,/">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -464,21 +467,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-02-23
+                    2022-03-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5
+                    450
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -501,8 +504,118 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><a target="_blank" rel="noopener" href="https://v3.vuex.vuejs.org/zh/">vueX官方文档</a></p>
+                <p><a target="_blank" rel="noopener" href="https://v3.vuex.vuejs.org/zh/">vueX 官方文档</a></p>
 <p><img src="/2022/02/15/vuex-de-tong-bu-yu-yi-bu/vuex.png" alt="vuex核心概念"></p>
+<h3 id="1、创建-store"><a href="#1、创建-store" class="headerlink" title="1、创建 store"></a>1、创建 store</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">cosnt store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    <span class="token comment">//数据存储</span>
+    state<span class="token operator">:</span><span class="token punctuation">&#123;</span>
+        showLoginComponents<span class="token operator">:</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token comment">//先定义</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token comment">// 定义方法，更改state内部属性值(同步)</span>
+    mutations<span class="token operator">:</span><span class="token punctuation">&#123;</span>
+        <span class="token function">toggleShowLoginComponents</span><span class="token punctuation">(</span><span class="token parameter">state<span class="token punctuation">,</span> newValue</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token comment">//定义方法，传输2个参数</span>
+            state<span class="token punctuation">.</span>showLoginComponents <span class="token operator">=</span> newValue<span class="token punctuation">;</span><span class="token comment">//更改showLoginComponents值</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token comment">// 定义方法，更改state内部属性值(异步)</span>
+    Action<span class="token operator">:</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token comment">// store分割，概念类似小程序分包</span>
+    Module<span class="token operator">:</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p><strong>Module：</strong><br>Vuex 允许我们将 store 分割成模块（module）。每个模块拥有自己的 state、mutation、action、getter、甚至是嵌套子模块——从上至下进行同样方式的分割</p>
+</blockquote>
+<h3 id="2、使用-store"><a href="#2、使用-store" class="headerlink" title="2、使用 store"></a>2、使用 store</h3><h4 id="2-1-在-html-内使用"><a href="#2-1-在-html-内使用" class="headerlink" title="2.1 在 html 内使用"></a>2.1 在 html 内使用</h4><pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token comment">&lt;!-- 可以直接引用 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-avatar</span> <span class="token attr-name">:size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>size<span class="token punctuation">"</span></span> <span class="token attr-name">:src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>$store.state.userInfo.userIcon<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-avatar</span><span class="token punctuation">></span></span>
+
+<span class="token comment">&lt;!-- 动态绑定class的时候也可以根据store的值进行判断 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+  <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>
+            width: 146px;
+            height: 34px;
+            background: #ffffff;
+            border-radius: 19px;
+            border: 1px solid #49dcd0;
+            color: #49dcd0;
+          <span class="token punctuation">"</span></span></span>
+  <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>head<span class="token punctuation">"</span></span>
+  <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>showComponent = true<span class="token punctuation">"</span></span>
+  <span class="token attr-name">v-if</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>showBtn<span class="token punctuation">"</span></span>
+  <span class="token attr-name">:class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&#123;disabled:$store.state.disableUpdateAvatar&#125;<span class="token punctuation">"</span></span>
+<span class="token punctuation">></span></span>
+  修改头像
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="2-2-在-js-内使用"><a href="#2-2-在-js-内使用" class="headerlink" title="2.2 在 js 内使用"></a>2.2 在 js 内使用</h4><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> store <span class="token keyword">from</span> <span class="token string">"../../../store"</span><span class="token punctuation">;</span>
+
+ <span class="token comment">// 图片上传</span>
+    <span class="token function">upload</span><span class="token punctuation">(</span><span class="token parameter">param</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">function</span> <span class="token function">generateTimeReqestNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">let</span> date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            date<span class="token punctuation">.</span><span class="token function">getFullYear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+            <span class="token string">"/"</span> <span class="token operator">+</span>
+            <span class="token function">pad2</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span><span class="token function">getMonth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+            <span class="token function">pad2</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span><span class="token function">getDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+
+      <span class="token keyword">function</span> <span class="token function">pad2</span><span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> n <span class="token operator">&lt;</span> <span class="token number">10</span> <span class="token operator">?</span> <span class="token string">"0"</span> <span class="token operator">+</span> n <span class="token operator">:</span> n<span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+
+      <span class="token function">getOSSToken</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>code <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+              <span class="token keyword">let</span> <span class="token punctuation">&#123;</span>accessKeyId<span class="token punctuation">,</span> accessKeySecret<span class="token punctuation">,</span> securityToken<span class="token punctuation">&#125;</span> <span class="token operator">=</span>
+                  res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>data<span class="token punctuation">.</span>aliyunSTSToken<span class="token punctuation">;</span>
+              <span class="token keyword">let</span> client <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OSS</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                region<span class="token operator">:</span> <span class="token string">"oss-cn-beijing"</span><span class="token punctuation">,</span>
+                accessKeyId<span class="token operator">:</span> accessKeyId<span class="token punctuation">,</span>
+                accessKeySecret<span class="token operator">:</span> accessKeySecret<span class="token punctuation">,</span>
+                stsToken<span class="token operator">:</span> securityToken<span class="token punctuation">,</span>
+                bucket<span class="token operator">:</span> <span class="token string">"库名"</span><span class="token punctuation">,</span>
+                endpoint<span class="token operator">:</span> <span class="token string">'域名'</span><span class="token punctuation">,</span>
+                cname<span class="token operator">:</span> <span class="token boolean">true</span>
+              <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token keyword">this</span><span class="token punctuation">.</span>isShow <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+              client
+                  <span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>
+                      <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">/10013/user/icon/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span><span class="token function">generateTimeReqestNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span><span class="token function">uuidv4</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.png</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+                      param
+                  <span class="token punctuation">)</span>
+                  <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+                    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> <span class="token string">'阿里图片存储'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">let</span> <span class="token punctuation">&#123;</span>url<span class="token punctuation">&#125;</span> <span class="token operator">=</span> res
+                    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+                    <span class="token function">verifyImageAliOss</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">res</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+                      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> <span class="token string">'头像替换检测'</span><span class="token punctuation">)</span>
+                      <span class="token keyword">let</span> <span class="token punctuation">&#123;</span>suggestion<span class="token punctuation">&#125;</span> <span class="token operator">=</span> res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>data
+                      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>suggestion<span class="token punctuation">)</span>
+                      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token number">234</span><span class="token punctuation">)</span>
+                      <span class="token keyword">if</span> <span class="token punctuation">(</span>suggestion <span class="token operator">==</span> <span class="token string">'pass'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">)</span>
+                        <span class="token comment">// store使用</span>
+                        store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">"setUserIcon"</span><span class="token punctuation">,</span>url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">let</span> icon <span class="token operator">=</span>store<span class="token punctuation">.</span>state<span class="token punctuation">.</span>userInfo
+                        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>icon<span class="token punctuation">)</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>showComponent <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                      <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                        Message<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">'该图片不支持'</span><span class="token punctuation">)</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>showComponent <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                      <span class="token punctuation">&#125;</span>
+                    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">err</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+                      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+                    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+                  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -1036,7 +1149,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">40.3k</span>
+                        class="white-color">40.8k</span>
             
             
             
