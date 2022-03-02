@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>js中的事件循环</title>
+      <link href="/2022/03/02/js-zhong-de-shi-jian-xun-huan/"/>
+      <url>/2022/03/02/js-zhong-de-shi-jian-xun-huan/</url>
+      
+        <content type="html"><![CDATA[<p>js 中的事件循环 event loop</p><p><img src="/2022/03/02/js-zhong-de-shi-jian-xun-huan/1.png" alt="js中的事件循环"></p><blockquote><p>事件循环负责收集用事件（包括用户事件以及其他非用户事件等）、对任务进行排队以便在合适的时候执行回调。然后它执行所有处于等待中的 JavaScript 任务（宏任务），然后是微任务，然后在开始下一次循环之前执行一些必要的渲染和绘制操作。</p></blockquote>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 进阶 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>客户端存储</title>
       <link href="/2022/03/02/ke-hu-duan-cun-chu/"/>
       <url>/2022/03/02/ke-hu-duan-cun-chu/</url>
@@ -936,31 +955,6 @@
     
     
     <entry>
-      <title>使用nuxt创建站点</title>
-      <link href="/2021/12/28/shi-yong-nuxt-chuang-jian-zhan-dian/"/>
-      <url>/2021/12/28/shi-yong-nuxt-chuang-jian-zhan-dian/</url>
-      
-        <content type="html"><![CDATA[<p><code>nuxt使用了Vue，但是令人兴奋的地方是支持seo，另外还具有自己的静态站点生成器，非常适合web站的开发。</code><br>nuxt中文官网链接：<a href="https://www.nuxtjs.cn/">https://www.nuxtjs.cn/</a></p><h1 id="安装与创建项目"><a href="#安装与创建项目" class="headerlink" title="安装与创建项目"></a>安装与创建项目</h1><h2 id="安装nuxt"><a href="#安装nuxt" class="headerlink" title="安装nuxt"></a>安装nuxt</h2><pre class="line-numbers language-none"><code class="language-none"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p><code>nuxt可以使用yarn、npx、npm三种方式创建项目</code></p><pre class="line-numbers language-none"><code class="language-none">1、yarnyarn create nuxt-app &lt;project-name&gt;2、npxnpx create-nuxt-app &lt;project-name&gt;3、npmnpm init nuxt-app &lt;project-name&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="创建项目时的可选项分析"><a href="#创建项目时的可选项分析" class="headerlink" title="创建项目时的可选项分析"></a>创建项目时的可选项分析</h2><p><a href="https://www.nuxtjs.cn/guide/installation">https://www.nuxtjs.cn/guide/installation</a></p><h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><p><img src="http://qiniu.aoxuekj.com/nuxt_catalog.png"></p><h2 id="assets"><a href="#assets" class="headerlink" title="assets"></a>assets</h2><p>资源目录，用来存在未编译的静态资源。LESS、SASS、JavaScript</p><h2 id="components"><a href="#components" class="headerlink" title="components"></a>components</h2><p>组件目录，用来存放组织应用的Vue组件</p><h2 id="layouts"><a href="#layouts" class="headerlink" title="layouts"></a>layouts</h2><p>布局目录，用来组织应用布局</p><h2 id="middleware"><a href="#middleware" class="headerlink" title="middleware"></a>middleware</h2><p>中间件目录，用来存放应用的中间件</p><h2 id="node-modules"><a href="#node-modules" class="headerlink" title="node_modules"></a>node_modules</h2><p>npm包目录，这是任何一个使用npm包的应用都存在的目录</p><h2 id="pages"><a href="#pages" class="headerlink" title="pages"></a>pages</h2><h2 id="plugins"><a href="#plugins" class="headerlink" title="plugins"></a>plugins</h2><p>插件目录，用来存放需要在根vue应用实例化之前就要运行js插件</p><h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><p>静态文件目录，但是不会被编译，服务器启动时，该目录的文件会映射到根路径下</p><h2 id="store"><a href="#store" class="headerlink" title="store"></a>store</h2><p>组织vuex状态树文件，在该目录下创建一个index.js文件就可激活这些配置</p><h2 id="其他根目录文件"><a href="#其他根目录文件" class="headerlink" title="其他根目录文件"></a>其他根目录文件</h2><h3 id="editorconfiig"><a href="#editorconfiig" class="headerlink" title=".editorconfiig"></a>.editorconfiig</h3><h3 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h3><h3 id="nuxt-config-js"><a href="#nuxt-config-js" class="headerlink" title="nuxt.config.js"></a>nuxt.config.js</h3><p>nuxt应用的个性化配置，高优先级，可以覆盖默认配置</p><h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p>用来描述应用依赖关系和对外暴露的脚本接口，<code>该文件不能被重命名</code></p><h3 id="package-lock-json"><a href="#package-lock-json" class="headerlink" title="package-lock.json"></a>package-lock.json</h3><h3 id="README-md"><a href="#README-md" class="headerlink" title="README.md"></a>README.md</h3><h2 id="nuxt创建的项目供局域网访问"><a href="#nuxt创建的项目供局域网访问" class="headerlink" title="nuxt创建的项目供局域网访问"></a>nuxt创建的项目供局域网访问</h2><h3 id="在当前项目安装依赖"><a href="#在当前项目安装依赖" class="headerlink" title="在当前项目安装依赖"></a>在当前项目安装依赖</h3><pre class="line-numbers language-none"><code class="language-none">npm install --save-dev cross-env<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在package.json中配置</p><pre class="line-numbers language-none"><code class="language-none">&quot;scripts&quot;: &#123;  &quot;dev&quot;: &quot;cross-env NUXT_HOST&#x3D;0.0.0.0 NUXT_PORT&#x3D;3333 nuxt&quot;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> 框架 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> nuxt </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>关于ftp无法链接服务器的问题</title>
       <link href="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/"/>
       <url>/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/</url>
@@ -993,6 +987,31 @@
           
       </categories>
       
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>使用nuxt创建站点</title>
+      <link href="/2021/12/28/shi-yong-nuxt-chuang-jian-zhan-dian/"/>
+      <url>/2021/12/28/shi-yong-nuxt-chuang-jian-zhan-dian/</url>
+      
+        <content type="html"><![CDATA[<p><code>nuxt使用了Vue，但是令人兴奋的地方是支持seo，另外还具有自己的静态站点生成器，非常适合web站的开发。</code><br>nuxt中文官网链接：<a href="https://www.nuxtjs.cn/">https://www.nuxtjs.cn/</a></p><h1 id="安装与创建项目"><a href="#安装与创建项目" class="headerlink" title="安装与创建项目"></a>安装与创建项目</h1><h2 id="安装nuxt"><a href="#安装nuxt" class="headerlink" title="安装nuxt"></a>安装nuxt</h2><pre class="line-numbers language-none"><code class="language-none"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p><code>nuxt可以使用yarn、npx、npm三种方式创建项目</code></p><pre class="line-numbers language-none"><code class="language-none">1、yarnyarn create nuxt-app &lt;project-name&gt;2、npxnpx create-nuxt-app &lt;project-name&gt;3、npmnpm init nuxt-app &lt;project-name&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="创建项目时的可选项分析"><a href="#创建项目时的可选项分析" class="headerlink" title="创建项目时的可选项分析"></a>创建项目时的可选项分析</h2><p><a href="https://www.nuxtjs.cn/guide/installation">https://www.nuxtjs.cn/guide/installation</a></p><h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><p><img src="http://qiniu.aoxuekj.com/nuxt_catalog.png"></p><h2 id="assets"><a href="#assets" class="headerlink" title="assets"></a>assets</h2><p>资源目录，用来存在未编译的静态资源。LESS、SASS、JavaScript</p><h2 id="components"><a href="#components" class="headerlink" title="components"></a>components</h2><p>组件目录，用来存放组织应用的Vue组件</p><h2 id="layouts"><a href="#layouts" class="headerlink" title="layouts"></a>layouts</h2><p>布局目录，用来组织应用布局</p><h2 id="middleware"><a href="#middleware" class="headerlink" title="middleware"></a>middleware</h2><p>中间件目录，用来存放应用的中间件</p><h2 id="node-modules"><a href="#node-modules" class="headerlink" title="node_modules"></a>node_modules</h2><p>npm包目录，这是任何一个使用npm包的应用都存在的目录</p><h2 id="pages"><a href="#pages" class="headerlink" title="pages"></a>pages</h2><h2 id="plugins"><a href="#plugins" class="headerlink" title="plugins"></a>plugins</h2><p>插件目录，用来存放需要在根vue应用实例化之前就要运行js插件</p><h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><p>静态文件目录，但是不会被编译，服务器启动时，该目录的文件会映射到根路径下</p><h2 id="store"><a href="#store" class="headerlink" title="store"></a>store</h2><p>组织vuex状态树文件，在该目录下创建一个index.js文件就可激活这些配置</p><h2 id="其他根目录文件"><a href="#其他根目录文件" class="headerlink" title="其他根目录文件"></a>其他根目录文件</h2><h3 id="editorconfiig"><a href="#editorconfiig" class="headerlink" title=".editorconfiig"></a>.editorconfiig</h3><h3 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h3><h3 id="nuxt-config-js"><a href="#nuxt-config-js" class="headerlink" title="nuxt.config.js"></a>nuxt.config.js</h3><p>nuxt应用的个性化配置，高优先级，可以覆盖默认配置</p><h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p>用来描述应用依赖关系和对外暴露的脚本接口，<code>该文件不能被重命名</code></p><h3 id="package-lock-json"><a href="#package-lock-json" class="headerlink" title="package-lock.json"></a>package-lock.json</h3><h3 id="README-md"><a href="#README-md" class="headerlink" title="README.md"></a>README.md</h3><h2 id="nuxt创建的项目供局域网访问"><a href="#nuxt创建的项目供局域网访问" class="headerlink" title="nuxt创建的项目供局域网访问"></a>nuxt创建的项目供局域网访问</h2><h3 id="在当前项目安装依赖"><a href="#在当前项目安装依赖" class="headerlink" title="在当前项目安装依赖"></a>在当前项目安装依赖</h3><pre class="line-numbers language-none"><code class="language-none">npm install --save-dev cross-env<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在package.json中配置</p><pre class="line-numbers language-none"><code class="language-none">&quot;scripts&quot;: &#123;  &quot;dev&quot;: &quot;cross-env NUXT_HOST&#x3D;0.0.0.0 NUXT_PORT&#x3D;3333 nuxt&quot;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 框架 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> nuxt </tag>
+            
+        </tags>
       
     </entry>
     
@@ -1037,19 +1056,6 @@
     
     
     <entry>
-      <title>命令行查看本机ip</title>
-      <link href="/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/"/>
-      <url>/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/</url>
-      
-        <content type="html"><![CDATA[<p><code>ifconfig</code></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>基于rgb原理制作渐变色生成器</title>
       <link href="/2021/12/28/ji-yu-rgb-yuan-li-zhi-zuo-jian-bian-se-sheng-cheng-qi/"/>
       <url>/2021/12/28/ji-yu-rgb-yuan-li-zhi-zuo-jian-bian-se-sheng-cheng-qi/</url>
@@ -1063,11 +1069,50 @@
     
     
     <entry>
+      <title>命令行查看本机ip</title>
+      <link href="/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/"/>
+      <url>/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/</url>
+      
+        <content type="html"><![CDATA[<p><code>ifconfig</code></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>nodeCanvas渲染</title>
       <link href="/2021/12/28/nodecanvas-xuan-ran/"/>
       <url>/2021/12/28/nodecanvas-xuan-ran/</url>
       
         <content type="html"><![CDATA[<p>近期项目涉及地理系统，使用的框架是mars3d</p><p>mars3d本身提供了加载<a href="http://baidu.com/">geojson</a>、图片以及模型的API，<br>但是在加载这些资源的时候，尤其是涉及到计算量比较大的时候，浏览器承担过重。<br>经过测试，该框架加载本地图片资源的时候速度有明显提升，所以就需要性能优化，<br>在服务器直接生成png图片，在需要使用的时候直接加载图片。<br>由于项目对geojson数据，尤其是边界线精度要求较高，暂时未生成图片。</p><p>`凡是引用包的地方，都需要先加载包，但是node canvas直接使用哪个npm引用有很大的几率会出现问题</p><p>`</p><h1 id="node加载数据"><a href="#node加载数据" class="headerlink" title="node加载数据"></a>node加载数据</h1><p>node加载数据使用的是自带的fs模块</p><pre class="line-numbers language-none"><code class="language-none">let fs &#x3D; require(&#39;fs&#39;)let data &#x3D; fs.readFileSync(&#39;XXX.json&#39;)let obj &#x3D; JSON.parse(data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h1 id="使用node-canvas将数据绘制到canvas上"><a href="#使用node-canvas将数据绘制到canvas上" class="headerlink" title="使用node canvas将数据绘制到canvas上"></a>使用node canvas将数据绘制到canvas上</h1><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; canvasconst width &#x3D; 2000const height &#x3D; 2000const canvas &#x3D; createCanvas(width,height)const context &#x3D; canvas.getContext(&#39;2d)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="处理node-canvas生成的base64数据，生成png"><a href="#处理node-canvas生成的base64数据，生成png" class="headerlink" title="处理node canvas生成的base64数据，生成png"></a>处理node canvas生成的base64数据，生成png</h1><h1 id="将png保存到本地"><a href="#将png保存到本地" class="headerlink" title="将png保存到本地"></a>将png保存到本地</h1>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>nuxt内使用vant框架</title>
+      <link href="/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/"/>
+      <url>/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/</url>
+      
+        <content type="html"><![CDATA[<h1 id="nuxt目录介绍"><a href="#nuxt目录介绍" class="headerlink" title="nuxt目录介绍"></a>nuxt目录介绍</h1><p>1、<code>assets: 资源目录，用来组织未编译的静态资源</code><br>2、<code>layouts</code>: </p><pre class="line-numbers language-none"><code class="language-none">布局文件目录，里面可以放些全局可用的布局，例如default、error。default表示默认布局，error可以用来展示404。如果没有默认布局的要求，直接放置一个error即可。注：并不需要特殊路由设置，在nuxt框架下，如果访问的路径不存在，(并且有error布局的情况下)则会直接使用该布局。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="nuxt内使用vant（或者说是nuxt内使用第三方框架）"><a href="#nuxt内使用vant（或者说是nuxt内使用第三方框架）" class="headerlink" title="nuxt内使用vant（或者说是nuxt内使用第三方框架）"></a>nuxt内使用vant（或者说是nuxt内使用第三方框架）</h1><p>1、在plugins目录下新建vant.js文件，并引入vue和vant以及vant的样式。</p><pre class="line-numbers language-none"><code class="language-none">import Vue from &#39;vue&#39;;import Vant from &#39;vant&#39;;import &#39;vant&#x2F;lib&#x2F;index.css&#39;Vue.use(Vant)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>2、在nuxt.config.js下引入vant</p><pre class="line-numbers language-none"><code class="language-none">plugins: [    &#123;src: &#39;~&#x2F;plugins&#x2F;vant.js&#39;, ssr: true&#125;  ],<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>process.env.NODE_ENV</title>
+      <link href="/2021/12/28/process.env.node-env/"/>
+      <url>/2021/12/28/process.env.node-env/</url>
+      
+        <content type="html"><![CDATA[<p>1、在node当中，全局变量process代表的是node当中的进程。 process.env包含着关于系统环境的信息，<code>但是并不包含NODE_ENV这个属性</code></p>]]></content>
       
       
       
@@ -1103,45 +1148,6 @@
     
     
     <entry>
-      <title>nuxt内使用vant框架</title>
-      <link href="/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/"/>
-      <url>/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/</url>
-      
-        <content type="html"><![CDATA[<h1 id="nuxt目录介绍"><a href="#nuxt目录介绍" class="headerlink" title="nuxt目录介绍"></a>nuxt目录介绍</h1><p>1、<code>assets: 资源目录，用来组织未编译的静态资源</code><br>2、<code>layouts</code>: </p><pre class="line-numbers language-none"><code class="language-none">布局文件目录，里面可以放些全局可用的布局，例如default、error。default表示默认布局，error可以用来展示404。如果没有默认布局的要求，直接放置一个error即可。注：并不需要特殊路由设置，在nuxt框架下，如果访问的路径不存在，(并且有error布局的情况下)则会直接使用该布局。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="nuxt内使用vant（或者说是nuxt内使用第三方框架）"><a href="#nuxt内使用vant（或者说是nuxt内使用第三方框架）" class="headerlink" title="nuxt内使用vant（或者说是nuxt内使用第三方框架）"></a>nuxt内使用vant（或者说是nuxt内使用第三方框架）</h1><p>1、在plugins目录下新建vant.js文件，并引入vue和vant以及vant的样式。</p><pre class="line-numbers language-none"><code class="language-none">import Vue from &#39;vue&#39;;import Vant from &#39;vant&#39;;import &#39;vant&#x2F;lib&#x2F;index.css&#39;Vue.use(Vant)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>2、在nuxt.config.js下引入vant</p><pre class="line-numbers language-none"><code class="language-none">plugins: [    &#123;src: &#39;~&#x2F;plugins&#x2F;vant.js&#39;, ssr: true&#125;  ],<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>process.env.NODE_ENV</title>
-      <link href="/2021/12/28/process.env.node-env/"/>
-      <url>/2021/12/28/process.env.node-env/</url>
-      
-        <content type="html"><![CDATA[<p>1、在node当中，全局变量process代表的是node当中的进程。 process.env包含着关于系统环境的信息，<code>但是并不包含NODE_ENV这个属性</code></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>ssh远程连接服务器</title>
-      <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
-      <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
-      
-        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#x72;&#111;&#111;&#116;&#64;&#x78;&#120;&#x78;&#46;&#120;&#x78;&#x78;&#x2e;&#120;&#x78;&#x78;&#46;&#x78;&#x78;&#120;">&#x72;&#111;&#111;&#116;&#64;&#x78;&#120;&#x78;&#46;&#120;&#x78;&#x78;&#x2e;&#120;&#x78;&#x78;&#46;&#x78;&#x78;&#120;</a>(ip地址)</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>sublime内使用终端</title>
       <link href="/2021/12/28/sublime-nei-shi-yong-zhong-duan/"/>
       <url>/2021/12/28/sublime-nei-shi-yong-zhong-duan/</url>
@@ -1161,6 +1167,19 @@
             <tag> sublime </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ssh远程连接服务器</title>
+      <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
+      <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
+      
+        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#x72;&#x6f;&#111;&#116;&#x40;&#x78;&#120;&#x78;&#46;&#x78;&#x78;&#x78;&#46;&#x78;&#x78;&#x78;&#x2e;&#x78;&#120;&#x78;">&#x72;&#x6f;&#111;&#116;&#x40;&#x78;&#120;&#x78;&#46;&#x78;&#x78;&#x78;&#46;&#x78;&#x78;&#x78;&#x2e;&#x78;&#120;&#x78;</a>(ip地址)</p>]]></content>
+      
+      
       
     </entry>
     
@@ -1200,31 +1219,6 @@
         <content type="html"><![CDATA[<p>官方网址：<a href="https://router.vuejs.org/zh/">https://router.vuejs.org/zh/</a></p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><code>安装有3中方式</code></p><pre class="line-numbers language-none"><code class="language-none">1、js网址链接先引入vue，再引入vue-router&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue-router.js&quot;&gt;&lt;&#x2F;script&gt;2、NPMnpm install vue-router如果在一个模块化工程中使用它，必须要通过 Vue.use() 明确地安装路由功能：import Vue from &#39;vue&#39;import VueRouter from &#39;vue-router&#39;Vue.use(VueRouter)3、在vue cli项目内用插件的方式vue add router<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>vue-router是基于路由和组件的路由用于设定访问路径，将路径和组件映射起来。在vue-router的单页面应用中, 页面的路径的改变就是组件的切换。</code></p>]]></content>
       
       
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>js面向对象编程思想</title>
-      <link href="/2021/12/28/js-mian-xiang-dui-xiang-bian-cheng-si-xiang/"/>
-      <url>/2021/12/28/js-mian-xiang-dui-xiang-bian-cheng-si-xiang/</url>
-      
-        <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>js的所有数据都可以看成是对象，但是内置的对象还无法发挥面向对象编程的威力。<br>js的面向对象与其他语言严格的面向对象不太一样，js不区分类和实例的概念，而是通过原型来实现的（原型继承）。<br><code> 类：类是对象的类型模板，不表示具体的实例</code><br><code>实例：实例是根据类创建的对象</code></p><h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><p>js对每个创建的对象都会设置一个原型，指向它的原型对象。</p><h3 id="创建对象单的方法"><a href="#创建对象单的方法" class="headerlink" title="创建对象单的方法"></a>创建对象单的方法</h3><h4 id="对象直接量"><a href="#对象直接量" class="headerlink" title="对象直接量"></a>对象直接量</h4><p><code>用花括号括起来的名值对集合，一组名值之间用冒号（：），名值对之间用逗号（，）</code></p><pre class="line-numbers language-none"><code class="language-none">let a &#x3D; &#123;    name:&#39;1&#39;,    age:&#39;2&#39;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><h4 id="通过new创建对象（构造函数）"><a href="#通过new创建对象（构造函数）" class="headerlink" title="通过new创建对象（构造函数）"></a>通过new创建对象（构造函数）</h4><p><code>new运算符创建并初始化一个新对象，关键字new后跟随一个函数进行调用</code></p><pre class="line-numbers language-none"><code class="language-none">let o &#x3D; new Object();&#x2F;&#x2F;通过new创建，等价于&#123;&#125;对象&#x2F;&#x2F;通过构造函数创建function Student()&#123;    this.name &#x3D; &#39;name&#39;,    this.age &#x3D; &#39;age&#39;,    this.hello &#x3D; function()&#123;        console.log(&#39;hello&#39;+this.name)    &#125;&#125;let a &#x3D; new Student(&#39;小明&#39;,18)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>调用构造函数的做一个重要特征就是：构造函数的prototye属性被用作新对象的原型，通同一个构造函数创建的所有对象都继承自一个相同的对象，因此它们都是同一个类的成员。</code></p><h4 id="Object-create-函数创建"><a href="#Object-create-函数创建" class="headerlink" title="Object.create()函数创建"></a>Object.create()函数创建</h4><p><code>这是一个静态方法，作用是创建一个新对象。参数有两个，第一个是这个对象的原型，第二个参数可选（用来对对象属性的描述）</code></p><pre class="line-numbers language-none"><code class="language-none">let point &#x3D; Object.create(&#123;    x:&#39;1&#39;,    y:&#39;100&#39;&#125;)point继承了属性x和y<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>js的对象都是属性的集合，它们之间可能会有重叠的部分，这一部分可以单独提取出来进行’共享’，这就是类的组成。<br>换句话说<br><code>类就是不同对象之间共有属性的集合</code><br>通过同一个构造函数创建的所有对象都是该类的成员。</p><p>js中基于原型的继承机制是动态的</p><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>虽然很多语言都支持两种继承：接口继承（只继承方法签名）和实现继承（继承实际的方法），但在js中只支持实现继承，而且主要是通过原型链实现的。</p><h3 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h3><h3 id="类继承"><a href="#类继承" class="headerlink" title="类继承"></a>类继承</h3><h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2>]]></content>
-      
-      
-      <categories>
-          
-          <category> 概念 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 面向对象 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -1274,6 +1268,31 @@
         <tags>
             
             <tag> jenkins </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>js面向对象编程思想</title>
+      <link href="/2021/12/28/js-mian-xiang-dui-xiang-bian-cheng-si-xiang/"/>
+      <url>/2021/12/28/js-mian-xiang-dui-xiang-bian-cheng-si-xiang/</url>
+      
+        <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>js的所有数据都可以看成是对象，但是内置的对象还无法发挥面向对象编程的威力。<br>js的面向对象与其他语言严格的面向对象不太一样，js不区分类和实例的概念，而是通过原型来实现的（原型继承）。<br><code> 类：类是对象的类型模板，不表示具体的实例</code><br><code>实例：实例是根据类创建的对象</code></p><h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><p>js对每个创建的对象都会设置一个原型，指向它的原型对象。</p><h3 id="创建对象单的方法"><a href="#创建对象单的方法" class="headerlink" title="创建对象单的方法"></a>创建对象单的方法</h3><h4 id="对象直接量"><a href="#对象直接量" class="headerlink" title="对象直接量"></a>对象直接量</h4><p><code>用花括号括起来的名值对集合，一组名值之间用冒号（：），名值对之间用逗号（，）</code></p><pre class="line-numbers language-none"><code class="language-none">let a &#x3D; &#123;    name:&#39;1&#39;,    age:&#39;2&#39;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><h4 id="通过new创建对象（构造函数）"><a href="#通过new创建对象（构造函数）" class="headerlink" title="通过new创建对象（构造函数）"></a>通过new创建对象（构造函数）</h4><p><code>new运算符创建并初始化一个新对象，关键字new后跟随一个函数进行调用</code></p><pre class="line-numbers language-none"><code class="language-none">let o &#x3D; new Object();&#x2F;&#x2F;通过new创建，等价于&#123;&#125;对象&#x2F;&#x2F;通过构造函数创建function Student()&#123;    this.name &#x3D; &#39;name&#39;,    this.age &#x3D; &#39;age&#39;,    this.hello &#x3D; function()&#123;        console.log(&#39;hello&#39;+this.name)    &#125;&#125;let a &#x3D; new Student(&#39;小明&#39;,18)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>调用构造函数的做一个重要特征就是：构造函数的prototye属性被用作新对象的原型，通同一个构造函数创建的所有对象都继承自一个相同的对象，因此它们都是同一个类的成员。</code></p><h4 id="Object-create-函数创建"><a href="#Object-create-函数创建" class="headerlink" title="Object.create()函数创建"></a>Object.create()函数创建</h4><p><code>这是一个静态方法，作用是创建一个新对象。参数有两个，第一个是这个对象的原型，第二个参数可选（用来对对象属性的描述）</code></p><pre class="line-numbers language-none"><code class="language-none">let point &#x3D; Object.create(&#123;    x:&#39;1&#39;,    y:&#39;100&#39;&#125;)point继承了属性x和y<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>js的对象都是属性的集合，它们之间可能会有重叠的部分，这一部分可以单独提取出来进行’共享’，这就是类的组成。<br>换句话说<br><code>类就是不同对象之间共有属性的集合</code><br>通过同一个构造函数创建的所有对象都是该类的成员。</p><p>js中基于原型的继承机制是动态的</p><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>虽然很多语言都支持两种继承：接口继承（只继承方法签名）和实现继承（继承实际的方法），但在js中只支持实现继承，而且主要是通过原型链实现的。</p><h3 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h3><h3 id="类继承"><a href="#类继承" class="headerlink" title="类继承"></a>类继承</h3><h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 概念 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 面向对象 </tag>
             
         </tags>
       
@@ -1349,31 +1368,6 @@
     
     
     <entry>
-      <title>canvas绘图</title>
-      <link href="/2021/12/28/canvas-hui-tu/"/>
-      <url>/2021/12/28/canvas-hui-tu/</url>
-      
-        <content type="html"><![CDATA[<h1 id="canvas点连线生成图片"><a href="#canvas点连线生成图片" class="headerlink" title="canvas点连线生成图片"></a>canvas点连线生成图片</h1><p>canvas点连线生成等值线就是将数组内索引为0的元素设置为起点，moveTo该点<br>其余点使用lineTo进行连接，<br><code>当涉及到多维数组的时候，需要进入到数组的最内部循环进行上述操作</code><br><strong>注意：如果需要绘制的图形铺满整个画布，则需要先计算出所有坐标点的极值点<br>，即最大最小的x、y，再结合画布width和height，算出每个方向上的缩放<br>倍率scaleX和scaleY，moveTo和lineTo的时候需要将缩放倍率计算进去</strong></p><pre class="line-numbers language-none"><code class="language-none">let xmin, xmax;let ymin, ymax;let xArr &#x3D; [];let yArr &#x3D; [];let scalex, scaley;function drawChina() &#123;  &#x2F;&#x2F; 解析边界线  let obj &#x3D; fs.readFileSync(&quot;.&#x2F;data&#x2F;china.json&quot;);  let object &#x3D; JSON.parse(obj);  let features &#x3D; object.features;    &#x2F;&#x2F; 计算极值  for (let i &#x3D; 0; i &lt; features.length; i++) &#123;    let geo &#x3D; features[i].geometry;    let coor &#x3D; geo.coordinates;    for (let j &#x3D; 0; j &lt; coor.length; j++) &#123;      for (let m &#x3D; 0; m &lt; coor[j].length; m++) &#123;        for (let k &#x3D; 0; k &lt; coor[j][m].length; k++) &#123;          xArr.push(coor[j][m][k][0]);          yArr.push(coor[j][m][k][1]);        &#125;      &#125;    &#125;  &#125;  let b &#x3D; Array.from(new Set(xArr));  let num1, num2; &#x2F;&#x2F;最小值与最大值  num1 &#x3D; b[0];  num2 &#x3D; b[1];  for (let i &#x3D; 0; i &lt; b.length - 1; i++) &#123;    if (b[i] &lt; num1) &#123;      num1 &#x3D; b[i];    &#125;    if (b[i] &gt; num2) &#123;      num2 &#x3D; b[i];    &#125;  &#125;  &#x2F;&#x2F; console.log(num1, num2);  xmin &#x3D; num1;  xmax &#x3D; num2;  let a &#x3D; Array.from(new Set(yArr));  let num3, num4; &#x2F;&#x2F;最小值与最大值  num3 &#x3D; a[0];  num4 &#x3D; a[1];  for (let i &#x3D; 0; i &lt; a.length - 1; i++) &#123;    if (a[i] &lt; num3) &#123;      num3 &#x3D; a[i];    &#125;    if (a[i] &gt; num4) &#123;      num4 &#x3D; a[i];    &#125;  &#125;  ymin &#x3D; num3;  ymax &#x3D; num4;  &#x2F;&#x2F; 打印极值  console.log(xmin, xmax, ymin, ymax);  &#x2F;&#x2F; 循环绘制  for (let i &#x3D; 0; i &lt; features.length; i++) &#123;    let feature &#x3D; features[i];    let geometry &#x3D; feature.geometry;    let type &#x3D; geometry.type;    let coordinates &#x3D; geometry.coordinates;    &#x2F;&#x2F; 得到不同方向上的倍率    scalex &#x3D; (xmax - xmin) &#x2F; width;    scaley &#x3D; (ymax - ymin) &#x2F; height;    if (type &#x3D;&#x3D;&#x3D; &quot;Polygon&quot;) &#123;      drawPolygon0(coordinates, scalex, scaley);    &#125; else if (type &#x3D;&#x3D;&#x3D; &quot;MultiPolygon&quot;) &#123;      for (let j &#x3D; 0; j &lt; coordinates.length; j++) &#123;        let polygon &#x3D; coordinates[j];        drawPolygon0(polygon, scalex, scaley);      &#125;    &#125;  &#125;  &#x2F;&#x2F; node环境保存图片，与绘制无关，可以不使用  function saveChina() &#123;    const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);    const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);    const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);    fs.writeFile(      &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,      bufferData,      function (err) &#123;        if (err) &#123;          &#x2F;&#x2F;&#x2F;&#x2F;console.log(err);        &#125; else &#123;          &#x2F;&#x2F;&#x2F;&#x2F;console.log(&quot;图片保存成功&quot;);        &#125;      &#125;    );  &#125;  &#x2F;&#x2F; saveChina()  function drawPolygon0(polygon, scalex, scaley) &#123;    ctx.beginPath();    let points &#x3D; polygon[0];    for (let i &#x3D; 0; i &lt; points.length; i++) &#123;      let point &#x3D; points[i];      let x &#x3D; Number(point[0]);      let y &#x3D; Number(point[1]);            &#x2F;&#x2F; 根据倍率移动点位置，进行满铺      &#x2F;&#x2F; 由于canvas坐标系左上角为顶点，越往下y值越大，所以需要翻转      let l &#x3D; (x - xmin) &#x2F; scalex;      let t &#x3D; height - (y - ymin) &#x2F; scaley;      if (t &#x3D;&#x3D; 0) &#123;        &#x2F;&#x2F; console.log(&quot;0&quot;);      &#125;      if (i &#x3D;&#x3D;&#x3D; 0) &#123;        ctx.moveTo(l, t);      &#125; else &#123;        ctx.lineTo(l, t);      &#125;    &#125;    ctx.fillStyle &#x3D; &quot;rgba(255,255,255,1)&quot;;    ctx.strokeStyle &#x3D; &quot;rgba(255,0,0,1)&quot;;    ctx.lineWidth &#x3D; 2;    ctx.closePath();    ctx.stroke();    ctx.fill();  &#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="canvas颜色的填充"><a href="#canvas颜色的填充" class="headerlink" title="canvas颜色的填充"></a>canvas颜色的填充</h1><p>canvas在绘制等值线（或者说是闭合区域的时候）往往需要在区域内填色，根据<br>globalCompositeOperation的不同属性值，会得到不同的结果，具体需要填色的情况<br>选择不同的属性值<br><code>在有要求的情况下，可以根据闭合区域不同的高度值（假如是等高线）进行不同的填色</code></p><pre class="line-numbers language-none"><code class="language-none">function drawOther() &#123;  let colors &#x3D; &#123;    zuigaowen: [      &#123; Value_Min: 10, Value_Max: 15, color: &quot;#F3BF48&quot; &#125;,      &#123; Value_Min: 15, Value_Max: 20, color: &quot;#FFAF41&quot; &#125;,      &#123; Value_Min: 20, Value_Max: 25, color: &quot;#F98E20&quot; &#125;,      &#123; Value_Min: 25, Value_Max: 30, color: &quot;#FF760A&quot; &#125;,      &#123; Value_Min: 30, Value_Max: 35, color: &quot;#EC5418&quot; &#125;,      &#123; Value_Min: 35, Value_Max: 40, color: &quot;#EE0D20&quot; &#125;,      &#123; Value_Min: 40, Value_Max: 45, color: &quot;#C70321&quot; &#125;,    ],    dibiaowendushikuang: [      &#123; Value_Min: 10, Value_Max: 20, color: &quot;#A7DC32&quot; &#125;,      &#123; Value_Min: 20, Value_Max: 30, color: &quot;#F0C828&quot; &#125;,      &#123; Value_Min: 30, Value_Max: 40, color: &quot;#F09D29&quot; &#125;,      &#123; Value_Min: 40, Value_Max: 50, color: &quot;#F06429&quot; &#125;,      &#123; Value_Min: 50, Value_Max: 60, color: &quot;#DF3418&quot; &#125;,      &#123; Value_Min: 60, Value_Max: 70, color: &quot;#C20D0D&quot; &#125;,      &#123; Value_Min: 70, Value_Max: 80, color: &quot;#890323&quot; &#125;,    ],    bianwen: [      &#123; Value_Min: -6, Value_Max: -4, color: &quot;#66A6FF&quot; &#125;,      &#123; Value_Min: -4, Value_Max: -2, color: &quot;#80CFFF&quot; &#125;,      &#123; Value_Min: -2, Value_Max: 0, color: &quot;#9AF9FF&quot; &#125;,      &#123; Value_Min: 0, Value_Max: 2, color: &quot;#FFFB87&quot; &#125;,      &#123; Value_Min: 2, Value_Max: 4, color: &quot;#FCDF76&quot; &#125;,      &#123; Value_Min: 4, Value_Max: 6, color: &quot;#F8BE5C&quot; &#125;,    ],    jiangshui: [      &#x2F;&#x2F; &#123; Value_Min: -10, Value_Max: 0.1, color: &quot;rgba(0,0,0,0)&quot; &#125;,      &#123; Value_Min: -10, Value_Max: 0.1, color: &quot;rgba(0,0,0,0)&quot; &#125;,      &#123; Value_Min: 0.1, Value_Max: 10, color: &quot;#7DF0FF&quot; &#125;,      &#123; Value_Min: 10, Value_Max: 50, color: &quot;#0E3FD9&quot; &#125;,      &#123; Value_Min: 50, Value_Max: 75, color: &quot;#072586&quot; &#125;,    ],    fourteen: &#123;      zhongshu: &#123;        zs3: &quot;#EB9700&quot;,        zs4: &quot;#DC521E&quot;,        zs5: &quot;#B00808&quot;,      &#125;,    &#125;,  &#125;;  let name &#x3D; &quot;.&#x2F;1.json&quot;;  fs.readFile(name, (err, result) &#x3D;&gt; &#123;    if (err) &#123;    &#125; else &#123;      let object &#x3D; JSON.parse(result);      let &#123; CLOSED_CONTOURS &#125; &#x3D; object;      let arr &#x3D; [];      let color &#x3D; &quot;&quot;;      let leixing &#x3D; &quot;fourteen&quot;;      let leixing_child &#x3D; &quot;zhongshu&quot;;      for (let i &#x3D; 0; i &lt; CLOSED_CONTOURS.length; i++) &#123;        let CLOSED_CONTOURS_i &#x3D; CLOSED_CONTOURS[i];        let &#123; linePoint &#125; &#x3D; CLOSED_CONTOURS_i;        let &#123; markName &#125; &#x3D; CLOSED_CONTOURS_i.lineMark;        console.log(colors[leixing][leixing_child][markName]);        arr.push(linePoint);        for (let m &#x3D; 0; m &lt; arr.length; m++) &#123;          drawPolygon(            arr[m],            scalex,            scaley,            colors[leixing][leixing_child][markName]          );        &#125;      &#125;      const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);      const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);      const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);      fs.writeFile(        &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,        bufferData,        function (err) &#123;          if (err) &#123;          &#125; else &#123;            console.log(&quot;图片保存成功&quot;);          &#125;        &#125;      );    &#125;  &#125;);  function drawPolygon(points, scalex, scaley, color) &#123;    &#x2F;&#x2F; console.log(scalex, scaley);    ctx.beginPath();    for (let i &#x3D; 0; i &lt; points.length; i++) &#123;      let point &#x3D; points[i];      &#x2F;&#x2F;   console.log(point);      let x &#x3D; Number(point[&quot;lot&quot;]);      let y &#x3D; Number(point[&quot;lat&quot;]);      &#x2F;&#x2F;   console.log(x, y);      let l &#x3D; (x - xmin) &#x2F; scalex;      let t &#x3D; height - (y - ymin) &#x2F; scaley;      &#x2F;&#x2F;   console.log(l, t);      if (i &#x3D;&#x3D;&#x3D; 0) &#123;        ctx.moveTo(l, t);      &#125; else &#123;        ctx.lineTo(l, t);      &#125;    &#125;    &#x2F;&#x2F; ctx.globalCompositeOperation &#x3D; &quot;destination-over&quot;;    ctx.fillStyle &#x3D; color;    ctx.strokeStyle &#x3D; &quot;#fff&quot;;    ctx.closePath();    ctx.stroke();    ctx.fill();  &#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="canvas图形形状的截取"><a href="#canvas图形形状的截取" class="headerlink" title="canvas图形形状的截取"></a>canvas图形形状的截取</h1><p>canvas形状的截取，尤其是既包含填色，又包含截取（按另一个图形的形状截取）的情况下，<br>强烈建议分两步</p><h2 id="首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。"><a href="#首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。" class="headerlink" title="首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。"></a>首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。</h2><h2 id="然后将两张图片进行叠加截图"><a href="#然后将两张图片进行叠加截图" class="headerlink" title="然后将两张图片进行叠加截图"></a>然后将两张图片进行叠加截图</h2><p><strong>node环境为例</strong></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;** * 测试canvas图像截取 * 先画元素图 * 再画中国地图 * 再截取 *&#x2F;const fs &#x3D; require(&quot;fs&quot;);const &#123;createCanvas, loadImage&#125; &#x3D; require(&quot;canvas&quot;);const width &#x3D; 800;const height &#x3D; 800;const canvas &#x3D; createCanvas(width, height);const ctx &#x3D; canvas.getContext(&quot;2d&quot;);&#x2F;&#x2F;降雨使用的方法(或者说是没有铺满中国的元素图的截取方法)function a()&#123;    loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;new&#x2F;14&#x2F;gaowen.png&#39;).then((yuansu) &#x3D;&gt; &#123;&#x2F;&#x2F;加载元素图        console.log(&#39;yuansu&#39;,yuansu)        ctx.drawImage(yuansu, 0, 0, width, height)        loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;china.png&#39;).then((china)&#x3D;&gt;&#123;&#x2F;&#x2F;加载中国地图            console.log(&#39;china&#39;,china)            ctx.globalCompositeOperation &#x3D; &quot;destination-in&quot;;            ctx.drawImage(china,0,0,width,height)            function result() &#123;                const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);                const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);                const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);                fs.writeFile(                    &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,                    bufferData,                    function (err) &#123;                        if (err) &#123;                        &#125; else &#123;                            console.log(&quot;图片保存成功&quot;);                        &#125;                    &#125;                );            &#125;            &#x2F;&#x2F; setTimeout(function ()&#123;result()&#125;,1000)            result()        &#125;)    &#125;)&#125;function b()&#123;    loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;china2.png&#39;).then((china) &#x3D;&gt; &#123;&#x2F;&#x2F;加载中国地图        console.log(&#39;china&#39;,china)        ctx.drawImage(china, 0, 0, width, height)        loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;new&#x2F;14&#x2F;gaowen.png&#39;).then((yuansu)&#x3D;&gt;&#123;&#x2F;&#x2F;加载元素图            console.log(&#39;yuansu&#39;,yuansu)            &#x2F;&#x2F;todo:目前除去降雨数据，其他的都用下面的属性            &#x2F;&#x2F; ctx.globalCompositeOperation &#x3D; &quot;source-atop&quot;            &#x2F;&#x2F;降雨时属性            &#x2F;&#x2F; ctx.globalCompositeOperation &#x3D; &quot;destination-in&quot;;            ctx.drawImage(yuansu,0,0,width,height)            function result() &#123;                const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);                const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);                const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);                fs.writeFile(                    &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,                    bufferData,                    function (err) &#123;                        if (err) &#123;                        &#125; else &#123;                            console.log(&quot;图片保存成功&quot;);                        &#125;                    &#125;                );            &#125;            &#x2F;&#x2F; setTimeout(function ()&#123;result()&#125;,1000)            result()        &#125;)    &#125;)&#125;a()&#x2F;&#x2F; b()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><em><code>总结： 在绘制闭合区域（只有数组没有顺序）的时候，需要注意canvas涂色覆盖的问题， 同时，需要截取复杂图形的时候， 不建议直接在一个canvas对象内使用，可以使用两张图片叠加的形式。 本文所使用的的环境是node，可以直接生成图片保存在本地，然后进行读取。 可以猜想，利用不同变量保存每个canvas生成的base64也可以直接在浏览器生成类似效果， 但本人未做尝试，只是猜想。 另外，本文没有使用clip属性进行截图操作，因为没有思路。 在颜色填充部分本文尝试使用save和restore属性，但是产生的结果与未使用时一致， 如各位了解该如何使用上述属性或有兴趣技术沟通，可直接与我联系 </code></em></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 可视化 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> canvas </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>cesium专题</title>
       <link href="/2021/12/28/cesium-zhuan-ti/"/>
       <url>/2021/12/28/cesium-zhuan-ti/</url>
@@ -1408,6 +1402,31 @@
         <tags>
             
             <tag> cesium </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>canvas绘图</title>
+      <link href="/2021/12/28/canvas-hui-tu/"/>
+      <url>/2021/12/28/canvas-hui-tu/</url>
+      
+        <content type="html"><![CDATA[<h1 id="canvas点连线生成图片"><a href="#canvas点连线生成图片" class="headerlink" title="canvas点连线生成图片"></a>canvas点连线生成图片</h1><p>canvas点连线生成等值线就是将数组内索引为0的元素设置为起点，moveTo该点<br>其余点使用lineTo进行连接，<br><code>当涉及到多维数组的时候，需要进入到数组的最内部循环进行上述操作</code><br><strong>注意：如果需要绘制的图形铺满整个画布，则需要先计算出所有坐标点的极值点<br>，即最大最小的x、y，再结合画布width和height，算出每个方向上的缩放<br>倍率scaleX和scaleY，moveTo和lineTo的时候需要将缩放倍率计算进去</strong></p><pre class="line-numbers language-none"><code class="language-none">let xmin, xmax;let ymin, ymax;let xArr &#x3D; [];let yArr &#x3D; [];let scalex, scaley;function drawChina() &#123;  &#x2F;&#x2F; 解析边界线  let obj &#x3D; fs.readFileSync(&quot;.&#x2F;data&#x2F;china.json&quot;);  let object &#x3D; JSON.parse(obj);  let features &#x3D; object.features;    &#x2F;&#x2F; 计算极值  for (let i &#x3D; 0; i &lt; features.length; i++) &#123;    let geo &#x3D; features[i].geometry;    let coor &#x3D; geo.coordinates;    for (let j &#x3D; 0; j &lt; coor.length; j++) &#123;      for (let m &#x3D; 0; m &lt; coor[j].length; m++) &#123;        for (let k &#x3D; 0; k &lt; coor[j][m].length; k++) &#123;          xArr.push(coor[j][m][k][0]);          yArr.push(coor[j][m][k][1]);        &#125;      &#125;    &#125;  &#125;  let b &#x3D; Array.from(new Set(xArr));  let num1, num2; &#x2F;&#x2F;最小值与最大值  num1 &#x3D; b[0];  num2 &#x3D; b[1];  for (let i &#x3D; 0; i &lt; b.length - 1; i++) &#123;    if (b[i] &lt; num1) &#123;      num1 &#x3D; b[i];    &#125;    if (b[i] &gt; num2) &#123;      num2 &#x3D; b[i];    &#125;  &#125;  &#x2F;&#x2F; console.log(num1, num2);  xmin &#x3D; num1;  xmax &#x3D; num2;  let a &#x3D; Array.from(new Set(yArr));  let num3, num4; &#x2F;&#x2F;最小值与最大值  num3 &#x3D; a[0];  num4 &#x3D; a[1];  for (let i &#x3D; 0; i &lt; a.length - 1; i++) &#123;    if (a[i] &lt; num3) &#123;      num3 &#x3D; a[i];    &#125;    if (a[i] &gt; num4) &#123;      num4 &#x3D; a[i];    &#125;  &#125;  ymin &#x3D; num3;  ymax &#x3D; num4;  &#x2F;&#x2F; 打印极值  console.log(xmin, xmax, ymin, ymax);  &#x2F;&#x2F; 循环绘制  for (let i &#x3D; 0; i &lt; features.length; i++) &#123;    let feature &#x3D; features[i];    let geometry &#x3D; feature.geometry;    let type &#x3D; geometry.type;    let coordinates &#x3D; geometry.coordinates;    &#x2F;&#x2F; 得到不同方向上的倍率    scalex &#x3D; (xmax - xmin) &#x2F; width;    scaley &#x3D; (ymax - ymin) &#x2F; height;    if (type &#x3D;&#x3D;&#x3D; &quot;Polygon&quot;) &#123;      drawPolygon0(coordinates, scalex, scaley);    &#125; else if (type &#x3D;&#x3D;&#x3D; &quot;MultiPolygon&quot;) &#123;      for (let j &#x3D; 0; j &lt; coordinates.length; j++) &#123;        let polygon &#x3D; coordinates[j];        drawPolygon0(polygon, scalex, scaley);      &#125;    &#125;  &#125;  &#x2F;&#x2F; node环境保存图片，与绘制无关，可以不使用  function saveChina() &#123;    const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);    const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);    const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);    fs.writeFile(      &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,      bufferData,      function (err) &#123;        if (err) &#123;          &#x2F;&#x2F;&#x2F;&#x2F;console.log(err);        &#125; else &#123;          &#x2F;&#x2F;&#x2F;&#x2F;console.log(&quot;图片保存成功&quot;);        &#125;      &#125;    );  &#125;  &#x2F;&#x2F; saveChina()  function drawPolygon0(polygon, scalex, scaley) &#123;    ctx.beginPath();    let points &#x3D; polygon[0];    for (let i &#x3D; 0; i &lt; points.length; i++) &#123;      let point &#x3D; points[i];      let x &#x3D; Number(point[0]);      let y &#x3D; Number(point[1]);            &#x2F;&#x2F; 根据倍率移动点位置，进行满铺      &#x2F;&#x2F; 由于canvas坐标系左上角为顶点，越往下y值越大，所以需要翻转      let l &#x3D; (x - xmin) &#x2F; scalex;      let t &#x3D; height - (y - ymin) &#x2F; scaley;      if (t &#x3D;&#x3D; 0) &#123;        &#x2F;&#x2F; console.log(&quot;0&quot;);      &#125;      if (i &#x3D;&#x3D;&#x3D; 0) &#123;        ctx.moveTo(l, t);      &#125; else &#123;        ctx.lineTo(l, t);      &#125;    &#125;    ctx.fillStyle &#x3D; &quot;rgba(255,255,255,1)&quot;;    ctx.strokeStyle &#x3D; &quot;rgba(255,0,0,1)&quot;;    ctx.lineWidth &#x3D; 2;    ctx.closePath();    ctx.stroke();    ctx.fill();  &#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="canvas颜色的填充"><a href="#canvas颜色的填充" class="headerlink" title="canvas颜色的填充"></a>canvas颜色的填充</h1><p>canvas在绘制等值线（或者说是闭合区域的时候）往往需要在区域内填色，根据<br>globalCompositeOperation的不同属性值，会得到不同的结果，具体需要填色的情况<br>选择不同的属性值<br><code>在有要求的情况下，可以根据闭合区域不同的高度值（假如是等高线）进行不同的填色</code></p><pre class="line-numbers language-none"><code class="language-none">function drawOther() &#123;  let colors &#x3D; &#123;    zuigaowen: [      &#123; Value_Min: 10, Value_Max: 15, color: &quot;#F3BF48&quot; &#125;,      &#123; Value_Min: 15, Value_Max: 20, color: &quot;#FFAF41&quot; &#125;,      &#123; Value_Min: 20, Value_Max: 25, color: &quot;#F98E20&quot; &#125;,      &#123; Value_Min: 25, Value_Max: 30, color: &quot;#FF760A&quot; &#125;,      &#123; Value_Min: 30, Value_Max: 35, color: &quot;#EC5418&quot; &#125;,      &#123; Value_Min: 35, Value_Max: 40, color: &quot;#EE0D20&quot; &#125;,      &#123; Value_Min: 40, Value_Max: 45, color: &quot;#C70321&quot; &#125;,    ],    dibiaowendushikuang: [      &#123; Value_Min: 10, Value_Max: 20, color: &quot;#A7DC32&quot; &#125;,      &#123; Value_Min: 20, Value_Max: 30, color: &quot;#F0C828&quot; &#125;,      &#123; Value_Min: 30, Value_Max: 40, color: &quot;#F09D29&quot; &#125;,      &#123; Value_Min: 40, Value_Max: 50, color: &quot;#F06429&quot; &#125;,      &#123; Value_Min: 50, Value_Max: 60, color: &quot;#DF3418&quot; &#125;,      &#123; Value_Min: 60, Value_Max: 70, color: &quot;#C20D0D&quot; &#125;,      &#123; Value_Min: 70, Value_Max: 80, color: &quot;#890323&quot; &#125;,    ],    bianwen: [      &#123; Value_Min: -6, Value_Max: -4, color: &quot;#66A6FF&quot; &#125;,      &#123; Value_Min: -4, Value_Max: -2, color: &quot;#80CFFF&quot; &#125;,      &#123; Value_Min: -2, Value_Max: 0, color: &quot;#9AF9FF&quot; &#125;,      &#123; Value_Min: 0, Value_Max: 2, color: &quot;#FFFB87&quot; &#125;,      &#123; Value_Min: 2, Value_Max: 4, color: &quot;#FCDF76&quot; &#125;,      &#123; Value_Min: 4, Value_Max: 6, color: &quot;#F8BE5C&quot; &#125;,    ],    jiangshui: [      &#x2F;&#x2F; &#123; Value_Min: -10, Value_Max: 0.1, color: &quot;rgba(0,0,0,0)&quot; &#125;,      &#123; Value_Min: -10, Value_Max: 0.1, color: &quot;rgba(0,0,0,0)&quot; &#125;,      &#123; Value_Min: 0.1, Value_Max: 10, color: &quot;#7DF0FF&quot; &#125;,      &#123; Value_Min: 10, Value_Max: 50, color: &quot;#0E3FD9&quot; &#125;,      &#123; Value_Min: 50, Value_Max: 75, color: &quot;#072586&quot; &#125;,    ],    fourteen: &#123;      zhongshu: &#123;        zs3: &quot;#EB9700&quot;,        zs4: &quot;#DC521E&quot;,        zs5: &quot;#B00808&quot;,      &#125;,    &#125;,  &#125;;  let name &#x3D; &quot;.&#x2F;1.json&quot;;  fs.readFile(name, (err, result) &#x3D;&gt; &#123;    if (err) &#123;    &#125; else &#123;      let object &#x3D; JSON.parse(result);      let &#123; CLOSED_CONTOURS &#125; &#x3D; object;      let arr &#x3D; [];      let color &#x3D; &quot;&quot;;      let leixing &#x3D; &quot;fourteen&quot;;      let leixing_child &#x3D; &quot;zhongshu&quot;;      for (let i &#x3D; 0; i &lt; CLOSED_CONTOURS.length; i++) &#123;        let CLOSED_CONTOURS_i &#x3D; CLOSED_CONTOURS[i];        let &#123; linePoint &#125; &#x3D; CLOSED_CONTOURS_i;        let &#123; markName &#125; &#x3D; CLOSED_CONTOURS_i.lineMark;        console.log(colors[leixing][leixing_child][markName]);        arr.push(linePoint);        for (let m &#x3D; 0; m &lt; arr.length; m++) &#123;          drawPolygon(            arr[m],            scalex,            scaley,            colors[leixing][leixing_child][markName]          );        &#125;      &#125;      const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);      const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);      const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);      fs.writeFile(        &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,        bufferData,        function (err) &#123;          if (err) &#123;          &#125; else &#123;            console.log(&quot;图片保存成功&quot;);          &#125;        &#125;      );    &#125;  &#125;);  function drawPolygon(points, scalex, scaley, color) &#123;    &#x2F;&#x2F; console.log(scalex, scaley);    ctx.beginPath();    for (let i &#x3D; 0; i &lt; points.length; i++) &#123;      let point &#x3D; points[i];      &#x2F;&#x2F;   console.log(point);      let x &#x3D; Number(point[&quot;lot&quot;]);      let y &#x3D; Number(point[&quot;lat&quot;]);      &#x2F;&#x2F;   console.log(x, y);      let l &#x3D; (x - xmin) &#x2F; scalex;      let t &#x3D; height - (y - ymin) &#x2F; scaley;      &#x2F;&#x2F;   console.log(l, t);      if (i &#x3D;&#x3D;&#x3D; 0) &#123;        ctx.moveTo(l, t);      &#125; else &#123;        ctx.lineTo(l, t);      &#125;    &#125;    &#x2F;&#x2F; ctx.globalCompositeOperation &#x3D; &quot;destination-over&quot;;    ctx.fillStyle &#x3D; color;    ctx.strokeStyle &#x3D; &quot;#fff&quot;;    ctx.closePath();    ctx.stroke();    ctx.fill();  &#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="canvas图形形状的截取"><a href="#canvas图形形状的截取" class="headerlink" title="canvas图形形状的截取"></a>canvas图形形状的截取</h1><p>canvas形状的截取，尤其是既包含填色，又包含截取（按另一个图形的形状截取）的情况下，<br>强烈建议分两步</p><h2 id="首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。"><a href="#首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。" class="headerlink" title="首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。"></a>首先将目标canvas与源canvas生成图片，避免涂色相互影响的问题。</h2><h2 id="然后将两张图片进行叠加截图"><a href="#然后将两张图片进行叠加截图" class="headerlink" title="然后将两张图片进行叠加截图"></a>然后将两张图片进行叠加截图</h2><p><strong>node环境为例</strong></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;** * 测试canvas图像截取 * 先画元素图 * 再画中国地图 * 再截取 *&#x2F;const fs &#x3D; require(&quot;fs&quot;);const &#123;createCanvas, loadImage&#125; &#x3D; require(&quot;canvas&quot;);const width &#x3D; 800;const height &#x3D; 800;const canvas &#x3D; createCanvas(width, height);const ctx &#x3D; canvas.getContext(&quot;2d&quot;);&#x2F;&#x2F;降雨使用的方法(或者说是没有铺满中国的元素图的截取方法)function a()&#123;    loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;new&#x2F;14&#x2F;gaowen.png&#39;).then((yuansu) &#x3D;&gt; &#123;&#x2F;&#x2F;加载元素图        console.log(&#39;yuansu&#39;,yuansu)        ctx.drawImage(yuansu, 0, 0, width, height)        loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;china.png&#39;).then((china)&#x3D;&gt;&#123;&#x2F;&#x2F;加载中国地图            console.log(&#39;china&#39;,china)            ctx.globalCompositeOperation &#x3D; &quot;destination-in&quot;;            ctx.drawImage(china,0,0,width,height)            function result() &#123;                const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);                const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);                const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);                fs.writeFile(                    &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,                    bufferData,                    function (err) &#123;                        if (err) &#123;                        &#125; else &#123;                            console.log(&quot;图片保存成功&quot;);                        &#125;                    &#125;                );            &#125;            &#x2F;&#x2F; setTimeout(function ()&#123;result()&#125;,1000)            result()        &#125;)    &#125;)&#125;function b()&#123;    loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;china2.png&#39;).then((china) &#x3D;&gt; &#123;&#x2F;&#x2F;加载中国地图        console.log(&#39;china&#39;,china)        ctx.drawImage(china, 0, 0, width, height)        loadImage(&#39;.&#x2F;result&#x2F;img&#x2F;new&#x2F;14&#x2F;gaowen.png&#39;).then((yuansu)&#x3D;&gt;&#123;&#x2F;&#x2F;加载元素图            console.log(&#39;yuansu&#39;,yuansu)            &#x2F;&#x2F;todo:目前除去降雨数据，其他的都用下面的属性            &#x2F;&#x2F; ctx.globalCompositeOperation &#x3D; &quot;source-atop&quot;            &#x2F;&#x2F;降雨时属性            &#x2F;&#x2F; ctx.globalCompositeOperation &#x3D; &quot;destination-in&quot;;            ctx.drawImage(yuansu,0,0,width,height)            function result() &#123;                const image &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);                const base64Data &#x3D; image.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);                const bufferData &#x3D; new Buffer(base64Data, &quot;base64&quot;);                fs.writeFile(                    &quot;.&#x2F;result&#x2F;img&#x2F;&quot; + new Date().getTime() + &quot;.png&quot;,                    bufferData,                    function (err) &#123;                        if (err) &#123;                        &#125; else &#123;                            console.log(&quot;图片保存成功&quot;);                        &#125;                    &#125;                );            &#125;            &#x2F;&#x2F; setTimeout(function ()&#123;result()&#125;,1000)            result()        &#125;)    &#125;)&#125;a()&#x2F;&#x2F; b()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><em><code>总结： 在绘制闭合区域（只有数组没有顺序）的时候，需要注意canvas涂色覆盖的问题， 同时，需要截取复杂图形的时候， 不建议直接在一个canvas对象内使用，可以使用两张图片叠加的形式。 本文所使用的的环境是node，可以直接生成图片保存在本地，然后进行读取。 可以猜想，利用不同变量保存每个canvas生成的base64也可以直接在浏览器生成类似效果， 但本人未做尝试，只是猜想。 另外，本文没有使用clip属性进行截图操作，因为没有思路。 在颜色填充部分本文尝试使用save和restore属性，但是产生的结果与未使用时一致， 如各位了解该如何使用上述属性或有兴趣技术沟通，可直接与我联系 </code></em></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 可视化 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> canvas </tag>
             
         </tags>
       
