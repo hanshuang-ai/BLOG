@@ -462,7 +462,7 @@
       <link href="/2022/01/28/js-ji-chu/"/>
       <url>/2022/01/28/js-ji-chu/</url>
       
-        <content type="html"><![CDATA[<h2 id="1、数据类型"><a href="#1、数据类型" class="headerlink" title="1、数据类型"></a>1、数据类型</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/A_re-introduction_to_JavaScript">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/A_re-introduction_to_JavaScript</a><br><img src="/2022/01/28/js-ji-chu/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png"></p><h3 id="1、数字"><a href="#1、数字" class="headerlink" title="1、数字"></a>1、数字</h3><h3 id="2、日期"><a href="#2、日期" class="headerlink" title="2、日期"></a>2、日期</h3><h4 id="1、setDate"><a href="#1、setDate" class="headerlink" title="1、setDate"></a>1、setDate</h4><p><code>设置月份中的日期</code></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="1、数据类型"><a href="#1、数据类型" class="headerlink" title="1、数据类型"></a>1、数据类型</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/A_re-introduction_to_JavaScript">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/A_re-introduction_to_JavaScript</a><br><img src="/2022/01/28/js-ji-chu/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png"></p><h3 id="1、数字"><a href="#1、数字" class="headerlink" title="1、数字"></a>1、数字</h3><h3 id="2、日期"><a href="#2、日期" class="headerlink" title="2、日期"></a>2、日期</h3><h4 id="1、setDate"><a href="#1、setDate" class="headerlink" title="1、setDate"></a>1、setDate</h4><p><code>设置月份中的日期</code></p><h3 id="3、数组"><a href="#3、数组" class="headerlink" title="3、数组"></a>3、数组</h3><h4 id="4、数组插入元素-splice"><a href="#4、数组插入元素-splice" class="headerlink" title="4、数组插入元素 splice"></a>4、数组插入元素 splice</h4><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/splice">splice</a><br><code>三个参数</code><br><img src="/2022/01/28/js-ji-chu/splice.png" alt="splice参数说明"></p>]]></content>
       
       
       <categories>
@@ -559,9 +559,9 @@
       
         <tags>
             
-            <tag> axios </tag>
-            
             <tag> 封装 </tag>
+            
+            <tag> axios </tag>
             
             <tag> http </tag>
             
@@ -955,6 +955,31 @@
     
     
     <entry>
+      <title>使用nuxt创建站点</title>
+      <link href="/2021/12/28/shi-yong-nuxt-chuang-jian-zhan-dian/"/>
+      <url>/2021/12/28/shi-yong-nuxt-chuang-jian-zhan-dian/</url>
+      
+        <content type="html"><![CDATA[<p><code>nuxt使用了Vue，但是令人兴奋的地方是支持seo，另外还具有自己的静态站点生成器，非常适合web站的开发。</code><br>nuxt中文官网链接：<a href="https://www.nuxtjs.cn/">https://www.nuxtjs.cn/</a></p><h1 id="安装与创建项目"><a href="#安装与创建项目" class="headerlink" title="安装与创建项目"></a>安装与创建项目</h1><h2 id="安装nuxt"><a href="#安装nuxt" class="headerlink" title="安装nuxt"></a>安装nuxt</h2><pre class="line-numbers language-none"><code class="language-none"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p><code>nuxt可以使用yarn、npx、npm三种方式创建项目</code></p><pre class="line-numbers language-none"><code class="language-none">1、yarnyarn create nuxt-app &lt;project-name&gt;2、npxnpx create-nuxt-app &lt;project-name&gt;3、npmnpm init nuxt-app &lt;project-name&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="创建项目时的可选项分析"><a href="#创建项目时的可选项分析" class="headerlink" title="创建项目时的可选项分析"></a>创建项目时的可选项分析</h2><p><a href="https://www.nuxtjs.cn/guide/installation">https://www.nuxtjs.cn/guide/installation</a></p><h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><p><img src="http://qiniu.aoxuekj.com/nuxt_catalog.png"></p><h2 id="assets"><a href="#assets" class="headerlink" title="assets"></a>assets</h2><p>资源目录，用来存在未编译的静态资源。LESS、SASS、JavaScript</p><h2 id="components"><a href="#components" class="headerlink" title="components"></a>components</h2><p>组件目录，用来存放组织应用的Vue组件</p><h2 id="layouts"><a href="#layouts" class="headerlink" title="layouts"></a>layouts</h2><p>布局目录，用来组织应用布局</p><h2 id="middleware"><a href="#middleware" class="headerlink" title="middleware"></a>middleware</h2><p>中间件目录，用来存放应用的中间件</p><h2 id="node-modules"><a href="#node-modules" class="headerlink" title="node_modules"></a>node_modules</h2><p>npm包目录，这是任何一个使用npm包的应用都存在的目录</p><h2 id="pages"><a href="#pages" class="headerlink" title="pages"></a>pages</h2><h2 id="plugins"><a href="#plugins" class="headerlink" title="plugins"></a>plugins</h2><p>插件目录，用来存放需要在根vue应用实例化之前就要运行js插件</p><h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><p>静态文件目录，但是不会被编译，服务器启动时，该目录的文件会映射到根路径下</p><h2 id="store"><a href="#store" class="headerlink" title="store"></a>store</h2><p>组织vuex状态树文件，在该目录下创建一个index.js文件就可激活这些配置</p><h2 id="其他根目录文件"><a href="#其他根目录文件" class="headerlink" title="其他根目录文件"></a>其他根目录文件</h2><h3 id="editorconfiig"><a href="#editorconfiig" class="headerlink" title=".editorconfiig"></a>.editorconfiig</h3><h3 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h3><h3 id="nuxt-config-js"><a href="#nuxt-config-js" class="headerlink" title="nuxt.config.js"></a>nuxt.config.js</h3><p>nuxt应用的个性化配置，高优先级，可以覆盖默认配置</p><h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p>用来描述应用依赖关系和对外暴露的脚本接口，<code>该文件不能被重命名</code></p><h3 id="package-lock-json"><a href="#package-lock-json" class="headerlink" title="package-lock.json"></a>package-lock.json</h3><h3 id="README-md"><a href="#README-md" class="headerlink" title="README.md"></a>README.md</h3><h2 id="nuxt创建的项目供局域网访问"><a href="#nuxt创建的项目供局域网访问" class="headerlink" title="nuxt创建的项目供局域网访问"></a>nuxt创建的项目供局域网访问</h2><h3 id="在当前项目安装依赖"><a href="#在当前项目安装依赖" class="headerlink" title="在当前项目安装依赖"></a>在当前项目安装依赖</h3><pre class="line-numbers language-none"><code class="language-none">npm install --save-dev cross-env<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在package.json中配置</p><pre class="line-numbers language-none"><code class="language-none">&quot;scripts&quot;: &#123;  &quot;dev&quot;: &quot;cross-env NUXT_HOST&#x3D;0.0.0.0 NUXT_PORT&#x3D;3333 nuxt&quot;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 框架 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> nuxt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于ftp无法链接服务器的问题</title>
       <link href="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/"/>
       <url>/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/</url>
@@ -1012,25 +1037,13 @@
     
     
     <entry>
-      <title>使用nuxt创建站点</title>
-      <link href="/2021/12/28/shi-yong-nuxt-chuang-jian-zhan-dian/"/>
-      <url>/2021/12/28/shi-yong-nuxt-chuang-jian-zhan-dian/</url>
+      <title>命令行查看本机ip</title>
+      <link href="/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/"/>
+      <url>/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/</url>
       
-        <content type="html"><![CDATA[<p><code>nuxt使用了Vue，但是令人兴奋的地方是支持seo，另外还具有自己的静态站点生成器，非常适合web站的开发。</code><br>nuxt中文官网链接：<a href="https://www.nuxtjs.cn/">https://www.nuxtjs.cn/</a></p><h1 id="安装与创建项目"><a href="#安装与创建项目" class="headerlink" title="安装与创建项目"></a>安装与创建项目</h1><h2 id="安装nuxt"><a href="#安装nuxt" class="headerlink" title="安装nuxt"></a>安装nuxt</h2><pre class="line-numbers language-none"><code class="language-none"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p><code>nuxt可以使用yarn、npx、npm三种方式创建项目</code></p><pre class="line-numbers language-none"><code class="language-none">1、yarnyarn create nuxt-app &lt;project-name&gt;2、npxnpx create-nuxt-app &lt;project-name&gt;3、npmnpm init nuxt-app &lt;project-name&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="创建项目时的可选项分析"><a href="#创建项目时的可选项分析" class="headerlink" title="创建项目时的可选项分析"></a>创建项目时的可选项分析</h2><p><a href="https://www.nuxtjs.cn/guide/installation">https://www.nuxtjs.cn/guide/installation</a></p><h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><p><img src="http://qiniu.aoxuekj.com/nuxt_catalog.png"></p><h2 id="assets"><a href="#assets" class="headerlink" title="assets"></a>assets</h2><p>资源目录，用来存在未编译的静态资源。LESS、SASS、JavaScript</p><h2 id="components"><a href="#components" class="headerlink" title="components"></a>components</h2><p>组件目录，用来存放组织应用的Vue组件</p><h2 id="layouts"><a href="#layouts" class="headerlink" title="layouts"></a>layouts</h2><p>布局目录，用来组织应用布局</p><h2 id="middleware"><a href="#middleware" class="headerlink" title="middleware"></a>middleware</h2><p>中间件目录，用来存放应用的中间件</p><h2 id="node-modules"><a href="#node-modules" class="headerlink" title="node_modules"></a>node_modules</h2><p>npm包目录，这是任何一个使用npm包的应用都存在的目录</p><h2 id="pages"><a href="#pages" class="headerlink" title="pages"></a>pages</h2><h2 id="plugins"><a href="#plugins" class="headerlink" title="plugins"></a>plugins</h2><p>插件目录，用来存放需要在根vue应用实例化之前就要运行js插件</p><h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><p>静态文件目录，但是不会被编译，服务器启动时，该目录的文件会映射到根路径下</p><h2 id="store"><a href="#store" class="headerlink" title="store"></a>store</h2><p>组织vuex状态树文件，在该目录下创建一个index.js文件就可激活这些配置</p><h2 id="其他根目录文件"><a href="#其他根目录文件" class="headerlink" title="其他根目录文件"></a>其他根目录文件</h2><h3 id="editorconfiig"><a href="#editorconfiig" class="headerlink" title=".editorconfiig"></a>.editorconfiig</h3><h3 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h3><h3 id="nuxt-config-js"><a href="#nuxt-config-js" class="headerlink" title="nuxt.config.js"></a>nuxt.config.js</h3><p>nuxt应用的个性化配置，高优先级，可以覆盖默认配置</p><h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p>用来描述应用依赖关系和对外暴露的脚本接口，<code>该文件不能被重命名</code></p><h3 id="package-lock-json"><a href="#package-lock-json" class="headerlink" title="package-lock.json"></a>package-lock.json</h3><h3 id="README-md"><a href="#README-md" class="headerlink" title="README.md"></a>README.md</h3><h2 id="nuxt创建的项目供局域网访问"><a href="#nuxt创建的项目供局域网访问" class="headerlink" title="nuxt创建的项目供局域网访问"></a>nuxt创建的项目供局域网访问</h2><h3 id="在当前项目安装依赖"><a href="#在当前项目安装依赖" class="headerlink" title="在当前项目安装依赖"></a>在当前项目安装依赖</h3><pre class="line-numbers language-none"><code class="language-none">npm install --save-dev cross-env<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在package.json中配置</p><pre class="line-numbers language-none"><code class="language-none">&quot;scripts&quot;: &#123;  &quot;dev&quot;: &quot;cross-env NUXT_HOST&#x3D;0.0.0.0 NUXT_PORT&#x3D;3333 nuxt&quot;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> 框架 </category>
-          
-      </categories>
+        <content type="html"><![CDATA[<p><code>ifconfig</code></p>]]></content>
       
       
-        <tags>
-            
-            <tag> nuxt </tag>
-            
-        </tags>
       
     </entry>
     
@@ -1050,19 +1063,6 @@
             <tag> 实战 </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>命令行查看本机ip</title>
-      <link href="/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/"/>
-      <url>/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/</url>
-      
-        <content type="html"><![CDATA[<p><code>ifconfig</code></p>]]></content>
-      
-      
       
     </entry>
     
@@ -1095,11 +1095,38 @@
     
     
     <entry>
-      <title>ssh远程连接服务器</title>
-      <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
-      <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
+      <title>nodejs打开浏览器</title>
+      <link href="/2021/12/28/nodejs-da-kai-liu-lan-qi/"/>
+      <url>/2021/12/28/nodejs-da-kai-liu-lan-qi/</url>
       
-        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#x72;&#111;&#111;&#x74;&#x40;&#x78;&#x78;&#120;&#46;&#x78;&#x78;&#120;&#x2e;&#x78;&#x78;&#x78;&#x2e;&#120;&#120;&#120;">&#x72;&#111;&#111;&#x74;&#x40;&#x78;&#x78;&#120;&#46;&#x78;&#x78;&#120;&#x2e;&#x78;&#x78;&#x78;&#x2e;&#120;&#120;&#120;</a>(ip地址)</p>]]></content>
+        <content type="html"><![CDATA[<pre class="line-numbers language-none"><code class="language-none">const open &#x3D; require(&#39;open&#39;)let url &#x3D; &#39;http:&#x2F;&#x2F;www.xxx.com&#39;open(url)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 服务器 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 代码片段 </tag>
+            
+            <tag> node </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>process.env.NODE_ENV</title>
+      <link href="/2021/12/28/process.env.node-env/"/>
+      <url>/2021/12/28/process.env.node-env/</url>
+      
+        <content type="html"><![CDATA[<p>1、在node当中，全局变量process代表的是node当中的进程。 process.env包含着关于系统环境的信息，<code>但是并不包含NODE_ENV这个属性</code></p>]]></content>
       
       
       
@@ -1121,11 +1148,11 @@
     
     
     <entry>
-      <title>process.env.NODE_ENV</title>
-      <link href="/2021/12/28/process.env.node-env/"/>
-      <url>/2021/12/28/process.env.node-env/</url>
+      <title>ssh远程连接服务器</title>
+      <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
+      <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
       
-        <content type="html"><![CDATA[<p>1、在node当中，全局变量process代表的是node当中的进程。 process.env包含着关于系统环境的信息，<code>但是并不包含NODE_ENV这个属性</code></p>]]></content>
+        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#114;&#111;&#x6f;&#x74;&#64;&#120;&#x78;&#120;&#46;&#x78;&#120;&#120;&#x2e;&#120;&#x78;&#x78;&#x2e;&#120;&#120;&#x78;">&#114;&#111;&#x6f;&#x74;&#64;&#120;&#x78;&#120;&#46;&#x78;&#120;&#120;&#x2e;&#120;&#x78;&#x78;&#x2e;&#120;&#120;&#x78;</a>(ip地址)</p>]]></content>
       
       
       
@@ -1198,33 +1225,6 @@
     
     
     <entry>
-      <title>nodejs打开浏览器</title>
-      <link href="/2021/12/28/nodejs-da-kai-liu-lan-qi/"/>
-      <url>/2021/12/28/nodejs-da-kai-liu-lan-qi/</url>
-      
-        <content type="html"><![CDATA[<pre class="line-numbers language-none"><code class="language-none">const open &#x3D; require(&#39;open&#39;)let url &#x3D; &#39;http:&#x2F;&#x2F;www.xxx.com&#39;open(url)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> 服务器 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 代码片段 </tag>
-            
-            <tag> node </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>js面向对象编程思想</title>
       <link href="/2021/12/28/js-mian-xiang-dui-xiang-bian-cheng-si-xiang/"/>
       <url>/2021/12/28/js-mian-xiang-dui-xiang-bian-cheng-si-xiang/</url>
@@ -1269,6 +1269,19 @@
     
     
     <entry>
+      <title>live-server使用</title>
+      <link href="/2021/12/28/live-server-shi-yong/"/>
+      <url>/2021/12/28/live-server-shi-yong/</url>
+      
+        <content type="html"><![CDATA[<p><code>本文适用于使用cnpm下载的live-server，使用npm或者其他方式下载的安装包未做测试</code></p><pre class="line-numbers language-none"><code class="language-none">与http-server比，live-server是一种自动热更新的工具包。但是在启动http-server的时候，会自动启动127.0.0.1与本机ip地址两个链接以供访问，这就使得内网内的设备都能访问。但是live-server默认只会启动127.0.0.1（在没有修改包文件内index.js的时候）导致每次想换启动地址时都需要去修改index.js文件，导致非常麻烦。目前本机安装的live-server版本，可以通过在命令行内直接使用命令指定的方式修改端口和链接。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>修改端口</strong></p><pre class="line-numbers language-none"><code class="language-none">live-server --port&#x3D;&#39;8081&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><br><p><strong>修改地址</strong></p><pre class="line-numbers language-none"><code class="language-none">live-server --host&#x3D;&#39;192.168.1.1&#39;注意host内应该是本机的内网ip地址，这样在同一个内网下，不同的设备才能访问我们开放的页面<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>macOS安装jenkins</title>
       <link href="/2021/12/28/macos-an-zhuang-jenkins/"/>
       <url>/2021/12/28/macos-an-zhuang-jenkins/</url>
@@ -1288,13 +1301,27 @@
     
     
     <entry>
-      <title>live-server使用</title>
-      <link href="/2021/12/28/live-server-shi-yong/"/>
-      <url>/2021/12/28/live-server-shi-yong/</url>
+      <title>node canvas生成图片并保存</title>
+      <link href="/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/"/>
+      <url>/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/</url>
       
-        <content type="html"><![CDATA[<p><code>本文适用于使用cnpm下载的live-server，使用npm或者其他方式下载的安装包未做测试</code></p><pre class="line-numbers language-none"><code class="language-none">与http-server比，live-server是一种自动热更新的工具包。但是在启动http-server的时候，会自动启动127.0.0.1与本机ip地址两个链接以供访问，这就使得内网内的设备都能访问。但是live-server默认只会启动127.0.0.1（在没有修改包文件内index.js的时候）导致每次想换启动地址时都需要去修改index.js文件，导致非常麻烦。目前本机安装的live-server版本，可以通过在命令行内直接使用命令指定的方式修改端口和链接。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>修改端口</strong></p><pre class="line-numbers language-none"><code class="language-none">live-server --port&#x3D;&#39;8081&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><br><p><strong>修改地址</strong></p><pre class="line-numbers language-none"><code class="language-none">live-server --host&#x3D;&#39;192.168.1.1&#39;注意host内应该是本机的内网ip地址，这样在同一个内网下，不同的设备才能访问我们开放的页面<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<p><code>canvas可以将画布转为base64，而base64就是该图片的信息，但是node保存文件的时候需要buffer格式的信息，所以只需要将canvas转成的base64处理成buffer，就可以保存</code></p><p>总结如下：<br><em><strong>1、将画布信息转为base64</strong></em><br><em><strong>2、处理base64为buffer，进行保存</strong></em></p><h3 id="引入canvas模块"><a href="#引入canvas模块" class="headerlink" title="引入canvas模块"></a>引入canvas模块</h3><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; require(&#39;canvas&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="canvas绘图"><a href="#canvas绘图" class="headerlink" title="canvas绘图"></a>canvas绘图</h3><pre class="line-numbers language-none"><code class="language-none">const canvas &#x3D; createCanvas(200,200)const ctx &#x3D; canvas.getContext(&#39;2d&#39;)ctx.font &#x3D; &#39;30px&#39;ctx.rotate(0.1)ctx.fillText(&#39;Hello&#39;,50,100)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="将画布信息转为base64"><a href="#将画布信息转为base64" class="headerlink" title="将画布信息转为base64"></a>将画布信息转为base64</h3><pre class="line-numbers language-none"><code class="language-none">const dataURl &#x3D; canvas.toDataURL(&#39;image&#x2F;png&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="处理base64为buffer"><a href="#处理base64为buffer" class="headerlink" title="处理base64为buffer"></a>处理base64为buffer</h3><pre class="line-numbers language-none"><code class="language-none">const base64Data &#x3D; dataURl.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);const bufferData &#x3D; new Buffer(base64Data,&#39;base64&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h3 id="保存buffer为图片格式"><a href="#保存buffer为图片格式" class="headerlink" title="保存buffer为图片格式"></a>保存buffer为图片格式</h3><pre class="line-numbers language-none"><code class="language-none">fs.writeFile(&#39;2.png&#39;,bufferData,function (err)&#123;    if (err)&#123;        console.log(err)    &#125;else &#123;        console.log(&#39;图片保存成功&#39;)    &#125;&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; require(&#39;canvas&#39;)const fs &#x3D; require(&#39;fs&#39;)const canvas &#x3D; createCanvas(200,200)const ctx &#x3D; canvas.getContext(&#39;2d&#39;)ctx.font &#x3D; &#39;30px&#39;ctx.rotate(0.1)ctx.fillText(&#39;Hello&#39;,50,100)const dataURl &#x3D; canvas.toDataURL(&#39;image&#x2F;png&#39;)console.log(dataURl)const base64Data &#x3D; dataURl.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);console.log(base64Data)const bufferData &#x3D; new Buffer(base64Data,&#39;base64&#39;)fs.writeFile(&#39;2.png&#39;,bufferData,function (err)&#123;    if (err)&#123;        console.log(err)    &#125;else &#123;        console.log(&#39;图片保存成功&#39;)    &#125;&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
+      <categories>
+          
+          <category> 框架 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 可视化 </tag>
+            
+            <tag> node </tag>
+            
+        </tags>
       
     </entry>
     
@@ -1341,33 +1368,6 @@
     
     
     <entry>
-      <title>node canvas生成图片并保存</title>
-      <link href="/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/"/>
-      <url>/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/</url>
-      
-        <content type="html"><![CDATA[<p><code>canvas可以将画布转为base64，而base64就是该图片的信息，但是node保存文件的时候需要buffer格式的信息，所以只需要将canvas转成的base64处理成buffer，就可以保存</code></p><p>总结如下：<br><em><strong>1、将画布信息转为base64</strong></em><br><em><strong>2、处理base64为buffer，进行保存</strong></em></p><h3 id="引入canvas模块"><a href="#引入canvas模块" class="headerlink" title="引入canvas模块"></a>引入canvas模块</h3><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; require(&#39;canvas&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="canvas绘图"><a href="#canvas绘图" class="headerlink" title="canvas绘图"></a>canvas绘图</h3><pre class="line-numbers language-none"><code class="language-none">const canvas &#x3D; createCanvas(200,200)const ctx &#x3D; canvas.getContext(&#39;2d&#39;)ctx.font &#x3D; &#39;30px&#39;ctx.rotate(0.1)ctx.fillText(&#39;Hello&#39;,50,100)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="将画布信息转为base64"><a href="#将画布信息转为base64" class="headerlink" title="将画布信息转为base64"></a>将画布信息转为base64</h3><pre class="line-numbers language-none"><code class="language-none">const dataURl &#x3D; canvas.toDataURL(&#39;image&#x2F;png&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="处理base64为buffer"><a href="#处理base64为buffer" class="headerlink" title="处理base64为buffer"></a>处理base64为buffer</h3><pre class="line-numbers language-none"><code class="language-none">const base64Data &#x3D; dataURl.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);const bufferData &#x3D; new Buffer(base64Data,&#39;base64&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h3 id="保存buffer为图片格式"><a href="#保存buffer为图片格式" class="headerlink" title="保存buffer为图片格式"></a>保存buffer为图片格式</h3><pre class="line-numbers language-none"><code class="language-none">fs.writeFile(&#39;2.png&#39;,bufferData,function (err)&#123;    if (err)&#123;        console.log(err)    &#125;else &#123;        console.log(&#39;图片保存成功&#39;)    &#125;&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; require(&#39;canvas&#39;)const fs &#x3D; require(&#39;fs&#39;)const canvas &#x3D; createCanvas(200,200)const ctx &#x3D; canvas.getContext(&#39;2d&#39;)ctx.font &#x3D; &#39;30px&#39;ctx.rotate(0.1)ctx.fillText(&#39;Hello&#39;,50,100)const dataURl &#x3D; canvas.toDataURL(&#39;image&#x2F;png&#39;)console.log(dataURl)const base64Data &#x3D; dataURl.replace(&#x2F;^data:image\&#x2F;\w+;base64,&#x2F;, &quot;&quot;);console.log(base64Data)const bufferData &#x3D; new Buffer(base64Data,&#39;base64&#39;)fs.writeFile(&#39;2.png&#39;,bufferData,function (err)&#123;    if (err)&#123;        console.log(err)    &#125;else &#123;        console.log(&#39;图片保存成功&#39;)    &#125;&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> 框架 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 可视化 </tag>
-            
-            <tag> node </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>canvas绘图</title>
       <link href="/2021/12/28/canvas-hui-tu/"/>
       <url>/2021/12/28/canvas-hui-tu/</url>
@@ -1406,19 +1406,6 @@
     
     
     <entry>
-      <title>es6</title>
-      <link href="/2021/12/28/es6/"/>
-      <url>/2021/12/28/es6/</url>
-      
-        <content type="html"><![CDATA[<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><p><code>从数组和对象中提取值，对变量进行赋值，这被称为解构</code></p><h2 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h2><pre class="line-numbers language-none"><code class="language-none">let [a,b,c] &#x3D; [1,2,3];console.log(a,b,c);&#x2F;&#x2F; 1 2 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><code>解构不成功，变量的值为undefined</code></p><pre class="line-numbers language-none"><code class="language-none">let [a,b] &#x3D; [1];console.log(a,b);&#x2F;&#x2F; 1 undefinedlet [a,b] &#x3D; &#39;1&#39;;console.log(a,b);&#x2F;&#x2F; 1 undefined<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>如果等号右边不是可遍历的结构，会报错</strong></p><p>会报错的常见形式：</p><p>1、 数字</p><p>2、 布尔</p><p>3、 NaN</p><p>4、 undefined</p><p>5、null</p><p>6、{}  对象</p><h2 id="解构赋值的应用"><a href="#解构赋值的应用" class="headerlink" title="解构赋值的应用"></a>解构赋值的应用</h2><pre class="line-numbers language-none"><code class="language-none">假设下面是某个请求的返回值，形参是res&#123;    &quot;status&quot;: 200,    &quot;msg&quot;: &quot;成功&quot;,    &quot;data&quot;: &#123;        &quot;pageNum&quot;: 1,        &quot;pageSize&quot;: 99,        &quot;size&quot;: 49,    &#125;&#125;1、不用解构赋值let data &#x3D; res;if(data.data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;写起来比较繁琐2、使用解构赋值let &#123;data&#125; &#x3D; res;if(data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>这里需要注意的一点就是：声明的变量必须是返回值里面的某个属性， 也就是说：返回值内必须包含被声明的这个变量字段。</code></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>cesium绘制卫星云图</title>
       <link href="/2021/12/28/cesium-hui-zhi-wei-xing-yun-tu/"/>
       <url>/2021/12/28/cesium-hui-zhi-wei-xing-yun-tu/</url>
@@ -1442,6 +1429,19 @@
             <tag> cesium </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>es6</title>
+      <link href="/2021/12/28/es6/"/>
+      <url>/2021/12/28/es6/</url>
+      
+        <content type="html"><![CDATA[<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><p><code>从数组和对象中提取值，对变量进行赋值，这被称为解构</code></p><h2 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h2><pre class="line-numbers language-none"><code class="language-none">let [a,b,c] &#x3D; [1,2,3];console.log(a,b,c);&#x2F;&#x2F; 1 2 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><code>解构不成功，变量的值为undefined</code></p><pre class="line-numbers language-none"><code class="language-none">let [a,b] &#x3D; [1];console.log(a,b);&#x2F;&#x2F; 1 undefinedlet [a,b] &#x3D; &#39;1&#39;;console.log(a,b);&#x2F;&#x2F; 1 undefined<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>如果等号右边不是可遍历的结构，会报错</strong></p><p>会报错的常见形式：</p><p>1、 数字</p><p>2、 布尔</p><p>3、 NaN</p><p>4、 undefined</p><p>5、null</p><p>6、{}  对象</p><h2 id="解构赋值的应用"><a href="#解构赋值的应用" class="headerlink" title="解构赋值的应用"></a>解构赋值的应用</h2><pre class="line-numbers language-none"><code class="language-none">假设下面是某个请求的返回值，形参是res&#123;    &quot;status&quot;: 200,    &quot;msg&quot;: &quot;成功&quot;,    &quot;data&quot;: &#123;        &quot;pageNum&quot;: 1,        &quot;pageSize&quot;: 99,        &quot;size&quot;: 49,    &#125;&#125;1、不用解构赋值let data &#x3D; res;if(data.data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;写起来比较繁琐2、使用解构赋值let &#123;data&#125; &#x3D; res;if(data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>这里需要注意的一点就是：声明的变量必须是返回值里面的某个属性， 也就是说：返回值内必须包含被声明的这个变量字段。</code></p>]]></content>
+      
+      
       
     </entry>
     

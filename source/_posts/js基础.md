@@ -1,4 +1,3 @@
-
 ---
 title: js基础
 date: 2022-01-28 15:48:53
@@ -18,3 +17,11 @@ https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/A_re-introduction_to_Jav
 #### 1、setDate
 
 `设置月份中的日期`
+
+### 3、数组
+
+#### 4、数组插入元素 splice
+
+[splice](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)
+`三个参数`
+![splice参数说明](splice.png)
