@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>leetcode专题</title>
+      <link href="/2022/03/04/leetcode-zhuan-ti/"/>
+      <url>/2022/03/04/leetcode-zhuan-ti/</url>
+      
+        <content type="html"><![CDATA[<p><code>记录一些自己在leetcode上的解题方法，基于本人性格大概率只会出现一种解题方式，目前阶段追求的是能做出来就好，优化就放在以后吧</code></p><h3 id="1、两数之和"><a href="#1、两数之和" class="headerlink" title="1、两数之和"></a>1、两数之和</h3><p><a href="https://leetcode-cn.com/problems/two-sum/">链接地址</a></p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> <span class="token function-variable function">twoSum</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">nums<span class="token punctuation">,</span> target</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>  <span class="token keyword">let</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> ii <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> ii <span class="token operator">&lt;</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span> ii<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>      <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> nums<span class="token punctuation">[</span>ii<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>        arr<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> ii<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token keyword">return</span> arr<span class="token punctuation">;</span>      <span class="token punctuation">&#125;</span>    <span class="token punctuation">&#125;</span>  <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> leetcode </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>博客说明</title>
       <link href="/2022/03/04/bo-ke-shuo-ming/"/>
       <url>/2022/03/04/bo-ke-shuo-ming/</url>
@@ -506,9 +531,9 @@
       
         <tags>
             
-            <tag> 基础 </tag>
-            
             <tag> js </tag>
+            
+            <tag> 基础 </tag>
             
         </tags>
       
@@ -917,19 +942,6 @@
     
     
     <entry>
-      <title>终端命令</title>
-      <link href="/2021/12/28/zhong-duan-ming-ling/"/>
-      <url>/2021/12/28/zhong-duan-ming-ling/</url>
-      
-        <content type="html"><![CDATA[<h1 id="服务器相关"><a href="#服务器相关" class="headerlink" title="服务器相关"></a>服务器相关</h1><h2 id="远程连接服务器"><a href="#远程连接服务器" class="headerlink" title="远程连接服务器"></a>远程连接服务器</h2><p><code>ssh root@xx.xx.xx.xx(ip地址)</code></p><h1 id="本机信息"><a href="#本机信息" class="headerlink" title="本机信息"></a>本机信息</h1><h2 id="查看本机ip"><a href="#查看本机ip" class="headerlink" title="查看本机ip"></a>查看本机ip</h2><h3 id="windows平台"><a href="#windows平台" class="headerlink" title="windows平台"></a>windows平台</h3><p><code>ipcinfig</code><br><code>ipconfig/all</code></p><h3 id="mac"><a href="#mac" class="headerlink" title="mac"></a>mac</h3><p><code>ifconfig</code></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>浏览器回流与重绘测试</title>
       <link href="/2021/12/28/liu-lan-qi-hui-liu-yu-chong-hui-ce-shi/"/>
       <url>/2021/12/28/liu-lan-qi-hui-liu-yu-chong-hui-ce-shi/</url>
@@ -949,6 +961,19 @@
             <tag> 测试 </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>终端命令</title>
+      <link href="/2021/12/28/zhong-duan-ming-ling/"/>
+      <url>/2021/12/28/zhong-duan-ming-ling/</url>
+      
+        <content type="html"><![CDATA[<h1 id="服务器相关"><a href="#服务器相关" class="headerlink" title="服务器相关"></a>服务器相关</h1><h2 id="远程连接服务器"><a href="#远程连接服务器" class="headerlink" title="远程连接服务器"></a>远程连接服务器</h2><p><code>ssh root@xx.xx.xx.xx(ip地址)</code></p><h1 id="本机信息"><a href="#本机信息" class="headerlink" title="本机信息"></a>本机信息</h1><h2 id="查看本机ip"><a href="#查看本机ip" class="headerlink" title="查看本机ip"></a>查看本机ip</h2><h3 id="windows平台"><a href="#windows平台" class="headerlink" title="windows平台"></a>windows平台</h3><p><code>ipcinfig</code><br><code>ipconfig/all</code></p><h3 id="mac"><a href="#mac" class="headerlink" title="mac"></a>mac</h3><p><code>ifconfig</code></p>]]></content>
+      
+      
       
     </entry>
     
@@ -987,25 +1012,6 @@
     
     
     <entry>
-      <title>前后端分离的思考</title>
-      <link href="/2021/12/28/qian-hou-duan-fen-chi-de-si-kao/"/>
-      <url>/2021/12/28/qian-hou-duan-fen-chi-de-si-kao/</url>
-      
-        <content type="html"><![CDATA[<p><code>本文是偶然间在微信公众号(业余草)上发现的，感觉说的很好，特此转载记录一下，只为记录，别无他做。如原文作者感觉被侵犯了权益，则删除。</code></p><p><em><strong>文章基本上说明了前后端开发的历史，但不涉及具体的技术，可以帮助入行不久的人了解一些开发流程。</strong></em></p><p>1、背景<br>前后端分离已成为互联网项目开发的业界标准使用方式，通过nginx+tomcat的方式（也可以中间加一个nodejs）有效的进行解耦，并且前后端分离会为以后的大型分布式架构、弹性计算架构、微服务架构、多端化服务（多种客户端，例如：浏览器，车载终端，安卓，IOS等等）打下坚实的基础。这个步骤是系统架构从猿进化成人的必经之路。</p><p>核心思想是前端HTML页面通过AJAX调用后端的RESTFUL API接口并使用JSON数据进行交互。</p><p>Web服务器：一般指像Nginx，Apache这类的服务器，他们一般只能解析静态资源；</p><p>应用服务器：一般指像Tomcat，Jetty，Resin这类的服务器可以解析动态资源也可以解析静态资源，但解析静态资源的能力没有web服务器好；</p><p><em><strong><code>一般都是只有web服务器才能被外网访问，应用服务器只能内网访问。</code></strong></em></p><p>以前的Java Web项目大多数都是Java程序员又当爹又当妈，又搞前端，又搞后端。随着时代的发展，渐渐的许多大中小公司开始把前后端的界限分的越来越明确，前端工程师只管前端的事情，后端工程师只管后端的事情。正所谓术业有专攻，一个人如果什么都会，那么他毕竟什么都不精。大中型公司需要专业人才，小公司需要全才，但是对于个人职业发展来说，前后端需要分离。</p><p>2、未分离时代（各种耦合）<br>早期主要使用MVC框架，Jsp+Servlet的结构图如下：</p><p><img src="http://qiniu.aoxuekj.com/640.webp"></p><p>大致就是所有的请求都被发送给作为控制器的Servlet，它接受请求，并根据请求信息将它们分发给适当的JSP来响应。同时，Servlet还根据JSP的需求生成JavaBeans的实例并输出给JSP环境。JSP可以通过直接调用方法或使用UseBean的自定义标签得到JavaBeans中的数据。需要说明的是，这个View还可以采用 Velocity、Freemaker 等模板引擎。使用了这些模板引擎，可以使得开发过程中的人员分工更加明确，还能提高开发效率。</p><p>那么，在这个时期，开发方式有如下两种：</p><p>方式一</p><p><img src="http://qiniu.aoxuekj.com/640%20%281%29.webp"></p><p>方式二</p><p><img src="http://qiniu.aoxuekj.com/640%20%282%29.webp"></p><p>方式二已经逐渐淘汰。主要原因有两点：1）前端在开发过程中严重依赖后端，在后端没有完成的情况下，前端根本无法干活；2）由于趋势问题，会JSP，懂velocity，freemarker等模板引擎的前端越来越少；因此，方式二逐渐不被采用。然而，不得不说一点，方式一，其实很多小型传统软件公司至今还在使用。那么，方式一和方式二具有哪些共同的缺点呢? </p><p>1、前端无法单独调试，开发效率低；</p><p>2、前端不可避免会遇到后台代码，例如：</p><pre class="line-numbers language-none"><code class="language-none">&lt;body&gt;    &lt;%           request.setCharacterEncoding(&quot;utf-8&quot;)           String name&#x3D;request.getParameter(&quot;username&quot;);           out.print(name);       %&gt;&lt;&#x2F;body&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>这种方式耦合性太强。那么，就算你用了freemarker等模板引擎，不能写Java代码。那前端也不可避免的要去重新学习该模板引擎的模板语法，无谓增加了前端的学习成本。正如我们后端开发不想写前端一样，你想想如果你的后台代码里嵌入前端代码，你是什么感受？因此，这种方式十分不妥。</p><p>3、JSP本身所导致的一些其他问题 比如，JSP第一次运行的时候比较缓慢，因为里头包含一个将JSP翻译为Servlet的步骤。再比如因为同步加载的原因，在JSP中有很多内容的情况下，页面响应会很慢。</p><p>3、半分离时代<br>前后端半分离，前端负责开发页面，通过接口（Ajax）获取数据，采用Dom操作对页面进行数据绑定，最终是由前端把页面渲染出来。这也就是Ajax与SPA应用（单页应用）结合的方式，其结构图如下：</p><p><img src="http://qiniu.aoxuekj.com/640%20%283%29.webp"></p><p>步骤如下：</p><p>（1）浏览器请求，CDN返回HTML页面；</p><p>（2）HTML中的JS代码以Ajax方式请求后台的Restful接口；</p><p>（3）接口返回Json数据，页面解析Json数据，通过Dom操作渲染页面；后端提供的都是以JSON为数据格式的API接口供Native端使用，同样提供给WEB的也是JSON格式的API接口。</p><p><em><strong>那么意味着WEB工作流程是：</strong></em></p><p>1、打开web，加载基本资源，如CSS，JS等；</p><p>2、发起一个Ajax请求再到服务端请求数据，同时展示loading；</p><p>3、得到json格式的数据后再根据逻辑选择模板渲染出DOM字符串；</p><p>4、将DOM字符串插入页面中web view渲染出DOM结构；</p><p><code>这些步骤都由用户所使用的设备中逐步执行，也就是说用户的设备性能与APP的运行速度联系的更紧换句话说就是如果用户的设备很低端，那么APP打开页面的速度会越慢。</code></p><p>为什么说是半分离的？因为不是所有页面都是单页面应用，在多页面应用的情况下，前端因为没有掌握controller层，前端需要跟后端讨论，我们这个页面是要同步输出呢，还是异步Json渲染呢？而且，即使在这一时期，通常也是一个工程师搞定前后端所有工作。因此，在这一阶段，只能算半分离。</p><p>首先，这种方式的优点是很明显的。前端不会嵌入任何后台代码，前端专注于HTML、CSS、JS的开发，不依赖于后端。自己还能够模拟Json数据来渲染页面。发现Bug，也能迅速定位出是谁的问题。</p><p><em><strong><code>然而，在这种架构下，还是存在明显的弊端的。最明显的有如下几点：</code></strong></em></p><p>1）JS存在大量冗余，在业务复杂的情况下，页面的渲染部分的代码，非常复杂；</p><p>2）在Json返回的数据量比较大的情况下，渲染的十分缓慢，会出现页面卡顿的情况；</p><p>3）SEO（ Search Engine Optimization，即搜索引擎优化）非常不方便，由于搜索引擎的爬虫无法爬下JS异步渲染的数据，导致这样的页面，SEO会存在一定的问题；</p><p>4）资源消耗严重，在业务复杂的情况下，一个页面可能要发起多次HTTP请求才能将页面渲染完毕。</p><p>可能有人不服，觉得PC端建立多次HTTP请求也没啥。那你考虑过移动端么，知道移动端建立一次HTTP请求需要消耗多少资源么？</p><p>正是因为如上缺点，我们才亟需真正的前后端分离架构。</p><p>4、分离时代<br>大家一致认同的前后端分离的例子就是SPA(Single-page application)，所有用到的展现数据都是后端通过异步接口(AJAX/JSONP)的方式提供的，前端只管展现。从某种意义上来说，SPA确实做到了前后端分离，但这种方式存在两个问题：</p><p>1）WEB服务中，SPA类占的比例很少。很多场景下还有同步/同步+异步混合的模式，SPA不能作为一种通用的解决方案；</p><p>2）现阶段的SPA开发模式，接口通常是按照展现逻辑来提供的，而且为了提高效率我们也需要后端帮我们处理一些展现逻辑，这就意味着后端还是涉足了view层的工作，不是真正的前后端分离。</p><p><code>SPA式的前后端分离，从物理层做区分（认为只要是客户端的就是前端，服务器端就是后端）这种分法已经无法满足前后端分离的需求，我们认为从职责上划分才能满足目前的使用场景：</code></p><pre class="line-numbers language-none"><code class="language-none">前端负责view和controller层 后端只负责model层，业务处理与数据持久化等 controller层与view层对于目前的后端开发来说，只是很边缘的一层，目前的java更适合做持久层、model层的业务。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><p>在前后端彻底分离这一时期，前端的范围被扩展，controller层也被认为属于前端的一部分。在这一时期：</p><p>前端：负责View和Controller层。</p><p>后端：只负责Model层，业务/数据处理等。</p><p>可是服务端人员对前端HTML结构不熟悉，前端也不懂后台代码呀，controller层如何实现呢？这就是node.js的妙用了，node.js适合运用在高并发、I/O密集、少量业务逻辑的场景。最重要的一点是，前端不用再学一门其他的语言了，对前端来说，上手度大大提高。</p><p><img src="http://qiniu.aoxuekj.com/640%20%284%29.webp"></p><p>可以就把Nodejs当成跟前端交互的api。总得来说，NodeJs的作用在MVC中相当于C（控制器）。Nodejs路由的实现逻辑是把前端静态页面代码当成字符串发送到客户端（例如浏览器），简单理解可以理解为路由是提供给客户端的一组api接口，只不过返回的数据是页面代码的字符串而已。</p><p>用NodeJs来作为桥梁架接服务器端API输出的JSON。后端出于性能和别的原因，提供的接口所返回的数据格式也许不太适合前端直接使用，前端所需的排序功能、筛选功能，以及到了视图层的页面展现，也许都需要对接口所提供的数据进行二次处理。这些处理虽可以放在前端来进行，但也许数据量一大便会浪费浏览器性能。因而现今，增加Node中间层便是一种良好的解决方案。</p><p><img src="http://qiniu.aoxuekj.com/640%20%285%29.webp"></p><p>浏览器(webview)不再直接请求JSP的API，而是：</p><p>1）浏览器请求服务器端的NodeJS；</p><p>2）NodeJS再发起HTTP去请求JSP；</p><p>3）JSP依然原样API输出JSON给NodeJS；</p><p>4）NodeJS收到JSON后再渲染出HTML页面；</p><p>5）NodeJS直接将HTML页面flush到浏览器；</p><p>这样，浏览器得到的就是普通的HTML页面，而不用再发Ajax去请求服务器了。</p><p>淘宝的前端团队提出的中途岛(Midway Framework)的架构如下图所示：</p><p><img src="http://qiniu.aoxuekj.com/640%20%286%29.webp"></p><p>增加node.js作为中间层，具体有哪些好处呢？</p><p>(1)适配性提升；我们其实在开发过程中，经常会给PC端、mobile、app端各自研发一套前端。其实对于这三端来说，大部分端业务逻辑是一样的。唯一区别就是交互展现逻辑不同。如果controller层在后端手里，后端为了这些不同端页面展示逻辑，自己维护这些controller，模版无法重用，徒增和前端沟通端成本。如果增加了node.js层，此时架构图如下：</p><p><img src="http://qiniu.aoxuekj.com/640%20%287%29.webp"></p><p>在该结构下，每种前端的界面展示逻辑由node层自己维护。如果产品经理中途想要改动界面什么的，可以由前端自己专职维护，后端无需操心。前后端各司其职，后端专注自己的业务逻辑开发，前端专注产品效果开发。</p><p>(2)响应速度提升；我们有时候，会遇到后端返回给前端的数据太简单了，<code>前端需要对这些数据进行逻辑运算。那么在数据量比较小的时候，对其做运算分组等操作，并无影响。但是当数据量大的时候，会有明显的卡顿效果</code>。这时候，node中间层其实可以将很多这样的代码放入node层处理、也可以替后端分担一些简单的逻辑、又可以用模板引擎自己掌握前台的输出。这样做灵活度、响应度都大大提升。</p><p>举个例子，即使做了页面静态化之后，前端依然还是有不少需要实时从后端获取的信息，这些信息都在不同的业务系统中，所以需要前端发送5、6个异步请求来。有了NodeJs之后，前端可以在NodeJs中去代理这5个异步请求。还能很容易的做bigpipe，这块的优化能让整个渲染效率提升很多。在PC上你觉得发5、6个异步请求也没什么，但是在无线端，在客户手机上建立一个http请求开销很大。有了这个优化，性能一下提升好几倍。</p><p>(3)性能得到提升；大家应该都知道单一职责原则。从该角度来看，我们，请求一个页面，可能要响应很多个后端接口，请求变多了，自然速度就变慢了，这种现象在mobile端更加严重。采用node作为中间层，将页面所需要的多个后端数据，直接在内网阶段就拼装好，再统一返回给前端，会得到更好的性能。</p><p>(4)异步与模板统一；淘宝首页就是被几十个HTML片段（每个片段一个文件）拼装成，之前PHP同步include这几十个片段，一定是串行的，Node可以异步，读文件可以并行，一旦这些片段中也包含业务逻辑，异步的优势就很明显了，真正做到哪个文件先渲染完就先输出显示。前端机的文件系统越复杂，页面的组成片段越多，这种异步的提速效果就越明显。前后端模板统一在无线领域很有用，PC页面和WIFI场景下的页面适合前端渲染（后端数据Ajax到前端），2G、3G弱网络环境适合后端渲染（数据随页面吐给前端），所以同样的模板，在不同的条件下走不同的渲染渠道，模板只需一次开发。</p><p>增加NodeJS中间层后的前后端职责划分：</p><p><img src="http://qiniu.aoxuekj.com/640%20%288%29.webp"></p><p>5、总结<br>从经典的JSP+Servlet+JavaBean的MVC时代，到SSM（Spring + SpringMVC + Mybatis）和SSH（Spring + Struts + Hibernate）的Java 框架时代，再到前端框架（KnockoutJS、AngularJS、vueJS、ReactJS）为主的MV*时代，然后是Nodejs引领的全栈时代，技术和架构一直都在进步。虽然“基于NodeJS的全栈式开发”模式很让人兴奋，但是把基于Node的全栈开发变成一个稳定，让大家都能接受的东西还有很多路要走。创新之路不会止步，无论是前后端分离模式还是其他模式，都是为了更方便得解决需求，但它们都只是一个“中转站”。前端项目与后端项目是两个项目，放在两个不同的服务器，需要独立部署，两个不同的工程，两个不同的代码库，不同的开发人员。前端只需要关注页面的样式与动态数据的解析及渲染，而后端专注于具体业务逻辑。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 思想 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>使用nuxt创建站点</title>
       <link href="/2021/12/28/shi-yong-nuxt-chuang-jian-zhan-dian/"/>
       <url>/2021/12/28/shi-yong-nuxt-chuang-jian-zhan-dian/</url>
@@ -1023,6 +1029,25 @@
         <tags>
             
             <tag> nuxt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>关于ftp无法链接服务器的问题</title>
+      <link href="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/"/>
+      <url>/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/</url>
+      
+        <content type="html"><![CDATA[<p>有时候，我们使用ftp软件连接远程ftp，会发现有的软件能连上，有的则连不上。究其原因，可能是软件设置的问题，毕竟链接的是同一个服务器上的ftp，相对来讲，服务器环境是稳定的。</p><p><code>本文环境：macOS Catalina 10.15.7，ftp软件 filezila 3.51.0</code></p><h3 id="错误代码227"><a href="#错误代码227" class="headerlink" title="错误代码227"></a>错误代码227</h3><pre class="line-numbers language-none"><code class="language-none">一般来讲，将服务器的链接模式改为被动  即可<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/1.png" alt="alt"></p><h3 id="错误代码220"><a href="#错误代码220" class="headerlink" title="错误代码220"></a>错误代码220</h3><pre class="line-numbers language-none"><code class="language-none">很可能是服务器不支持FTP over TLS的连接方式。解决方式就是在该站点内 加密方式  使用明文<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/2.png" alt="alt"></p><br><p><strong>特别声明：本次链接的网站是使用的宝塔面板，ftp也是宝塔生成，所以才可能会存在这个问题，不代表只要是服务器上的ftp一定会存在该问题</strong><br><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/3.png" alt="alt"><br><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/4.png" alt="alt"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 服务器 </tag>
             
         </tags>
       
@@ -1050,44 +1075,18 @@
     
     
     <entry>
-      <title>关于ftp无法链接服务器的问题</title>
-      <link href="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/"/>
-      <url>/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/</url>
+      <title>前后端分离的思考</title>
+      <link href="/2021/12/28/qian-hou-duan-fen-chi-de-si-kao/"/>
+      <url>/2021/12/28/qian-hou-duan-fen-chi-de-si-kao/</url>
       
-        <content type="html"><![CDATA[<p>有时候，我们使用ftp软件连接远程ftp，会发现有的软件能连上，有的则连不上。究其原因，可能是软件设置的问题，毕竟链接的是同一个服务器上的ftp，相对来讲，服务器环境是稳定的。</p><p><code>本文环境：macOS Catalina 10.15.7，ftp软件 filezila 3.51.0</code></p><h3 id="错误代码227"><a href="#错误代码227" class="headerlink" title="错误代码227"></a>错误代码227</h3><pre class="line-numbers language-none"><code class="language-none">一般来讲，将服务器的链接模式改为被动  即可<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/1.png" alt="alt"></p><h3 id="错误代码220"><a href="#错误代码220" class="headerlink" title="错误代码220"></a>错误代码220</h3><pre class="line-numbers language-none"><code class="language-none">很可能是服务器不支持FTP over TLS的连接方式。解决方式就是在该站点内 加密方式  使用明文<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/2.png" alt="alt"></p><br><p><strong>特别声明：本次链接的网站是使用的宝塔面板，ftp也是宝塔生成，所以才可能会存在这个问题，不代表只要是服务器上的ftp一定会存在该问题</strong><br><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/3.png" alt="alt"><br><img src="/2021/12/28/guan-yu-ftp-wu-fa-lian-jie-fu-wu-qi-de-wen-ti/ftp/4.png" alt="alt"></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 服务器 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>基于rgb原理制作渐变色生成器</title>
-      <link href="/2021/12/28/ji-yu-rgb-yuan-li-zhi-zuo-jian-bian-se-sheng-cheng-qi/"/>
-      <url>/2021/12/28/ji-yu-rgb-yuan-li-zhi-zuo-jian-bian-se-sheng-cheng-qi/</url>
-      
-        <content type="html"><![CDATA[<p>基于rgb原理制作渐变色生成器</p>]]></content>
+        <content type="html"><![CDATA[<p><code>本文是偶然间在微信公众号(业余草)上发现的，感觉说的很好，特此转载记录一下，只为记录，别无他做。如原文作者感觉被侵犯了权益，则删除。</code></p><p><em><strong>文章基本上说明了前后端开发的历史，但不涉及具体的技术，可以帮助入行不久的人了解一些开发流程。</strong></em></p><p>1、背景<br>前后端分离已成为互联网项目开发的业界标准使用方式，通过nginx+tomcat的方式（也可以中间加一个nodejs）有效的进行解耦，并且前后端分离会为以后的大型分布式架构、弹性计算架构、微服务架构、多端化服务（多种客户端，例如：浏览器，车载终端，安卓，IOS等等）打下坚实的基础。这个步骤是系统架构从猿进化成人的必经之路。</p><p>核心思想是前端HTML页面通过AJAX调用后端的RESTFUL API接口并使用JSON数据进行交互。</p><p>Web服务器：一般指像Nginx，Apache这类的服务器，他们一般只能解析静态资源；</p><p>应用服务器：一般指像Tomcat，Jetty，Resin这类的服务器可以解析动态资源也可以解析静态资源，但解析静态资源的能力没有web服务器好；</p><p><em><strong><code>一般都是只有web服务器才能被外网访问，应用服务器只能内网访问。</code></strong></em></p><p>以前的Java Web项目大多数都是Java程序员又当爹又当妈，又搞前端，又搞后端。随着时代的发展，渐渐的许多大中小公司开始把前后端的界限分的越来越明确，前端工程师只管前端的事情，后端工程师只管后端的事情。正所谓术业有专攻，一个人如果什么都会，那么他毕竟什么都不精。大中型公司需要专业人才，小公司需要全才，但是对于个人职业发展来说，前后端需要分离。</p><p>2、未分离时代（各种耦合）<br>早期主要使用MVC框架，Jsp+Servlet的结构图如下：</p><p><img src="http://qiniu.aoxuekj.com/640.webp"></p><p>大致就是所有的请求都被发送给作为控制器的Servlet，它接受请求，并根据请求信息将它们分发给适当的JSP来响应。同时，Servlet还根据JSP的需求生成JavaBeans的实例并输出给JSP环境。JSP可以通过直接调用方法或使用UseBean的自定义标签得到JavaBeans中的数据。需要说明的是，这个View还可以采用 Velocity、Freemaker 等模板引擎。使用了这些模板引擎，可以使得开发过程中的人员分工更加明确，还能提高开发效率。</p><p>那么，在这个时期，开发方式有如下两种：</p><p>方式一</p><p><img src="http://qiniu.aoxuekj.com/640%20%281%29.webp"></p><p>方式二</p><p><img src="http://qiniu.aoxuekj.com/640%20%282%29.webp"></p><p>方式二已经逐渐淘汰。主要原因有两点：1）前端在开发过程中严重依赖后端，在后端没有完成的情况下，前端根本无法干活；2）由于趋势问题，会JSP，懂velocity，freemarker等模板引擎的前端越来越少；因此，方式二逐渐不被采用。然而，不得不说一点，方式一，其实很多小型传统软件公司至今还在使用。那么，方式一和方式二具有哪些共同的缺点呢? </p><p>1、前端无法单独调试，开发效率低；</p><p>2、前端不可避免会遇到后台代码，例如：</p><pre class="line-numbers language-none"><code class="language-none">&lt;body&gt;    &lt;%           request.setCharacterEncoding(&quot;utf-8&quot;)           String name&#x3D;request.getParameter(&quot;username&quot;);           out.print(name);       %&gt;&lt;&#x2F;body&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>这种方式耦合性太强。那么，就算你用了freemarker等模板引擎，不能写Java代码。那前端也不可避免的要去重新学习该模板引擎的模板语法，无谓增加了前端的学习成本。正如我们后端开发不想写前端一样，你想想如果你的后台代码里嵌入前端代码，你是什么感受？因此，这种方式十分不妥。</p><p>3、JSP本身所导致的一些其他问题 比如，JSP第一次运行的时候比较缓慢，因为里头包含一个将JSP翻译为Servlet的步骤。再比如因为同步加载的原因，在JSP中有很多内容的情况下，页面响应会很慢。</p><p>3、半分离时代<br>前后端半分离，前端负责开发页面，通过接口（Ajax）获取数据，采用Dom操作对页面进行数据绑定，最终是由前端把页面渲染出来。这也就是Ajax与SPA应用（单页应用）结合的方式，其结构图如下：</p><p><img src="http://qiniu.aoxuekj.com/640%20%283%29.webp"></p><p>步骤如下：</p><p>（1）浏览器请求，CDN返回HTML页面；</p><p>（2）HTML中的JS代码以Ajax方式请求后台的Restful接口；</p><p>（3）接口返回Json数据，页面解析Json数据，通过Dom操作渲染页面；后端提供的都是以JSON为数据格式的API接口供Native端使用，同样提供给WEB的也是JSON格式的API接口。</p><p><em><strong>那么意味着WEB工作流程是：</strong></em></p><p>1、打开web，加载基本资源，如CSS，JS等；</p><p>2、发起一个Ajax请求再到服务端请求数据，同时展示loading；</p><p>3、得到json格式的数据后再根据逻辑选择模板渲染出DOM字符串；</p><p>4、将DOM字符串插入页面中web view渲染出DOM结构；</p><p><code>这些步骤都由用户所使用的设备中逐步执行，也就是说用户的设备性能与APP的运行速度联系的更紧换句话说就是如果用户的设备很低端，那么APP打开页面的速度会越慢。</code></p><p>为什么说是半分离的？因为不是所有页面都是单页面应用，在多页面应用的情况下，前端因为没有掌握controller层，前端需要跟后端讨论，我们这个页面是要同步输出呢，还是异步Json渲染呢？而且，即使在这一时期，通常也是一个工程师搞定前后端所有工作。因此，在这一阶段，只能算半分离。</p><p>首先，这种方式的优点是很明显的。前端不会嵌入任何后台代码，前端专注于HTML、CSS、JS的开发，不依赖于后端。自己还能够模拟Json数据来渲染页面。发现Bug，也能迅速定位出是谁的问题。</p><p><em><strong><code>然而，在这种架构下，还是存在明显的弊端的。最明显的有如下几点：</code></strong></em></p><p>1）JS存在大量冗余，在业务复杂的情况下，页面的渲染部分的代码，非常复杂；</p><p>2）在Json返回的数据量比较大的情况下，渲染的十分缓慢，会出现页面卡顿的情况；</p><p>3）SEO（ Search Engine Optimization，即搜索引擎优化）非常不方便，由于搜索引擎的爬虫无法爬下JS异步渲染的数据，导致这样的页面，SEO会存在一定的问题；</p><p>4）资源消耗严重，在业务复杂的情况下，一个页面可能要发起多次HTTP请求才能将页面渲染完毕。</p><p>可能有人不服，觉得PC端建立多次HTTP请求也没啥。那你考虑过移动端么，知道移动端建立一次HTTP请求需要消耗多少资源么？</p><p>正是因为如上缺点，我们才亟需真正的前后端分离架构。</p><p>4、分离时代<br>大家一致认同的前后端分离的例子就是SPA(Single-page application)，所有用到的展现数据都是后端通过异步接口(AJAX/JSONP)的方式提供的，前端只管展现。从某种意义上来说，SPA确实做到了前后端分离，但这种方式存在两个问题：</p><p>1）WEB服务中，SPA类占的比例很少。很多场景下还有同步/同步+异步混合的模式，SPA不能作为一种通用的解决方案；</p><p>2）现阶段的SPA开发模式，接口通常是按照展现逻辑来提供的，而且为了提高效率我们也需要后端帮我们处理一些展现逻辑，这就意味着后端还是涉足了view层的工作，不是真正的前后端分离。</p><p><code>SPA式的前后端分离，从物理层做区分（认为只要是客户端的就是前端，服务器端就是后端）这种分法已经无法满足前后端分离的需求，我们认为从职责上划分才能满足目前的使用场景：</code></p><pre class="line-numbers language-none"><code class="language-none">前端负责view和controller层 后端只负责model层，业务处理与数据持久化等 controller层与view层对于目前的后端开发来说，只是很边缘的一层，目前的java更适合做持久层、model层的业务。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><p>在前后端彻底分离这一时期，前端的范围被扩展，controller层也被认为属于前端的一部分。在这一时期：</p><p>前端：负责View和Controller层。</p><p>后端：只负责Model层，业务/数据处理等。</p><p>可是服务端人员对前端HTML结构不熟悉，前端也不懂后台代码呀，controller层如何实现呢？这就是node.js的妙用了，node.js适合运用在高并发、I/O密集、少量业务逻辑的场景。最重要的一点是，前端不用再学一门其他的语言了，对前端来说，上手度大大提高。</p><p><img src="http://qiniu.aoxuekj.com/640%20%284%29.webp"></p><p>可以就把Nodejs当成跟前端交互的api。总得来说，NodeJs的作用在MVC中相当于C（控制器）。Nodejs路由的实现逻辑是把前端静态页面代码当成字符串发送到客户端（例如浏览器），简单理解可以理解为路由是提供给客户端的一组api接口，只不过返回的数据是页面代码的字符串而已。</p><p>用NodeJs来作为桥梁架接服务器端API输出的JSON。后端出于性能和别的原因，提供的接口所返回的数据格式也许不太适合前端直接使用，前端所需的排序功能、筛选功能，以及到了视图层的页面展现，也许都需要对接口所提供的数据进行二次处理。这些处理虽可以放在前端来进行，但也许数据量一大便会浪费浏览器性能。因而现今，增加Node中间层便是一种良好的解决方案。</p><p><img src="http://qiniu.aoxuekj.com/640%20%285%29.webp"></p><p>浏览器(webview)不再直接请求JSP的API，而是：</p><p>1）浏览器请求服务器端的NodeJS；</p><p>2）NodeJS再发起HTTP去请求JSP；</p><p>3）JSP依然原样API输出JSON给NodeJS；</p><p>4）NodeJS收到JSON后再渲染出HTML页面；</p><p>5）NodeJS直接将HTML页面flush到浏览器；</p><p>这样，浏览器得到的就是普通的HTML页面，而不用再发Ajax去请求服务器了。</p><p>淘宝的前端团队提出的中途岛(Midway Framework)的架构如下图所示：</p><p><img src="http://qiniu.aoxuekj.com/640%20%286%29.webp"></p><p>增加node.js作为中间层，具体有哪些好处呢？</p><p>(1)适配性提升；我们其实在开发过程中，经常会给PC端、mobile、app端各自研发一套前端。其实对于这三端来说，大部分端业务逻辑是一样的。唯一区别就是交互展现逻辑不同。如果controller层在后端手里，后端为了这些不同端页面展示逻辑，自己维护这些controller，模版无法重用，徒增和前端沟通端成本。如果增加了node.js层，此时架构图如下：</p><p><img src="http://qiniu.aoxuekj.com/640%20%287%29.webp"></p><p>在该结构下，每种前端的界面展示逻辑由node层自己维护。如果产品经理中途想要改动界面什么的，可以由前端自己专职维护，后端无需操心。前后端各司其职，后端专注自己的业务逻辑开发，前端专注产品效果开发。</p><p>(2)响应速度提升；我们有时候，会遇到后端返回给前端的数据太简单了，<code>前端需要对这些数据进行逻辑运算。那么在数据量比较小的时候，对其做运算分组等操作，并无影响。但是当数据量大的时候，会有明显的卡顿效果</code>。这时候，node中间层其实可以将很多这样的代码放入node层处理、也可以替后端分担一些简单的逻辑、又可以用模板引擎自己掌握前台的输出。这样做灵活度、响应度都大大提升。</p><p>举个例子，即使做了页面静态化之后，前端依然还是有不少需要实时从后端获取的信息，这些信息都在不同的业务系统中，所以需要前端发送5、6个异步请求来。有了NodeJs之后，前端可以在NodeJs中去代理这5个异步请求。还能很容易的做bigpipe，这块的优化能让整个渲染效率提升很多。在PC上你觉得发5、6个异步请求也没什么，但是在无线端，在客户手机上建立一个http请求开销很大。有了这个优化，性能一下提升好几倍。</p><p>(3)性能得到提升；大家应该都知道单一职责原则。从该角度来看，我们，请求一个页面，可能要响应很多个后端接口，请求变多了，自然速度就变慢了，这种现象在mobile端更加严重。采用node作为中间层，将页面所需要的多个后端数据，直接在内网阶段就拼装好，再统一返回给前端，会得到更好的性能。</p><p>(4)异步与模板统一；淘宝首页就是被几十个HTML片段（每个片段一个文件）拼装成，之前PHP同步include这几十个片段，一定是串行的，Node可以异步，读文件可以并行，一旦这些片段中也包含业务逻辑，异步的优势就很明显了，真正做到哪个文件先渲染完就先输出显示。前端机的文件系统越复杂，页面的组成片段越多，这种异步的提速效果就越明显。前后端模板统一在无线领域很有用，PC页面和WIFI场景下的页面适合前端渲染（后端数据Ajax到前端），2G、3G弱网络环境适合后端渲染（数据随页面吐给前端），所以同样的模板，在不同的条件下走不同的渲染渠道，模板只需一次开发。</p><p>增加NodeJS中间层后的前后端职责划分：</p><p><img src="http://qiniu.aoxuekj.com/640%20%288%29.webp"></p><p>5、总结<br>从经典的JSP+Servlet+JavaBean的MVC时代，到SSM（Spring + SpringMVC + Mybatis）和SSH（Spring + Struts + Hibernate）的Java 框架时代，再到前端框架（KnockoutJS、AngularJS、vueJS、ReactJS）为主的MV*时代，然后是Nodejs引领的全栈时代，技术和架构一直都在进步。虽然“基于NodeJS的全栈式开发”模式很让人兴奋，但是把基于Node的全栈开发变成一个稳定，让大家都能接受的东西还有很多路要走。创新之路不会止步，无论是前后端分离模式还是其他模式，都是为了更方便得解决需求，但它们都只是一个“中转站”。前端项目与后端项目是两个项目，放在两个不同的服务器，需要独立部署，两个不同的工程，两个不同的代码库，不同的开发人员。前端只需要关注页面的样式与动态数据的解析及渲染，而后端专注于具体业务逻辑。</p>]]></content>
       
       
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>命令行查看本机ip</title>
-      <link href="/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/"/>
-      <url>/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/</url>
-      
-        <content type="html"><![CDATA[<p><code>ifconfig</code></p>]]></content>
-      
+      <categories>
+          
+          <category> 思想 </category>
+          
+      </categories>
       
       
     </entry>
@@ -1114,11 +1113,11 @@
     
     
     <entry>
-      <title>nodeCanvas渲染</title>
-      <link href="/2021/12/28/nodecanvas-xuan-ran/"/>
-      <url>/2021/12/28/nodecanvas-xuan-ran/</url>
+      <title>命令行查看本机ip</title>
+      <link href="/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/"/>
+      <url>/2021/12/28/ming-ling-xing-cha-kan-ben-ji-ip/</url>
       
-        <content type="html"><![CDATA[<p>近期项目涉及地理系统，使用的框架是mars3d</p><p>mars3d本身提供了加载<a href="http://baidu.com/">geojson</a>、图片以及模型的API，<br>但是在加载这些资源的时候，尤其是涉及到计算量比较大的时候，浏览器承担过重。<br>经过测试，该框架加载本地图片资源的时候速度有明显提升，所以就需要性能优化，<br>在服务器直接生成png图片，在需要使用的时候直接加载图片。<br>由于项目对geojson数据，尤其是边界线精度要求较高，暂时未生成图片。</p><p>`凡是引用包的地方，都需要先加载包，但是node canvas直接使用哪个npm引用有很大的几率会出现问题</p><p>`</p><h1 id="node加载数据"><a href="#node加载数据" class="headerlink" title="node加载数据"></a>node加载数据</h1><p>node加载数据使用的是自带的fs模块</p><pre class="line-numbers language-none"><code class="language-none">let fs &#x3D; require(&#39;fs&#39;)let data &#x3D; fs.readFileSync(&#39;XXX.json&#39;)let obj &#x3D; JSON.parse(data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h1 id="使用node-canvas将数据绘制到canvas上"><a href="#使用node-canvas将数据绘制到canvas上" class="headerlink" title="使用node canvas将数据绘制到canvas上"></a>使用node canvas将数据绘制到canvas上</h1><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; canvasconst width &#x3D; 2000const height &#x3D; 2000const canvas &#x3D; createCanvas(width,height)const context &#x3D; canvas.getContext(&#39;2d)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="处理node-canvas生成的base64数据，生成png"><a href="#处理node-canvas生成的base64数据，生成png" class="headerlink" title="处理node canvas生成的base64数据，生成png"></a>处理node canvas生成的base64数据，生成png</h1><h1 id="将png保存到本地"><a href="#将png保存到本地" class="headerlink" title="将png保存到本地"></a>将png保存到本地</h1>]]></content>
+        <content type="html"><![CDATA[<p><code>ifconfig</code></p>]]></content>
       
       
       
@@ -1127,11 +1126,24 @@
     
     
     <entry>
-      <title>nuxt内使用vant框架</title>
-      <link href="/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/"/>
-      <url>/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/</url>
+      <title>基于rgb原理制作渐变色生成器</title>
+      <link href="/2021/12/28/ji-yu-rgb-yuan-li-zhi-zuo-jian-bian-se-sheng-cheng-qi/"/>
+      <url>/2021/12/28/ji-yu-rgb-yuan-li-zhi-zuo-jian-bian-se-sheng-cheng-qi/</url>
       
-        <content type="html"><![CDATA[<h1 id="nuxt目录介绍"><a href="#nuxt目录介绍" class="headerlink" title="nuxt目录介绍"></a>nuxt目录介绍</h1><p>1、<code>assets: 资源目录，用来组织未编译的静态资源</code><br>2、<code>layouts</code>: </p><pre class="line-numbers language-none"><code class="language-none">布局文件目录，里面可以放些全局可用的布局，例如default、error。default表示默认布局，error可以用来展示404。如果没有默认布局的要求，直接放置一个error即可。注：并不需要特殊路由设置，在nuxt框架下，如果访问的路径不存在，(并且有error布局的情况下)则会直接使用该布局。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="nuxt内使用vant（或者说是nuxt内使用第三方框架）"><a href="#nuxt内使用vant（或者说是nuxt内使用第三方框架）" class="headerlink" title="nuxt内使用vant（或者说是nuxt内使用第三方框架）"></a>nuxt内使用vant（或者说是nuxt内使用第三方框架）</h1><p>1、在plugins目录下新建vant.js文件，并引入vue和vant以及vant的样式。</p><pre class="line-numbers language-none"><code class="language-none">import Vue from &#39;vue&#39;;import Vant from &#39;vant&#39;;import &#39;vant&#x2F;lib&#x2F;index.css&#39;Vue.use(Vant)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>2、在nuxt.config.js下引入vant</p><pre class="line-numbers language-none"><code class="language-none">plugins: [    &#123;src: &#39;~&#x2F;plugins&#x2F;vant.js&#39;, ssr: true&#125;  ],<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<p>基于rgb原理制作渐变色生成器</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>nodeCanvas渲染</title>
+      <link href="/2021/12/28/nodecanvas-xuan-ran/"/>
+      <url>/2021/12/28/nodecanvas-xuan-ran/</url>
+      
+        <content type="html"><![CDATA[<p>近期项目涉及地理系统，使用的框架是mars3d</p><p>mars3d本身提供了加载<a href="http://baidu.com/">geojson</a>、图片以及模型的API，<br>但是在加载这些资源的时候，尤其是涉及到计算量比较大的时候，浏览器承担过重。<br>经过测试，该框架加载本地图片资源的时候速度有明显提升，所以就需要性能优化，<br>在服务器直接生成png图片，在需要使用的时候直接加载图片。<br>由于项目对geojson数据，尤其是边界线精度要求较高，暂时未生成图片。</p><p>`凡是引用包的地方，都需要先加载包，但是node canvas直接使用哪个npm引用有很大的几率会出现问题</p><p>`</p><h1 id="node加载数据"><a href="#node加载数据" class="headerlink" title="node加载数据"></a>node加载数据</h1><p>node加载数据使用的是自带的fs模块</p><pre class="line-numbers language-none"><code class="language-none">let fs &#x3D; require(&#39;fs&#39;)let data &#x3D; fs.readFileSync(&#39;XXX.json&#39;)let obj &#x3D; JSON.parse(data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h1 id="使用node-canvas将数据绘制到canvas上"><a href="#使用node-canvas将数据绘制到canvas上" class="headerlink" title="使用node canvas将数据绘制到canvas上"></a>使用node canvas将数据绘制到canvas上</h1><pre class="line-numbers language-none"><code class="language-none">const &#123;createCanvas&#125; &#x3D; canvasconst width &#x3D; 2000const height &#x3D; 2000const canvas &#x3D; createCanvas(width,height)const context &#x3D; canvas.getContext(&#39;2d)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="处理node-canvas生成的base64数据，生成png"><a href="#处理node-canvas生成的base64数据，生成png" class="headerlink" title="处理node canvas生成的base64数据，生成png"></a>处理node canvas生成的base64数据，生成png</h1><h1 id="将png保存到本地"><a href="#将png保存到本地" class="headerlink" title="将png保存到本地"></a>将png保存到本地</h1>]]></content>
       
       
       
@@ -1167,6 +1179,45 @@
     
     
     <entry>
+      <title>ssh远程连接服务器</title>
+      <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
+      <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
+      
+        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#114;&#111;&#111;&#116;&#x40;&#x78;&#x78;&#120;&#x2e;&#x78;&#x78;&#120;&#46;&#x78;&#120;&#120;&#x2e;&#120;&#120;&#120;">&#114;&#111;&#111;&#116;&#x40;&#x78;&#x78;&#120;&#x2e;&#x78;&#x78;&#120;&#46;&#x78;&#120;&#120;&#x2e;&#120;&#120;&#120;</a>(ip地址)</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>nuxt内使用vant框架</title>
+      <link href="/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/"/>
+      <url>/2021/12/28/nuxt-nei-shi-yong-vant-kuang-jia/</url>
+      
+        <content type="html"><![CDATA[<h1 id="nuxt目录介绍"><a href="#nuxt目录介绍" class="headerlink" title="nuxt目录介绍"></a>nuxt目录介绍</h1><p>1、<code>assets: 资源目录，用来组织未编译的静态资源</code><br>2、<code>layouts</code>: </p><pre class="line-numbers language-none"><code class="language-none">布局文件目录，里面可以放些全局可用的布局，例如default、error。default表示默认布局，error可以用来展示404。如果没有默认布局的要求，直接放置一个error即可。注：并不需要特殊路由设置，在nuxt框架下，如果访问的路径不存在，(并且有error布局的情况下)则会直接使用该布局。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="nuxt内使用vant（或者说是nuxt内使用第三方框架）"><a href="#nuxt内使用vant（或者说是nuxt内使用第三方框架）" class="headerlink" title="nuxt内使用vant（或者说是nuxt内使用第三方框架）"></a>nuxt内使用vant（或者说是nuxt内使用第三方框架）</h1><p>1、在plugins目录下新建vant.js文件，并引入vue和vant以及vant的样式。</p><pre class="line-numbers language-none"><code class="language-none">import Vue from &#39;vue&#39;;import Vant from &#39;vant&#39;;import &#39;vant&#x2F;lib&#x2F;index.css&#39;Vue.use(Vant)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>2、在nuxt.config.js下引入vant</p><pre class="line-numbers language-none"><code class="language-none">plugins: [    &#123;src: &#39;~&#x2F;plugins&#x2F;vant.js&#39;, ssr: true&#125;  ],<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>process.env.NODE_ENV</title>
+      <link href="/2021/12/28/process.env.node-env/"/>
+      <url>/2021/12/28/process.env.node-env/</url>
+      
+        <content type="html"><![CDATA[<p>1、在node当中，全局变量process代表的是node当中的进程。 process.env包含着关于系统环境的信息，<code>但是并不包含NODE_ENV这个属性</code></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>sublime内使用终端</title>
       <link href="/2021/12/28/sublime-nei-shi-yong-zhong-duan/"/>
       <url>/2021/12/28/sublime-nei-shi-yong-zhong-duan/</url>
@@ -1192,37 +1243,11 @@
     
     
     <entry>
-      <title>ssh远程连接服务器</title>
-      <link href="/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/"/>
-      <url>/2021/12/28/ssh-yuan-cheng-lian-jie-fu-wu-qi/</url>
-      
-        <content type="html"><![CDATA[<p>ssh <a href="mailto:&#114;&#x6f;&#x6f;&#x74;&#64;&#x78;&#120;&#x78;&#46;&#x78;&#120;&#x78;&#46;&#x78;&#120;&#x78;&#x2e;&#120;&#120;&#120;">&#114;&#x6f;&#x6f;&#x74;&#64;&#x78;&#120;&#x78;&#46;&#x78;&#120;&#x78;&#46;&#x78;&#120;&#x78;&#x2e;&#120;&#120;&#120;</a>(ip地址)</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>tcp三次握手和四次挥手</title>
       <link href="/2021/12/28/tcp-san-ci-wo-shou-he-si-ci-hui-shou/"/>
       <url>/2021/12/28/tcp-san-ci-wo-shou-he-si-ci-hui-shou/</url>
       
         <content type="html"><![CDATA[<h1 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h1><p>客户端和服务端通信前要进行连接，<br><code>“3次握手”的作用就是</code><em><strong><code>双方都能明确自己和对方的收、发能力是正常的。</code></strong></em></p><p><img src="http://qiniu.aoxuekj.com/2019100611062917.png"></p><h2 id="第一次握手："><a href="#第一次握手：" class="headerlink" title="第一次握手："></a>第一次握手：</h2><p>客户端发送网络包，服务端收到了。这样服务端就能得出结论：客户端的发送能力、服务端的接收能力是正常的。</p><h2 id="第二次握手："><a href="#第二次握手：" class="headerlink" title="第二次握手："></a>第二次握手：</h2><p>服务端发包，客户端收到了。这样客户端就能得出结论：服务端的接收、发送能力，客户端的接收、发送能力是正常的。 从客户端的视角来看，我接到了服务端发送过来的响应数据包，说明服务端接收到了我在第一次握手时发送的网络包，并且成功发送了响应数据包，这就说明，服务端的接收、发送能力正常。而另一方面，我收到了服务端的响应数据包，说明我第一次发送的网络包成功到达服务端，这样，我自己的发送和接收能力也是正常的。<code>但是服务器还不知道我的接收能力</code></p><h2 id="第三次握手："><a href="#第三次握手：" class="headerlink" title="第三次握手："></a>第三次握手：</h2><p>客户端发包，服务端收到了。这样服务端就能得出结论：客户端的接收、发送能力，服务端的发送、接收能力是正常的。 第一、二次握手后，服务端并不知道客户端的接收能力以及自己的发送能力是否正常。而在第三次握手时，服务端收到了客户端对第二次握手作的回应。从服务端的角度，我在第二次握手时的响应数据发送出去了，客户端接收到了。所以，我的发送能力是正常的。而客户端的接收能力也是正常的。</p><h1 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h1><p><img src="http://qiniu.aoxuekj.com/20191006110633739.png"></p><ol><li>客户端发送一个FIN段，并包含一个希望接收者看到的自己当前的序列号K. 同时还包含一个ACK表示确认对方最近一次发过来的数据。 </li><li>服务端将K值加1作为ACK序号值，表明收到了上一个包。这时上层的应用程序会被告知另一端发起了关闭操作，通常这将引起应用程序发起自己的关闭操作。 </li><li>服务端发起自己的FIN段，ACK=K+1, Seq=L。</li><li>客户端确认。ACK=L+1。</li></ol><h1 id="为什么握手是三次，挥手是四次"><a href="#为什么握手是三次，挥手是四次" class="headerlink" title="为什么握手是三次，挥手是四次"></a>为什么握手是三次，挥手是四次</h1><p>这是因为服务端在LISTEN状态下，<code>收到建立连接请求的SYN报文后，把ACK和SYN放在一个报文里发送给客户端</code>(<em><strong>相当于将四次挥手中的第2、3次合并了</strong></em>)。而关闭连接时，当收到对方的FIN报文时，仅仅表示对方不再发送数据了但是还能接收数据，己方是否现在关闭发送数据通道，需要上层应用来决定，因此，己方ACK和FIN一般都会分开发送。</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>vue-router</title>
-      <link href="/2021/12/28/vue-router/"/>
-      <url>/2021/12/28/vue-router/</url>
-      
-        <content type="html"><![CDATA[<p>官方网址：<a href="https://router.vuejs.org/zh/">https://router.vuejs.org/zh/</a></p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><code>安装有3中方式</code></p><pre class="line-numbers language-none"><code class="language-none">1、js网址链接先引入vue，再引入vue-router&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue-router.js&quot;&gt;&lt;&#x2F;script&gt;2、NPMnpm install vue-router如果在一个模块化工程中使用它，必须要通过 Vue.use() 明确地安装路由功能：import Vue from &#39;vue&#39;import VueRouter from &#39;vue-router&#39;Vue.use(VueRouter)3、在vue cli项目内用插件的方式vue add router<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>vue-router是基于路由和组件的路由用于设定访问路径，将路径和组件映射起来。在vue-router的单页面应用中, 页面的路径的改变就是组件的切换。</code></p>]]></content>
       
       
       
@@ -1244,11 +1269,11 @@
     
     
     <entry>
-      <title>process.env.NODE_ENV</title>
-      <link href="/2021/12/28/process.env.node-env/"/>
-      <url>/2021/12/28/process.env.node-env/</url>
+      <title>vue-router</title>
+      <link href="/2021/12/28/vue-router/"/>
+      <url>/2021/12/28/vue-router/</url>
       
-        <content type="html"><![CDATA[<p>1、在node当中，全局变量process代表的是node当中的进程。 process.env包含着关于系统环境的信息，<code>但是并不包含NODE_ENV这个属性</code></p>]]></content>
+        <content type="html"><![CDATA[<p>官方网址：<a href="https://router.vuejs.org/zh/">https://router.vuejs.org/zh/</a></p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><code>安装有3中方式</code></p><pre class="line-numbers language-none"><code class="language-none">1、js网址链接先引入vue，再引入vue-router&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;&lt;script src&#x3D;&quot;&#x2F;path&#x2F;to&#x2F;vue-router.js&quot;&gt;&lt;&#x2F;script&gt;2、NPMnpm install vue-router如果在一个模块化工程中使用它，必须要通过 Vue.use() 明确地安装路由功能：import Vue from &#39;vue&#39;import VueRouter from &#39;vue-router&#39;Vue.use(VueRouter)3、在vue cli项目内用插件的方式vue add router<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>vue-router是基于路由和组件的路由用于设定访问路径，将路径和组件映射起来。在vue-router的单页面应用中, 页面的路径的改变就是组件的切换。</code></p>]]></content>
       
       
       
@@ -1274,25 +1299,6 @@
         <tags>
             
             <tag> 面向对象 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>macOS安装homebrew</title>
-      <link href="/2021/12/28/macos-an-zhuang-homebrew/"/>
-      <url>/2021/12/28/macos-an-zhuang-homebrew/</url>
-      
-        <content type="html"><![CDATA[<p>Homebrew是一款Mac OS平台下的软件包管理工具，拥有安装、卸载、更新、查看、搜索等很多实用的功能。简单的一条指令，就可以实现包管理，而不用你关心各种依赖和文件路径的情况，十分方便快捷。</p><h2 id="官方安装方式-https-brew-sh-index-zh-cn"><a href="#官方安装方式-https-brew-sh-index-zh-cn" class="headerlink" title="官方安装方式(https://brew.sh/index_zh-cn)"></a>官方安装方式(<a href="https://brew.sh/index_zh-cn">https://brew.sh/index_zh-cn</a>)</h2><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;HEAD&#x2F;install.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><code>官方安装方法在国内很多时候都是无法直接安装问题的，因为网络问题，解决方法也有很多，这里就不一一介绍了，这里就介绍最简单的方法</code></p><h2 id="国内快速安装"><a href="#国内快速安装" class="headerlink" title="国内快速安装"></a>国内快速安装</h2><p><code>这里只推荐安装最全的方式，我一般选中科大的源</code></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;zsh -c &quot;$(curl -fsSL https:&#x2F;&#x2F;gitee.com&#x2F;cunkai&#x2F;HomebrewCN&#x2F;raw&#x2F;master&#x2F;Homebrew.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> macOS </tag>
             
         </tags>
       
@@ -1360,6 +1366,38 @@
     
     
     <entry>
+      <title>macOS安装homebrew</title>
+      <link href="/2021/12/28/macos-an-zhuang-homebrew/"/>
+      <url>/2021/12/28/macos-an-zhuang-homebrew/</url>
+      
+        <content type="html"><![CDATA[<p>Homebrew是一款Mac OS平台下的软件包管理工具，拥有安装、卸载、更新、查看、搜索等很多实用的功能。简单的一条指令，就可以实现包管理，而不用你关心各种依赖和文件路径的情况，十分方便快捷。</p><h2 id="官方安装方式-https-brew-sh-index-zh-cn"><a href="#官方安装方式-https-brew-sh-index-zh-cn" class="headerlink" title="官方安装方式(https://brew.sh/index_zh-cn)"></a>官方安装方式(<a href="https://brew.sh/index_zh-cn">https://brew.sh/index_zh-cn</a>)</h2><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;HEAD&#x2F;install.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><code>官方安装方法在国内很多时候都是无法直接安装问题的，因为网络问题，解决方法也有很多，这里就不一一介绍了，这里就介绍最简单的方法</code></p><h2 id="国内快速安装"><a href="#国内快速安装" class="headerlink" title="国内快速安装"></a>国内快速安装</h2><p><code>这里只推荐安装最全的方式，我一般选中科大的源</code></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;zsh -c &quot;$(curl -fsSL https:&#x2F;&#x2F;gitee.com&#x2F;cunkai&#x2F;HomebrewCN&#x2F;raw&#x2F;master&#x2F;Homebrew.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> macOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>node</title>
+      <link href="/2021/12/28/node/"/>
+      <url>/2021/12/28/node/</url>
+      
+        <content type="html"><![CDATA[<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><h2 id="node原生引入的http创建的服务器解决跨域问题"><a href="#node原生引入的http创建的服务器解决跨域问题" class="headerlink" title="node原生引入的http创建的服务器解决跨域问题"></a>node原生引入的http创建的服务器解决跨域问题</h2><pre class="line-numbers language-none"><code class="language-none">const http &#x3D; require(&#39;http&#39;);http.createServer((req,res)&#x3D;&gt;&#123;    res.setHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);&#x2F;&#x2F;跨域    res.end(&#39;12&#39;)&#125;).listen(&#39;3000&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>node canvas生成图片并保存</title>
       <link href="/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/"/>
       <url>/2021/12/28/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/</url>
@@ -1387,11 +1425,11 @@
     
     
     <entry>
-      <title>node</title>
-      <link href="/2021/12/28/node/"/>
-      <url>/2021/12/28/node/</url>
+      <title>cesium专题</title>
+      <link href="/2021/12/28/cesium-zhuan-ti/"/>
+      <url>/2021/12/28/cesium-zhuan-ti/</url>
       
-        <content type="html"><![CDATA[<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><h2 id="node原生引入的http创建的服务器解决跨域问题"><a href="#node原生引入的http创建的服务器解决跨域问题" class="headerlink" title="node原生引入的http创建的服务器解决跨域问题"></a>node原生引入的http创建的服务器解决跨域问题</h2><pre class="line-numbers language-none"><code class="language-none">const http &#x3D; require(&#39;http&#39;);http.createServer((req,res)&#x3D;&gt;&#123;    res.setHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);&#x2F;&#x2F;跨域    res.end(&#39;12&#39;)&#125;).listen(&#39;3000&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<p>CesiumJS 是一款用于创建虚拟场景的3D地理信息平台。目标是用于创建以基于Web的地图动态数据可视化。目前尽力提升平台的性能、准确率、虚拟化能力、易用性以及平台的各种支持。</p><ul><li>Cesium 是一个跨平台、跨浏览器的展示三维地球和地图的 javascript 库。</li><li>Cesium 使用WebGL 来进行硬件加速图形，使用时不需要任何插件支持，但是浏览器必须支持WebGL。</li><li>Cesium是基于Apache2.0 许可的开源程序。它可以免费的用于商业和非商业用途。</li></ul><h2 id="数据格式与功能特性"><a href="#数据格式与功能特性" class="headerlink" title="数据格式与功能特性"></a>数据格式与功能特性</h2><ul><li>支持2D,2.5D,3D 形式的地理（地图）数据展示，</li><li>可以绘制各种几何图形、高亮区域，支持导入图片，甚至三维模型等多种数据可视化展示</li><li>可用于动态数据可视化并提供良好的触摸支持，支持绝大多数的浏览器和移动端浏览器。</li><li>支持基于时间轴的动态流式数据展示</li></ul>]]></content>
       
       
       
@@ -1419,51 +1457,6 @@
             <tag> canvas </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>cesium专题</title>
-      <link href="/2021/12/28/cesium-zhuan-ti/"/>
-      <url>/2021/12/28/cesium-zhuan-ti/</url>
-      
-        <content type="html"><![CDATA[<p>CesiumJS 是一款用于创建虚拟场景的3D地理信息平台。目标是用于创建以基于Web的地图动态数据可视化。目前尽力提升平台的性能、准确率、虚拟化能力、易用性以及平台的各种支持。</p><ul><li>Cesium 是一个跨平台、跨浏览器的展示三维地球和地图的 javascript 库。</li><li>Cesium 使用WebGL 来进行硬件加速图形，使用时不需要任何插件支持，但是浏览器必须支持WebGL。</li><li>Cesium是基于Apache2.0 许可的开源程序。它可以免费的用于商业和非商业用途。</li></ul><h2 id="数据格式与功能特性"><a href="#数据格式与功能特性" class="headerlink" title="数据格式与功能特性"></a>数据格式与功能特性</h2><ul><li>支持2D,2.5D,3D 形式的地理（地图）数据展示，</li><li>可以绘制各种几何图形、高亮区域，支持导入图片，甚至三维模型等多种数据可视化展示</li><li>可用于动态数据可视化并提供良好的触摸支持，支持绝大多数的浏览器和移动端浏览器。</li><li>支持基于时间轴的动态流式数据展示</li></ul>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>es6</title>
-      <link href="/2021/12/28/es6/"/>
-      <url>/2021/12/28/es6/</url>
-      
-        <content type="html"><![CDATA[<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><p><code>从数组和对象中提取值，对变量进行赋值，这被称为解构</code></p><h2 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h2><pre class="line-numbers language-none"><code class="language-none">let [a,b,c] &#x3D; [1,2,3];console.log(a,b,c);&#x2F;&#x2F; 1 2 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><code>解构不成功，变量的值为undefined</code></p><pre class="line-numbers language-none"><code class="language-none">let [a,b] &#x3D; [1];console.log(a,b);&#x2F;&#x2F; 1 undefinedlet [a,b] &#x3D; &#39;1&#39;;console.log(a,b);&#x2F;&#x2F; 1 undefined<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>如果等号右边不是可遍历的结构，会报错</strong></p><p>会报错的常见形式：</p><p>1、 数字</p><p>2、 布尔</p><p>3、 NaN</p><p>4、 undefined</p><p>5、null</p><p>6、{}  对象</p><h2 id="解构赋值的应用"><a href="#解构赋值的应用" class="headerlink" title="解构赋值的应用"></a>解构赋值的应用</h2><pre class="line-numbers language-none"><code class="language-none">假设下面是某个请求的返回值，形参是res&#123;    &quot;status&quot;: 200,    &quot;msg&quot;: &quot;成功&quot;,    &quot;data&quot;: &#123;        &quot;pageNum&quot;: 1,        &quot;pageSize&quot;: 99,        &quot;size&quot;: 49,    &#125;&#125;1、不用解构赋值let data &#x3D; res;if(data.data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;写起来比较繁琐2、使用解构赋值let &#123;data&#125; &#x3D; res;if(data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>这里需要注意的一点就是：声明的变量必须是返回值里面的某个属性， 也就是说：返回值内必须包含被声明的这个变量字段。</code></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>git命令</title>
-      <link href="/2021/12/28/git-ming-ling/"/>
-      <url>/2021/12/28/git-ming-ling/</url>
-      
-        <content type="html"><![CDATA[<p><code>git版本控制就是通过不同的节点保存代码的各个阶段，同时在每次提交代码的时候需要填写提交信息</code></p><h1 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h1><p><code>git clone 仓库地址</code><br><em>注意：如果配置了多个git账户，则需要区分仓库地址使用的事git还是https，要依据自己配置的config文件进行确定</em></p><h1 id="添加（暂存）"><a href="#添加（暂存）" class="headerlink" title="添加（暂存）"></a>添加（暂存）</h1><p><code>git add .</code><br><em>注意：后面的 . 不能省略，. 代表的是将所有的更改都暂存起来</em></p><h1 id="填写提交信息"><a href="#填写提交信息" class="headerlink" title="填写提交信息"></a>填写提交信息</h1><p><code>git commit -m &#39;提交信息&#39;</code><br><em>注意：提交信息一定要见名知意，这样在后续回退的时候能更快的知道需要回退到哪个版本，做到真正的版本管理</em></p><p><strong>每次在提交前填写 commit -m 的命令时，推荐使用vscode插件 <code>git-commit-plugin</code>，这样可以使我们的提交信息更加丰富，方便管理</strong></p><h1 id="提交到仓库"><a href="#提交到仓库" class="headerlink" title="提交到仓库"></a>提交到仓库</h1><h2 id="线上与线下分支不存在冲突的时候"><a href="#线上与线下分支不存在冲突的时候" class="headerlink" title="线上与线下分支不存在冲突的时候"></a>线上与线下分支不存在冲突的时候</h2><p>当明确知道线上分支与当前线下分支版本一致，不存在冲突的时候。可以直接使用<code>git push</code></p><h2 id="线上与线下存在冲突的时候"><a href="#线上与线下存在冲突的时候" class="headerlink" title="线上与线下存在冲突的时候"></a>线上与线下存在冲突的时候</h2><p>因为一个项目需要多人在同一个仓库后者分支上开发，有时候就会出现别人的代码已经上传到git，但是自己本地未更新，这样在本地开发完成后，需要上传的时候就会提示需要先拉取最新的线上版本，与本地处理冲突后，然后再提交到仓库。<br><code>冲突的产生是不同的开发者开发了同一个文件所导致，如果不同的开发者开发的不是同一个文件，则可以直接上传成功。</code><br><strong>这很好理解：不同的开发者开发不同的文件，git上传的时候直接直接替换即可，但是如果开发的是同一个文件，那么git就会产生以谁的文件为最终结果的疑问，这就是冲突的由来，我们只有解决好冲突后，才能在解决的基础上连同自己添加的文件一并上传</strong><br><code>所以一般的开发习惯就是在 git push之前，先git pull拉取下</code></p><p><em>注意：提交的时候git会自动根据本地当时所处的分支提交到线上对应的分支，这一点至关重要，假如线上、线下同时具有dev和version分支，且本地处于version分支，那么上传时会自动传输到version分支，造成混乱。所以需要确定当前所处分支，需要上传到线上的分支，当分支不对的时候就需要切换</em></p><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><h2 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h2><p>分支切换的前提是知道有哪些分支，所以需要先查看下</p><h3 id="查看本地分支（线下）"><a href="#查看本地分支（线下）" class="headerlink" title="查看本地分支（线下）"></a>查看本地分支（线下）</h3><p><code>git branch</code><br><em>命令输入后，如果本地存在分支，则会全部列出</em></p><h3 id="查看所有分支（线上和线下）"><a href="#查看所有分支（线上和线下）" class="headerlink" title="查看所有分支（线上和线下）"></a>查看所有分支（线上和线下）</h3><p><code>git branch -a</code></p><ul><li>-a 就是 -all的意思，即查看所有分支（线上和线下）*<h2 id="切换分支-1"><a href="#切换分支-1" class="headerlink" title="切换分支"></a>切换分支</h2>查看分支完毕，就需要切换分支<h3 id="切换到本地已经存在的分支"><a href="#切换到本地已经存在的分支" class="headerlink" title="切换到本地已经存在的分支"></a>切换到本地已经存在的分支</h3><code>git checkout 分支名称</code><h3 id="要切换的分支本地并不存在，想创建一个分支并切换过去"><a href="#要切换的分支本地并不存在，想创建一个分支并切换过去" class="headerlink" title="要切换的分支本地并不存在，想创建一个分支并切换过去"></a>要切换的分支本地并不存在，想创建一个分支并切换过去</h3><code>git checkout -b 分支名称</code></li><li>注意：当使用<code>git checkout -b 分支名称</code>创建一个新分支的时候，如果线上也没有这个分支，则<code>git push</code>的时候会自动在线上创建该分支，这也是刚在上面所说的<code>git push</code>的时候需要注意本地当前所处分支的原因*</li></ul><h1 id="下拉"><a href="#下拉" class="headerlink" title="下拉"></a>下拉</h1><h2 id="下拉之前先检查线上分支与本地分支是否一致"><a href="#下拉之前先检查线上分支与本地分支是否一致" class="headerlink" title="下拉之前先检查线上分支与本地分支是否一致"></a>下拉之前先检查线上分支与本地分支是否一致</h2><p><code>git fetch</code></p><h2 id="下拉之前不检查，直接下拉"><a href="#下拉之前不检查，直接下拉" class="headerlink" title="下拉之前不检查，直接下拉"></a>下拉之前不检查，直接下拉</h2><p><code>git pull</code><br><em>注意：git pull是在不检查的情况下直接拉取，有可能下拉下来后与本地分支存在冲突，需要手动解决</em></p><h2 id="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"><a href="#本地已经做的更改不想保存，直接下拉线上版本进行覆盖" class="headerlink" title="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"></a>本地已经做的更改不想保存，直接下拉线上版本进行覆盖</h2><p>…未完待续</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 命令行 </category>
-          
-      </categories>
-      
       
     </entry>
     
@@ -1518,6 +1511,38 @@
             <tag> genkins </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>es6</title>
+      <link href="/2021/12/28/es6/"/>
+      <url>/2021/12/28/es6/</url>
+      
+        <content type="html"><![CDATA[<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><p><code>从数组和对象中提取值，对变量进行赋值，这被称为解构</code></p><h2 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h2><pre class="line-numbers language-none"><code class="language-none">let [a,b,c] &#x3D; [1,2,3];console.log(a,b,c);&#x2F;&#x2F; 1 2 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><code>解构不成功，变量的值为undefined</code></p><pre class="line-numbers language-none"><code class="language-none">let [a,b] &#x3D; [1];console.log(a,b);&#x2F;&#x2F; 1 undefinedlet [a,b] &#x3D; &#39;1&#39;;console.log(a,b);&#x2F;&#x2F; 1 undefined<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>如果等号右边不是可遍历的结构，会报错</strong></p><p>会报错的常见形式：</p><p>1、 数字</p><p>2、 布尔</p><p>3、 NaN</p><p>4、 undefined</p><p>5、null</p><p>6、{}  对象</p><h2 id="解构赋值的应用"><a href="#解构赋值的应用" class="headerlink" title="解构赋值的应用"></a>解构赋值的应用</h2><pre class="line-numbers language-none"><code class="language-none">假设下面是某个请求的返回值，形参是res&#123;    &quot;status&quot;: 200,    &quot;msg&quot;: &quot;成功&quot;,    &quot;data&quot;: &#123;        &quot;pageNum&quot;: 1,        &quot;pageSize&quot;: 99,        &quot;size&quot;: 49,    &#125;&#125;1、不用解构赋值let data &#x3D; res;if(data.data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;写起来比较繁琐2、使用解构赋值let &#123;data&#125; &#x3D; res;if(data.pageNum!&#x3D;&#x3D;1)&#123;...&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>这里需要注意的一点就是：声明的变量必须是返回值里面的某个属性， 也就是说：返回值内必须包含被声明的这个变量字段。</code></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>git命令</title>
+      <link href="/2021/12/28/git-ming-ling/"/>
+      <url>/2021/12/28/git-ming-ling/</url>
+      
+        <content type="html"><![CDATA[<p><code>git版本控制就是通过不同的节点保存代码的各个阶段，同时在每次提交代码的时候需要填写提交信息</code></p><h1 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h1><p><code>git clone 仓库地址</code><br><em>注意：如果配置了多个git账户，则需要区分仓库地址使用的事git还是https，要依据自己配置的config文件进行确定</em></p><h1 id="添加（暂存）"><a href="#添加（暂存）" class="headerlink" title="添加（暂存）"></a>添加（暂存）</h1><p><code>git add .</code><br><em>注意：后面的 . 不能省略，. 代表的是将所有的更改都暂存起来</em></p><h1 id="填写提交信息"><a href="#填写提交信息" class="headerlink" title="填写提交信息"></a>填写提交信息</h1><p><code>git commit -m &#39;提交信息&#39;</code><br><em>注意：提交信息一定要见名知意，这样在后续回退的时候能更快的知道需要回退到哪个版本，做到真正的版本管理</em></p><p><strong>每次在提交前填写 commit -m 的命令时，推荐使用vscode插件 <code>git-commit-plugin</code>，这样可以使我们的提交信息更加丰富，方便管理</strong></p><h1 id="提交到仓库"><a href="#提交到仓库" class="headerlink" title="提交到仓库"></a>提交到仓库</h1><h2 id="线上与线下分支不存在冲突的时候"><a href="#线上与线下分支不存在冲突的时候" class="headerlink" title="线上与线下分支不存在冲突的时候"></a>线上与线下分支不存在冲突的时候</h2><p>当明确知道线上分支与当前线下分支版本一致，不存在冲突的时候。可以直接使用<code>git push</code></p><h2 id="线上与线下存在冲突的时候"><a href="#线上与线下存在冲突的时候" class="headerlink" title="线上与线下存在冲突的时候"></a>线上与线下存在冲突的时候</h2><p>因为一个项目需要多人在同一个仓库后者分支上开发，有时候就会出现别人的代码已经上传到git，但是自己本地未更新，这样在本地开发完成后，需要上传的时候就会提示需要先拉取最新的线上版本，与本地处理冲突后，然后再提交到仓库。<br><code>冲突的产生是不同的开发者开发了同一个文件所导致，如果不同的开发者开发的不是同一个文件，则可以直接上传成功。</code><br><strong>这很好理解：不同的开发者开发不同的文件，git上传的时候直接直接替换即可，但是如果开发的是同一个文件，那么git就会产生以谁的文件为最终结果的疑问，这就是冲突的由来，我们只有解决好冲突后，才能在解决的基础上连同自己添加的文件一并上传</strong><br><code>所以一般的开发习惯就是在 git push之前，先git pull拉取下</code></p><p><em>注意：提交的时候git会自动根据本地当时所处的分支提交到线上对应的分支，这一点至关重要，假如线上、线下同时具有dev和version分支，且本地处于version分支，那么上传时会自动传输到version分支，造成混乱。所以需要确定当前所处分支，需要上传到线上的分支，当分支不对的时候就需要切换</em></p><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><h2 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h2><p>分支切换的前提是知道有哪些分支，所以需要先查看下</p><h3 id="查看本地分支（线下）"><a href="#查看本地分支（线下）" class="headerlink" title="查看本地分支（线下）"></a>查看本地分支（线下）</h3><p><code>git branch</code><br><em>命令输入后，如果本地存在分支，则会全部列出</em></p><h3 id="查看所有分支（线上和线下）"><a href="#查看所有分支（线上和线下）" class="headerlink" title="查看所有分支（线上和线下）"></a>查看所有分支（线上和线下）</h3><p><code>git branch -a</code></p><ul><li>-a 就是 -all的意思，即查看所有分支（线上和线下）*<h2 id="切换分支-1"><a href="#切换分支-1" class="headerlink" title="切换分支"></a>切换分支</h2>查看分支完毕，就需要切换分支<h3 id="切换到本地已经存在的分支"><a href="#切换到本地已经存在的分支" class="headerlink" title="切换到本地已经存在的分支"></a>切换到本地已经存在的分支</h3><code>git checkout 分支名称</code><h3 id="要切换的分支本地并不存在，想创建一个分支并切换过去"><a href="#要切换的分支本地并不存在，想创建一个分支并切换过去" class="headerlink" title="要切换的分支本地并不存在，想创建一个分支并切换过去"></a>要切换的分支本地并不存在，想创建一个分支并切换过去</h3><code>git checkout -b 分支名称</code></li><li>注意：当使用<code>git checkout -b 分支名称</code>创建一个新分支的时候，如果线上也没有这个分支，则<code>git push</code>的时候会自动在线上创建该分支，这也是刚在上面所说的<code>git push</code>的时候需要注意本地当前所处分支的原因*</li></ul><h1 id="下拉"><a href="#下拉" class="headerlink" title="下拉"></a>下拉</h1><h2 id="下拉之前先检查线上分支与本地分支是否一致"><a href="#下拉之前先检查线上分支与本地分支是否一致" class="headerlink" title="下拉之前先检查线上分支与本地分支是否一致"></a>下拉之前先检查线上分支与本地分支是否一致</h2><p><code>git fetch</code></p><h2 id="下拉之前不检查，直接下拉"><a href="#下拉之前不检查，直接下拉" class="headerlink" title="下拉之前不检查，直接下拉"></a>下拉之前不检查，直接下拉</h2><p><code>git pull</code><br><em>注意：git pull是在不检查的情况下直接拉取，有可能下拉下来后与本地分支存在冲突，需要手动解决</em></p><h2 id="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"><a href="#本地已经做的更改不想保存，直接下拉线上版本进行覆盖" class="headerlink" title="本地已经做的更改不想保存，直接下拉线上版本进行覆盖"></a>本地已经做的更改不想保存，直接下拉线上版本进行覆盖</h2><p>…未完待续</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 命令行 </category>
+          
+      </categories>
+      
       
     </entry>
     
