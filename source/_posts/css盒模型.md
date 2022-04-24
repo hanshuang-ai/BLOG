@@ -31,6 +31,9 @@ IE模型元素宽度`width = content + padding + border`，高度计算相同。
 window.getComputedStyle(dom).width / height
 ```
 
+## 设置
+
+
 ## 延伸
 
 ### 1.BFC
