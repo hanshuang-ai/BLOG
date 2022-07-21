@@ -33,7 +33,7 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.2"></head>
 
 
 
@@ -456,7 +456,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-04-23
+                    2022-07-05
                 </div>
                 
 
@@ -550,20 +550,20 @@ http:&#x2F;&#x2F;www.domain2.com&#x2F;b.js 不同域名 不允许
 <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>服务端返回如下（返回时即执行全局函数）：</strong></p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">handleCallback</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> status<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> user<span class="token operator">:</span> <span class="token string">"admin"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">handleCallback</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">status</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token literal-property property">user</span><span class="token operator">:</span> <span class="token string">"admin"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h5 id="2-）jquery-ajax："><a href="#2-）jquery-ajax：" class="headerlink" title="2.）jquery ajax："></a>2.）jquery ajax：</h5><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">$<span class="token punctuation">.</span><span class="token function">ajax</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-  url<span class="token operator">:</span> <span class="token string">"http://www.domain2.com:8080/login"</span><span class="token punctuation">,</span>
-  type<span class="token operator">:</span> <span class="token string">"get"</span><span class="token punctuation">,</span>
-  dataType<span class="token operator">:</span> <span class="token string">"jsonp"</span><span class="token punctuation">,</span> <span class="token comment">// 请求方式为jsonp</span>
-  jsonpCallback<span class="token operator">:</span> <span class="token string">"handleCallback"</span><span class="token punctuation">,</span> <span class="token comment">// 自定义回调函数名</span>
-  data<span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">url</span><span class="token operator">:</span> <span class="token string">"http://www.domain2.com:8080/login"</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">"get"</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">dataType</span><span class="token operator">:</span> <span class="token string">"jsonp"</span><span class="token punctuation">,</span> <span class="token comment">// 请求方式为jsonp</span>
+  <span class="token literal-property property">jsonpCallback</span><span class="token operator">:</span> <span class="token string">"handleCallback"</span><span class="token punctuation">,</span> <span class="token comment">// 自定义回调函数名</span>
+  <span class="token literal-property property">data</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h5 id="3-）vue-js："><a href="#3-）vue-js：" class="headerlink" title="3.）vue.js："></a>3.）vue.js：</h5><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">this</span><span class="token punctuation">.</span>$http
   <span class="token punctuation">.</span><span class="token function">jsonp</span><span class="token punctuation">(</span><span class="token string">"http://www.domain2.com:8080/login"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
-    params<span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    jsonp<span class="token operator">:</span> <span class="token string">"handleCallback"</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">params</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">jsonp</span><span class="token operator">:</span> <span class="token string">"handleCallback"</span><span class="token punctuation">,</span>
   <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
     console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -579,7 +579,7 @@ server<span class="token punctuation">.</span><span class="token function">on</s
   <span class="token keyword">var</span> fn <span class="token operator">=</span> params<span class="token punctuation">.</span>callback<span class="token punctuation">;</span>
 
   <span class="token comment">// jsonp返回设置</span>
-  res<span class="token punctuation">.</span><span class="token function">writeHead</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> <span class="token string">"Content-Type"</span><span class="token operator">:</span> <span class="token string">"text/javascript"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  res<span class="token punctuation">.</span><span class="token function">writeHead</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> <span class="token string-property property">"Content-Type"</span><span class="token operator">:</span> <span class="token string">"text/javascript"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   res<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>fn <span class="token operator">+</span> <span class="token string">"("</span> <span class="token operator">+</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>params<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">")"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   res<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -591,14 +591,14 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <p><strong><em>jsonp 缺点：只能实现 get 一种请求。</em></strong></p>
 <h4 id="4-2-document-domain-iframe-跨域"><a href="#4-2-document-domain-iframe-跨域" class="headerlink" title="4.2 document.domain + iframe 跨域"></a>4.2 document.domain + iframe 跨域</h4><p><code>此方案仅限主域相同，子域不同的跨域应用场景。</code><br><strong>_实现原理：两个页面都通过 js 强制设置 document.domain 为基础主域，就实现了同域。 _</strong></p>
 <p>1.）父窗口：(<a target="_blank" rel="noopener" href="http://www.domain.com/a.html">http://www.domain.com/a.html</a>)</p>
-<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iframe</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>iframe<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://child.domain.com/b.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>iframe</span><span class="token punctuation">></span></span>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iframe</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>iframe<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://child.domain.com/b.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>iframe</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
   document<span class="token punctuation">.</span>domain <span class="token operator">=</span> <span class="token string">"domain.com"</span><span class="token punctuation">;</span>
   <span class="token keyword">var</span> user <span class="token operator">=</span> <span class="token string">"admin"</span><span class="token punctuation">;</span>
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>2.）子窗口：(<a target="_blank" rel="noopener" href="http://child.domain.com/b.html">http://child.domain.com/b.html</a>)</p>
-<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
   document<span class="token punctuation">.</span>domain <span class="token operator">=</span> <span class="token string">"domain.com"</span><span class="token punctuation">;</span>
   <span class="token comment">// 获取父窗口中变量</span>
   <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"get js data from parent ---> "</span> <span class="token operator">+</span> window<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -609,7 +609,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <p>A 域：a.html -&gt; B 域：b.html -&gt; A 域：c.html<br>a 与 b 不同域只能通过 hash 值单向通信，<br>b 与 c 也不同域也只能单向通信，<br>但 c 与 a 同域，所以 c 可通过 parent.parent 访问 a 页面所有对象。</p>
 </blockquote>
 <p>1.）a.html：(<a target="_blank" rel="noopener" href="http://www.domain1.com/a.html">http://www.domain1.com/a.html</a>)</p>
-<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iframe</span>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iframe</span>
   <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>iframe<span class="token punctuation">"</span></span>
   <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://www.domain2.com/b.html<span class="token punctuation">"</span></span>
   <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">display</span><span class="token punctuation">:</span>none<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span></span>
@@ -629,7 +629,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>2.）b.html：(<a target="_blank" rel="noopener" href="http://www.domain2.com/b.html">http://www.domain2.com/b.html</a>)</p>
-<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iframe</span>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iframe</span>
   <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>iframe<span class="token punctuation">"</span></span>
   <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://www.domain1.com/c.html<span class="token punctuation">"</span></span>
   <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">display</span><span class="token punctuation">:</span>none<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span></span>
@@ -644,7 +644,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>3.）c.html：(<a target="_blank" rel="noopener" href="http://www.domain1.com/c.html">http://www.domain1.com/c.html</a>)</p>
-<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
   <span class="token comment">// 监听b.html传来的hash值</span>
   window<span class="token punctuation">.</span><span class="token function-variable function">onhashchange</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token comment">// 再通过操作同域a.html的js回调，将结果传回</span>
@@ -687,7 +687,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 <p>2.）proxy.html：(<a target="_blank" rel="noopener" href="http://www.domain1.com/proxy">http://www.domain1.com/proxy</a>….<br>中间代理页，与 a.html 同域，内容为空即可。</p>
 <p>3.）b.html：(<a target="_blank" rel="noopener" href="http://www.domain2.com/b.html">http://www.domain2.com/b.html</a>)</p>
-<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
   window<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"This is domain2 data!"</span><span class="token punctuation">;</span>
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
@@ -701,7 +701,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <p>data： html5 规范支持任意基本类型或可复制的对象，但部分浏览器只支持字符串，所以传参时最好用 JSON.stringify()序列化。<br>origin：协议+主机+端口号，也可以设置为”*“，表示可以传递给任意窗口，如果要指定和当前窗口同源的话设置为”/“。</p>
 </blockquote>
 <p>1.）a.html：(<a target="_blank" rel="noopener" href="http://www.domain1.com/a.html">http://www.domain1.com/a.html</a>)</p>
-<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iframe</span>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iframe</span>
   <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>iframe<span class="token punctuation">"</span></span>
   <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://www.domain2.com/b.html<span class="token punctuation">"</span></span>
   <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">display</span><span class="token punctuation">:</span>none<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span></span>
@@ -710,7 +710,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
   <span class="token keyword">var</span> iframe <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"iframe"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   iframe<span class="token punctuation">.</span><span class="token function-variable function">onload</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">var</span> data <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-      name<span class="token operator">:</span> <span class="token string">"aym"</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">"aym"</span><span class="token punctuation">,</span>
     <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
     <span class="token comment">// 向domain2传送跨域数据</span>
     iframe<span class="token punctuation">.</span>contentWindow<span class="token punctuation">.</span><span class="token function">postMessage</span><span class="token punctuation">(</span>
@@ -730,7 +730,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>2.）b.html：(<a target="_blank" rel="noopener" href="http://www.domain2.com/b.html">http://www.domain2.com/b.html</a>)</p>
-<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
   <span class="token comment">// 接收domain1的数据</span>
   window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>
     <span class="token string">"message"</span><span class="token punctuation">,</span>
@@ -1297,7 +1297,7 @@ socket.on(&quot;disconnect&quot;, function () &#123;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">40k</span>
+                        class="white-color">40.9k</span>
             
             
             

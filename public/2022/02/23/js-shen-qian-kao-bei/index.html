@@ -32,7 +32,7 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.2"></head>
 
 
 
@@ -455,7 +455,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-04-23
+                    2022-07-05
                 </div>
                 
 
@@ -508,7 +508,7 @@ b <span class="token operator">=</span> <span class="token number">2</span><span
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//  1  2</span>
 
 <span class="token keyword">let</span> aa <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  name<span class="token operator">:</span> <span class="token string">"12"</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">"12"</span><span class="token punctuation">,</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 <span class="token keyword">let</span> bb <span class="token operator">=</span> aa<span class="token punctuation">;</span>
 bb<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"13"</span><span class="token punctuation">;</span>
@@ -593,17 +593,17 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token keyword">function</span> <span class="token function">cloneOtherType</span><span class="token punctuation">(</span><span class="token parameter">targe<span class="token punctuation">,</span> type</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">const</span> Ctor <span class="token operator">=</span> targe<span class="token punctuation">.</span>constructor<span class="token punctuation">;</span>
   <span class="token keyword">switch</span> <span class="token punctuation">(</span>type<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">case</span> boolTag<span class="token operator">:</span>
-    <span class="token keyword">case</span> numberTag<span class="token operator">:</span>
-    <span class="token keyword">case</span> stringTag<span class="token operator">:</span>
-    <span class="token keyword">case</span> errorTag<span class="token operator">:</span>
-    <span class="token keyword">case</span> dateTag<span class="token operator">:</span>
+    <span class="token keyword">case</span> <span class="token literal-property property">boolTag</span><span class="token operator">:</span>
+    <span class="token keyword">case</span> <span class="token literal-property property">numberTag</span><span class="token operator">:</span>
+    <span class="token keyword">case</span> <span class="token literal-property property">stringTag</span><span class="token operator">:</span>
+    <span class="token keyword">case</span> <span class="token literal-property property">errorTag</span><span class="token operator">:</span>
+    <span class="token keyword">case</span> <span class="token literal-property property">dateTag</span><span class="token operator">:</span>
       <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Ctor</span><span class="token punctuation">(</span>targe<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">case</span> regexpTag<span class="token operator">:</span>
+    <span class="token keyword">case</span> <span class="token literal-property property">regexpTag</span><span class="token operator">:</span>
       <span class="token keyword">return</span> <span class="token function">cloneReg</span><span class="token punctuation">(</span>targe<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">case</span> symbolTag<span class="token operator">:</span>
+    <span class="token keyword">case</span> <span class="token literal-property property">symbolTag</span><span class="token operator">:</span>
       <span class="token keyword">return</span> <span class="token function">cloneSymbol</span><span class="token punctuation">(</span>targe<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">case</span> funcTag<span class="token operator">:</span>
+    <span class="token keyword">case</span> <span class="token literal-property property">funcTag</span><span class="token operator">:</span>
       <span class="token keyword">return</span> <span class="token function">cloneFunction</span><span class="token punctuation">(</span>targe<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">default</span><span class="token operator">:</span>
       <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
@@ -1183,7 +1183,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">40k</span>
+                        class="white-color">40.9k</span>
             
             
             
