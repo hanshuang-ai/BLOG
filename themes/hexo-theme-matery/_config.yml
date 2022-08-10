@@ -73,13 +73,13 @@ cover:
 dream:
   enable: true
   showTitle: true
-  title: 我的梦想
-  text: 不是每个人都应该像我这样去建造一座水晶大教堂，但是每个人都应该拥有自己的梦想，设计自己的梦想，追求自己的梦想，实现自己的梦想。梦想是生命的灵魂，是心灵的灯塔，是引导人走向成功的信仰。有了崇高的梦想，只要矢志不渝地追求，梦想就会成为现实，奋斗就会变成壮举，生命就会创造奇迹。——罗伯·舒乐
+  title: ''
+  text: 看到一个人很像你，我瞬间特别紧张，渴望是你，又害怕是你，直到看清不是你，我庆幸不是你又遗憾不是你
 
 # Whether to display the musics.
 # 是否在首页显示音乐.
 music:
-  enable: true
+  enable: false
   title: #非吸底模式有效
     enable: true
     show: 听听音乐
@@ -134,20 +134,20 @@ indexbtn:
   enable: true
   name: Github
   icon: fab fa-github-alt
-  url: https://github.com/blinkfox/hexo-theme-matery
+  url:  https://github.com/hanshuang-ai
 
 # The configurations of the second line of home banner
 # icon/button will not show up if you leave the corresponding socialLink empty
 # 首页 banner 中的第二行个人信息配置，留空即不启用
 socialLink:
-  github:  https://github.com/blinkfox
-  email: 1181062873@qq.com
+  github:  https://github.com/hanshuang-ai
+  email: 15201053004@163.com
   facebook: # https://www.facebook.com/xxx
   twitter: # https://twitter.com/xxx
-  qq: 1181062873
+  qq: 1107620269
   weibo: # https://weibo.com/xxx
   zhihu: # https://www.zhihu.com/xxx
-  rss: true # true、false
+  rss: false # true、false
 
 # Whether to activate the Post TOC, and Configure which title types are supported by TOC support.
 # You can add `toc: false` to the Front-matter of a post to turn off the TOC.
@@ -156,7 +156,7 @@ socialLink:
 toc:
   enable: true
   heading: h2, h3, h4
-  collapseDepth: 0 # 目录默认展开层级
+  collapseDepth: 6 # 目录默认展开层级
   showToggleBtn: true # 是否显示切换TOC目录展开收缩的按钮
 
 # 代码块相关
@@ -170,14 +170,14 @@ code:
 reward:
   enable: true
   title: 感觉可以请抽根烟
-  wechat: /medias/reward/wechat.png
-  alipay: /medias/reward/alipay.jpg
+  wechat: /medias/reward/weixin.png
+  alipay: /medias/reward/zhifubao.png
 
 # Whether to activate the copyright information of the blog and author when copying the post content.
 # minCharNumber: Approve copyright information by copying at least how many characters.
 # 是否激活复制文章时追加博客和作者的版权信息.
 copyright:
-  enable: false
+  enable: true
   minCharNumber: 120 # 至少复制多少个字符就追加版权信息.
   description: 本文章著作权归作者所有，任何形式的转载都请注明出处。
 
@@ -206,7 +206,7 @@ postInfo:
 # Whether to activate the 'love' effect of clicking on the page.
 # 是否激活点击页面的'爱心'效果，默认激活.
 clicklove:
-  enable: true
+  enable: false
 
 # | 文件名             | 说明                   |
 # | :----------------- | :--------------------- |
@@ -221,7 +221,7 @@ clicklove:
 # 是否激活页面樱花效果, 只在桌面版网页启用特效
 # 下面三种特效建议选择一种就够了，
 sakura:
-  enable: true
+  enable: false
 
 # 是否激活页面鼠标星星跟随效果, 只在桌面版网页启用特效
 mouseStar:
@@ -229,20 +229,20 @@ mouseStar:
 
   # 是否激活页面飘雪效果, 只在桌面版网页启用特效
 snowdown:
-  enable: true
+  enable: false
 
 # profile in about page, including avatars, career, and personal introductions.
 # 在”关于”页面中配置个人信息，包括头像、职业和个人介绍.
 profile:
-  avatar: /medias/avatar.jpg
-  career: Software Engineer
-  introduction: If you wish to succeed, you should use persistence as your good friend, experience as your reference, prudence as your brother and hope as your sentry.
+  avatar: /medias/avatar.png
+  career: 前端开发工程师
+  introduction: 始于初，不应有憾，遇见皆惊喜
 
 # config my projects informations in about page.
 # If you don't want to display this `My Projects` content, you can deactivate or delete this configuration.
 # 在“关于”页面配置"我的项目"信息，如果你不需要这些信息则可以将其设置为不激活或者将其删除.
 myProjects:
-  enable: true
+  enable: false
   data:
     hexo-theme-matery:
       icon: fas fa-file-alt
@@ -266,24 +266,18 @@ myProjects:
 mySkills:
   enable: true
   data:
-    Java:
-      background: 'linear-gradient(to right, #FF0066 0%, #FF00CC 100%)'
-      percent: 85%
     JavaScript:
       background: 'linear-gradient(to right, #9900FF 0%, #CC66FF 100%)'
-      percent: 80%
+      percent: 100%
     HTML5:
       background: 'linear-gradient(to right, #2196F3 0%, #42A5F5 100%)'
-      percent: 80%
+      percent: 100%
     CSS:
       background: 'linear-gradient(to right, #00BCD4 0%, #80DEEA 100%)'
-      percent: 70%
-    SQL:
+      percent: 100%
+    vue:
       background: 'linear-gradient(to right, #4CAF50 0%, #81C784 100%)'
-      percent: 90%
-    程序设计:
-      background: 'linear-gradient(to right, #FFEB3B 0%, #FFF176 100%)'
-      percent: 75%
+      percent: 100%
 
 # config gallery of my photos in about page.
 # If you don't want to display this `Gallery` content, you can deactivate or delete this configuration.
@@ -291,9 +285,7 @@ mySkills:
 myGallery:
   enable: true
   data:
-    - /medias/featureimages/0.jpg
-    - /medias/featureimages/1.jpg
-    - /medias/featureimages/2.jpg
+    - /medias/featureimages/my/0.jpg
 
 # Whether to display post-calender in the `archive` page
 # 设置在归档页面中是否显示'文章日历'控件
@@ -349,7 +341,7 @@ livere:
 # 介绍: https://cloud.tencent.com/document/product/1110/36841
 # 管理验证码: https://console.cloud.tencent.com/captcha/graphical
 tcaptcha:
-  enable: true
+  enable: false
   appid: xxxxxxxxxx # 你的appid
 
 # The configuration of the Valine comment module is not activated by default.
@@ -387,8 +379,8 @@ changyan:
 # 配置是否在 header 中显示 fork me on github 的图标，默认为true，你可以修改为你的仓库地址.
 githubLink:
   enable: true
-  url: https://github.com/blinkfox/hexo-theme-matery
-  title: Fork Me
+  url: https://github.com/hanshuang-ai
+  title: 去看看
 
 # The configuration of the Twikoo comment module is not activated by default.
 # To use it, activate the configuration item and set envId.
@@ -583,7 +575,7 @@ ribbon_dynamic:
 # sharejs文章分享模块.
 # 支持顺序，可选项目为twitter, facebook, google, qq, qzone, wechat, weibo, douban, linkedin.
 sharejs:
-  enable: true
+  enable: false
   sites: twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin
 
 # addthis文章分享模块.
