@@ -71,10 +71,10 @@ cover:
 # index page dream text,
 # 配置首页显示"梦想"的语句.
 dream:
-  enable: true
+  enable: false
   showTitle: true
   title: ''
-  text: 看到一个人很像你，我瞬间特别紧张，渴望是你，又害怕是你，直到看清不是你，我庆幸不是你又遗憾不是你
+  text: 看到一个人，渴望是你，害怕是你，庆幸不是你，遗憾不是你
 
 # Whether to display the musics.
 # 是否在首页显示音乐.
@@ -593,8 +593,8 @@ subtitle:
   typeSpeed: 100 # 打字速度
   backSpeed: 50 # 删除速度
   sub:
-    - 从来没有真正的绝境, 只有心灵的迷途
-    - Never really desperate, only the lost of the soul
+    - 做有质量的博客
+    - make quality blogs
 
 # 手机二级菜单.
 navMenu:
