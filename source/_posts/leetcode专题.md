@@ -32,8 +32,7 @@ categories: ['leetcode']
 };
 ```
 
-
-## 数组内两数求和
+## 2、数组内两数求和
 `数组内两数之和等于目标值，且同一个索引只能出现一次。例如：[2,7,11]  9`
 ```javascript
 const twoSum = (nums, target) => {
@@ -52,4 +51,13 @@ const twoSum = (nums, target) => {
         }
     }
 }
+```
+
+## 3、删除有序数组中的重复项
+```javascript
+var removeDuplicates = function (nums) {
+    nums = Array.from(new Set(nums))
+    let len = nums.length
+    return (len, nums)
+};
 ```
