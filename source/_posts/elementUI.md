@@ -21,8 +21,11 @@ tags: ["elementUI"]
 ```
 
 ## 2、表格分页
+
 `后端一次性返回所有数据`
+
 ```javascript
+// 数据截取
     <el-table
         :data="tableData.slice((pageControl.pageIndex-1)*(pageControl.limit),(pageControl.pageIndex)*(pageControl.limit))"
         border style="width: 100%;margin-top: 40px;" height="650" stripe
