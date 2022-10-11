@@ -130,7 +130,7 @@ tags: ["elementUI"]
   </el-table>
 ```
 
-## 级联选择器自定义 children
+## 4、级联选择器自定义 children
 
 ```javascript
 // 在props里进行设置
