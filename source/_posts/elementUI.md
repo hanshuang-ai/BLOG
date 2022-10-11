@@ -141,3 +141,32 @@ tags: ["elementUI"]
   @change="handleChangeSelect">
 </el-cascader>
 ```
+
+## 5、级联选择器@change 失效的问题
+
+```javascript
+<el-cascader filterable
+                       v-model="value12"
+                       :options="options"
+                       :props="{ expandTrigger: 'hover'}"
+                       @change="handleChangeSelect"
+                       style="width: 600px">
+</el-cascader>
+
+// 绝大部分情况下，@change失效都是由于我们的数据格式错误，虽然可以显示，但是与官网案例不符，我们需要自己改造
+// 尤其需要注意的是children没有下一级的时候需要删除该key
+
+    changeKey(arr) {
+      for (let i = 0; i < arr.length; i++) {
+        // arr[i].value = arr[i].id
+        // arr[i].label = arr[i].name
+        // arr[i].children = arr[i].childFunctionList
+        if (arr[i].childFunctionList.length) {
+          this.changeKey(arr[i].childFunctionList)
+        } else {
+          delete arr[i].childFunctionList
+        }
+      }
+      return arr
+    },
+```
