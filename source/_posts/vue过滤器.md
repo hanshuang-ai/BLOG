@@ -1,7 +1,8 @@
 ---
 title: vue过滤器
 date: 2022-10-11 22:19:03
-tags: ["vue"]
+tags: ["vue",'过滤器']
+categories: ['实战','vue']
 ---
 
 ## 1、全局过滤器

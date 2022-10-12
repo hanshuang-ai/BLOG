@@ -2,6 +2,7 @@
 title: elementUI
 date: 2022-09-26 17:51:46
 tags: ["elementUI"]
+categories: ['UI']
 ---
 
 ## 1、表格表头居中

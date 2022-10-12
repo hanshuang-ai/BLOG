@@ -1,7 +1,8 @@
 ---
 title: vue打包
 date: 2022-10-11 23:03:19
-tags: ["vue"]
+tags: ["vue",'打包']
+categories: ['实战','vue']
 ---
 
 ## 1、生产环境的项目，我们隐藏 log 信息

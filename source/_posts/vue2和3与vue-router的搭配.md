@@ -2,6 +2,7 @@
 title: vue2和3与vue-router的搭配
 date: 2022-08-30 16:10:27
 tags: ['vue','vue-router']
+categories: ['实战','vue']
 ---
 
 
