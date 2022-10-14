@@ -2,7 +2,7 @@
 title: elementUI
 date: 2022-09-26 17:51:46
 tags: ["elementUI"]
-categories: ['UI']
+categories: ["UI"]
 ---
 
 ## 1、表格表头居中
@@ -169,5 +169,46 @@ categories: ['UI']
         }
       }
       return arr
+    },
+```
+
+## 5、日期选择器 基于 el-date-picker 的前一天和后一天
+
+```html
+<div
+  class="block"
+  style="text-align: left; margin-bottom: 10px;display: flex;align-content: center;justify-content: space-between;"
+>
+  <div style="display: flex;align-content: center;justify-content: flex-start;">
+    <el-date-picker
+      v-model="searchDate"
+      type="date"
+      placeholder="选择日期"
+      @change="changeDate"
+      style="margin-right: 30px"
+    >
+    </el-date-picker>
+    <div class="nextAndPre">
+      <el-button @click="beforeDate">前一天</el-button>
+      <el-button @click="afterDate">后一天</el-button>
+    </div>
+  </div>
+  <div class="copyContainer">
+    <el-button type="primary" @click="copy"> 复制排班 </el-button>
+    <el-button type="primary" @click="paste"> 粘贴排班 </el-button>
+    <el-button type="primary" @click="copyAndPaste"> 复制并排满当周 </el-button>
+  </div>
+</div>
+```
+
+```javascript
+ // setDate() 方法将月份中的某一天设置为日期对象。
+ //前一天
+    beforeDate() {
+      this.searchDate = new Date(this.searchDate.setDate(this.searchDate.getDate() - 1))
+    },
+    //后一天
+    afterDate(){
+      this.searchDate = new Date(this.searchDate.setDate(this.searchDate.getDate() + 1))
     },
 ```
