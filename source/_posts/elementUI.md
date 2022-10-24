@@ -146,12 +146,13 @@ categories: ["UI"]
 ## 5、级联选择器@change 失效的问题
 
 ```javascript
-<el-cascader filterable
-                       v-model="value12"
-                       :options="options"
-                       :props="{ expandTrigger: 'hover'}"
-                       @change="handleChangeSelect"
-                       style="width: 600px">
+<el-cascader 
+  filterable
+  v-model="value12"
+  :options="options"
+  :props="{ expandTrigger: 'hover'}"
+  @change="handleChangeSelect"
+  style="width: 600px">
 </el-cascader>
 
 // 绝大部分情况下，@change失效都是由于我们的数据格式错误，虽然可以显示，但是与官网案例不符，我们需要自己改造

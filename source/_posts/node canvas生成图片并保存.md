@@ -12,13 +12,13 @@ categories: ['框架']
 ***2、处理base64为buffer，进行保存***
 
 
-### 引入canvas模块
-```
+## 1、引入canvas模块
+```javascript
 const {createCanvas} = require('canvas')
 ```
 
-### canvas绘图
-```
+## 2、canvas绘图
+```javascript
 const canvas = createCanvas(200,200)
 const ctx = canvas.getContext('2d')
 
@@ -27,19 +27,19 @@ ctx.rotate(0.1)
 ctx.fillText('Hello',50,100)
 ```
 
-### 将画布信息转为base64
-```
+## 3、将画布信息转为base64
+```javascript
 const dataURl = canvas.toDataURL('image/png')
 ```
 
-### 处理base64为buffer
-```
+## 4、处理base64为buffer
+```javascript
 const base64Data = dataURl.replace(/^data:image\/\w+;base64,/, "");
 const bufferData = new Buffer(base64Data,'base64')
 ```
 
-### 保存buffer为图片格式
-```
+## 5、保存buffer为图片格式
+```javascript
 fs.writeFile('2.png',bufferData,function (err){
     if (err){
         console.log(err)
@@ -49,8 +49,8 @@ fs.writeFile('2.png',bufferData,function (err){
 })
 ```
 
-## 完整代码
-```
+## 6、完整代码
+```javascript
 const {createCanvas} = require('canvas')
 const fs = require('fs')
 

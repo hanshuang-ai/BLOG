@@ -1,9 +1,11 @@
 ---
 title: base64转文件
 date: 2022-09-28 14:21:52
-tags: ['base64']
-categories: ['实战']
+tags: ["base64"]
+categories: ["实战"]
 ---
+
+## base64 转文件
 
 ```javascript
 export function dataURLtoFile(dataurl, filename) {
@@ -16,7 +18,7 @@ export function dataURLtoFile(dataurl, filename) {
     u8arr[n] = bstr.charCodeAt(n);
   }
   return new File([u8arr], filename, {
-    type: mime
+    type: mime,
   });
 }
 ```
