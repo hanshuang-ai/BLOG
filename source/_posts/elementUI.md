@@ -214,4 +214,25 @@ categories: ["UI"]
     },
 ```
 
-## 6、复杂表头
+## 6、表格  type="selection"  清除选择
+```javascript
+<el-table :data="projectList" height="400" @selection-change="handleSelectionChange_" ref="multipleTable" v-if="showAssociatedItems">
+          <el-table-column type="selection" width="55" :selectable='checkboxT' v-if="!isRemoveAssociation"></el-table-column>
+          <el-table-column type="selection" width="55" :selectable='checkboxT1' v-else="isRemoveAssociation"></el-table-column>
+          <el-table-column label="项目" prop="name"></el-table-column>
+</el-table>
+```
+`上面的代码示例，要实现的效果是点击不同的按钮，在展现的表格中可以进行不同的多选`
+*但遇到的问题是：表格在重新展示时，上一次选择的数据虽然要往接口传输的已经清空，但UI上还在回显*
+
+**解决办法**
+在UI消失的时候，清空选择
+```javascript
+watch: {
+    showAssociatedItems() {
+      if (!this.showAssociatedItems) {
+        this.$refs.multipleTable.clearSelection();
+      }
+    }
+  }
+```
