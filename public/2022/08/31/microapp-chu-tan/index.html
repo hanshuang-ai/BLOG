@@ -505,7 +505,7 @@
 
 <span class="token operator">&lt;</span>script<span class="token operator">></span>
 <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span>
-  <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'App'</span><span class="token punctuation">,</span>
+  name<span class="token operator">:</span> <span class="token string">'App'</span><span class="token punctuation">,</span>
 <span class="token punctuation">&#125;</span>
 <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="1-3-在父应用内添加载体"><a href="#1-3-在父应用内添加载体" class="headerlink" title="1.3 在父应用内添加载体"></a>1.3 在父应用内添加载体</h3><p><code>我自己起的名，因为需要有一个页面去承载子应用</code></p>
@@ -516,7 +516,7 @@
 
 <span class="token operator">&lt;</span>script<span class="token operator">></span>
     <span class="token keyword">export</span> <span class="token keyword">default</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-        <span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">"myPage"</span>
+        name<span class="token operator">:</span><span class="token string">"myPage"</span>
     <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
 <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
@@ -524,11 +524,11 @@
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span>createRouter<span class="token punctuation">,</span> createWebHistory<span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"vue-router/dist/vue-router"</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> routes <span class="token operator">=</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">&#123;</span><span class="token literal-property property">path</span><span class="token operator">:</span> <span class="token string">"/"</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">"Index"</span><span class="token punctuation">,</span> <span class="token function-variable function">component</span><span class="token operator">:</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'../views/Index'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#123;</span><span class="token literal-property property">path</span><span class="token operator">:</span><span class="token string">"/myPage"</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">"myPage"</span><span class="token punctuation">,</span> <span class="token function-variable function">component</span><span class="token operator">:</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'../views/MyPage'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#123;</span>path<span class="token operator">:</span> <span class="token string">"/"</span><span class="token punctuation">,</span> name<span class="token operator">:</span><span class="token string">"Index"</span><span class="token punctuation">,</span> <span class="token function-variable function">component</span><span class="token operator">:</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'../views/Index'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>path<span class="token operator">:</span><span class="token string">"/myPage"</span><span class="token punctuation">,</span> name<span class="token operator">:</span><span class="token string">"myPage"</span><span class="token punctuation">,</span> <span class="token function-variable function">component</span><span class="token operator">:</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'../views/MyPage'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
 <span class="token punctuation">]</span>
 <span class="token keyword">const</span> router <span class="token operator">=</span> <span class="token function">createRouter</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-    <span class="token literal-property property">history</span><span class="token operator">:</span> <span class="token function">createWebHistory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    history<span class="token operator">:</span> <span class="token function">createWebHistory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
     routes
 <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
 
@@ -541,11 +541,11 @@
 
 <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> defineConfig <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@vue/cli-service'</span><span class="token punctuation">)</span>
 module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token function">defineConfig</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-  <span class="token literal-property property">transpileDependencies</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">devServer</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token literal-property property">port</span><span class="token operator">:</span> <span class="token number">8030</span><span class="token punctuation">,</span>  <span class="token comment">//端口一定要指定</span>
-    <span class="token literal-property property">headers</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-      <span class="token string-property property">'Access-Control-Allow-Origin'</span><span class="token operator">:</span> <span class="token string">'*'</span><span class="token punctuation">,</span>
+  transpileDependencies<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  devServer<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    port<span class="token operator">:</span> <span class="token number">8030</span><span class="token punctuation">,</span>  <span class="token comment">//端口一定要指定</span>
+    headers<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token string">'Access-Control-Allow-Origin'</span><span class="token operator">:</span> <span class="token string">'*'</span><span class="token punctuation">,</span>
     <span class="token punctuation">&#125;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
