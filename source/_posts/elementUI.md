@@ -236,3 +236,17 @@ watch: {
     }
   }
 ```
+
+## 7、表格列项文字溢出 tooltip 提示
+
+```javascript
+//:show-overflow-tooltip="true"
+<el-table
+        :data="tableData.slice((pageControl.pageIndex - 1) * (pageControl.limit), (pageControl.pageIndex) * (pageControl.limit))"
+        :header-cell-style="{ textAlign: 'center' }"
+        style="width: 100%;margin-bottom: 20px;margin-top: 40px;" row-key="id" border height="70vh"
+        :tree-props="{ children: 'childFunctionList', hasChildren: 'hasChildren' }" v-loading="loading"
+        default-expand-all>
+      <el-table-column prop="id" label="功能ID" :show-overflow-tooltip="true"></el-table-column>
+</el-table>
+```
