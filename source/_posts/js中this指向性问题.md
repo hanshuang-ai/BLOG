@@ -14,7 +14,7 @@ categories: ["进阶"]
 > 构造函数调用
 > 箭头函数
 
-![this指向性问题](this.png)
+![this指向性问题](1.png)
 
 [示例代码链接](https://github.com/hanshuang-ai/code/blob/master/this%E6%8C%87%E5%90%91%E6%80%A7%E9%97%AE%E9%A2%98.html)
 ### 1、全局环境 指向window
