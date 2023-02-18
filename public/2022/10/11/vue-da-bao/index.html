@@ -504,8 +504,8 @@ const ">
 <span class="token punctuation">&#125;</span>
 
 module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  <span class="token literal-property property">presets</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"@vue/cli-plugin-babel/preset"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">plugins</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token operator">...</span>prodPlugins<span class="token punctuation">]</span><span class="token punctuation">,</span>
+  presets<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"@vue/cli-plugin-babel/preset"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  plugins<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token operator">...</span>prodPlugins<span class="token punctuation">]</span><span class="token punctuation">,</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2、打包时，文件添加其他标识"><a href="#2、打包时，文件添加其他标识" class="headerlink" title="2、打包时，文件添加其他标识"></a>2、打包时，文件添加其他标识</h2><p><code>我们可以灵活运用，将时间戳改为版本号、tag等</code></p>
@@ -514,19 +514,19 @@ module<span class="token punctuation">.</span>exports <span class="token operato
   <span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">.*(.&#123;8&#125;)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  <span class="token literal-property property">publicPath</span><span class="token operator">:</span> <span class="token string">"./"</span><span class="token punctuation">,</span>
+  publicPath<span class="token operator">:</span> <span class="token string">"./"</span><span class="token punctuation">,</span>
   <span class="token comment">//   更改js文件</span>
-  <span class="token literal-property property">configureWebpack</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token literal-property property">output</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-      <span class="token literal-property property">filename</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">js/[name].</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Version<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.js</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
-      <span class="token literal-property property">chunkFilename</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">js/[name].</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Version<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.js</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  configureWebpack<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    output<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      filename<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">js/[name].</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Version<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.js</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+      chunkFilename<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">js/[name].</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Version<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.js</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
     <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
   <span class="token comment">//   更改css文件</span>
-  <span class="token literal-property property">css</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token literal-property property">extract</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-      <span class="token literal-property property">filename</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">static/css/[name].</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Version<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.css</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
-      <span class="token literal-property property">chunkFilename</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">static/css/[name].</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Version<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.css</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  css<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    extract<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      filename<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">static/css/[name].</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Version<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.css</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+      chunkFilename<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">static/css/[name].</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Version<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.css</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
     <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -1051,7 +1051,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">29.2k</span>
+                        class="white-color">29.3k</span>
             
             
             
