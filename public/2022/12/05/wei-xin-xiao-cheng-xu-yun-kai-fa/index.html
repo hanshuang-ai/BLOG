@@ -446,7 +446,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-12-27
+                    2022-12-23
                 </div>
                 
 
@@ -494,7 +494,7 @@
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 云函数入口文件</span>
 <span class="token keyword">const</span> cloud <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"wx-server-sdk"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-cloud<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> env<span class="token operator">:</span> cloud<span class="token punctuation">.</span><span class="token constant">DYNAMIC_CURRENT_ENV</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 使用当前云环境</span>
+cloud<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">env</span><span class="token operator">:</span> cloud<span class="token punctuation">.</span><span class="token constant">DYNAMIC_CURRENT_ENV</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 使用当前云环境</span>
 
 <span class="token comment">// 云函数入口函数</span>
 exports<span class="token punctuation">.</span><span class="token function-variable function">main</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">event<span class="token punctuation">,</span> context</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
@@ -515,9 +515,9 @@ exports<span class="token punctuation">.</span><span class="token function-varia
           <span class="token keyword">let</span> <span class="token punctuation">&#123;</span> cloudID <span class="token punctuation">&#125;</span> <span class="token operator">=</span> res
         <span class="token comment">//云函数的调用</span>
           wx<span class="token punctuation">.</span>cloud<span class="token punctuation">.</span><span class="token function">callFunction</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-            name<span class="token operator">:</span> <span class="token string">'getRunData'</span><span class="token punctuation">,</span>
-            data<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-              data<span class="token operator">:</span> wx<span class="token punctuation">.</span>cloud<span class="token punctuation">.</span><span class="token function">CloudID</span><span class="token punctuation">(</span>cloudID<span class="token punctuation">)</span>
+            <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'getRunData'</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">data</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+              <span class="token literal-property property">data</span><span class="token operator">:</span> wx<span class="token punctuation">.</span>cloud<span class="token punctuation">.</span><span class="token function">CloudID</span><span class="token punctuation">(</span>cloudID<span class="token punctuation">)</span>
             <span class="token punctuation">&#125;</span>
           <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">res1</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
             <span class="token function">resolve</span><span class="token punctuation">(</span>res1<span class="token punctuation">.</span>result<span class="token punctuation">.</span>event<span class="token punctuation">.</span>data<span class="token punctuation">.</span>data<span class="token punctuation">.</span>stepInfoList<span class="token punctuation">)</span>
@@ -1065,7 +1065,7 @@ exports<span class="token punctuation">.</span><span class="token function-varia
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">29.3k</span>
+                        class="white-color">29.6k</span>
             
             
             

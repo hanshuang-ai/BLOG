@@ -520,9 +520,9 @@
 Vue<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>Vuex<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-  state<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    baseURL<span class="token operator">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">VUE_APP_BASE_URL</span><span class="token punctuation">,</span>
-    callBackURL<span class="token operator">:</span>
+  <span class="token literal-property property">state</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">baseURL</span><span class="token operator">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">VUE_APP_BASE_URL</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">callBackURL</span><span class="token operator">:</span>
       process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">===</span> <span class="token string">"production"</span>
         <span class="token operator">?</span> <span class="token string">"xxx"</span>
         <span class="token operator">:</span> <span class="token string">"xxx"</span><span class="token punctuation">,</span>
@@ -531,14 +531,14 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
 <span class="token keyword">export</span> <span class="token keyword">default</span> store<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="3、package-json-文件-javascript-配置运行"><a href="#3、package-json-文件-javascript-配置运行" class="headerlink" title="3、package.json 文件 javascript 配置运行"></a>3、package.json 文件 javascript 配置运行</h2><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">&#123;</span>
-  <span class="token string">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token string">"serve"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service serve --mode development"</span><span class="token punctuation">,</span>
-    <span class="token string">"serve:dev"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service serve --mode dev"</span><span class="token punctuation">,</span>
-    <span class="token string">"build"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service build"</span><span class="token punctuation">,</span>
-    <span class="token string">"build:test"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service build --mode test"</span><span class="token punctuation">,</span>
-    <span class="token string">"build:pro"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service build --mode prod"</span><span class="token punctuation">,</span>
-    <span class="token string">"build:dev"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service build --mode dev"</span><span class="token punctuation">,</span>
-    <span class="token string">"lint"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service lint"</span>
+  <span class="token string-property property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token string-property property">"serve"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service serve --mode development"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"serve:dev"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service serve --mode dev"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"build"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service build"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"build:test"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service build --mode test"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"build:pro"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service build --mode prod"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"build:dev"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service build --mode dev"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"lint"</span><span class="token operator">:</span> <span class="token string">"vue-cli-service lint"</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -1067,7 +1067,7 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">29.3k</span>
+                        class="white-color">29.6k</span>
             
             
             
