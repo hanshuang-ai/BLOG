@@ -54,7 +54,7 @@ categories: ["UI"]
         :total="total">
     </el-pagination>
 
-    export default {
+export default {
   name: "List",
   data() {
     return {
@@ -146,7 +146,7 @@ categories: ["UI"]
 ## 5、级联选择器@change 失效的问题
 
 ```javascript
-<el-cascader 
+<el-cascader
   filterable
   v-model="value12"
   :options="options"
@@ -158,7 +158,7 @@ categories: ["UI"]
 // 绝大部分情况下，@change失效都是由于我们的数据格式错误，虽然可以显示，但是与官网案例不符，我们需要自己改造
 // 尤其需要注意的是children没有下一级的时候需要删除该key
 
-    changeKey(arr) {
+changeKey(arr) {
       for (let i = 0; i < arr.length; i++) {
         // arr[i].value = arr[i].id
         // arr[i].label = arr[i].name
@@ -170,35 +170,33 @@ categories: ["UI"]
         }
       }
       return arr
-    },
+},
 ```
 
 ## 5、日期选择器 基于 el-date-picker 的前一天和后一天
 
 ```html
 <div
-  class="block"
-  style="text-align: left; margin-bottom: 10px;display: flex;align-content: center;justify-content: space-between;"
->
-  <div style="display: flex;align-content: center;justify-content: flex-start;">
-    <el-date-picker
-      v-model="searchDate"
-      type="date"
-      placeholder="选择日期"
-      @change="changeDate"
-      style="margin-right: 30px"
-    >
-    </el-date-picker>
-    <div class="nextAndPre">
-      <el-button @click="beforeDate">前一天</el-button>
-      <el-button @click="afterDate">后一天</el-button>
-    </div>
-  </div>
-  <div class="copyContainer">
-    <el-button type="primary" @click="copy"> 复制排班 </el-button>
-    <el-button type="primary" @click="paste"> 粘贴排班 </el-button>
-    <el-button type="primary" @click="copyAndPaste"> 复制并排满当周 </el-button>
-  </div>
+	class="block"
+	style="text-align: left; margin-bottom: 10px;display: flex;align-content: center;justify-content: space-between;">
+	<div style="display: flex;align-content: center;justify-content: flex-start;">
+		<el-date-picker
+			v-model="searchDate"
+			type="date"
+			placeholder="选择日期"
+			@change="changeDate"
+			style="margin-right: 30px">
+		</el-date-picker>
+		<div class="nextAndPre">
+			<el-button @click="beforeDate">前一天</el-button>
+			<el-button @click="afterDate">后一天</el-button>
+		</div>
+	</div>
+	<div class="copyContainer">
+		<el-button type="primary" @click="copy"> 复制排班 </el-button>
+		<el-button type="primary" @click="paste"> 粘贴排班 </el-button>
+		<el-button type="primary" @click="copyAndPaste"> 复制并排满当周 </el-button>
+	</div>
 </div>
 ```
 
@@ -214,7 +212,8 @@ categories: ["UI"]
     },
 ```
 
-## 6、表格  type="selection"  清除选择
+## 6、表格 type="selection" 清除选择
+
 ```javascript
 <el-table :data="projectList" height="400" @selection-change="handleSelectionChange_" ref="multipleTable" v-if="showAssociatedItems">
           <el-table-column type="selection" width="55" :selectable='checkboxT' v-if="!isRemoveAssociation"></el-table-column>
@@ -222,11 +221,13 @@ categories: ["UI"]
           <el-table-column label="项目" prop="name"></el-table-column>
 </el-table>
 ```
+
 `上面的代码示例，要实现的效果是点击不同的按钮，在展现的表格中可以进行不同的多选`
-*但遇到的问题是：表格在重新展示时，上一次选择的数据虽然要往接口传输的已经清空，但UI上还在回显*
+_但遇到的问题是：表格在重新展示时，上一次选择的数据虽然要往接口传输的已经清空，但 UI 上还在回显_
 
 **解决办法**
-在UI消失的时候，清空选择
+在 UI 消失的时候，清空选择
+
 ```javascript
 watch: {
     showAssociatedItems() {
