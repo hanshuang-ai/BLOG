@@ -23,8 +23,8 @@ export const pageRoutes = [
     beforeEnter(to, from, next) {
       // 拦截处理特殊业务场景
       // 如果, 重定向路由包含__双下划线, 为临时添加路由
-      if (/__.*/.test(to.redirectedFrom)) {
-        return next(to.redirectedFrom.replace(/__.*/, ''))
+      if (/__.*/.test(to.redirectedFrom) {
+        return next(to.redirectedFrom.replace(/__.*/, '')
       }
       next()
     }
@@ -83,7 +83,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // 添加动态(菜单)路由
   // 已添加或者当前路由为页面路由, 可直接访问
-  if (window.SITE_CONFIG.dynamicMenuRoutesHasAdded || fnCurrentRouteIsPageRoute(to, pageRoutes)) {
+  if (window.SITE_CONFIG.dynamicMenuRoutesHasAdded || fnCurrentRouteIsPageRoute(to, pageRoutes) {
     return next()
   }
   // 获取菜单列表, 添加并全局变量保存
@@ -148,8 +148,8 @@ function fnAddDynamicMenuRoutes(menuList = [], routes = []) {
       }
     }
     
-    let URL = (menuList[i].url || '').replace(/{{([^}}]+)?}}/g, (s1, s2) => eval(s2)) // URL支持{{ window.xxx }}占位符变量
-    if (isURL(URL)) {
+    let URL = (menuList[i].url || '').replace(/{{([^}}]+)?}}/g, (s1, s2) => eval(s2) // URL支持{{ window.xxx }}占位符变量
+    if (isURL(URL) {
       console.log('本身就是链接')
       route.path = route.name = `i-${menuList[i].id}`
       route.meta.iframeURL = URL

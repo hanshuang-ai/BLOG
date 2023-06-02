@@ -26,7 +26,7 @@ export default { random30 };
 ```javascript
 // main.js
 import filter from "./api/filter";
-Object.keys(filter).forEach((key) => Vue.filter(key, filter[key]));
+Object.keys(filter).forEach((key) => Vue.filter(key, filter[key]);
 ```
 
 ```html

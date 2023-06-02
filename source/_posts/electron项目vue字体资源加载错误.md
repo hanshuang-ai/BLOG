@@ -17,4 +17,4 @@ pluginOptions: {
     },
 ```
 
-![electron项目vue字体资源加载错误](1.png)
+![electron项目vue字体资源加载错误](electron项目vue字体资源加载错误/1.png)

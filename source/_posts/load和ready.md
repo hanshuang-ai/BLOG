@@ -5,7 +5,7 @@ date: 2022-04-29 17:05:36
 tags: ["jquery"]
 ---
 
-![jq load和ready](1.png)
+![jq load和ready](load和ready/1.png)
 
 > 执行时间
 > 编写个数不同

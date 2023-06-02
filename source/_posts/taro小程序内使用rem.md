@@ -5,9 +5,9 @@ tags: ["taro", "小程序"]
 categories: ["taro", "小程序"]
 ---
 
-[taro 官网说明](https://taro-docs.jd.com/docs/next/use-h5#%E4%B8%8D%E6%94%AF%E6%8C%81%E4%BD%BF%E7%94%A8-rem)
+[taro 官网说明](taro小程序内使用rem/https://taro-docs.jd.com/docs/next/use-h5#%E4%B8%8D%E6%94%AF%E6%8C%81%E4%BD%BF%E7%94%A8-rem)
 `taro官网明确表示暂时不支持rem`
-![](rem.png)
+![](taro小程序内使用rem/rem.png)
 
 由于项目内使用的 less，所以我们采用 less 变量声明的方式，曲线救国
 

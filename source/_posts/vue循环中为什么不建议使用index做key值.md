@@ -4,7 +4,7 @@ date: 2022-03-01 15:32:30
 tags: ["vue"]
 ---
 
-[vue2 中对循环的解释](https://cn.vuejs.org/v2/guide/list.html)
+[vue2 中对循环的解释](vue循环中为什么不建议使用index做key值/https://cn.vuejs.org/v2/guide/list.html)
 
 > 当 Vue 正在更新使用 v-for 渲染的元素列表时，它默认使用“就地更新”的策略。如果数据项的顺序被改变，Vue 将不会移动 DOM 元素来匹配数据项的顺序，而是就地更新每个元素，并且确保它们在每个索引位置正确渲染。这个类似 Vue 1.x 的 track-by="$index"。
 

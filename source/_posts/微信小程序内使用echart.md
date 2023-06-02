@@ -5,10 +5,10 @@ tags: ['小程序','可视化']
 categories: ["日常开发"]
 ---
 
-![微信小程序内使用echart](1.png)
+![微信小程序内使用echart](微信小程序内使用echart/1.png)
 
 ## 1、下载代码后，拷贝ec-canvas到项目里
-![下载代码后，拷贝ec-canvas到项目里](2.png)
+![下载代码后，拷贝ec-canvas到项目里](微信小程序内使用echart/2.png)
 
 ## 2、在需要使用的页面内引入
 ```javascript

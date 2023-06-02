@@ -18,17 +18,17 @@ git remote get-url origin
 直接在该项目.git目录下config文件内查看
 ```
 
-![查看项目远程仓库地址](1.png)
+![查看项目远程仓库地址](git基本命令/1.png)
 
 ## 2、git diff
 
 ### 2.1 尚未缓存的改动：git diff
 
-![查看项目远程仓库地址](2.png)
+![查看项目远程仓库地址](git基本命令/2.png)
 
 ## 2.2 查看已缓存的改动： git diff --cached
 
-![查看项目远程仓库地址](3.png)
+![查看项目远程仓库地址](git基本命令/3.png)
 
 ## 2.3 显示暂存区和工作区的差异: git diff [file]
 

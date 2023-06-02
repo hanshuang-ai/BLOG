@@ -28,7 +28,7 @@ categories: ["UI"]
 ```javascript
 // 数据截取
     <el-table
-        :data="tableData.slice((pageControl.pageIndex-1)*(pageControl.limit),(pageControl.pageIndex)*(pageControl.limit))"
+        :data="tableData.slice((pageControl.pageIndex-1)*(pageControl.limit),(pageControl.pageIndex)*(pageControl.limit)"
         border style="width: 100%;margin-top: 40px;" height="650" stripe
         v-loading="loading">
       <el-table-column prop="date" label="功能域">
@@ -113,7 +113,7 @@ export default {
 
 ```javascript
  <el-table
-        :data="tableData.slice((pageControl.pageIndex-1)*(pageControl.limit),(pageControl.pageIndex)*(pageControl.limit))"
+        :data="tableData.slice((pageControl.pageIndex-1)*(pageControl.limit),(pageControl.pageIndex)*(pageControl.limit)"
         border style="width: 100%;margin-top: 40px;" height="650" stripe
         v-loading="loading" :header-cell-style="{ textAlign: 'center' }" :cell-style="{ textAlign: 'center'}">
       <el-table-column prop="date" label="功能域"></el-table-column>
@@ -204,11 +204,11 @@ changeKey(arr) {
  // setDate() 方法将月份中的某一天设置为日期对象。
  //前一天
     beforeDate() {
-      this.searchDate = new Date(this.searchDate.setDate(this.searchDate.getDate() - 1))
+      this.searchDate = new Date(this.searchDate.setDate(this.searchDate.getDate() - 1)
     },
     //后一天
     afterDate(){
-      this.searchDate = new Date(this.searchDate.setDate(this.searchDate.getDate() + 1))
+      this.searchDate = new Date(this.searchDate.setDate(this.searchDate.getDate() + 1)
     },
 ```
 
@@ -243,7 +243,7 @@ watch: {
 ```javascript
 //:show-overflow-tooltip="true"
 <el-table
-        :data="tableData.slice((pageControl.pageIndex - 1) * (pageControl.limit), (pageControl.pageIndex) * (pageControl.limit))"
+        :data="tableData.slice((pageControl.pageIndex - 1) * (pageControl.limit), (pageControl.pageIndex) * (pageControl.limit)"
         :header-cell-style="{ textAlign: 'center' }"
         style="width: 100%;margin-bottom: 20px;margin-top: 40px;" row-key="id" border height="70vh"
         :tree-props="{ children: 'childFunctionList', hasChildren: 'hasChildren' }" v-loading="loading"

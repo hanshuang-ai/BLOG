@@ -19,7 +19,7 @@ categories: ["基础"]
 > 8、浏览器下载 HTML 文档
 > 9、浏览器解析 HTML，建立 DOM 树
 > 10、解析渲染 DOM、css 树、读取缓存、js 事件操作等
-> ![](browser.png)
+> ![](HTML基础/browser.png)
 
 ### 2、前端应用开发模式演变
 
@@ -29,11 +29,11 @@ categories: ["基础"]
 > 4、前后端分离
 > 5、纯前端的 mv\*
 > 6、前端 vvirtual DOM
-> ![](html1.png)
+> ![](HTML基础/html1.png)
 
 ### 3、浏览器组成结构
 
-![](html2.png)
+![](HTML基础/html2.png)
 
 ### 4、浏览器渲染
 
@@ -41,14 +41,14 @@ categories: ["基础"]
 > 2、构建渲染树
 > 3、渲染树布局
 > 4、绘制渲染树
-> ![](html3.png)
+> ![](HTML基础/html3.png)
 > `注意重排和重绘：重排是dom发生变化，会在布局阶段开始重新渲染；重绘是只改变样式，不改变dom，是在绘制阶段`
 > **由于重排是在布局阶段，所以重排后一定会发生重绘**
 
 ### 5、HTML 解析
 
-![](html4.png)
+![](HTML基础/html4.png)
 
 ### 6、CSS 解析
 
-![](html5.png)
+![](HTML基础/html5.png)

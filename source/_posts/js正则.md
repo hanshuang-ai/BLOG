@@ -15,4 +15,4 @@ let reg = data.replace(/(\d+\.\d+|\d+)vh/g, "calc(var(--heightsize) * $1)");
 console.log(reg, "reg");
 ```
 
-![正则](正则.png)
+![正则](js正则/正则.png)

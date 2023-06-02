@@ -12,8 +12,8 @@ categories: ["小程序"]
 
 ## 1、安装代码包
 
-[资源包](https://github.com/hanshuang-ai/svgaplayer-weapp)
-![使用说明](svga.png)
+[资源包](小程序使用svga/https://github.com/hanshuang-ai/svgaplayer-weapp)
+![使用说明](小程序使用svga/svga.png)
 
 ## 2、代码内引入
 

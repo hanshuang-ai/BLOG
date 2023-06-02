@@ -5,7 +5,7 @@ tags: ["vue", "代理"]
 categories: ["进阶"]
 ---
 
-![vue代理](1.png)
+![vue代理](vue代理/1.png)
 `vue-cli-service serve其实是开了一个node服务器，请求/api/bbb的时候，会被中转到https://aaa/bbb，简单理解就是根据vue.config.js的配置将/api替换为''`
 
 ## 1. vue.config.js 设置
@@ -48,7 +48,7 @@ axios
 			let uid = res.config.data.uid;
 			let { size: oldSize } = res.data.input;
 			let { size: newSize } = res.data.output;
-			// console.log(((oldSize - newSize) / oldSize * 100))
+			// console.log(((oldSize - newSize) / oldSize * 100)
 			let radio = (((oldSize - newSize) / oldSize) * 100).toFixed(2);
 			that.fileList.map((item) => {
 				item.uid == uid ? (item.downLink = `${url}/${name}`) : "";

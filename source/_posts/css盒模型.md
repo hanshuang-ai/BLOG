@@ -4,7 +4,7 @@ date: 2022-04-24 18:53:43
 tags: ['css']
 ---
 
-![盒模型](1.png)
+![盒模型](css盒模型/1.png)
 
 盒模型：盒模型又称框模型（Box Model）,包含了
 > 元素内容（content）
@@ -15,17 +15,17 @@ tags: ['css']
 ## ie模式
 
 IE模型元素宽度`width = content + padding + border`，高度计算相同。
-![ie模式](2.png)
+![ie模式](css盒模型/2.png)
 
 ## 标准模式（非ie模式）
 
 标准模型元素宽度`width=content`，高度计算相同。
 **`这也就说明在标准模式下设置了width，再设置border或者padding后，会导致宽度（高度）会变，导致页面布局错乱。`**
-![ie模式](3.png)
+![ie模式](css盒模型/3.png)
 
 ## js获取宽高
 
-[getComputedStyle介绍](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/getComputedStyle)
+[getComputedStyle介绍](css盒模型/https://developer.mozilla.org/zh-CN/docs/Web/API/Window/getComputedStyle)
 
 ```javascript
 window.getComputedStyle(dom).width / height

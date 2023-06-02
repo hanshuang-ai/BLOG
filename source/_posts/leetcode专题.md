@@ -63,7 +63,7 @@ const twoSum = (nums, target) => {
 
 ```javascript
 var removeDuplicates = function (nums) {
-  nums = Array.from(new Set(nums));
+  nums = Array.from(new Set(nums);
   let len = nums.length;
   return len, nums;
 };
@@ -71,7 +71,7 @@ var removeDuplicates = function (nums) {
 
 ## 4、寻找两个正序数组的中位数
 
-[链接地址](https://leetcode-cn.com/problems/median-of-two-sorted-arrays/)
+[链接地址](leetcode专题/https://leetcode-cn.com/problems/median-of-two-sorted-arrays/)
 
 ```javascript
 var findMedianSortedArrays = function (nums1, nums2) {
@@ -94,16 +94,16 @@ var findMedianSortedArrays = function (nums1, nums2) {
 
 ## 5、整数反转
 
-[链接地址](https://leetcode-cn.com/problems/reverse-integer/)
+[链接地址](leetcode专题/https://leetcode-cn.com/problems/reverse-integer/)
 
 ```javascript
 var reverse = function (x) {
   let string = x.toString();
   let arr =
     string[0] !== "-"
-      ? parseInt([...string].reverse().join("")) > Math.pow(2, 31)
+      ? parseInt([...string].reverse().join("") > Math.pow(2, 31)
         ? 0
-        : parseInt([...string].reverse().join(""))
+        : parseInt([...string].reverse().join("")
       : Math.abs(
           ["-"]
             .concat(

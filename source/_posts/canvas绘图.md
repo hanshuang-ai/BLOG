@@ -38,7 +38,7 @@ function drawChina() {
       }
     }
   }
-  let b = Array.from(new Set(xArr));
+  let b = Array.from(new Set(xArr);
   let num1, num2; //最小值与最大值
   num1 = b[0];
   num2 = b[1];
@@ -54,7 +54,7 @@ function drawChina() {
   xmin = num1;
   xmax = num2;
 
-  let a = Array.from(new Set(yArr));
+  let a = Array.from(new Set(yArr);
   let num3, num4; //最小值与最大值
   num3 = a[0];
   num4 = a[1];
