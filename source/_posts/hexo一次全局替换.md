@@ -29,7 +29,7 @@ arr.map(item => {
       let title = reg.exec(data)
       if (title) {
         title = title[0].replace('title: ', '')
-        let imgPath = data.replace(/]\((.*\))/g, `]\(${title}/$1\)`)
+        let imgPath = data.replace(/]\((.*)\)/g, `]\(${title}/$1\)`)
         fs.writeFile(`${pathName}/${item.name}`, imgPath, (err1, data1) => {
           if (err1) {
             console.log('err1')

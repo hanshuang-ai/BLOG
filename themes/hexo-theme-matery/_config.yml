@@ -170,14 +170,14 @@ code:
 reward:
   enable: true
   title: 感觉可以请抽根烟
-  wechat: /medias/reward/weixin.png
-  alipay: /medias/reward/zhifubao.png
+  wechat: /medias/reward/wx.png
+  alipay: /medias/reward/zfb.png
 
 # Whether to activate the copyright information of the blog and author when copying the post content.
 # minCharNumber: Approve copyright information by copying at least how many characters.
 # 是否激活复制文章时追加博客和作者的版权信息.
 copyright:
-  enable: true
+  enable: false
   minCharNumber: 120 # 至少复制多少个字符就追加版权信息.
   description: 本文章著作权归作者所有，任何形式的转载都请注明出处。
 
@@ -283,7 +283,7 @@ mySkills:
 # If you don't want to display this `Gallery` content, you can deactivate or delete this configuration.
 # 在“关于”页面配置"我的相册"图片，如果你不需要这些信息则可以将其设置为不激活或者将其删除.
 myGallery:
-  enable: true
+  enable: false
   data:
     - /medias/featureimages/my/0.jpg
 
