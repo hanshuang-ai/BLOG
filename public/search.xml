@@ -4,11 +4,56 @@
   
     
     <entry>
-      <title>css position</title>
-      <link href="/2023/06/14/position/"/>
-      <url>/2023/06/14/position/</url>
+      <title>vue里面的sync</title>
+      <link href="/2023/06/15/vue-li-mian-de-sync/"/>
+      <url>/2023/06/15/vue-li-mian-de-sync/</url>
       
-        <content type="html"><![CDATA[<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position">参考链接</a></p><p>![css position](css position/1.png)</p><h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><p>该关键字指定元素使用正常的布局行为，即元素在文档常规流中当前的布局位置。此时 top, right, bottom, left 和 z-index 属性无效。</p><h2 id="relative"><a href="#relative" class="headerlink" title="relative"></a>relative</h2><p>该关键字下，元素先放置在未添加定位时的位置，再在不改变页面布局的前提下调整元素位置（因此会在此元素未添加定位时所在位置留下空白）。position:relative 对 table-*-group, table-row, table-column, table-cell, table-caption 元素无效。</p><h2 id="absolute"><a href="#absolute" class="headerlink" title="absolute"></a>absolute</h2><p>元素会被移出正常文档流，并不为元素预留空间，通过指定元素相对于最近的非 static 定位祖先元素的偏移，来确定元素位置。绝对定位的元素可以设置外边距（margins），且不会与其他边距合并。</p><h2 id="fixed"><a href="#fixed" class="headerlink" title="fixed"></a>fixed</h2><p>元素会被移出正常文档流，并不为元素预留空间，而是通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置。元素的位置在屏幕滚动时不会改变。打印时，元素会出现在的每页的固定位置。fixed 属性会创建新的层叠上下文。当元素祖先的 transform、perspective、filter 或 backdrop-filter 属性非 none 时，容器由视口改为该祖先。</p><h2 id="sticky"><a href="#sticky" class="headerlink" title="sticky"></a>sticky</h2><p>元素根据正常文档流进行定位，然后相对它的最近滚动祖先（nearest scrolling ancestor）和 containing block（最近块级祖先 nearest block-level ancestor），包括 table-related 元素，基于 top、right、bottom 和 left 的值进行偏移。偏移值不会影响任何其他元素的位置。 该值总是创建一个新的层叠上下文（stacking context）。注意，一个 sticky 元素会“固定”在离它最近的一个拥有“滚动机制”的祖先上（当该祖先的 overflow 是 hidden、scroll、auto 或 overlay 时），即便这个祖先不是最近的真实可滚动祖先。这有效地抑制了任何“sticky”行为</p>]]></content>
+        <content type="html"><![CDATA[<p>vue中父组件是使用v-bind(缩写为:)给子组件传入参数，然后子组件通过prop属性接收该参数。此时我们可以给子组件传入一个函数，子组件通过调用传入的函数来改变父组件中参数的值。</p><h2 id="1、不使用sync"><a href="#1、不使用sync" class="headerlink" title="1、不使用sync"></a>1、不使用sync</h2><p><code>//父组件中通过@方法名来接收子组件传送来的数据</code></p><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>child</span> <span class="token attr-name">:num</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>numParent<span class="token punctuation">"</span></span> <span class="token attr-name">@setNum</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>(res)=> numParent = res<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>child</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><code>//子组件通过调用函数来实现修改父组件的状态</code></p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token literal-property property">methods</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>  <span class="token function">changNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token punctuation">&#123;</span>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'setNum'</span><span class="token punctuation">,</span> <span class="token number">666</span><span class="token punctuation">)</span>  <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="2、使用sync"><a href="#2、使用sync" class="headerlink" title="2、使用sync"></a>2、使用sync</h2><p><code>父组件</code></p><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>child</span> <span class="token attr-name">:num.sync</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>numParent<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><code>子组件</code></p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//使用update：参数  的形式进行更新</span><span class="token literal-property property">methods</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>  <span class="token function">changNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token punctuation">&#123;</span>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'update:num'</span><span class="token punctuation">,</span> <span class="token number">666</span><span class="token punctuation">)</span>  <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><code>需要注意区分$emit和$on，$emit和$on也经常用于组件传值，但是他俩需要共同作用于一个公共的实例上，通常用一个空的 Vue 实例作为中央事件总线，如果没有公共实例，$emit和$on是不能通信的</code></p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token class-name">Vue</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>$bus <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">this</span><span class="token punctuation">.</span>$bus<span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'play'</span><span class="token punctuation">,</span> <span class="token string">'参数'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">this</span><span class="token punctuation">.</span>$bus<span class="token punctuation">.</span><span class="token function">$on</span><span class="token punctuation">(</span><span class="token string">'play'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>xxx<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>localstorage存储在什么地方</title>
+      <link href="/2023/06/14/localstorage-cun-chu-zai-shi-me-di-fang/"/>
+      <url>/2023/06/14/localstorage-cun-chu-zai-shi-me-di-fang/</url>
+      
+        <content type="html"><![CDATA[<p>只读的localStorage 属性允许你访问一个Document 源（origin）的对象 Storage；存储的数据将保存在浏览器会话中。localStorage 类似 sessionStorage，但其区别在于：存储在 localStorage 的数据可以长期保留；而当页面会话结束——也就是说，当页面被关闭时，存储在 sessionStorage 的数据会被清除。</p><p>应注意，无论数据存储在 localStorage 还是 sessionStorage ，它们都特定于页面的协议。</p><p>另外，localStorage 中的键值对总是以字符串的形式存储。 (需要注意，和 js 对象相比，键值对总是以字符串的形式存储意味着数值类型会自动转化为字符串类型).</p><h2 id="localstorage的存储地址（win10）"><a href="#localstorage的存储地址（win10）" class="headerlink" title="localstorage的存储地址（win10）"></a>localstorage的存储地址（win10）</h2><pre class="line-numbers language-none"><code class="language-none">C:\Users\WTCL\AppData\Local\Google\Chrome\User Data\Default\Local Storage\leveldb<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="localstorage和cookie在iframe下的不同表现"><a href="#localstorage和cookie在iframe下的不同表现" class="headerlink" title="localstorage和cookie在iframe下的不同表现"></a>localstorage和cookie在iframe下的不同表现</h2>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>css position</title>
+      <link href="/2023/06/14/css-position/"/>
+      <url>/2023/06/14/css-position/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position">参考链接</a></p><img src="/2023/06/14/css-position/1.png" class="" title="css position"><h2 id="1、static"><a href="#1、static" class="headerlink" title="1、static"></a>1、static</h2><p>该关键字指定元素使用正常的布局行为，即元素在文档常规流中当前的布局位置。此时 top, right, bottom, left 和 z-index 属性无效。</p><h2 id="2、relative"><a href="#2、relative" class="headerlink" title="2、relative"></a>2、relative</h2><p>该关键字下，元素先放置在未添加定位时的位置，再在不改变页面布局的前提下调整元素位置（因此会在此元素未添加定位时所在位置留下空白）。position:relative 对 table-*-group, table-row, table-column, table-cell, table-caption 元素无效。</p><h2 id="3、absolute"><a href="#3、absolute" class="headerlink" title="3、absolute"></a>3、absolute</h2><p>元素会被移出正常文档流，并不为元素预留空间，通过指定元素相对于最近的非 static 定位祖先元素的偏移，来确定元素位置。绝对定位的元素可以设置外边距（margins），且不会与其他边距合并。</p><h2 id="4、fixed"><a href="#4、fixed" class="headerlink" title="4、fixed"></a>4、fixed</h2><p>元素会被移出正常文档流，并不为元素预留空间，而是通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置。元素的位置在屏幕滚动时不会改变。打印时，元素会出现在的每页的固定位置。fixed 属性会创建新的层叠上下文。当元素祖先的 transform、perspective、filter 或 backdrop-filter 属性非 none 时，容器由视口改为该祖先。</p><h2 id="5、sticky"><a href="#5、sticky" class="headerlink" title="5、sticky"></a>5、sticky</h2><p>元素根据正常文档流进行定位，然后相对它的最近滚动祖先（nearest scrolling ancestor）和 containing block（最近块级祖先 nearest block-level ancestor），包括 table-related 元素，基于 top、right、bottom 和 left 的值进行偏移。偏移值不会影响任何其他元素的位置。 该值总是创建一个新的层叠上下文（stacking context）。注意，一个 sticky 元素会“固定”在离它最近的一个拥有“滚动机制”的祖先上（当该祖先的 overflow 是 hidden、scroll、auto 或 overlay 时），即便这个祖先不是最近的真实可滚动祖先。这有效地抑制了任何“sticky”行为</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CommonJS、AMD、CMD规范</title>
+      <link href="/2023/06/08/commonjs-amd-cmd-gui-fan/"/>
+      <url>/2023/06/08/commonjs-amd-cmd-gui-fan/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://juejin.cn/post/6994814324548091940">参考链接</a></p>]]></content>
       
       
       
@@ -120,7 +165,7 @@
       <link href="/2023/05/29/webstorm-she-zhi-mo-ren-zhong-duan/"/>
       <url>/2023/05/29/webstorm-she-zhi-mo-ren-zhong-duan/</url>
       
-        <content type="html"><![CDATA[<img src="/2023/05/29/webstorm-she-zhi-mo-ren-zhong-duan/webstorm%E7%BB%88%E7%AB%AF.png" class="" title="webstorm设置默认终端">]]></content>
+        <content type="html"><![CDATA[<h2 id="webstorm设置默认终端"><a href="#webstorm设置默认终端" class="headerlink" title="webstorm设置默认终端"></a>webstorm设置默认终端</h2><img src="/2023/05/29/webstorm-she-zhi-mo-ren-zhong-duan/webstorm%E7%BB%88%E7%AB%AF.png" class="" title="webstorm设置默认终端">]]></content>
       
       
       
@@ -346,7 +391,7 @@
       <link href="/2023/02/03/vue-da-bao-you-hua/"/>
       <url>/2023/02/03/vue-da-bao-you-hua/</url>
       
-        <content type="html"><![CDATA[<img src="/2023/02/03/vue-da-bao-you-hua/1.png" class="" title="vue打包优化">]]></content>
+        <content type="html"><![CDATA[<h2 id="vue打包优化"><a href="#vue打包优化" class="headerlink" title="vue打包优化"></a>vue打包优化</h2><img src="/2023/02/03/vue-da-bao-you-hua/1.png" class="" title="vue打包优化">]]></content>
       
       
       <categories>
@@ -1543,7 +1588,7 @@
       <link href="/2022/02/24/xiao-cheng-xu-de-bu-tong-ye-mian-jian-chuan-zhi/"/>
       <url>/2022/02/24/xiao-cheng-xu-de-bu-tong-ye-mian-jian-chuan-zhi/</url>
       
-        <content type="html"><![CDATA[<img src="/2022/02/24/xiao-cheng-xu-de-bu-tong-ye-mian-jian-chuan-zhi/1.png" class="" title="小程序的不同页面间传值">]]></content>
+        <content type="html"><![CDATA[<h2 id="小程序的不同页面间传值"><a href="#小程序的不同页面间传值" class="headerlink" title="小程序的不同页面间传值"></a>小程序的不同页面间传值</h2><img src="/2022/02/24/xiao-cheng-xu-de-bu-tong-ye-mian-jian-chuan-zhi/1.png" class="" title="小程序的不同页面间传值">]]></content>
       
       
       
