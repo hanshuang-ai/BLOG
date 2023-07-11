@@ -13,3 +13,6 @@ tags: ['react']
 
 ## use client
 [参考链接](https://react.dev/reference/react/use-client)
+
+## 事件处理
+[参考链接](https://zh-hans.react.dev/learn/responding-to-events)
