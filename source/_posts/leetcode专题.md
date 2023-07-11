@@ -2,7 +2,6 @@
 title: leetcode专题
 date: 2022-09-16 11:05:24
 tags: ["leetcode"]
-categories: ["leetcode"]
 top: true
 summary: 记录一些自己在leetcode上的解题方法
 ---
