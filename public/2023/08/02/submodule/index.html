@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="macOS安装homebrew, MyBlog">
-    <meta name="description" content="Homebrew是一款Mac OS平台下的软件包管理工具，拥有安装、卸载、更新、查看、搜索等很多实用的功能。简单的一条指令，就可以实现包管理，而不用你关心各种依赖和文件路径的情况，十分方便快捷。
-官方安装方式(https://brew.sh">
+    <meta name="keywords" content="submodule, MyBlog">
+    <meta name="description" content="Git 子模块（submodule）是 Git 中用于管理项目依赖的一种机制。它允许将一个 Git 仓库作为另一个仓库的子目录，使得一个仓库可以引用另一个仓库的特定版本，而不是将其完整地复制到主仓库中。
+使用子模块，可以轻松地将外部项目或库">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>macOS安装homebrew | MyBlog</title>
+    <title>submodule | MyBlog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -266,12 +266,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">macOS安装homebrew</h1>
+                    <h1 class="description center-align post-title">submodule</h1>
                 </div>
             </div>
         </div>
@@ -387,8 +387,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/macOS/">
-                                <span class="chip bg-color">macOS</span>
+                            <a href="/tags/%E5%AE%9E%E6%88%98/">
+                                <span class="chip bg-color">实战</span>
                             </a>
                         
                     </div>
@@ -403,21 +403,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-10-14
+                    2023-08-02
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-06-02
+                    2023-08-02
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    220
+                    442
                 </div>
                 
 
@@ -452,12 +452,20 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Homebrew是一款Mac OS平台下的软件包管理工具，拥有安装、卸载、更新、查看、搜索等很多实用的功能。简单的一条指令，就可以实现包管理，而不用你关心各种依赖和文件路径的情况，十分方便快捷。</p>
-<h2 id="官方安装方式-https-brew-sh-index-zh-cn"><a href="#官方安装方式-https-brew-sh-index-zh-cn" class="headerlink" title="官方安装方式(https://brew.sh/index_zh-cn)"></a>官方安装方式(<a target="_blank" rel="noopener" href="https://brew.sh/index_zh-cn">https://brew.sh/index_zh-cn</a>)</h2><pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;HEAD&#x2F;install.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <p>Git 子模块（submodule）是 Git 中用于管理项目依赖的一种机制。它允许将一个 Git 仓库作为另一个仓库的子目录，使得一个仓库可以引用另一个仓库的特定版本，而不是将其完整地复制到主仓库中。</p>
+<p>使用子模块，可以轻松地将外部项目或库集成到主项目中，同时保持各个项目的独立性和版本控制。</p>
+<p>在添加子模块时，可以使用 <code>git submodule add</code> 命令指定子模块的远程仓库地址和在主项目中的存放路径。例如：</p>
+<pre class="line-numbers language-none"><code class="language-none">git submodule add https:&#x2F;&#x2F;github.com&#x2F;example&#x2F;submodule.git path&#x2F;to&#x2F;submodule<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><code>官方安装方法在国内很多时候都是无法直接安装问题的，因为网络问题，解决方法也有很多，这里就不一一介绍了，这里就介绍最简单的方法</code></p>
-<h2 id="国内快速安装"><a href="#国内快速安装" class="headerlink" title="国内快速安装"></a>国内快速安装</h2><p><code>这里只推荐安装最全的方式，我一般选中科大的源</code></p>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;bin&#x2F;zsh -c &quot;$(curl -fsSL https:&#x2F;&#x2F;gitee.com&#x2F;cunkai&#x2F;HomebrewCN&#x2F;raw&#x2F;master&#x2F;Homebrew.sh)&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>之后，主项目会记录子模块的信息，并在主项目的提交中包含子模块的快照。其他人在克隆主项目时，可以通过 <code>git submodule update --init</code> 命令初始化并下载子模块的内容。</p>
+<p>要更新子模块到最新版本，可以使用 <code>git submodule update --remote</code> 命令。</p>
+<p>子模块虽然提供了便利的依赖管理机制，但也需要注意一些注意事项。主要包括：</p>
+<ol>
+<li>注意及时更新子模块，以确保使用最新版本。</li>
+<li>如果主项目依赖的子模块有更新，需要在主项目中提交子模块的更新，并通知其他开发者及时更新子模块。</li>
+<li>子模块指向的是特定版本，不会自动跟随子模块的远程仓库更新，需要手动同步。</li>
+</ol>
+<p>总之，Git 子模块是一个有用的工具，可以帮助项目管理复杂的依赖关系，并在合适的情况下使用它来使项目组织更加清晰和模块化。</p>
 
                 
             </div>
@@ -484,7 +492,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hanshuang-ai.github.io/2022/10/14/macos-an-zhuang-homebrew/">https://hanshuang-ai.github.io/2022/10/14/macos-an-zhuang-homebrew/</a>
+                    <a href="https://hanshuang-ai.github.io/2023/08/02/submodule/">https://hanshuang-ai.github.io/2023/08/02/submodule/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -522,8 +530,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/macOS/">
-                                    <span class="chip bg-color">macOS</span>
+                                <a href="/tags/%E5%AE%9E%E6%88%98/">
+                                    <span class="chip bg-color">实战</span>
                                 </a>
                             
                         </div>
@@ -692,17 +700,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/10/14/node-canvas-sheng-cheng-tu-pian-bing-bao-cun/">
+                <a href="/2023/08/02/submodule/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="node canvas生成图片并保存">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="submodule">
                         
-                        <span class="card-title">node canvas生成图片并保存</span>
+                        <span class="card-title">submodule</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -712,30 +721,23 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-02
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
-                                    框架
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            寒霜
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/">
-                        <span class="chip bg-color">可视化</span>
-                    </a>
-                    
-                    <a href="/tags/node/">
-                        <span class="chip bg-color">node</span>
+                    <a href="/tags/%E5%AE%9E%E6%88%98/">
+                        <span class="chip bg-color">实战</span>
                     </a>
                     
                 </div>
@@ -749,13 +751,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/10/14/live-server-shi-yong/">
+                <a href="/2023/08/01/jsbridge-he-dsbridge/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="live-server使用">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="jsBridge和dsBridge">
                         
-                        <span class="card-title">live-server使用</span>
+                        <span class="card-title">jsBridge和dsBridge</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -766,7 +768,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-01
                             </span>
                         <span class="publish-author">
                             
@@ -775,6 +777,14 @@
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%AE%9E%E6%88%98/">
+                        <span class="chip bg-color">实战</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -922,7 +932,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">38.4k</span>
+                        class="white-color">39.2k</span>
             
             
             
