@@ -12,7 +12,7 @@
     "version": "5.4.0"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.17.1",
+    "@modelcontextprotocol/sdk": "^1.20.1",
     "hexo": "^5.0.0",
     "hexo-asset-img": "^1.0.0",
     "hexo-deployer-git": "^3.0.0",
