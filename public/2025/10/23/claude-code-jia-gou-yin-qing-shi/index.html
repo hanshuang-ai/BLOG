@@ -6,7 +6,9 @@
     <meta charset="utf-8">
     <meta name="keywords" content="claude-code架构-引擎室, 我的博客">
     <meta name="description" content="参考链接
-">
+Architecture: The Engine Roomgraph TB
+    subgraph &#34;The Heart: tt Control Loop&#34;
+        Start([User Input]) --&gt; Ini">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -261,14 +263,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4
+                    3.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    21 分
                 </div>
                 
 
@@ -297,6 +299,1181 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p><a target="_blank" rel="noopener" href="https://southbridge-research.notion.site/Architecture-The-Engine-Room-2055fec70db18192963cd6b3a5326476">参考链接</a></p>
+<h1 id="Architecture-The-Engine-Room"><a href="#Architecture-The-Engine-Room" class="headerlink" title="Architecture: The Engine Room"></a>Architecture: The Engine Room</h1><pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> TB
+    <span class="token keyword">subgraph</span> <span class="token string">"The Heart: tt Control Loop"</span>
+        Start<span class="token text string">([User Input])</span> <span class="token arrow operator">--></span> Init<span class="token text string">[Initialize Turn]</span>
+        Init <span class="token arrow operator">--></span> Compact<span class="token text string">&#123;Need Compaction?&#125;</span>
+        Compact <span class="token arrow operator">--></span><span class="token label property">|Yes|</span> CompactLLM<span class="token text string">[LLM Summarize]</span>
+        CompactLLM <span class="token arrow operator">--></span> Assembly
+        Compact <span class="token arrow operator">--></span><span class="token label property">|No|</span> Assembly<span class="token text string">[Assemble Context]</span>
+
+        Assembly <span class="token arrow operator">--></span> Stream<span class="token text string">[Stream to LLM]</span>
+        Stream <span class="token arrow operator">--></span> Process<span class="token text string">[Process Events]</span>
+        Process <span class="token arrow operator">--></span> Tools<span class="token text string">&#123;Tool Requests?&#125;</span>
+
+        Tools <span class="token arrow operator">--></span><span class="token label property">|Yes|</span> Execute<span class="token text string">[Execute Tools]</span>
+        Execute <span class="token arrow operator">--></span> Recurse<span class="token text string">[Recurse tt]</span>
+        Recurse <span class="token arrow operator">--></span> Init
+
+        Tools <span class="token arrow operator">--></span><span class="token label property">|No|</span> End<span class="token text string">([Complete])</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">style</span> Init <span class="token style"><span class="token property">fill</span><span class="token operator">:</span>#e1f5fe</span>
+    <span class="token keyword">style</span> Stream <span class="token style"><span class="token property">fill</span><span class="token operator">:</span>#fff3e0</span>
+    <span class="token keyword">style</span> Execute <span class="token style"><span class="token property">fill</span><span class="token operator">:</span>#e8f5e9</span>
+    <span class="token keyword">style</span> Recurse <span class="token style"><span class="token property">fill</span><span class="token operator">:</span>#fce4ec</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<img src="/2025/10/23/claude-code-jia-gou-yin-qing-shi/1.svg" class="">
+<h2 id="The-tt-Control-Loop-The-Beating-Heart"><a href="#The-tt-Control-Loop-The-Beating-Heart" class="headerlink" title="The tt Control Loop: The Beating Heart"></a>The <code>tt</code> Control Loop: The Beating Heart</h2><p>The entire Claude Code system revolves around a single async generator function called <code>tt</code>. This function orchestrates every interaction, from user input to LLM communication to tool execution. Let’s dissect this remarkable piece of engineering:</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// The actual tt function signature from the codebase</span>
+<span class="token keyword">async</span> <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">tt</span><span class="token punctuation">(</span>
+  currentMessages<span class="token operator">:</span> CliMessage<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>         <span class="token comment">// Full conversation history</span>
+  baseSystemPromptString<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>        <span class="token comment">// Static system instructions</span>
+  currentGitContext<span class="token operator">:</span> GitContext<span class="token punctuation">,</span>         <span class="token comment">// Real-time git state</span>
+  currentClaudeMdContents<span class="token operator">:</span> ClaudeMdContent<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment">// Project context</span>
+  permissionGranterFn<span class="token operator">:</span> PermissionGranter<span class="token punctuation">,</span> <span class="token comment">// Permission callback</span>
+  toolUseContext<span class="token operator">:</span> ToolUseContext<span class="token punctuation">,</span>         <span class="token comment">// Shared execution context</span>
+  activeStreamingToolUse<span class="token operator">?</span><span class="token operator">:</span> ToolUseBlock<span class="token punctuation">,</span>  <span class="token comment">// Resume streaming state</span>
+  loopState<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    turnId<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>        <span class="token comment">// UUID for this turn</span>
+    turnCounter<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">,</span>   <span class="token comment">// Recursion depth tracker</span>
+    compacted<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">,</span>   <span class="token comment">// History compression flag</span>
+    isResuming<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">boolean</span>   <span class="token comment">// Resume from saved state</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">)</span><span class="token operator">:</span> AsyncGenerator<span class="token operator">&lt;</span>CliMessage<span class="token punctuation">,</span> <span class="token keyword">void</span><span class="token punctuation">,</span> <span class="token keyword">void</span><span class="token operator">></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>This signature reveals the sophisticated state management at play. The function yields <code>CliMessage</code> objects that drive UI updates while maintaining conversation flow. Let’s examine each phase:</p>
+<h3 id="Phase-1-Turn-Initialization-amp-Context-Preparation"><a href="#Phase-1-Turn-Initialization-amp-Context-Preparation" class="headerlink" title="Phase 1: Turn Initialization &amp; Context Preparation"></a>Phase 1: Turn Initialization &amp; Context Preparation</h3><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token punctuation">&#123;</span>
+  <span class="token comment">// Signal UI that processing has begun</span>
+  <span class="token keyword">yield</span> <span class="token punctuation">&#123;</span>
+    type<span class="token operator">:</span> <span class="token string">"ui_state_update"</span><span class="token punctuation">,</span>
+    uuid<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">uistate-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>loopState<span class="token punctuation">.</span>turnId<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+    timestamp<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toISOString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    data<span class="token operator">:</span> <span class="token punctuation">&#123;</span> status<span class="token operator">:</span> <span class="token string">"thinking"</span><span class="token punctuation">,</span> turnId<span class="token operator">:</span> loopState<span class="token punctuation">.</span>turnId <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Check context window pressure</span>
+  <span class="token keyword">let</span> messagesForLlm <span class="token operator">=</span> currentMessages<span class="token punctuation">;</span>
+  <span class="token keyword">let</span> wasCompactedThisIteration <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">shouldAutoCompact</span><span class="token punctuation">(</span>currentMessages<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">yield</span> <span class="token punctuation">&#123;</span>
+      type<span class="token operator">:</span> <span class="token string">"ui_notification"</span><span class="token punctuation">,</span>
+      data<span class="token operator">:</span> <span class="token punctuation">&#123;</span> message<span class="token operator">:</span> <span class="token string">"Context is large, attempting to compact..."</span> <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">const</span> compactionResult <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">compactAndStoreConversation</span><span class="token punctuation">(</span>
+        currentMessages<span class="token punctuation">,</span>
+        toolUseContext<span class="token punctuation">,</span>
+        <span class="token boolean">true</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      messagesForLlm <span class="token operator">=</span> compactionResult<span class="token punctuation">.</span>messagesAfterCompacting<span class="token punctuation">;</span>
+      wasCompactedThisIteration <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+      loopState<span class="token punctuation">.</span>compacted <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">yield</span> <span class="token function">createSystemNotificationMessage</span><span class="token punctuation">(</span>
+        <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Conversation history automatically compacted. Summary: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>
+          compactionResult<span class="token punctuation">.</span>summaryMessage<span class="token punctuation">.</span>message<span class="token punctuation">.</span>content<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>text
+        <span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>compactionError<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">yield</span> <span class="token function">createSystemErrorMessage</span><span class="token punctuation">(</span>
+        <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Failed to compact conversation: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>compactionError<span class="token punctuation">.</span>message<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Performance Profile of Phase 1</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Typical Duration</th>
+<th>Complexity</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Token counting</td>
+<td>10-50ms</td>
+<td>O(n) messages</td>
+</tr>
+<tr>
+<td>Compaction decision</td>
+<td>&lt;1ms</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>LLM summarization</td>
+<td>2000-3000ms</td>
+<td>One LLM call</td>
+</tr>
+<tr>
+<td>Message reconstruction</td>
+<td>5-10ms</td>
+<td>O(n) messages</td>
+</tr>
+</tbody></table>
+<h3 id="Phase-2-Dynamic-System-Prompt-Assembly"><a href="#Phase-2-Dynamic-System-Prompt-Assembly" class="headerlink" title="Phase 2: Dynamic System Prompt Assembly"></a>Phase 2: Dynamic System Prompt Assembly</h3><p>The system prompt isn’t static—it’s assembled fresh for each turn:</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token punctuation">&#123;</span>
+  <span class="token comment">// Parallel fetch of all context sources</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>toolSpecs<span class="token punctuation">,</span> dirStructure<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+    <span class="token comment">// Convert tool definitions to LLM-compatible specs</span>
+    <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span>
+      toolUseContext<span class="token punctuation">.</span>options<span class="token punctuation">.</span>tools
+        <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>tool <span class="token operator">=></span> tool<span class="token punctuation">.</span>isEnabled <span class="token operator">?</span> tool<span class="token punctuation">.</span><span class="token function">isEnabled</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token punctuation">(</span>tool<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">convertToolDefinitionToToolSpecification</span><span class="token punctuation">(</span>tool<span class="token punctuation">,</span> toolUseContext<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token comment">// Get current directory structure</span>
+    <span class="token function">getDirectoryStructureSnapshot</span><span class="token punctuation">(</span>toolUseContext<span class="token punctuation">)</span>
+  <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Assemble the complete system prompt</span>
+  <span class="token keyword">const</span> systemPromptForLlm <span class="token operator">=</span> <span class="token function">assembleSystemPrompt</span><span class="token punctuation">(</span>
+    baseSystemPromptString<span class="token punctuation">,</span>      <span class="token comment">// Core instructions</span>
+    currentClaudeMdContents<span class="token punctuation">,</span>     <span class="token comment">// Project-specific context</span>
+    currentGitContext<span class="token punctuation">,</span>           <span class="token comment">// Git status/branch/commits</span>
+    dirStructure<span class="token punctuation">,</span>                <span class="token comment">// File tree</span>
+    toolSpecs                    <span class="token comment">// Available tools</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Prepare messages with cache control</span>
+  <span class="token keyword">const</span> apiMessages <span class="token operator">=</span> <span class="token function">prepareMessagesForApi</span><span class="token punctuation">(</span>
+    messagesForLlm<span class="token punctuation">,</span>
+    <span class="token boolean">true</span> <span class="token comment">// applyEphemeralCacheControl</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>The assembly process follows a strict priority order:</p>
+<pre class="line-numbers language-none"><code class="language-none">Priority 1: Base Instructions (~2KB)
+    ↓
+Priority 2: Model-Specific Adaptations (~500B)
+    ↓
+Priority 3: CLAUDE.md Content (Variable, typically 5-50KB)
+    ↓
+Priority 4: Git Context (~1-5KB)
+    ↓
+Priority 5: Directory Structure (Truncated to fit)
+    ↓
+Priority 6: Tool Specifications (~10-20KB)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Phase-3-LLM-Stream-Initialization"><a href="#Phase-3-LLM-Stream-Initialization" class="headerlink" title="Phase 3: LLM Stream Initialization"></a>Phase 3: LLM Stream Initialization</h3><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token punctuation">&#123;</span>
+  <span class="token comment">// Initialize streaming call</span>
+  <span class="token keyword">const</span> llmStream <span class="token operator">=</span> <span class="token function">callLlmStreamApi</span><span class="token punctuation">(</span>
+    apiMessages<span class="token punctuation">,</span>
+    systemPromptForLlm<span class="token punctuation">,</span>
+    toolSpecificationsForLlm<span class="token punctuation">,</span>
+    toolUseContext<span class="token punctuation">.</span>options<span class="token punctuation">.</span>mainLoopModel<span class="token punctuation">,</span>
+    toolUseContext<span class="token punctuation">.</span>abortController<span class="token punctuation">.</span>signal
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Initialize accumulators for streaming response</span>
+  <span class="token keyword">let</span> accumulatedAssistantMessage<span class="token operator">:</span> Partial<span class="token operator">&lt;</span>CliMessage<span class="token operator">></span> <span class="token operator">&amp;</span> <span class="token punctuation">&#123;</span>
+    message<span class="token operator">:</span> Partial<span class="token operator">&lt;</span>ApiMessage<span class="token operator">></span> <span class="token operator">&amp;</span> <span class="token punctuation">&#123;</span> content<span class="token operator">:</span> ContentBlock<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    type<span class="token operator">:</span> <span class="token string">"assistant"</span><span class="token punctuation">,</span>
+    uuid<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">assistant-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>loopState<span class="token punctuation">.</span>turnId<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>loopState<span class="token punctuation">.</span>turnCounter<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+    timestamp<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toISOString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    message<span class="token operator">:</span> <span class="token punctuation">&#123;</span> role<span class="token operator">:</span> <span class="token string">"assistant"</span><span class="token punctuation">,</span> content<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">let</span> currentToolUsesFromLlm<span class="token operator">:</span> ToolUseBlock<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">let</span> currentThinkingContent<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+  <span class="token keyword">let</span> currentToolInputJsonBuffer<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Phase-4-Stream-Event-Processing-State-Machine"><a href="#Phase-4-Stream-Event-Processing-State-Machine" class="headerlink" title="Phase 4: Stream Event Processing State Machine"></a>Phase 4: Stream Event Processing State Machine</h3><p>This is where the magic happens—processing streaming events in real-time:</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token punctuation">&#123;</span>
+  <span class="token keyword">for</span> <span class="token keyword">await</span> <span class="token punctuation">(</span><span class="token keyword">const</span> streamEvent <span class="token keyword">of</span> llmStream<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Abort check</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>toolUseContext<span class="token punctuation">.</span>abortController<span class="token punctuation">.</span>signal<span class="token punctuation">.</span>aborted<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">yield</span> <span class="token function">createSystemNotificationMessage</span><span class="token punctuation">(</span><span class="token string">"LLM stream processing aborted by user."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">switch</span> <span class="token punctuation">(</span>streamEvent<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">case</span> <span class="token string">"message_start"</span><span class="token operator">:</span>
+        accumulatedAssistantMessage<span class="token punctuation">.</span>message<span class="token punctuation">.</span>id <span class="token operator">=</span> streamEvent<span class="token punctuation">.</span>message<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
+        accumulatedAssistantMessage<span class="token punctuation">.</span>message<span class="token punctuation">.</span>model <span class="token operator">=</span> streamEvent<span class="token punctuation">.</span>message<span class="token punctuation">.</span>model<span class="token punctuation">;</span>
+        accumulatedAssistantMessage<span class="token punctuation">.</span>message<span class="token punctuation">.</span>usage <span class="token operator">=</span> streamEvent<span class="token punctuation">.</span>message<span class="token punctuation">.</span>usage<span class="token punctuation">;</span>
+        <span class="token keyword">yield</span> <span class="token punctuation">&#123;</span>
+          type<span class="token operator">:</span> <span class="token string">"ui_state_update"</span><span class="token punctuation">,</span>
+          data<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            status<span class="token operator">:</span> <span class="token string">"assistant_responding"</span><span class="token punctuation">,</span>
+            model<span class="token operator">:</span> streamEvent<span class="token punctuation">.</span>message<span class="token punctuation">.</span>model
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">case</span> <span class="token string">"content_block_start"</span><span class="token operator">:</span>
+        <span class="token keyword">const</span> newBlockPlaceholder <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token operator">...</span>streamEvent<span class="token punctuation">.</span>content_block <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// Initialize empty content based on block type</span>
+        <span class="token class-name"><span class="token keyword">if</span></span> <span class="token punctuation">(</span>streamEvent<span class="token punctuation">.</span>content_block<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">"thinking"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          currentThinkingContent <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+          newBlockPlaceholder<span class="token punctuation">.</span>thinking <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>streamEvent<span class="token punctuation">.</span>content_block<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">"tool_use"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          currentToolInputJsonBuffer <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+          newBlockPlaceholder<span class="token punctuation">.</span>input <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>streamEvent<span class="token punctuation">.</span>content_block<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">"text"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          newBlockPlaceholder<span class="token punctuation">.</span>text <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        accumulatedAssistantMessage<span class="token punctuation">.</span>message<span class="token punctuation">.</span>content<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>newBlockPlaceholder<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">case</span> <span class="token string">"content_block_delta"</span><span class="token operator">:</span>
+        <span class="token keyword">const</span> lastBlockIndex <span class="token operator">=</span> accumulatedAssistantMessage<span class="token punctuation">.</span>message<span class="token punctuation">.</span>content<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>lastBlockIndex <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">continue</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">const</span> currentBlock <span class="token operator">=</span> accumulatedAssistantMessage<span class="token punctuation">.</span>message<span class="token punctuation">.</span>content<span class="token punctuation">[</span>lastBlockIndex<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>streamEvent<span class="token punctuation">.</span>delta<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">"text_delta"</span> <span class="token operator">&amp;&amp;</span> currentBlock<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">"text"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          currentBlock<span class="token punctuation">.</span>text <span class="token operator">+=</span> streamEvent<span class="token punctuation">.</span>delta<span class="token punctuation">.</span>text<span class="token punctuation">;</span>
+          <span class="token keyword">yield</span> <span class="token punctuation">&#123;</span>
+            type<span class="token operator">:</span> <span class="token string">"ui_text_delta"</span><span class="token punctuation">,</span>
+            data<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+              textDelta<span class="token operator">:</span> streamEvent<span class="token punctuation">.</span>delta<span class="token punctuation">.</span>text<span class="token punctuation">,</span>
+              blockIndex<span class="token operator">:</span> lastBlockIndex
+            <span class="token punctuation">&#125;</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>streamEvent<span class="token punctuation">.</span>delta<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">"input_json_delta"</span> <span class="token operator">&amp;&amp;</span> currentBlock<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">"tool_use"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          currentToolInputJsonBuffer <span class="token operator">+=</span> streamEvent<span class="token punctuation">.</span>delta<span class="token punctuation">.</span>partial_json<span class="token punctuation">;</span>
+          currentBlock<span class="token punctuation">.</span>input <span class="token operator">=</span> currentToolInputJsonBuffer<span class="token punctuation">;</span>
+
+          <span class="token comment">// Try parsing incomplete JSON for preview</span>
+          <span class="token keyword">const</span> parseAttempt <span class="token operator">=</span> <span class="token function">tryParsePartialJson</span><span class="token punctuation">(</span>currentToolInputJsonBuffer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>parseAttempt<span class="token punctuation">.</span>complete<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">yield</span> <span class="token punctuation">&#123;</span>
+              type<span class="token operator">:</span> <span class="token string">"ui_tool_preview"</span><span class="token punctuation">,</span>
+              data<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+                toolId<span class="token operator">:</span> currentBlock<span class="token punctuation">.</span>id<span class="token punctuation">,</span>
+                preview<span class="token operator">:</span> parseAttempt<span class="token punctuation">.</span>value
+              <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">case</span> <span class="token string">"content_block_stop"</span><span class="token operator">:</span>
+        <span class="token keyword">const</span> completedBlock <span class="token operator">=</span> accumulatedAssistantMessage<span class="token punctuation">.</span>message<span class="token punctuation">.</span>content<span class="token punctuation">[</span>streamEvent<span class="token punctuation">.</span>index<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>completedBlock<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">"tool_use"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">const</span> parsedInput <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>currentToolInputJsonBuffer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            completedBlock<span class="token punctuation">.</span>input <span class="token operator">=</span> parsedInput<span class="token punctuation">;</span>
+            currentToolUsesFromLlm<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+              type<span class="token operator">:</span> <span class="token string">"tool_use"</span><span class="token punctuation">,</span>
+              id<span class="token operator">:</span> completedBlock<span class="token punctuation">.</span>id<span class="token punctuation">,</span>
+              name<span class="token operator">:</span> completedBlock<span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+              input<span class="token operator">:</span> parsedInput
+            <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">// Handle malformed JSON from LLM</span>
+            completedBlock<span class="token punctuation">.</span>input <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+              error<span class="token operator">:</span> <span class="token string">"Invalid JSON input from LLM"</span><span class="token punctuation">,</span>
+              raw_json_string<span class="token operator">:</span> currentToolInputJsonBuffer<span class="token punctuation">,</span>
+              parse_error<span class="token operator">:</span> e<span class="token punctuation">.</span>message
+            <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+          <span class="token punctuation">&#125;</span>
+          currentToolInputJsonBuffer <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token keyword">yield</span> <span class="token punctuation">&#123;</span>
+          type<span class="token operator">:</span> <span class="token string">"ui_content_block_complete"</span><span class="token punctuation">,</span>
+          data<span class="token operator">:</span> <span class="token punctuation">&#123;</span> block<span class="token operator">:</span> completedBlock<span class="token punctuation">,</span> blockIndex<span class="token operator">:</span> streamEvent<span class="token punctuation">.</span>index <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">case</span> <span class="token string">"message_stop"</span><span class="token operator">:</span>
+        <span class="token comment">// LLM generation complete</span>
+        <span class="token keyword">const</span> finalAssistantMessage <span class="token operator">=</span> <span class="token function">finalizeCliMessage</span><span class="token punctuation">(</span>
+          accumulatedAssistantMessage<span class="token punctuation">,</span>
+          loopState<span class="token punctuation">.</span>turnId<span class="token punctuation">,</span>
+          loopState<span class="token punctuation">.</span>turnCounter
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">yield</span> finalAssistantMessage<span class="token punctuation">;</span>
+
+        <span class="token comment">// Move to Phase 5 or 6...</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Stream Processing Performance</strong>:</p>
+<ul>
+<li>First token latency: 300-800ms (varies by model)</li>
+<li>Token throughput: 50-100 tokens/second</li>
+<li>UI update frequency: Every token for text, batched for tool inputs</li>
+<li>Memory usage: Constant regardless of response length</li>
+</ul>
+<h3 id="Phase-5-Tool-Execution-Orchestration"><a href="#Phase-5-Tool-Execution-Orchestration" class="headerlink" title="Phase 5: Tool Execution Orchestration"></a>Phase 5: Tool Execution Orchestration</h3><p>When the LLM requests tool use, the architecture shifts into execution mode:</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>finalAssistantMessage<span class="token punctuation">.</span>message<span class="token punctuation">.</span>stop_reason <span class="token operator">===</span> <span class="token string">"tool_use"</span> <span class="token operator">&amp;&amp;</span>
+      currentToolUsesFromLlm<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">yield</span> <span class="token punctuation">&#123;</span> type<span class="token operator">:</span> <span class="token string">"ui_state_update"</span><span class="token punctuation">,</span> data<span class="token operator">:</span> <span class="token punctuation">&#123;</span> status<span class="token operator">:</span> <span class="token string">"executing_tools"</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> toolResultMessages<span class="token operator">:</span> CliMessage<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Process tools with intelligent batching</span>
+    <span class="token keyword">for</span> <span class="token keyword">await</span> <span class="token punctuation">(</span><span class="token keyword">const</span> toolOutcomeMessage <span class="token keyword">of</span> <span class="token function">processToolCallsInParallelBatches</span><span class="token punctuation">(</span>
+      currentToolUsesFromLlm<span class="token punctuation">,</span>
+      finalAssistantMessage<span class="token punctuation">,</span>
+      permissionGranterFn<span class="token punctuation">,</span>
+      toolUseContext
+    <span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">yield</span> toolOutcomeMessage<span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>toolOutcomeMessage<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'user'</span> <span class="token operator">&amp;&amp;</span> toolOutcomeMessage<span class="token punctuation">.</span>isMeta<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        toolResultMessages<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>toolOutcomeMessage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Check for abort during tool execution</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>toolUseContext<span class="token punctuation">.</span>abortController<span class="token punctuation">.</span>signal<span class="token punctuation">.</span>aborted<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">yield</span> <span class="token function">createSystemNotificationMessage</span><span class="token punctuation">(</span><span class="token string">"Tool execution aborted by user."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Sort results to match LLM's request order</span>
+    <span class="token keyword">const</span> sortedToolResultMessages <span class="token operator">=</span> <span class="token function">sortToolResultsByOriginalRequestOrder</span><span class="token punctuation">(</span>
+      toolResultMessages<span class="token punctuation">,</span>
+      currentToolUsesFromLlm
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Phase 6: Recurse with results</span>
+    <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token function">tt</span><span class="token punctuation">(</span>
+      <span class="token punctuation">[</span><span class="token operator">...</span>messagesForLlm<span class="token punctuation">,</span> finalAssistantMessage<span class="token punctuation">,</span> <span class="token operator">...</span>sortedToolResultMessages<span class="token punctuation">]</span><span class="token punctuation">,</span>
+      baseSystemPromptString<span class="token punctuation">,</span>
+      currentGitContext<span class="token punctuation">,</span>
+      currentClaudeMdContents<span class="token punctuation">,</span>
+      permissionGranterFn<span class="token punctuation">,</span>
+      toolUseContext<span class="token punctuation">,</span>
+      <span class="token keyword">undefined</span><span class="token punctuation">,</span>
+      <span class="token punctuation">&#123;</span> <span class="token operator">...</span>loopState<span class="token punctuation">,</span> turnCounter<span class="token operator">:</span> loopState<span class="token punctuation">.</span>turnCounter <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Phase-6-Recursion-Control"><a href="#Phase-6-Recursion-Control" class="headerlink" title="Phase 6: Recursion Control"></a>Phase 6: Recursion Control</h3><p>The <code>tt</code> function is tail-recursive, allowing for unlimited conversation depth (bounded by safeguards):</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// Recursion safeguards</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>loopState<span class="token punctuation">.</span>turnCounter <span class="token operator">>=</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">yield</span> <span class="token function">createSystemMessage</span><span class="token punctuation">(</span>
+    <span class="token string">"Maximum conversation depth reached. Please start a new query."</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// Memory pressure check before recursion</span>
+<span class="token keyword">const</span> estimatedMemory <span class="token operator">=</span> <span class="token function">estimateConversationMemory</span><span class="token punctuation">(</span>messagesForLlm<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>estimatedMemory <span class="token operator">></span> <span class="token constant">MEMORY_THRESHOLD</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// Force compaction before continuing</span>
+  <span class="token keyword">const</span> compacted <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">forceCompaction</span><span class="token punctuation">(</span>messagesForLlm<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  messagesForLlm <span class="token operator">=</span> compacted<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="The-Layered-Architecture"><a href="#The-Layered-Architecture" class="headerlink" title="The Layered Architecture"></a>The Layered Architecture</h2><p>Claude Code implements a clean layered architecture where each layer has distinct responsibilities:</p>
+<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> TD
+    <span class="token keyword">subgraph</span> <span class="token string">"Layer 1: User Interface"</span>
+        React<span class="token text string">[React Components]</span>
+        Ink<span class="token text string">[Ink Renderer]</span>
+        Yoga<span class="token text string">[Yoga Layout Engine]</span>
+
+        React <span class="token arrow operator">--></span> Ink
+        Ink <span class="token arrow operator">--></span> Yoga
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">subgraph</span> <span class="token string">"Layer 2: Agent Core"</span>
+        TT<span class="token text string">[tt Control Loop]</span>
+        Context<span class="token text string">[Context Assembly]</span>
+        Permission<span class="token text string">[Permission System]</span>
+        <span class="token keyword">State</span><span class="token text string">[Session State]</span>
+
+        TT <span class="token arrow operator">--></span> Context
+        TT <span class="token arrow operator">--></span> Permission
+        TT <span class="token arrow operator">--></span> State
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">subgraph</span> <span class="token string">"Layer 3: LLM Interaction"</span>
+        Stream<span class="token text string">[Stream Handler]</span>
+        Retry<span class="token text string">[Retry Logic]</span>
+        Token<span class="token text string">[Token Counter]</span>
+
+        Stream <span class="token arrow operator">--></span> Retry
+        Stream <span class="token arrow operator">--></span> Token
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">subgraph</span> <span class="token string">"Layer 4: Tool System"</span>
+        Executor<span class="token text string">[Tool Executor]</span>
+        Validator<span class="token text string">[Input Validator]</span>
+        Sandbox<span class="token text string">[Sandbox Manager]</span>
+
+        Executor <span class="token arrow operator">--></span> Validator
+        Executor <span class="token arrow operator">--></span> Sandbox
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">subgraph</span> <span class="token string">"Layer 5: Infrastructure"</span>
+        FS<span class="token text string">[File System]</span>
+        Process<span class="token text string">[Process Manager]</span>
+        Network<span class="token text string">[Network Client]</span>
+        Telemetry<span class="token text string">[Telemetry]</span>
+    <span class="token keyword">end</span>
+
+    React <span class="token arrow operator">-.-></span> TT
+    TT <span class="token arrow operator">-.-></span> Stream
+    TT <span class="token arrow operator">-.-></span> Executor
+    Executor <span class="token arrow operator">-.-></span> FS
+    Executor <span class="token arrow operator">-.-></span> Process
+    Stream <span class="token arrow operator">-.-></span> Network
+    TT <span class="token arrow operator">-.-></span> Telemetry
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<img src="/2025/10/23/claude-code-jia-gou-yin-qing-shi/2.svg" class="">
+<h3 id="Layer-Communication-Patterns"><a href="#Layer-Communication-Patterns" class="headerlink" title="Layer Communication Patterns"></a>Layer Communication Patterns</h3><p>Communication between layers follows strict patterns:</p>
+<ol>
+<li><strong>Downward Communication</strong>: Direct function calls</li>
+<li><strong>Upward Communication</strong>: Events and callbacks</li>
+<li><strong>Cross-Layer Communication</strong>: Shared context objects</li>
+</ol>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// Example: UI to Agent Core communication</span>
+<span class="token keyword">class</span> <span class="token class-name">UIToAgentBridge</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">async</span> <span class="token function">handleUserInput</span><span class="token punctuation">(</span>input<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Downward: Direct call</span>
+    <span class="token keyword">const</span> action <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">pd</span><span class="token punctuation">(</span>input<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Process based on action type</span>
+    <span class="token class-name"><span class="token keyword">switch</span></span> <span class="token punctuation">(</span>action<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">case</span> <span class="token string">'normal_prompt'</span><span class="token operator">:</span>
+        <span class="token comment">// Start new tt loop iteration</span>
+        <span class="token keyword">for</span> <span class="token keyword">await</span> <span class="token punctuation">(</span><span class="token keyword">const</span> message <span class="token keyword">of</span> <span class="token function">tt</span><span class="token punctuation">(</span><span class="token operator">...</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          <span class="token comment">// Upward: Yield events</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>uiRenderer<span class="token punctuation">.</span><span class="token function">handleMessage</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// Example: Tool to UI communication via progress</span>
+<span class="token keyword">class</span> <span class="token class-name">ToolToUIBridge</span> <span class="token punctuation">&#123;</span>
+  async <span class="token operator">*</span><span class="token function">executeWithProgress</span><span class="token punctuation">(</span>tool<span class="token operator">:</span> ToolDefinition<span class="token punctuation">,</span> input<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Tool yields progress</span>
+    <span class="token keyword">for</span> <span class="token keyword">await</span> <span class="token punctuation">(</span><span class="token keyword">const</span> event <span class="token keyword">of</span> <span class="token function">tool</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>input<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'progress'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// Transform to UI event</span>
+        <span class="token keyword">yield</span> <span class="token punctuation">&#123;</span>
+          type<span class="token operator">:</span> <span class="token string">'ui_progress'</span><span class="token punctuation">,</span>
+          toolName<span class="token operator">:</span> tool<span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+          progress<span class="token operator">:</span> event<span class="token punctuation">.</span>data
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Event-Driven-amp-Streaming-Architecture"><a href="#Event-Driven-amp-Streaming-Architecture" class="headerlink" title="Event-Driven &amp; Streaming Architecture"></a>Event-Driven &amp; Streaming Architecture</h2><p>The entire system is built on streaming primitives:</p>
+<h3 id="Stream-Backpressure-Management"><a href="#Stream-Backpressure-Management" class="headerlink" title="Stream Backpressure Management"></a>Stream Backpressure Management</h3><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">class</span> <span class="token class-name">StreamBackpressureController</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> queue<span class="token operator">:</span> StreamEvent<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> processing <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> pressure <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    high<span class="token operator">:</span> <span class="token number">1000</span><span class="token punctuation">,</span>    <span class="token comment">// Start dropping non-critical events</span>
+    critical<span class="token operator">:</span> <span class="token number">5000</span> <span class="token comment">// Drop everything except errors</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">async</span> <span class="token function">handleEvent</span><span class="token punctuation">(</span>event<span class="token operator">:</span> StreamEvent<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>queue<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Apply backpressure strategies</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>queue<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span>pressure<span class="token punctuation">.</span>critical<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// Keep only critical events</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>queue <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>queue<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>e <span class="token operator">=></span>
+        e<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'error'</span> <span class="token operator">||</span>
+        e<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'message_stop'</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>queue<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span>pressure<span class="token punctuation">.</span>high<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// Drop text deltas, keep structure</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>queue <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>queue<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>e <span class="token operator">=></span>
+        e<span class="token punctuation">.</span>type <span class="token operator">!==</span> <span class="token string">'content_block_delta'</span> <span class="token operator">||</span>
+        e<span class="token punctuation">.</span>delta<span class="token punctuation">.</span>type <span class="token operator">!==</span> <span class="token string">'text_delta'</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>processing<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">processQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">async</span> <span class="token function">processQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>processing <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>queue<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">const</span> batch <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>queue<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Process in batches</span>
+      <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">processBatch</span><span class="token punctuation">(</span>batch<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token comment">// Yield to event loop</span>
+      <span class="token keyword">await</span> <span class="token keyword">new</span> <span class="token class-name"><span class="token builtin">Promise</span></span><span class="token punctuation">(</span>resolve <span class="token operator">=></span> <span class="token function">setImmediate</span><span class="token punctuation">(</span>resolve<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span>processing <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Progress-Event-Aggregation"><a href="#Progress-Event-Aggregation" class="headerlink" title="Progress Event Aggregation"></a>Progress Event Aggregation</h3><p>Multiple concurrent operations need coordinated progress reporting:</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">class</span> <span class="token class-name">ProgressAggregator</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> progressStreams <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Map<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token punctuation">,</span> AsyncIterator<span class="token operator">&lt;</span>ProgressEvent<span class="token operator">>></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  async <span class="token operator">*</span><span class="token function">aggregateProgress</span><span class="token punctuation">(</span>
+    operations<span class="token operator">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span><span class="token punctuation">&#123;</span> id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> operation<span class="token operator">:</span> AsyncIterator<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">></span> <span class="token punctuation">&#125;</span><span class="token operator">></span>
+  <span class="token punctuation">)</span><span class="token operator">:</span> AsyncGenerator<span class="token operator">&lt;</span>AggregatedProgress<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Start all operations</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token punctuation">&#123;</span> id<span class="token punctuation">,</span> operation <span class="token punctuation">&#125;</span> <span class="token keyword">of</span> operations<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>progressStreams<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>id<span class="token punctuation">,</span> operation<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Poll all streams</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>progressStreams<span class="token punctuation">.</span>size <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">const</span> promises <span class="token operator">=</span> <span class="token builtin">Array</span><span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>progressStreams<span class="token punctuation">.</span><span class="token function">entries</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>
+        <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>id<span class="token punctuation">,</span> stream<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+          <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> value<span class="token punctuation">,</span> done <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token keyword">await</span> stream<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">return</span> <span class="token punctuation">&#123;</span> id<span class="token punctuation">,</span> value<span class="token punctuation">,</span> done <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token comment">// Race for next event</span>
+      <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">race</span><span class="token punctuation">(</span>promises<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>result<span class="token punctuation">.</span>done<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>progressStreams<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>result<span class="token punctuation">.</span>value<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'progress'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">yield</span> <span class="token punctuation">&#123;</span>
+          type<span class="token operator">:</span> <span class="token string">'aggregated_progress'</span><span class="token punctuation">,</span>
+          source<span class="token operator">:</span> result<span class="token punctuation">.</span>id<span class="token punctuation">,</span>
+          progress<span class="token operator">:</span> result<span class="token punctuation">.</span>value
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="State-Management-Architecture"><a href="#State-Management-Architecture" class="headerlink" title="State Management Architecture"></a>State Management Architecture</h2><p>Claude Code uses a pragmatic approach to state management:</p>
+<h3 id="The-Global-Session-State"><a href="#The-Global-Session-State" class="headerlink" title="The Global Session State"></a>The Global Session State</h3><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// Singleton session state with direct mutation</span>
+<span class="token keyword">class</span> <span class="token class-name">SessionState</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> <span class="token keyword">static</span> instance<span class="token operator">:</span> SessionState<span class="token punctuation">;</span>
+
+  <span class="token comment">// Core state</span>
+  sessionId<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">=</span> crypto<span class="token punctuation">.</span><span class="token function">randomUUID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  cwd<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">=</span> process<span class="token punctuation">.</span><span class="token function">cwd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  totalCostUSD<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  totalAPIDuration<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Model usage tracking</span>
+  modelTokens<span class="token operator">:</span> Record<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+    inputTokens<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+    outputTokens<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+    cacheReadInputTokens<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+    cacheCreationInputTokens<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Direct mutation methods</span>
+  <span class="token function">incrementCost</span><span class="token punctuation">(</span>amount<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>totalCostUSD <span class="token operator">+=</span> amount<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">persistToDisk</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Async, non-blocking</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token function">updateTokenUsage</span><span class="token punctuation">(</span>model<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> usage<span class="token operator">:</span> TokenUsage<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>modelTokens<span class="token punctuation">[</span>model<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>modelTokens<span class="token punctuation">[</span>model<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        inputTokens<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        outputTokens<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        cacheReadInputTokens<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        cacheCreationInputTokens<span class="token operator">:</span> <span class="token number">0</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">const</span> tokens <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>modelTokens<span class="token punctuation">[</span>model<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    tokens<span class="token punctuation">.</span>inputTokens <span class="token operator">+=</span> usage<span class="token punctuation">.</span>input_tokens <span class="token operator">||</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    tokens<span class="token punctuation">.</span>outputTokens <span class="token operator">+=</span> usage<span class="token punctuation">.</span>output_tokens <span class="token operator">||</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    tokens<span class="token punctuation">.</span>cacheReadInputTokens <span class="token operator">+=</span> usage<span class="token punctuation">.</span>cache_read_input_tokens <span class="token operator">||</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    tokens<span class="token punctuation">.</span>cacheCreationInputTokens <span class="token operator">+=</span> usage<span class="token punctuation">.</span>cache_creation_input_tokens <span class="token operator">||</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">async</span> <span class="token function">persistToDisk</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Debounced write to avoid excessive I/O</span>
+    <span class="token function">clearTimeout</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>persistTimer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>persistTimer <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">await</span> fs<span class="token punctuation">.</span><span class="token function">writeFile</span><span class="token punctuation">(</span>
+        <span class="token string">'.claude/session.json'</span><span class="token punctuation">,</span>
+        <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="File-State-with-Weak-References"><a href="#File-State-with-Weak-References" class="headerlink" title="File State with Weak References"></a>File State with Weak References</h3><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">class</span> <span class="token class-name">ReadFileState</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> cache <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Map<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token punctuation">,</span> WeakRef<span class="token operator">&lt;</span>FileContent<span class="token operator">>></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> registry <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FinalizationRegistry</span><span class="token punctuation">(</span><span class="token punctuation">(</span>path<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Cleanup when FileContent is garbage collected</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>cache<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">set</span><span class="token punctuation">(</span>path<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> content<span class="token operator">:</span> FileContent<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> ref <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WeakRef</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>cache<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> ref<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>registry<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>content<span class="token punctuation">,</span> path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token function">get</span><span class="token punctuation">(</span>path<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> FileContent <span class="token operator">|</span> <span class="token keyword">undefined</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> ref <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>cache<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>ref<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">const</span> content <span class="token operator">=</span> ref<span class="token punctuation">.</span><span class="token function">deref</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>content<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// Content was garbage collected</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>cache<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+      <span class="token keyword">return</span> content<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token function">checkFreshness</span><span class="token punctuation">(</span>path<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token string">'fresh'</span> <span class="token operator">|</span> <span class="token string">'stale'</span> <span class="token operator">|</span> <span class="token string">'unknown'</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> cached <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>cached<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token string">'unknown'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> stats <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">statSync</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>stats<span class="token punctuation">.</span>mtimeMs <span class="token operator">!==</span> cached<span class="token punctuation">.</span>timestamp<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> <span class="token string">'stale'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">return</span> <span class="token string">'fresh'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Security-Architecture"><a href="#Security-Architecture" class="headerlink" title="Security Architecture"></a>Security Architecture</h2><p>Security is implemented through multiple independent layers:</p>
+<h3 id="Layer-1-Permission-System"><a href="#Layer-1-Permission-System" class="headerlink" title="Layer 1: Permission System"></a>Layer 1: Permission System</h3><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">class</span> <span class="token class-name">PermissionEvaluator</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> ruleCache <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Map<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token punctuation">,</span> CompiledRule<span class="token operator">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">async</span> <span class="token function">evaluate</span><span class="token punctuation">(</span>
+    tool<span class="token operator">:</span> ToolDefinition<span class="token punctuation">,</span>
+    input<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">,</span>
+    context<span class="token operator">:</span> ToolPermissionContext
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>PermissionDecision<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Priority order evaluation</span>
+    <span class="token keyword">const</span> scopes<span class="token operator">:</span> PermissionRuleScope<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+      <span class="token string">'cliArg'</span><span class="token punctuation">,</span>         <span class="token comment">// Highest: command line</span>
+      <span class="token string">'localSettings'</span><span class="token punctuation">,</span>  <span class="token comment">// Project-specific overrides</span>
+      <span class="token string">'projectSettings'</span><span class="token punctuation">,</span><span class="token comment">// Shared project rules</span>
+      <span class="token string">'policySettings'</span><span class="token punctuation">,</span> <span class="token comment">// Organization policies</span>
+      <span class="token string">'userSettings'</span>    <span class="token comment">// Lowest: user preferences</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> scope <span class="token keyword">of</span> scopes<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">const</span> decision <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">evaluateScope</span><span class="token punctuation">(</span>
+        tool<span class="token punctuation">,</span> input<span class="token punctuation">,</span> context<span class="token punctuation">,</span> scope
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>decision<span class="token punctuation">.</span>behavior <span class="token operator">!==</span> <span class="token string">'continue'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> decision<span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// No matching rule - ask user</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+      behavior<span class="token operator">:</span> <span class="token string">'ask'</span><span class="token punctuation">,</span>
+      suggestions<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">generateSuggestions</span><span class="token punctuation">(</span>tool<span class="token punctuation">,</span> input<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">private</span> <span class="token function">compileRule</span><span class="token punctuation">(</span>rule<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> CompiledRule <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>ruleCache<span class="token punctuation">.</span><span class="token function">has</span><span class="token punctuation">(</span>rule<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>ruleCache<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>rule<span class="token punctuation">)</span><span class="token operator">!</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Parse rule syntax: ToolName(glob/pattern)</span>
+    <span class="token keyword">const</span> match <span class="token operator">=</span> rule<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(\\w+)(?:\\((.+)\\))?$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>match<span class="token punctuation">)</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Invalid rule: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>rule<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> <span class="token punctuation">[</span><span class="token punctuation">,</span> toolPattern<span class="token punctuation">,</span> pathPattern<span class="token punctuation">]</span> <span class="token operator">=</span> match<span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> compiled <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+      toolMatcher<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">RegExp</span><span class="token punctuation">(</span>
+        <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">^</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>toolPattern<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'*'</span><span class="token punctuation">,</span> <span class="token string">'.*'</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">$</span><span class="token template-punctuation string">`</span></span>
+      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+      pathMatcher<span class="token operator">:</span> pathPattern
+        <span class="token operator">?</span> <span class="token function">picomatch</span><span class="token punctuation">(</span>pathPattern<span class="token punctuation">)</span>
+        <span class="token operator">:</span> <span class="token keyword">null</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span>ruleCache<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>rule<span class="token punctuation">,</span> compiled<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> compiled<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Layer-2-Sandbox-Architecture"><a href="#Layer-2-Sandbox-Architecture" class="headerlink" title="Layer 2: Sandbox Architecture"></a>Layer 2: Sandbox Architecture</h3><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// macOS sandbox implementation</span>
+<span class="token keyword">class</span> <span class="token class-name">MacOSSandboxManager</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">generateProfile</span><span class="token punctuation">(</span>
+    command<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+    restrictions<span class="token operator">:</span> SandboxRestrictions
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> profile <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+(version 1)
+(deny default)
+
+; Base permissions
+(allow process-exec (literal "/bin/bash"))
+(allow process-exec (literal "/usr/bin/env"))
+
+; File system access
+</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>restrictions<span class="token punctuation">.</span>allowRead <span class="token operator">?</span> <span class="token string">'(allow file-read*)'</span> <span class="token operator">:</span> <span class="token string">'(deny file-read*)'</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">
+</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>restrictions<span class="token punctuation">.</span>allowWrite <span class="token operator">?</span> <span class="token string">'(allow file-write*)'</span> <span class="token operator">:</span> <span class="token string">'(deny file-write*)'</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">
+
+; Network access
+</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>restrictions<span class="token punctuation">.</span>allowNetwork <span class="token operator">?</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+(allow network-outbound)
+(allow network-inbound)
+</span><span class="token template-punctuation string">`</span></span> <span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+(deny network*)
+</span><span class="token template-punctuation string">`</span></span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">
+
+; System operations
+(allow sysctl-read)
+(allow mach-lookup)
+
+; Temporary files
+(allow file-write* (subpath "/tmp"))
+(allow file-write* (subpath "/var/tmp"))
+    </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> profile<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">async</span> <span class="token function">executeSandboxed</span><span class="token punctuation">(</span>
+    command<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+    profile<span class="token operator">:</span> <span class="token builtin">string</span>
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>ExecutionResult<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Write profile to temporary file</span>
+    <span class="token keyword">const</span> profilePath <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">writeTemporaryProfile</span><span class="token punctuation">(</span>profile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// Execute with sandbox-exec</span>
+      <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">exec</span><span class="token punctuation">(</span>
+        <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">sandbox-exec -p '</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>profilePath<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">' </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>command<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// Cleanup</span>
+      <span class="token keyword">await</span> fs<span class="token punctuation">.</span><span class="token function">unlink</span><span class="token punctuation">(</span>profilePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Layer-3-Path-Validation"><a href="#Layer-3-Path-Validation" class="headerlink" title="Layer 3: Path Validation"></a>Layer 3: Path Validation</h3><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">class</span> <span class="token class-name">PathValidator</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> boundaries<span class="token operator">:</span> Set<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">></span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> deniedPatterns<span class="token operator">:</span> RegExp<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token function">constructor</span><span class="token punctuation">(</span>context<span class="token operator">:</span> SecurityContext<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>boundaries <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Set</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      context<span class="token punctuation">.</span>projectRoot<span class="token punctuation">,</span>
+      <span class="token operator">...</span>context<span class="token punctuation">.</span>additionalWorkingDirectories
+    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span>deniedPatterns <span class="token operator">=</span> <span class="token punctuation">[</span>
+      <span class="token operator">/</span>\\<span class="token operator">/</span>\\<span class="token punctuation">.</span><span class="token punctuation">(</span>ssh<span class="token operator">|</span>gnupg<span class="token punctuation">)</span>\\<span class="token operator">/</span><span class="token operator">/</span><span class="token punctuation">,</span>     <span class="token comment">// SSH/GPG keys</span>
+      <span class="token operator">/</span>\\<span class="token operator">/</span><span class="token punctuation">(</span>etc<span class="token operator">|</span>sys<span class="token operator">|</span>proc<span class="token punctuation">)</span>\\<span class="token operator">/</span><span class="token operator">/</span><span class="token punctuation">,</span>    <span class="token comment">// System directories</span>
+      <span class="token operator">/</span>\\<span class="token punctuation">.</span>pem$<span class="token operator">|</span>\\<span class="token punctuation">.</span>key$<span class="token operator">/</span><span class="token punctuation">,</span>         <span class="token comment">// Private keys</span>
+      <span class="token operator">/</span>\\<span class="token punctuation">.</span><span class="token punctuation">(</span>env<span class="token operator">|</span>envrc<span class="token punctuation">)</span>$<span class="token operator">/</span>         <span class="token comment">// Environment files</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token function">validate</span><span class="token punctuation">(</span>requestedPath<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> ValidationResult <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> absolute <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>requestedPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Check boundaries</span>
+    <span class="token keyword">const</span> inBoundary <span class="token operator">=</span> <span class="token builtin">Array</span><span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>boundaries<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">some</span><span class="token punctuation">(</span>
+      boundary <span class="token operator">=></span> absolute<span class="token punctuation">.</span><span class="token function">startsWith</span><span class="token punctuation">(</span>boundary<span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>inBoundary<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+        allowed<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        reason<span class="token operator">:</span> <span class="token string">'Path outside allowed directories'</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Check denied patterns</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> pattern <span class="token keyword">of</span> <span class="token keyword">this</span><span class="token punctuation">.</span>deniedPatterns<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>pattern<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>absolute<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+          allowed<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+          reason<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Path matches denied pattern: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>pattern<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span> allowed<span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Performance-Architecture"><a href="#Performance-Architecture" class="headerlink" title="Performance Architecture"></a>Performance Architecture</h2><h3 id="ANR-Application-Not-Responding-Detection"><a href="#ANR-Application-Not-Responding-Detection" class="headerlink" title="ANR (Application Not Responding) Detection"></a>ANR (Application Not Responding) Detection</h3><p>The ANR system uses a worker thread to monitor the main event loop:</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// Worker thread script (embedded as base64)</span>
+<span class="token keyword">const</span> anrWorkerScript <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+const &#123; parentPort &#125; = require('worker_threads');
+
+let config = &#123; anrThreshold: 5000, captureStackTrace: false &#125;;
+let lastPing = Date.now();
+let anrTimer = null;
+
+function checkANR() &#123;
+  const elapsed = Date.now() - lastPing;
+
+  if (elapsed > config.anrThreshold) &#123;
+    // Main thread is not responding
+    parentPort.postMessage(&#123;
+      type: 'anr',
+      payload: &#123;
+        elapsed,
+        stackTrace: config.captureStackTrace
+          ? captureMainThreadStack()
+          : null
+      &#125;
+    &#125;);
+  &#125;
+
+  // Schedule next check
+  anrTimer = setTimeout(checkANR, 100);
+&#125;
+
+async function captureMainThreadStack() &#123;
+  // Use inspector protocol if available
+  try &#123;
+    const &#123; Session &#125; = require('inspector');
+    const session = new Session();
+    session.connect();
+
+    const &#123; result &#125; = await session.post('Debugger.enable');
+    const stack = await session.post('Debugger.getStackTrace');
+
+    session.disconnect();
+    return stack;
+  &#125; catch (e) &#123;
+    return null;
+  &#125;
+&#125;
+
+parentPort.on('message', (msg) => &#123;
+  if (msg.type === 'config') &#123;
+    config = msg.payload;
+    lastPing = Date.now();
+    checkANR(); // Start monitoring
+  &#125; else if (msg.type === 'ping') &#123;
+    lastPing = Date.now();
+  &#125;
+&#125;);
+</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+
+<span class="token comment">// Main thread ANR integration</span>
+<span class="token keyword">class</span> <span class="token class-name">ANRMonitor</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> worker<span class="token operator">:</span> Worker<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> pingInterval<span class="token operator">:</span> NodeJS<span class="token punctuation">.</span>Timer<span class="token punctuation">;</span>
+
+  <span class="token function">constructor</span><span class="token punctuation">(</span>options<span class="token operator">:</span> ANROptions <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Create worker from embedded script</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>worker <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Worker</span><span class="token punctuation">(</span>anrWorkerScript<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> eval<span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Configure worker</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>worker<span class="token punctuation">.</span><span class="token function">postMessage</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+      type<span class="token operator">:</span> <span class="token string">'config'</span><span class="token punctuation">,</span>
+      payload<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        anrThreshold<span class="token operator">:</span> options<span class="token punctuation">.</span>threshold <span class="token operator">||</span> <span class="token number">5000</span><span class="token punctuation">,</span>
+        captureStackTrace<span class="token operator">:</span> options<span class="token punctuation">.</span>captureStackTrace <span class="token operator">!==</span> <span class="token boolean">false</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Start heartbeat</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>pingInterval <span class="token operator">=</span> <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>worker<span class="token punctuation">.</span><span class="token function">postMessage</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> type<span class="token operator">:</span> <span class="token string">'ping'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> options<span class="token punctuation">.</span>pollInterval <span class="token operator">||</span> <span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Handle ANR detection</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>worker<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'message'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>msg<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>msg<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'anr'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handleANR</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>payload<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">private</span> <span class="token function">handleANR</span><span class="token punctuation">(</span>data<span class="token operator">:</span> ANRData<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Log to telemetry</span>
+    Sentry<span class="token punctuation">.</span><span class="token function">captureException</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span>
+      <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Application not responding for </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>data<span class="token punctuation">.</span>elapsed<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">ms</span><span class="token template-punctuation string">`</span></span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+      extra<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        stackTrace<span class="token operator">:</span> data<span class="token punctuation">.</span>stackTrace<span class="token punctuation">,</span>
+        eventLoopDelay<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getEventLoopDelay</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Strategic-Caching-Layers"><a href="#Strategic-Caching-Layers" class="headerlink" title="Strategic Caching Layers"></a>Strategic Caching Layers</h3><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">class</span> <span class="token class-name">CacheArchitecture</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// L1: In-memory caches</span>
+  <span class="token keyword">private</span> schemaCache <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LRUCache<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token punctuation">,</span> JSONSchema<span class="token operator">></span></span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> patternCache <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LRUCache<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token punctuation">,</span> CompiledPattern<span class="token operator">></span></span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> gitContextCache <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TTLCache<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token punctuation">,</span> GitContext<span class="token operator">></span></span><span class="token punctuation">(</span><span class="token number">30_000</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 30s TTL</span>
+
+  <span class="token comment">// L2: Weak reference caches</span>
+  <span class="token keyword">private</span> fileContentCache <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WeakRefCache<span class="token operator">&lt;</span>FileContent<span class="token operator">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// L3: Disk caches</span>
+  <span class="token keyword">private</span> diskCache <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DiskCache</span><span class="token punctuation">(</span><span class="token string">'.claude/cache'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">async</span> <span class="token generic-function"><span class="token function">get</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>
+    key<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">generator</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">></span><span class="token punctuation">,</span>
+    options<span class="token operator">:</span> CacheOptions <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Check L1</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>schemaCache<span class="token punctuation">.</span><span class="token function">has</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>schemaCache<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token constant">T</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Check L2</span>
+    <span class="token keyword">const</span> weakRef <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>fileContentCache<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>weakRef<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> weakRef <span class="token keyword">as</span> <span class="token constant">T</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Check L3</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>persistent<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">const</span> diskValue <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>diskCache<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>diskValue<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> diskValue<span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Generate and cache</span>
+    <span class="token keyword">const</span> value <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">generator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Store in appropriate cache</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>weak<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>fileContentCache<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>persistent<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>diskCache<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">,</span> options<span class="token punctuation">.</span>ttl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>schemaCache<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">return</span> value<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Telemetry-amp-Observability-Design"><a href="#Telemetry-amp-Observability-Design" class="headerlink" title="Telemetry &amp; Observability Design"></a>Telemetry &amp; Observability Design</h2><p>The three-pillar approach provides comprehensive visibility:</p>
+<h3 id="Pillar-1-Error-Tracking-Sentry"><a href="#Pillar-1-Error-Tracking-Sentry" class="headerlink" title="Pillar 1: Error Tracking (Sentry)"></a>Pillar 1: Error Tracking (Sentry)</h3><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">class</span> <span class="token class-name">ErrorBoundary</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">static</span> wrap<span class="token operator">&lt;</span><span class="token constant">T</span> <span class="token keyword">extends</span> <span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token builtin">any</span><span class="token operator">></span><span class="token punctuation">(</span>
+    fn<span class="token operator">:</span> <span class="token constant">T</span><span class="token punctuation">,</span>
+    context<span class="token operator">:</span> ErrorContext
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token operator">:</span> Parameters<span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">const</span> span <span class="token operator">=</span> Sentry<span class="token punctuation">.</span><span class="token function">startTransaction</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+        name<span class="token operator">:</span> context<span class="token punctuation">.</span>operation<span class="token punctuation">,</span>
+        op<span class="token operator">:</span> context<span class="token punctuation">.</span>category
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        span<span class="token punctuation">.</span><span class="token function">setStatus</span><span class="token punctuation">(</span><span class="token string">'ok'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        span<span class="token punctuation">.</span><span class="token function">setStatus</span><span class="token punctuation">(</span><span class="token string">'internal_error'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        Sentry<span class="token punctuation">.</span><span class="token function">captureException</span><span class="token punctuation">(</span>error<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+          contexts<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            operation<span class="token operator">:</span> context<span class="token punctuation">,</span>
+            state<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">captureState</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+          fingerprint<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">generateFingerprint</span><span class="token punctuation">(</span>error<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">throw</span> error<span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+        span<span class="token punctuation">.</span><span class="token function">finish</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token constant">T</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token function">captureState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+      sessionId<span class="token operator">:</span> SessionState<span class="token punctuation">.</span>instance<span class="token punctuation">.</span>sessionId<span class="token punctuation">,</span>
+      conversationDepth<span class="token operator">:</span> <span class="token comment">/* current depth */</span><span class="token punctuation">,</span>
+      activeTools<span class="token operator">:</span> <span class="token comment">/* currently executing */</span><span class="token punctuation">,</span>
+      memoryUsage<span class="token operator">:</span> process<span class="token punctuation">.</span><span class="token function">memoryUsage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      eventLoopDelay<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getEventLoopDelay</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Pillar-2-Metrics-OpenTelemetry"><a href="#Pillar-2-Metrics-OpenTelemetry" class="headerlink" title="Pillar 2: Metrics (OpenTelemetry)"></a>Pillar 2: Metrics (OpenTelemetry)</h3><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">class</span> <span class="token class-name">MetricsCollector</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> meters <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    api<span class="token operator">:</span> meter<span class="token punctuation">.</span><span class="token function">createCounter</span><span class="token punctuation">(</span><span class="token string">'api_calls_total'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    tokens<span class="token operator">:</span> meter<span class="token punctuation">.</span><span class="token function">createHistogram</span><span class="token punctuation">(</span><span class="token string">'token_usage'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    tools<span class="token operator">:</span> meter<span class="token punctuation">.</span><span class="token function">createHistogram</span><span class="token punctuation">(</span><span class="token string">'tool_execution_duration'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    streaming<span class="token operator">:</span> meter<span class="token punctuation">.</span><span class="token function">createHistogram</span><span class="token punctuation">(</span><span class="token string">'streaming_latency'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+  <span class="token function">recordApiCall</span><span class="token punctuation">(</span>result<span class="token operator">:</span> ApiCallResult<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>meters<span class="token punctuation">.</span>api<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+      model<span class="token operator">:</span> result<span class="token punctuation">.</span>model<span class="token punctuation">,</span>
+      status<span class="token operator">:</span> result<span class="token punctuation">.</span>status<span class="token punctuation">,</span>
+      provider<span class="token operator">:</span> result<span class="token punctuation">.</span>provider
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span>meters<span class="token punctuation">.</span>tokens<span class="token punctuation">.</span><span class="token function">record</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span>totalTokens<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+      model<span class="token operator">:</span> result<span class="token punctuation">.</span>model<span class="token punctuation">,</span>
+      type<span class="token operator">:</span> <span class="token string">'total'</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token function">recordToolExecution</span><span class="token punctuation">(</span>tool<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> duration<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">,</span> success<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>meters<span class="token punctuation">.</span>tools<span class="token punctuation">.</span><span class="token function">record</span><span class="token punctuation">(</span>duration<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+      tool<span class="token punctuation">,</span>
+      success<span class="token operator">:</span> <span class="token function">String</span><span class="token punctuation">(</span>success<span class="token punctuation">)</span><span class="token punctuation">,</span>
+      concurrent<span class="token operator">:</span> <span class="token comment">/* was parallel? */</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Pillar-3-Feature-Flags-Statsig"><a href="#Pillar-3-Feature-Flags-Statsig" class="headerlink" title="Pillar 3: Feature Flags (Statsig)"></a>Pillar 3: Feature Flags (Statsig)</h3><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">class</span> <span class="token class-name">FeatureManager</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">async</span> <span class="token function">checkGate</span><span class="token punctuation">(</span>
+    gate<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+    context<span class="token operator">?</span><span class="token operator">:</span> FeatureContext
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">boolean</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> statsig<span class="token punctuation">.</span><span class="token function">checkGate</span><span class="token punctuation">(</span>gate<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+      userID<span class="token operator">:</span> SessionState<span class="token punctuation">.</span>instance<span class="token punctuation">.</span>sessionId<span class="token punctuation">,</span>
+      custom<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        model<span class="token operator">:</span> context<span class="token operator">?.</span>model<span class="token punctuation">,</span>
+        toolsEnabled<span class="token operator">:</span> context<span class="token operator">?.</span>tools<span class="token punctuation">,</span>
+        platform<span class="token operator">:</span> process<span class="token punctuation">.</span>platform
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">async</span> <span class="token generic-function"><span class="token function">getConfig</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>
+    config<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+    defaultValue<span class="token operator">:</span> <span class="token constant">T</span>
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> dynamicConfig <span class="token operator">=</span> statsig<span class="token punctuation">.</span><span class="token function">getConfig</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> dynamicConfig<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'value'</span><span class="token punctuation">,</span> defaultValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Resource-Management"><a href="#Resource-Management" class="headerlink" title="Resource Management"></a>Resource Management</h2><h3 id="Process-Lifecycle-Management"><a href="#Process-Lifecycle-Management" class="headerlink" title="Process Lifecycle Management"></a>Process Lifecycle Management</h3><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">class</span> <span class="token class-name">ProcessManager</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> processes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Map<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token punctuation">,</span> ChildProcess<span class="token operator">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> limits <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    maxProcesses<span class="token operator">:</span> <span class="token number">10</span><span class="token punctuation">,</span>
+    maxMemoryPerProcess<span class="token operator">:</span> <span class="token number">512</span> <span class="token operator">*</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span><span class="token punctuation">,</span> <span class="token comment">// 512MB</span>
+    maxTotalMemory<span class="token operator">:</span> <span class="token number">2</span> <span class="token operator">*</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span>  <span class="token comment">// 2GB</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">async</span> <span class="token function">spawn</span><span class="token punctuation">(</span>
+    id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+    command<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+    options<span class="token operator">:</span> SpawnOptions
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>ManagedProcess<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Check limits</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>processes<span class="token punctuation">.</span>size <span class="token operator">>=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>limits<span class="token punctuation">.</span>maxProcesses<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">killOldestProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">const</span> child <span class="token operator">=</span> <span class="token function">spawn</span><span class="token punctuation">(</span><span class="token string">'bash'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'-c'</span><span class="token punctuation">,</span> command<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+      <span class="token operator">...</span>options<span class="token punctuation">,</span>
+      <span class="token comment">// Resource limits</span>
+      env<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token operator">...</span>options<span class="token punctuation">.</span>env<span class="token punctuation">,</span>
+        <span class="token constant">NODE_OPTIONS</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">--max-old-space-size=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>limits<span class="token punctuation">.</span>maxMemoryPerProcess <span class="token operator">/</span> <span class="token number">1024</span> <span class="token operator">/</span> <span class="token number">1024</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Monitor resources</span>
+    <span class="token keyword">const</span> monitor <span class="token operator">=</span> <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">checkProcessHealth</span><span class="token punctuation">(</span>id<span class="token punctuation">,</span> child<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span>processes<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>id<span class="token punctuation">,</span> child<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ManagedProcess</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> monitor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">async</span> <span class="token function">checkProcessHealth</span><span class="token punctuation">(</span>id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> proc<span class="token operator">:</span> ChildProcess<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">const</span> usage <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">pidusage</span><span class="token punctuation">(</span>proc<span class="token punctuation">.</span>pid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>usage<span class="token punctuation">.</span>memory <span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span>limits<span class="token punctuation">.</span>maxMemoryPerProcess<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">warn</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Process </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>id<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> exceeding memory limit</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        proc<span class="token punctuation">.</span><span class="token function">kill</span><span class="token punctuation">(</span><span class="token string">'SIGTERM'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// Process might have exited</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>processes<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Network-Connection-Pooling"><a href="#Network-Connection-Pooling" class="headerlink" title="Network Connection Pooling"></a>Network Connection Pooling</h3><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">class</span> <span class="token class-name">NetworkPool</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> pools <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Map<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token punctuation">,</span> ConnectionPool<span class="token operator">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">getPool</span><span class="token punctuation">(</span>provider<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> ConnectionPool <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>pools<span class="token punctuation">.</span><span class="token function">has</span><span class="token punctuation">(</span>provider<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>pools<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>provider<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ConnectionPool</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+        maxConnections<span class="token operator">:</span> provider <span class="token operator">===</span> <span class="token string">'anthropic'</span> <span class="token operator">?</span> <span class="token number">10</span> <span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+        maxIdleTime<span class="token operator">:</span> <span class="token number">30_000</span><span class="token punctuation">,</span>
+        keepAlive<span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>pools<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>provider<span class="token punctuation">)</span><span class="token operator">!</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">async</span> <span class="token function">request</span><span class="token punctuation">(</span>
+    provider<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+    options<span class="token operator">:</span> RequestOptions
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Response<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> pool <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getPool</span><span class="token punctuation">(</span>provider<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> connection <span class="token operator">=</span> <span class="token keyword">await</span> pool<span class="token punctuation">.</span><span class="token function">acquire</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> <span class="token keyword">await</span> connection<span class="token punctuation">.</span><span class="token function">request</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+      pool<span class="token punctuation">.</span><span class="token function">release</span><span class="token punctuation">(</span>connection<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<p><em>This architecture analysis is based on reverse engineering and decompilation. The actual implementation may vary. The patterns presented represent inferred architectural decisions based on observable behavior and common practices in high-performance Node.js applications.</em></p>
 
                 
             </div>
@@ -592,7 +1769,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">83.2k</span>
+                        class="white-color">108.5k</span>
             
             
             
