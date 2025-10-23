@@ -1,0 +1,1826 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="claude-code控制流与编排引擎, 我的博客">
+    <meta name="description" content="参考链接
+Control Flow &amp;amp; The Orchestration EnginesequenceDiagram
+    participant User
+    participant MainLoop as Main Lo">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>claude-code控制流与编排引擎 | 我的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">我的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">我的博客</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">claude-code控制流与编排引擎</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-10-23
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-10-23
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    17 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://southbridge-research.notion.site/Control-Flow-The-Orchestration-Engine-2055fec70db181d0b215e1b8584d03fa">参考链接</a></p>
+<h1 id="Control-Flow-amp-The-Orchestration-Engine"><a href="#Control-Flow-amp-The-Orchestration-Engine" class="headerlink" title="Control Flow &amp; The Orchestration Engine"></a>Control Flow &amp; The Orchestration Engine</h1><pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">sequenceDiagram</span>
+    <span class="token keyword">participant</span> User
+    <span class="token keyword">participant</span> MainLoop as Main Loop <span class="token text string">(tt)</span>
+    <span class="token keyword">participant</span> LLM as LLM API
+    <span class="token keyword">participant</span> ToolBatch as Tool Batcher
+    <span class="token keyword">participant</span> Tool1 as ReadTool
+    <span class="token keyword">participant</span> Tool2 as GrepTool
+    <span class="token keyword">participant</span> Tool3 as EditTool
+    <span class="token keyword">participant</span> UI as UI Renderer
+    User<span class="token arrow operator">->></span>MainLoop<span class="token operator">:</span> <span class="token string">"Search for TODO comments and update them"</span>
+    MainLoop<span class="token arrow operator">->></span>LLM<span class="token operator">:</span> Stream request with context
+    LLM<span class="token arrow operator">-->></span>MainLoop<span class="token operator">:</span> text_delta<span class="token operator">:</span> <span class="token string">"I'll search for TODOs..."</span>
+    MainLoop<span class="token arrow operator">-->></span>UI<span class="token operator">:</span> Update display
+    LLM<span class="token arrow operator">-->></span>MainLoop<span class="token operator">:</span> tool_use<span class="token operator">:</span> GrepTool
+    LLM<span class="token arrow operator">-->></span>MainLoop<span class="token operator">:</span> tool_use<span class="token operator">:</span> ReadTool <span class="token text string">(multiple files)</span>
+    LLM<span class="token arrow operator">-->></span>MainLoop<span class="token operator">:</span> message_stop
+    MainLoop<span class="token arrow operator">->></span>ToolBatch<span class="token operator">:</span> Execute tool batch
+    <span class="token keyword">par</span> Parallel Execution
+        ToolBatch<span class="token arrow operator">->></span>Tool1<span class="token operator">:</span> ReadTool.call<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token text string">[Read-only]</span>
+        ToolBatch<span class="token arrow operator">->></span>Tool2<span class="token operator">:</span> GrepTool.call<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token text string">[Read-only]</span>
+        Tool1<span class="token arrow operator">-->></span>UI<span class="token operator">:</span> Progress<span class="token operator">:</span> <span class="token string">"Reading file1.js"</span>
+        Tool2<span class="token arrow operator">-->></span>UI<span class="token operator">:</span> Progress<span class="token operator">:</span> <span class="token string">"Searching *.js"</span>
+        Tool1<span class="token arrow operator">-->></span>ToolBatch<span class="token operator">:</span> Result<span class="token operator">:</span> File contents
+        Tool2<span class="token arrow operator">-->></span>ToolBatch<span class="token operator">:</span> Result<span class="token operator">:</span> 5 matches
+    <span class="token keyword">end</span>
+    ToolBatch<span class="token arrow operator">->></span>MainLoop<span class="token operator">:</span> Tool results
+    MainLoop<span class="token arrow operator">->></span>LLM<span class="token operator">:</span> Continue with results
+    LLM<span class="token arrow operator">-->></span>MainLoop<span class="token operator">:</span> tool_use<span class="token operator">:</span> EditTool
+    MainLoop<span class="token arrow operator">->></span>ToolBatch<span class="token operator">:</span> Execute write tool
+    <span class="token keyword">Note over</span> ToolBatch, Tool3<span class="token operator">:</span> Sequential Execution
+    ToolBatch<span class="token arrow operator">->></span>Tool3<span class="token operator">:</span> EditTool.call<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token text string">[Write]</span>
+    Tool3<span class="token arrow operator">-->></span>UI<span class="token operator">:</span> Progress<span class="token operator">:</span> <span class="token string">"Editing file1.js"</span>
+    Tool3<span class="token arrow operator">-->></span>ToolBatch<span class="token operator">:</span> Result<span class="token operator">:</span> Success
+    ToolBatch<span class="token arrow operator">->></span>MainLoop<span class="token operator">:</span> Edit complete
+    MainLoop<span class="token arrow operator">->></span>LLM<span class="token operator">:</span> Continue with result
+    LLM<span class="token arrow operator">-->></span>MainLoop<span class="token operator">:</span> text_delta<span class="token operator">:</span> <span class="token string">"Updated 5 TODOs..."</span>
+    MainLoop<span class="token arrow operator">-->></span>UI<span class="token operator">:</span> Final response
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<img src="/2025/10/23/claude-code-kong-zhi-liu-yu-bian-pai-yin-qing/1.svg" class="">
+
+<h2 id="The-Main-Conversation-Loop-A-Streaming-State-Machine"><a href="#The-Main-Conversation-Loop-A-Streaming-State-Machine" class="headerlink" title="The Main Conversation Loop: A Streaming State Machine"></a>The Main Conversation Loop: A Streaming State Machine</h2><p>The heart of Claude Code is the <code>tt</code> async generator function—a sophisticated state machine that orchestrates the entire conversation flow. Let’s examine its actual structure:</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// Reconstructed main loop signature with timing annotations</span>
+<span class="token keyword">async</span> <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">tt</span><span class="token punctuation">(</span>
+  currentMessages<span class="token operator">:</span> CliMessage<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>         <span class="token comment">// Full history - Memory: O(conversation_length)</span>
+  baseSystemPromptString<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>        <span class="token comment">// Static prompt - ~2KB</span>
+  currentGitContext<span class="token operator">:</span> GitContext<span class="token punctuation">,</span>         <span class="token comment">// Git state - ~1-5KB typically</span>
+  currentClaudeMdContents<span class="token operator">:</span> ClaudeMdContent<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment">// Project context - ~5-50KB</span>
+  permissionGranterFn<span class="token operator">:</span> PermissionGranter<span class="token punctuation">,</span> <span class="token comment">// Permission callback</span>
+  toolUseContext<span class="token operator">:</span> ToolUseContext<span class="token punctuation">,</span>         <span class="token comment">// Shared context - ~10KB</span>
+  activeStreamingToolUse<span class="token operator">?</span><span class="token operator">:</span> ToolUseBlock<span class="token punctuation">,</span>  <span class="token comment">// Resume state</span>
+  loopState<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    turnId<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>        <span class="token comment">// UUID for this turn</span>
+    turnCounter<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">,</span>   <span class="token comment">// Recursion depth</span>
+    compacted<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">,</span>   <span class="token comment">// Was history compressed?</span>
+    isResuming<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">boolean</span>   <span class="token comment">// Resuming from save?</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">)</span><span class="token operator">:</span> AsyncGenerator<span class="token operator">&lt;</span>CliMessage<span class="token punctuation">,</span> <span class="token keyword">void</span><span class="token punctuation">,</span> <span class="token keyword">void</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// ┌─ PHASE 1: Context Preparation [~50-200ms]</span>
+  <span class="token comment">// ├─ PHASE 2: Auto-compaction Check [~0-3000ms if triggered]</span>
+  <span class="token comment">// ├─ PHASE 3: System Prompt Assembly [~10-50ms]</span>
+  <span class="token comment">// ├─ PHASE 4: LLM Stream Processing [~2000-10000ms]</span>
+  <span class="token comment">// ├─ PHASE 5: Tool Execution [~100-30000ms per tool]</span>
+  <span class="token comment">// └─ PHASE 6: Recursion or Completion [~0ms]</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Phase-1-Context-Window-Management"><a href="#Phase-1-Context-Window-Management" class="headerlink" title="Phase 1: Context Window Management"></a>Phase 1: Context Window Management</h3><p>The first critical decision in the control flow is whether the conversation needs compaction:</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// Auto-compaction logic (inferred implementation)</span>
+<span class="token keyword">class</span> <span class="token class-name">ContextCompactionController</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">readonly</span> <span class="token constant">COMPACTION_THRESHOLDS</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    tokenCount<span class="token operator">:</span> <span class="token number">100_000</span><span class="token punctuation">,</span>      <span class="token comment">// Aggressive token limit</span>
+    messageCount<span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span>        <span class="token comment">// Message count fallback</span>
+    costThreshold<span class="token operator">:</span> <span class="token number">5.00</span>       <span class="token comment">// Cost-based trigger</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">static</span> <span class="token keyword">async</span> <span class="token function">shouldCompact</span><span class="token punctuation">(</span>
+    messages<span class="token operator">:</span> CliMessage<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    model<span class="token operator">:</span> <span class="token builtin">string</span>
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">boolean</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Fast path: check message count first</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>messages<span class="token punctuation">.</span>length <span class="token operator">&lt;</span> <span class="token number">50</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Expensive path: count tokens</span>
+    <span class="token keyword">const</span> tokenCount <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">estimateTokens</span><span class="token punctuation">(</span>messages<span class="token punctuation">,</span> model<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> tokenCount <span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">COMPACTION_THRESHOLDS</span><span class="token punctuation">.</span>tokenCount <span class="token operator">||</span>
+           messages<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">COMPACTION_THRESHOLDS</span><span class="token punctuation">.</span>messageCount<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">static</span> <span class="token keyword">async</span> <span class="token function">compact</span><span class="token punctuation">(</span>
+    messages<span class="token operator">:</span> CliMessage<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    context<span class="token operator">:</span> ToolUseContext
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>CompactionResult<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Phase 1: Identify messages to preserve</span>
+    <span class="token keyword">const</span> preserve <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">identifyPreservedMessages</span><span class="token punctuation">(</span>messages<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Phase 2: Generate summary via LLM</span>
+    <span class="token keyword">const</span> summary <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">generateSummary</span><span class="token punctuation">(</span>
+      messages<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>m <span class="token operator">=></span> <span class="token operator">!</span>preserve<span class="token punctuation">.</span><span class="token function">has</span><span class="token punctuation">(</span>m<span class="token punctuation">.</span>uuid<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      context
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Phase 3: Reconstruct message history</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+      messages<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">createSummaryMessage</span><span class="token punctuation">(</span>summary<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token operator">...</span>messages<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>m <span class="token operator">=></span> preserve<span class="token punctuation">.</span><span class="token function">has</span><span class="token punctuation">(</span>m<span class="token punctuation">.</span>uuid<span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      tokensaved<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">calculateSavings</span><span class="token punctuation">(</span>messages<span class="token punctuation">,</span> summary<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Performance Characteristics</strong>:</p>
+<ul>
+<li>Token counting: O(n) where n is total message content length</li>
+<li>Summary generation: One additional LLM call (~2-3s)</li>
+<li>Memory impact: Temporarily doubles message storage during compaction</li>
+</ul>
+<h3 id="Phase-2-Dynamic-System-Prompt-Assembly"><a href="#Phase-2-Dynamic-System-Prompt-Assembly" class="headerlink" title="Phase 2: Dynamic System Prompt Assembly"></a>Phase 2: Dynamic System Prompt Assembly</h3><p>The system prompt assembly reveals a sophisticated caching and composition strategy:</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// System prompt composition pipeline</span>
+<span class="token keyword">class</span> <span class="token class-name">SystemPromptAssembler</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> <span class="token keyword">static</span> cache <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Map<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+    content<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+    hash<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+    expiry<span class="token operator">:</span> <span class="token builtin">number</span>
+  <span class="token punctuation">&#125;</span><span class="token operator">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">static</span> <span class="token keyword">async</span> <span class="token function">assemble</span><span class="token punctuation">(</span>
+    basePrompt<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+    claudeMd<span class="token operator">:</span> ClaudeMdContent<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    gitContext<span class="token operator">:</span> GitContext<span class="token punctuation">,</span>
+    tools<span class="token operator">:</span> ToolDefinition<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    model<span class="token operator">:</span> <span class="token builtin">string</span>
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">string</span> <span class="token operator">|</span> ContentBlock<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Parallel fetch of dynamic components</span>
+    <span class="token keyword">const</span> <span class="token punctuation">[</span>
+      claudeMdSection<span class="token punctuation">,</span>
+      gitSection<span class="token punctuation">,</span>
+      directorySection<span class="token punctuation">,</span>
+      toolSection
+    <span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">formatClaudeMd</span><span class="token punctuation">(</span>claudeMd<span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">formatGitContext</span><span class="token punctuation">(</span>gitContext<span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getDirectoryStructure</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">formatToolDefinitions</span><span class="token punctuation">(</span>tools<span class="token punctuation">)</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Model-specific adaptations</span>
+    <span class="token keyword">const</span> modelSection <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getModelAdaptations</span><span class="token punctuation">(</span>model<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Compose with smart truncation</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">compose</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+      base<span class="token operator">:</span> basePrompt<span class="token punctuation">,</span>           <span class="token comment">// Priority 1</span>
+      model<span class="token operator">:</span> modelSection<span class="token punctuation">,</span>        <span class="token comment">// Priority 2</span>
+      claudeMd<span class="token operator">:</span> claudeMdSection<span class="token punctuation">,</span>  <span class="token comment">// Priority 3</span>
+      git<span class="token operator">:</span> gitSection<span class="token punctuation">,</span>           <span class="token comment">// Priority 4</span>
+      directory<span class="token operator">:</span> directorySection<span class="token punctuation">,</span> <span class="token comment">// Priority 5</span>
+      tools<span class="token operator">:</span> toolSection         <span class="token comment">// Priority 6</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token function">getModelAdaptations</span><span class="token punctuation">(</span>model<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Model-specific prompt engineering</span>
+    <span class="token keyword">const</span> adaptations <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+      <span class="token string-property property">'claude-3-opus'</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        style<span class="token operator">:</span> <span class="token string">'detailed'</span><span class="token punctuation">,</span>
+        instructions<span class="token operator">:</span> <span class="token string">'Think step by step. Show your reasoning.'</span><span class="token punctuation">,</span>
+        tokenBudget<span class="token operator">:</span> <span class="token number">0.3</span>  <span class="token comment">// 30% of context for reasoning</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token string-property property">'claude-3-sonnet'</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        style<span class="token operator">:</span> <span class="token string">'balanced'</span><span class="token punctuation">,</span>
+        instructions<span class="token operator">:</span> <span class="token string">'Be concise but thorough.'</span><span class="token punctuation">,</span>
+        tokenBudget<span class="token operator">:</span> <span class="token number">0.2</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token string-property property">'claude-3-haiku'</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        style<span class="token operator">:</span> <span class="token string">'brief'</span><span class="token punctuation">,</span>
+        instructions<span class="token operator">:</span> <span class="token string">'Get to the point quickly.'</span><span class="token punctuation">,</span>
+        tokenBudget<span class="token operator">:</span> <span class="token number">0.1</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> config <span class="token operator">=</span> adaptations<span class="token punctuation">[</span>model<span class="token punctuation">]</span> <span class="token operator">||</span> adaptations<span class="token punctuation">[</span><span class="token string">'claude-3-sonnet'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">formatModelInstructions</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Phase-3-The-Streaming-State-Machine"><a href="#Phase-3-The-Streaming-State-Machine" class="headerlink" title="Phase 3: The Streaming State Machine"></a>Phase 3: The Streaming State Machine</h3><p>The LLM streaming phase implements a complex event-driven state machine:</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// Stream event processing state machine</span>
+<span class="token keyword">class</span> <span class="token class-name">StreamEventProcessor</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> state<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    phase<span class="token operator">:</span> <span class="token string">'idle'</span> <span class="token operator">|</span> <span class="token string">'message_start'</span> <span class="token operator">|</span> <span class="token string">'content'</span> <span class="token operator">|</span> <span class="token string">'tool_input'</span> <span class="token operator">|</span> <span class="token string">'complete'</span><span class="token punctuation">;</span>
+    currentMessage<span class="token operator">:</span> Partial<span class="token operator">&lt;</span>CliMessage<span class="token operator">></span><span class="token punctuation">;</span>
+    contentBlocks<span class="token operator">:</span> ContentBlock<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    activeToolInput<span class="token operator">?</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      toolId<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+      buffer<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+      parser<span class="token operator">:</span> StreamingToolInputParser<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    metrics<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      firstTokenLatency<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+      tokensPerSecond<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+  async <span class="token operator">*</span><span class="token function">processStream</span><span class="token punctuation">(</span>
+    stream<span class="token operator">:</span> AsyncIterable<span class="token operator">&lt;</span>StreamEvent<span class="token operator">></span>
+  <span class="token punctuation">)</span><span class="token operator">:</span> AsyncGenerator<span class="token operator">&lt;</span>UIEvent <span class="token operator">|</span> CliMessage<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span> <span class="token keyword">await</span> <span class="token punctuation">(</span><span class="token keyword">const</span> event <span class="token keyword">of</span> stream<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">switch</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">case</span> <span class="token string">'message_start'</span><span class="token operator">:</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>phase <span class="token operator">=</span> <span class="token string">'message_start'</span><span class="token punctuation">;</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>metrics<span class="token punctuation">.</span>firstTokenLatency <span class="token operator">=</span> Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> startTime<span class="token punctuation">;</span>
+          <span class="token keyword">yield</span> <span class="token punctuation">&#123;</span> type<span class="token operator">:</span> <span class="token string">'ui_state'</span><span class="token punctuation">,</span> data<span class="token operator">:</span> <span class="token punctuation">&#123;</span> status<span class="token operator">:</span> <span class="token string">'assistant_responding'</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">case</span> <span class="token string">'content_block_start'</span><span class="token operator">:</span>
+          <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handleContentBlockStart</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">case</span> <span class="token string">'content_block_delta'</span><span class="token operator">:</span>
+          <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handleContentBlockDelta</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">case</span> <span class="token string">'content_block_stop'</span><span class="token operator">:</span>
+          <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handleContentBlockStop</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">case</span> <span class="token string">'message_stop'</span><span class="token operator">:</span>
+          <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">finalizeMessage</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">case</span> <span class="token string">'error'</span><span class="token operator">:</span>
+          <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handleError</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">private</span> async <span class="token operator">*</span><span class="token function">handleContentBlockDelta</span><span class="token punctuation">(</span>
+    event<span class="token operator">:</span> ContentBlockDeltaEvent
+  <span class="token punctuation">)</span><span class="token operator">:</span> AsyncGenerator<span class="token operator">&lt;</span>UIEvent<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> block <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>contentBlocks<span class="token punctuation">[</span>event<span class="token punctuation">.</span>index<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">switch</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>delta<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">case</span> <span class="token string">'text_delta'</span><span class="token operator">:</span>
+        <span class="token comment">// Direct UI update for text</span>
+        block<span class="token punctuation">.</span>text <span class="token operator">+=</span> event<span class="token punctuation">.</span>delta<span class="token punctuation">.</span>text<span class="token punctuation">;</span>
+        <span class="token keyword">yield</span> <span class="token punctuation">&#123;</span>
+          type<span class="token operator">:</span> <span class="token string">'ui_text_delta'</span><span class="token punctuation">,</span>
+          data<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            text<span class="token operator">:</span> event<span class="token punctuation">.</span>delta<span class="token punctuation">.</span>text<span class="token punctuation">,</span>
+            blockIndex<span class="token operator">:</span> event<span class="token punctuation">.</span>index
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">case</span> <span class="token string">'input_json_delta'</span><span class="token operator">:</span>
+        <span class="token comment">// Accumulate JSON for tool input</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>activeToolInput<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>activeToolInput<span class="token punctuation">.</span>buffer <span class="token operator">+=</span> event<span class="token punctuation">.</span>delta<span class="token punctuation">.</span>partial_json<span class="token punctuation">;</span>
+
+          <span class="token comment">// Try parsing at strategic points</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>delta<span class="token punctuation">.</span>partial_json<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span><span class="token string">'&#125;'</span><span class="token punctuation">)</span> <span class="token operator">||</span>
+              event<span class="token punctuation">.</span>delta<span class="token punctuation">.</span>partial_json<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span><span class="token string">']'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>activeToolInput<span class="token punctuation">.</span>parser<span class="token punctuation">.</span><span class="token function">addChunk</span><span class="token punctuation">(</span>
+              event<span class="token punctuation">.</span>delta<span class="token punctuation">.</span>partial_json
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>result<span class="token punctuation">.</span>complete<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+              block<span class="token punctuation">.</span>input <span class="token operator">=</span> result<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+              <span class="token keyword">yield</span> <span class="token punctuation">&#123;</span>
+                type<span class="token operator">:</span> <span class="token string">'ui_tool_preview'</span><span class="token punctuation">,</span>
+                data<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+                  toolId<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>activeToolInput<span class="token punctuation">.</span>toolId<span class="token punctuation">,</span>
+                  input<span class="token operator">:</span> result<span class="token punctuation">.</span>value
+                <span class="token punctuation">&#125;</span>
+              <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Phase-4-The-Tool-Execution-Pipeline"><a href="#Phase-4-The-Tool-Execution-Pipeline" class="headerlink" title="Phase 4: The Tool Execution Pipeline"></a>Phase 4: The Tool Execution Pipeline</h3><p>The tool execution system implements a sophisticated parallel/sequential execution strategy:</p>
+<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> TB
+    <span class="token keyword">subgraph</span> <span class="token string">"Tool Request Analysis"</span>
+        ToolRequests<span class="token text string">[Tool Use Blocks]</span> <span class="token arrow operator">--></span> Categorize<span class="token text string">&#123;Categorize by Type&#125;</span>
+        Categorize <span class="token arrow operator">--></span><span class="token label property">|Read-Only|</span> ReadQueue<span class="token text string">[Read Queue]</span>
+        Categorize <span class="token arrow operator">--></span><span class="token label property">|Write/Side-Effect|</span> WriteQueue<span class="token text string">[Write Queue]</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">subgraph</span> <span class="token string">"Parallel Execution Pool"</span>
+        ReadQueue <span class="token arrow operator">--></span> ParallelPool<span class="token text string">[Parallel Executor]</span>
+        ParallelPool <span class="token arrow operator">--></span> Worker1<span class="token text string">[Worker 1]</span>
+        ParallelPool <span class="token arrow operator">--></span> Worker2<span class="token text string">[Worker 2]</span>
+        ParallelPool <span class="token arrow operator">--></span> WorkerN<span class="token text string">[Worker N]</span>
+
+        Worker1 <span class="token arrow operator">--></span> Results1<span class="token text string">[Result 1]</span>
+        Worker2 <span class="token arrow operator">--></span> Results2<span class="token text string">[Result 2]</span>
+        WorkerN <span class="token arrow operator">--></span> ResultsN<span class="token text string">[Result N]</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">subgraph</span> <span class="token string">"Sequential Execution"</span>
+        WriteQueue <span class="token arrow operator">--></span> SeqExecutor<span class="token text string">[Sequential Executor]</span>
+        Results1 <span class="token arrow operator">--></span> SeqExecutor
+        Results2 <span class="token arrow operator">--></span> SeqExecutor
+        ResultsN <span class="token arrow operator">--></span> SeqExecutor
+
+        SeqExecutor <span class="token arrow operator">--></span> WriteTool1<span class="token text string">[Write Tool 1]</span>
+        WriteTool1 <span class="token arrow operator">--></span> WriteTool2<span class="token text string">[Write Tool 2]</span>
+        WriteTool2 <span class="token arrow operator">--></span> FinalResults<span class="token text string">[All Results]</span>
+    <span class="token keyword">end</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<img src="/2025/10/23/claude-code-kong-zhi-liu-yu-bian-pai-yin-qing/2.svg" class="">
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// The parallel execution orchestrator</span>
+<span class="token keyword">class</span> <span class="token class-name">ToolExecutionOrchestrator</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">readonly</span> <span class="token constant">CONCURRENCY_LIMIT</span> <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">static</span> async <span class="token operator">*</span><span class="token function">executeToolBatch</span><span class="token punctuation">(</span>
+    toolUses<span class="token operator">:</span> ToolUseBlock<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    context<span class="token operator">:</span> ToolUseContext<span class="token punctuation">,</span>
+    permissionFn<span class="token operator">:</span> PermissionGranter
+  <span class="token punctuation">)</span><span class="token operator">:</span> AsyncGenerator<span class="token operator">&lt;</span>CliMessage<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Phase 1: Categorize tools</span>
+    <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> readOnly<span class="token punctuation">,</span> writeTools <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">categorizeTools</span><span class="token punctuation">(</span>toolUses<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Phase 2: Execute read-only tools in parallel</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>readOnly<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">executeParallel</span><span class="token punctuation">(</span>readOnly<span class="token punctuation">,</span> context<span class="token punctuation">,</span> permissionFn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Phase 3: Execute write tools sequentially</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> tool <span class="token keyword">of</span> writeTools<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">executeSequential</span><span class="token punctuation">(</span>tool<span class="token punctuation">,</span> context<span class="token punctuation">,</span> permissionFn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">static</span> async <span class="token operator">*</span><span class="token function">executeParallel</span><span class="token punctuation">(</span>
+    tools<span class="token operator">:</span> ToolUseBlock<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    context<span class="token operator">:</span> ToolUseContext<span class="token punctuation">,</span>
+    permissionFn<span class="token operator">:</span> PermissionGranter
+  <span class="token punctuation">)</span><span class="token operator">:</span> AsyncGenerator<span class="token operator">&lt;</span>CliMessage<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> executions <span class="token operator">=</span> tools<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>tool <span class="token operator">=></span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">createToolExecution</span><span class="token punctuation">(</span>tool<span class="token punctuation">,</span> context<span class="token punctuation">,</span> permissionFn<span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Custom parallel map with backpressure</span>
+    <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token function">parallelMap</span><span class="token punctuation">(</span>executions<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">CONCURRENCY_LIMIT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// The parallelMap implementation</span>
+<span class="token keyword">async</span> <span class="token keyword">function</span><span class="token operator">*</span> <span class="token generic-function"><span class="token function">parallelMap</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>
+  generators<span class="token operator">:</span> AsyncGenerator<span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">></span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  concurrency<span class="token operator">:</span> <span class="token builtin">number</span>
+<span class="token punctuation">)</span><span class="token operator">:</span> AsyncGenerator<span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> executing <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Set<span class="token operator">&lt;</span><span class="token builtin">Promise</span><span class="token operator">&lt;</span>IteratorResult<span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">>>></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> pending <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span>generators<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Fill initial slots</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>executing<span class="token punctuation">.</span>size <span class="token operator">&lt;</span> concurrency <span class="token operator">&amp;&amp;</span> pending<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> gen <span class="token operator">=</span> pending<span class="token punctuation">.</span><span class="token function">shift</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">!</span><span class="token punctuation">;</span>
+    executing<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>gen<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>executing<span class="token punctuation">.</span>size <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Race for next completion</span>
+    <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">race</span><span class="token punctuation">(</span>executing<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    executing<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span>result <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>result<span class="token punctuation">.</span>done<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// Yield the value</span>
+      <span class="token keyword">yield</span> result<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+
+      <span class="token comment">// Continue this generator</span>
+      <span class="token keyword">const</span> nextPromise <span class="token operator">=</span> result<span class="token punctuation">.</span>generator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      executing<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>nextPromise<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Fill empty slot if available</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>executing<span class="token punctuation">.</span>size <span class="token operator">&lt;</span> concurrency <span class="token operator">&amp;&amp;</span> pending<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">const</span> gen <span class="token operator">=</span> pending<span class="token punctuation">.</span><span class="token function">shift</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">!</span><span class="token punctuation">;</span>
+      executing<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>gen<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Execution Timing Analysis</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Tool Type</th>
+<th>Concurrency</th>
+<th>Typical Latency</th>
+<th>Bottleneck</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ReadTool</td>
+<td>Parallel (10)</td>
+<td>10-50ms</td>
+<td>Disk I/O</td>
+</tr>
+<tr>
+<td>GrepTool</td>
+<td>Parallel (10)</td>
+<td>100-500ms</td>
+<td>CPU regex</td>
+</tr>
+<tr>
+<td>WebFetchTool</td>
+<td>Parallel (3)</td>
+<td>500-3000ms</td>
+<td>Network</td>
+</tr>
+<tr>
+<td>EditTool</td>
+<td>Sequential</td>
+<td>20-100ms</td>
+<td>Validation</td>
+</tr>
+<tr>
+<td>BashTool</td>
+<td>Sequential</td>
+<td>50-10000ms</td>
+<td>Process exec</td>
+</tr>
+<tr>
+<td>AgentTool</td>
+<td>Parallel (5)</td>
+<td>2000-20000ms</td>
+<td>Sub-LLM calls</td>
+</tr>
+</tbody></table>
+<h3 id="Phase-5-Permission-Control-Flow"><a href="#Phase-5-Permission-Control-Flow" class="headerlink" title="Phase 5: Permission Control Flow"></a>Phase 5: Permission Control Flow</h3><p>The permission system implements a multi-level decision tree:</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// Permission decision flow</span>
+<span class="token keyword">class</span> <span class="token class-name">PermissionController</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">static</span> <span class="token keyword">async</span> <span class="token function">checkPermission</span><span class="token punctuation">(</span>
+    tool<span class="token operator">:</span> ToolDefinition<span class="token punctuation">,</span>
+    input<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">,</span>
+    context<span class="token operator">:</span> ToolPermissionContext
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>PermissionDecision<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Level 1: Check explicit deny rules (highest priority)</span>
+    <span class="token keyword">const</span> denyRule <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">findMatchingRule</span><span class="token punctuation">(</span>
+      tool<span class="token punctuation">,</span>
+      input<span class="token punctuation">,</span>
+      context<span class="token punctuation">.</span>alwaysDenyRules
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>denyRule<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> <span class="token punctuation">&#123;</span> behavior<span class="token operator">:</span> <span class="token string">'deny'</span><span class="token punctuation">,</span> reason<span class="token operator">:</span> denyRule <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Level 2: Check mode overrides</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>context<span class="token punctuation">.</span>mode <span class="token operator">===</span> <span class="token string">'bypassPermissions'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> <span class="token punctuation">&#123;</span> behavior<span class="token operator">:</span> <span class="token string">'allow'</span><span class="token punctuation">,</span> reason<span class="token operator">:</span> <span class="token string">'bypass_mode'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>context<span class="token punctuation">.</span>mode <span class="token operator">===</span> <span class="token string">'acceptEdits'</span> <span class="token operator">&amp;&amp;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">isEditTool</span><span class="token punctuation">(</span>tool<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">isPathSafe</span><span class="token punctuation">(</span>input<span class="token punctuation">.</span>path<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> <span class="token punctuation">&#123;</span> behavior<span class="token operator">:</span> <span class="token string">'allow'</span><span class="token punctuation">,</span> reason<span class="token operator">:</span> <span class="token string">'accept_edits_mode'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Level 3: Check explicit allow rules</span>
+    <span class="token keyword">const</span> allowRule <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">findMatchingRule</span><span class="token punctuation">(</span>
+      tool<span class="token punctuation">,</span>
+      input<span class="token punctuation">,</span>
+      context<span class="token punctuation">.</span>alwaysAllowRules
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>allowRule<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> <span class="token punctuation">&#123;</span> behavior<span class="token operator">:</span> <span class="token string">'allow'</span><span class="token punctuation">,</span> reason<span class="token operator">:</span> allowRule <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Level 4: Interactive prompt</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+      behavior<span class="token operator">:</span> <span class="token string">'ask'</span><span class="token punctuation">,</span>
+      suggestions<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">generateRuleSuggestions</span><span class="token punctuation">(</span>tool<span class="token punctuation">,</span> input<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token function">findMatchingRule</span><span class="token punctuation">(</span>
+    tool<span class="token operator">:</span> ToolDefinition<span class="token punctuation">,</span>
+    input<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">,</span>
+    rules<span class="token operator">:</span> Record<span class="token operator">&lt;</span>PermissionRuleScope<span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span>
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">|</span> <span class="token keyword">null</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Priority order: cliArg > localSettings > projectSettings > ...</span>
+    <span class="token keyword">const</span> scopes<span class="token operator">:</span> PermissionRuleScope<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+      <span class="token string">'cliArg'</span><span class="token punctuation">,</span> <span class="token string">'localSettings'</span><span class="token punctuation">,</span> <span class="token string">'projectSettings'</span><span class="token punctuation">,</span>
+      <span class="token string">'policySettings'</span><span class="token punctuation">,</span> <span class="token string">'userSettings'</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> scope <span class="token keyword">of</span> scopes<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">const</span> scopeRules <span class="token operator">=</span> rules<span class="token punctuation">[</span>scope<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> rule <span class="token keyword">of</span> scopeRules<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">matchesRule</span><span class="token punctuation">(</span>tool<span class="token punctuation">,</span> input<span class="token punctuation">,</span> rule<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>scope<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>rule<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Phase-6-Recursive-Turn-Management"><a href="#Phase-6-Recursive-Turn-Management" class="headerlink" title="Phase 6: Recursive Turn Management"></a>Phase 6: Recursive Turn Management</h3><p>The control flow implements tail recursion for multi-turn interactions:</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// Recursion control and state management</span>
+<span class="token keyword">class</span> <span class="token class-name">TurnController</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">static</span> async <span class="token operator">*</span><span class="token function">manageTurn</span><span class="token punctuation">(</span>
+    messages<span class="token operator">:</span> CliMessage<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    toolResults<span class="token operator">:</span> CliMessage<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    context<span class="token operator">:</span> FullContext<span class="token punctuation">,</span>
+    loopState<span class="token operator">:</span> LoopState
+  <span class="token punctuation">)</span><span class="token operator">:</span> AsyncGenerator<span class="token operator">&lt;</span>CliMessage<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Check recursion depth</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>loopState<span class="token punctuation">.</span>turnCounter <span class="token operator">>=</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">yield</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">createSystemMessage</span><span class="token punctuation">(</span>
+        <span class="token string">"Maximum conversation depth reached. Please start a new query."</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Prepare next turn state</span>
+    <span class="token keyword">const</span> nextState <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+      <span class="token operator">...</span>loopState<span class="token punctuation">,</span>
+      turnCounter<span class="token operator">:</span> loopState<span class="token punctuation">.</span>turnCounter <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      compacted<span class="token operator">:</span> <span class="token boolean">false</span>  <span class="token comment">// Reset compaction flag</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Merge messages for next turn</span>
+    <span class="token keyword">const</span> nextMessages <span class="token operator">=</span> <span class="token punctuation">[</span>
+      <span class="token operator">...</span>messages<span class="token punctuation">,</span>
+      <span class="token operator">...</span>toolResults<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>sortByToolRequestOrder<span class="token punctuation">)</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Tail recursion</span>
+    <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token function">tt</span><span class="token punctuation">(</span>
+      nextMessages<span class="token punctuation">,</span>
+      context<span class="token punctuation">.</span>basePrompt<span class="token punctuation">,</span>
+      context<span class="token punctuation">.</span>gitContext<span class="token punctuation">,</span>
+      context<span class="token punctuation">.</span>claudeMd<span class="token punctuation">,</span>
+      context<span class="token punctuation">.</span>permissionFn<span class="token punctuation">,</span>
+      context<span class="token punctuation">.</span>toolContext<span class="token punctuation">,</span>
+      <span class="token keyword">undefined</span><span class="token punctuation">,</span>  <span class="token comment">// No active streaming tool</span>
+      nextState
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Advanced-Control-Flow-Patterns"><a href="#Advanced-Control-Flow-Patterns" class="headerlink" title="Advanced Control Flow Patterns"></a>Advanced Control Flow Patterns</h2><h3 id="1-Input-Router-State-Machine"><a href="#1-Input-Router-State-Machine" class="headerlink" title="1. Input Router State Machine"></a>1. Input Router State Machine</h3><p>The input processing implements a sophisticated routing system:</p>
+<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">stateDiagram-v2</span>
+    <span class="token text string">[*]</span> <span class="token arrow operator">--></span> InputReceived
+    InputReceived <span class="token arrow operator">--></span> CommandDetection
+
+    CommandDetection <span class="token arrow operator">--></span> SlashCommand<span class="token operator">:</span> starts with /
+    CommandDetection <span class="token arrow operator">--></span> BashMode<span class="token operator">:</span> starts with !
+    CommandDetection <span class="token arrow operator">--></span> MemoryMode<span class="token operator">:</span> starts with #
+    CommandDetection <span class="token arrow operator">--></span> PasteDetection<span class="token operator">:</span> paste event
+    CommandDetection <span class="token arrow operator">--></span> NormalPrompt<span class="token operator">:</span> default
+
+    SlashCommand <span class="token arrow operator">--></span> ExecuteCommand
+    ExecuteCommand <span class="token arrow operator">--></span> UpdateState
+    UpdateState <span class="token arrow operator">--></span> <span class="token text string">[*]</span>
+
+    BashMode <span class="token arrow operator">--></span> CreateSyntheticTool
+    CreateSyntheticTool <span class="token arrow operator">--></span> MainLoop
+
+    MemoryMode <span class="token arrow operator">--></span> UpdateClaudeMd
+    UpdateClaudeMd <span class="token arrow operator">--></span> <span class="token text string">[*]</span>
+
+    PasteDetection <span class="token arrow operator">--></span> DetectContent
+    DetectContent <span class="token arrow operator">--></span> ProcessImage<span class="token operator">:</span> image detected
+    DetectContent <span class="token arrow operator">--></span> ProcessText<span class="token operator">:</span> text only
+    ProcessImage <span class="token arrow operator">--></span> MainLoop
+    ProcessText <span class="token arrow operator">--></span> MainLoop
+
+    NormalPrompt <span class="token arrow operator">--></span> MainLoop
+    MainLoop <span class="token arrow operator">--></span> <span class="token text string">[*]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<img src="/2025/10/23/claude-code-kong-zhi-liu-yu-bian-pai-yin-qing/3.svg" class="">
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// Input router implementation</span>
+<span class="token keyword">class</span> <span class="token class-name">InputRouter</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">static</span> <span class="token keyword">async</span> <span class="token function">routeInput</span><span class="token punctuation">(</span>
+    input<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+    context<span class="token operator">:</span> AppContext
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>RouterAction<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Command detection with priority</span>
+    <span class="token keyword">const</span> matchers<span class="token operator">:</span> <span class="token punctuation">[</span>RegExp<span class="token punctuation">,</span> InputHandler<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">[</span><span class="token operator">/</span><span class="token operator">^</span>\\<span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\\w+)(.*)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>handleSlashCommand<span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^!(.+)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>handleBashMode<span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^#(.+)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>handleMemoryMode<span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^```[\\s\\S]+```$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>handleCodeBlock<span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token punctuation">[</span>pattern<span class="token punctuation">,</span> handler<span class="token punctuation">]</span> <span class="token keyword">of</span> matchers<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">const</span> match <span class="token operator">=</span> input<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>pattern<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>match<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token function">handler</span><span class="token punctuation">(</span>match<span class="token punctuation">,</span> context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Default: normal prompt</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+      type<span class="token operator">:</span> <span class="token string">'prompt'</span><span class="token punctuation">,</span>
+      message<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">createUserMessage</span><span class="token punctuation">(</span>input<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token function">handleBashMode</span><span class="token punctuation">(</span>
+    match<span class="token operator">:</span> RegExpMatchArray<span class="token punctuation">,</span>
+    context<span class="token operator">:</span> AppContext
+  <span class="token punctuation">)</span><span class="token operator">:</span> RouterAction <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> command <span class="token operator">=</span> match<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Create synthetic assistant message with tool use</span>
+    <span class="token keyword">const</span> syntheticMessages <span class="token operator">=</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">&#123;</span>
+        type<span class="token operator">:</span> <span class="token string">'user'</span><span class="token punctuation">,</span>
+        message<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+          role<span class="token operator">:</span> <span class="token string">'user'</span><span class="token punctuation">,</span>
+          content<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Run this command: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>command<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">&#123;</span>
+        type<span class="token operator">:</span> <span class="token string">'assistant'</span><span class="token punctuation">,</span>
+        message<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+          role<span class="token operator">:</span> <span class="token string">'assistant'</span><span class="token punctuation">,</span>
+          content<span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token punctuation">&#123;</span>
+              type<span class="token operator">:</span> <span class="token string">'text'</span><span class="token punctuation">,</span>
+              text<span class="token operator">:</span> <span class="token string">'I\\'</span>ll run that command <span class="token keyword">for</span> you<span class="token punctuation">.</span>'
+            <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#123;</span>
+              type<span class="token operator">:</span> <span class="token string">'tool_use'</span><span class="token punctuation">,</span>
+              id<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">bash_</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+              name<span class="token operator">:</span> <span class="token string">'BashTool'</span><span class="token punctuation">,</span>
+              input<span class="token operator">:</span> <span class="token punctuation">&#123;</span> command<span class="token punctuation">,</span> sandbox<span class="token operator">:</span> <span class="token boolean">false</span> <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+          <span class="token punctuation">]</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+      type<span class="token operator">:</span> <span class="token string">'synthetic_conversation'</span><span class="token punctuation">,</span>
+      messages<span class="token operator">:</span> syntheticMessages
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-Stream-Backpressure-Management"><a href="#2-Stream-Backpressure-Management" class="headerlink" title="2. Stream Backpressure Management"></a>2. Stream Backpressure Management</h3><p>The streaming system implements sophisticated backpressure handling:</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// Backpressure control for streaming</span>
+<span class="token keyword">class</span> <span class="token class-name">StreamBackpressureController</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> buffer<span class="token operator">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span>StreamEvent<span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> pressure <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    current<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    threshold<span class="token operator">:</span> <span class="token number">1000</span><span class="token punctuation">,</span>  <span class="token comment">// Max buffered events</span>
+    paused<span class="token operator">:</span> <span class="token boolean">false</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+  async <span class="token operator">*</span><span class="token function">controlledStream</span><span class="token punctuation">(</span>
+    source<span class="token operator">:</span> AsyncIterable<span class="token operator">&lt;</span>StreamEvent<span class="token operator">></span>
+  <span class="token punctuation">)</span><span class="token operator">:</span> AsyncGenerator<span class="token operator">&lt;</span>StreamEvent<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> iterator <span class="token operator">=</span> source<span class="token punctuation">[</span>Symbol<span class="token punctuation">.</span>asyncIterator<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// Check pressure</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>pressure<span class="token punctuation">.</span>current <span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span>pressure<span class="token punctuation">.</span>threshold<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>pressure<span class="token punctuation">.</span>paused <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">waitForDrain</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+
+      <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> done<span class="token punctuation">,</span> value <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token keyword">await</span> iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>done<span class="token punctuation">)</span> <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+      <span class="token comment">// Buffer management</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">shouldBuffer</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>buffer<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>pressure<span class="token punctuation">.</span>current<span class="token operator">++</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// Yield immediately for high-priority events</span>
+        <span class="token keyword">yield</span> value<span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+
+      <span class="token comment">// Drain buffer periodically</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>pressure<span class="token punctuation">.</span>paused<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">drainBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Final drain</span>
+    <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">drainBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">private</span> <span class="token function">shouldBuffer</span><span class="token punctuation">(</span>event<span class="token operator">:</span> StreamEvent<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">boolean</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Don't buffer tool results or errors</span>
+    <span class="token keyword">return</span> event<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'content_block_delta'</span> <span class="token operator">&amp;&amp;</span>
+           event<span class="token punctuation">.</span>delta<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'text_delta'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-AgentTool-Hierarchical-Control-Flow"><a href="#3-AgentTool-Hierarchical-Control-Flow" class="headerlink" title="3. AgentTool Hierarchical Control Flow"></a>3. AgentTool Hierarchical Control Flow</h3><p>The AgentTool implements a fascinating parent-child control structure:</p>
+<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> TB
+    <span class="token keyword">subgraph</span> <span class="token string">"Main Agent"</span>
+        MainTT<span class="token text string">[Main tt Loop]</span>
+        MainContext<span class="token text string">[Main Context]</span>
+        MainTools<span class="token text string">[All Tools]</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">subgraph</span> <span class="token string">"AgentTool Invocation"</span>
+        AgentRequest<span class="token text string">[AgentTool Request]</span>
+        TaskSplitter<span class="token text string">[Task Splitter]</span>
+
+        TaskSplitter <span class="token arrow operator">--></span> SubTask1<span class="token text string">[Sub-task 1]</span>
+        TaskSplitter <span class="token arrow operator">--></span> SubTask2<span class="token text string">[Sub-task 2]</span>
+        TaskSplitter <span class="token arrow operator">--></span> SubTaskN<span class="token text string">[Sub-task N]</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">subgraph</span> <span class="token string">"Sub-Agent 1"</span>
+        SubLoop1<span class="token text string">[Sub tt Loop]</span>
+        SubContext1<span class="token text string">[Filtered Context]</span>
+        SubTools1<span class="token text string">[Tools - AgentTool]</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">subgraph</span> <span class="token string">"Sub-Agent 2"</span>
+        SubLoop2<span class="token text string">[Sub tt Loop]</span>
+        SubContext2<span class="token text string">[Filtered Context]</span>
+        SubTools2<span class="token text string">[Tools - AgentTool]</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">subgraph</span> <span class="token string">"Synthesis"</span>
+        Collector<span class="token text string">[Result Collector]</span>
+        Synthesizer<span class="token text string">[LLM Synthesizer]</span>
+        FinalResult<span class="token text string">[Synthesized Result]</span>
+    <span class="token keyword">end</span>
+
+    MainTT <span class="token arrow operator">--></span> AgentRequest
+    AgentRequest <span class="token arrow operator">--></span> TaskSplitter
+
+    SubTask1 <span class="token arrow operator">--></span> SubLoop1
+    SubTask2 <span class="token arrow operator">--></span> SubLoop2
+
+    SubLoop1 <span class="token arrow operator">--></span> Collector
+    SubLoop2 <span class="token arrow operator">--></span> Collector
+
+    Collector <span class="token arrow operator">--></span> Synthesizer
+    Synthesizer <span class="token arrow operator">--></span> FinalResult
+    FinalResult <span class="token arrow operator">--></span> MainTT
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<img src="/2025/10/23/claude-code-kong-zhi-liu-yu-bian-pai-yin-qing/4.svg" class="">
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// AgentTool hierarchical execution</span>
+<span class="token keyword">class</span> <span class="token class-name">AgentToolExecutor</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">static</span> async <span class="token operator">*</span><span class="token function">execute</span><span class="token punctuation">(</span>
+    input<span class="token operator">:</span> AgentToolInput<span class="token punctuation">,</span>
+    context<span class="token operator">:</span> ToolUseContext<span class="token punctuation">,</span>
+    parentMessage<span class="token operator">:</span> CliMessage
+  <span class="token punctuation">)</span><span class="token operator">:</span> AsyncGenerator<span class="token operator">&lt;</span>ToolProgress <span class="token operator">|</span> ToolResult<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Phase 1: Task analysis</span>
+    <span class="token keyword">const</span> subtasks <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">analyzeTask</span><span class="token punctuation">(</span>input<span class="token punctuation">.</span>prompt<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Phase 2: Spawn sub-agents</span>
+    <span class="token keyword">const</span> subAgentPromises <span class="token operator">=</span> subtasks<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token punctuation">(</span>task<span class="token punctuation">,</span> index<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// Create isolated context</span>
+      <span class="token keyword">const</span> subContext <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token operator">...</span>context<span class="token punctuation">,</span>
+        tools<span class="token operator">:</span> context<span class="token punctuation">.</span>tools<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span>name <span class="token operator">!==</span> <span class="token string">'AgentTool'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        abortController<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">createLinkedAbort</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span>abortController<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        options<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+          <span class="token operator">...</span>context<span class="token punctuation">.</span>options<span class="token punctuation">,</span>
+          maxThinkingTokens<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">calculateTokenBudget</span><span class="token punctuation">(</span>input<span class="token punctuation">.</span>prompt<span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+      <span class="token comment">// Run sub-agent</span>
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">runSubAgent</span><span class="token punctuation">(</span>task<span class="token punctuation">,</span> subContext<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Phase 3: Parallel execution with progress</span>
+    <span class="token keyword">const</span> results<span class="token operator">:</span> SubAgentResult<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token keyword">await</span> <span class="token punctuation">(</span><span class="token keyword">const</span> update <span class="token keyword">of</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">trackProgress</span><span class="token punctuation">(</span>subAgentPromises<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>update<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'progress'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">yield</span> <span class="token punctuation">&#123;</span>
+          type<span class="token operator">:</span> <span class="token string">'progress'</span><span class="token punctuation">,</span>
+          toolUseID<span class="token operator">:</span> parentMessage<span class="token punctuation">.</span>id<span class="token punctuation">,</span>
+          data<span class="token operator">:</span> update
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        results<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>update<span class="token punctuation">.</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Phase 4: Synthesis</span>
+    <span class="token keyword">const</span> synthesized <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">synthesizeResults</span><span class="token punctuation">(</span>results<span class="token punctuation">,</span> input<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">yield</span> <span class="token punctuation">&#123;</span>
+      type<span class="token operator">:</span> <span class="token string">'result'</span><span class="token punctuation">,</span>
+      data<span class="token operator">:</span> synthesized
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">async</span> <span class="token function">synthesizeResults</span><span class="token punctuation">(</span>
+    results<span class="token operator">:</span> SubAgentResult<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    input<span class="token operator">:</span> AgentToolInput
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>results<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> results<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>content<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Multi-result synthesis via LLM</span>
+    <span class="token keyword">const</span> synthesisPrompt <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+      Synthesize these </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>results<span class="token punctuation">.</span>length<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> findings into a cohesive response:
+      </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>results<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span>r<span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Finding </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">:\\n</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>r<span class="token punctuation">.</span>content<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'\\n\\n'</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">
+
+      Original task: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>input<span class="token punctuation">.</span>prompt<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">
+    </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> synthesizer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SubAgentExecutor</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+      prompt<span class="token operator">:</span> synthesisPrompt<span class="token punctuation">,</span>
+      model<span class="token operator">:</span> input<span class="token punctuation">.</span>model <span class="token operator">||</span> <span class="token string">'claude-3-haiku'</span><span class="token punctuation">,</span>  <span class="token comment">// Fast model for synthesis</span>
+      isSynthesis<span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> synthesizer<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-Error-Recovery-Control-Flow"><a href="#4-Error-Recovery-Control-Flow" class="headerlink" title="4. Error Recovery Control Flow"></a>4. Error Recovery Control Flow</h3><p>The system implements sophisticated error recovery strategies:</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// Error recovery state machine</span>
+<span class="token keyword">class</span> <span class="token class-name">ErrorRecoveryController</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> <span class="token keyword">static</span> recoveryStrategies <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token string-property property">'rate_limit'</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>handleRateLimit<span class="token punctuation">,</span>
+    <span class="token string-property property">'context_overflow'</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>handleContextOverflow<span class="token punctuation">,</span>
+    <span class="token string-property property">'tool_error'</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>handleToolError<span class="token punctuation">,</span>
+    <span class="token string-property property">'network_error'</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>handleNetworkError<span class="token punctuation">,</span>
+    <span class="token string-property property">'permission_denied'</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>handlePermissionDenied
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">static</span> async <span class="token operator">*</span><span class="token function">handleError</span><span class="token punctuation">(</span>
+    error<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">,</span>
+    context<span class="token operator">:</span> ErrorContext
+  <span class="token punctuation">)</span><span class="token operator">:</span> AsyncGenerator<span class="token operator">&lt;</span>CliMessage<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> errorType <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">classifyError</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> strategy <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>recoveryStrategies<span class="token punctuation">[</span>errorType<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>strategy<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token function">strategy</span><span class="token punctuation">(</span>error<span class="token punctuation">,</span> context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// Generic error handling</span>
+      <span class="token keyword">yield</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">createErrorMessage</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">static</span> async <span class="token operator">*</span><span class="token function">handleContextOverflow</span><span class="token punctuation">(</span>
+    error<span class="token operator">:</span> ContextOverflowError<span class="token punctuation">,</span>
+    context<span class="token operator">:</span> ErrorContext
+  <span class="token punctuation">)</span><span class="token operator">:</span> AsyncGenerator<span class="token operator">&lt;</span>CliMessage<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Strategy 1: Try reducing max_tokens</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>error<span class="token punctuation">.</span>details<span class="token punctuation">.</span>requested_tokens <span class="token operator">></span> <span class="token number">4096</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">yield</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">createSystemMessage</span><span class="token punctuation">(</span><span class="token string">"Reducing response size..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">const</span> retry <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">retryWithReducedTokens</span><span class="token punctuation">(</span>
+        context<span class="token punctuation">.</span>request<span class="token punctuation">,</span>
+        Math<span class="token punctuation">.</span><span class="token function">floor</span><span class="token punctuation">(</span>error<span class="token punctuation">.</span>details<span class="token punctuation">.</span>requested_tokens <span class="token operator">*</span> <span class="token number">0.7</span><span class="token punctuation">)</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>retry<span class="token punctuation">.</span>success<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">yield</span><span class="token operator">*</span> retry<span class="token punctuation">.</span>response<span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Strategy 2: Force compaction</span>
+    <span class="token keyword">yield</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">createSystemMessage</span><span class="token punctuation">(</span><span class="token string">"Compacting conversation history..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> compacted <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">forceCompaction</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span>messages<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Retry with compacted history</span>
+    <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">retryWithMessages</span><span class="token punctuation">(</span>compacted<span class="token punctuation">,</span> context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">static</span> async <span class="token operator">*</span><span class="token function">handleRateLimit</span><span class="token punctuation">(</span>
+    error<span class="token operator">:</span> RateLimitError<span class="token punctuation">,</span>
+    context<span class="token operator">:</span> ErrorContext
+  <span class="token punctuation">)</span><span class="token operator">:</span> AsyncGenerator<span class="token operator">&lt;</span>CliMessage<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Multi-provider fallback</span>
+    <span class="token keyword">const</span> providers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'anthropic'</span><span class="token punctuation">,</span> <span class="token string">'bedrock'</span><span class="token punctuation">,</span> <span class="token string">'vertex'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> current <span class="token operator">=</span> context<span class="token punctuation">.</span>provider<span class="token punctuation">;</span>
+    <span class="token keyword">const</span> alternatives <span class="token operator">=</span> providers<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>p <span class="token operator">=></span> p <span class="token operator">!==</span> current<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> provider <span class="token keyword">of</span> alternatives<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">yield</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">createSystemMessage</span><span class="token punctuation">(</span>
+        <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Rate limited on </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>current<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">, trying </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>provider<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">...</span><span class="token template-punctuation string">`</span></span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">retryWithProvider</span><span class="token punctuation">(</span>
+          context<span class="token punctuation">.</span>request<span class="token punctuation">,</span>
+          provider
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">yield</span><span class="token operator">*</span> result<span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">continue</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// All providers exhausted</span>
+    <span class="token keyword">yield</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">createErrorMessage</span><span class="token punctuation">(</span>
+      <span class="token string">"All providers are rate limited. Please try again later."</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Performance-Profiling-Points"><a href="#Performance-Profiling-Points" class="headerlink" title="Performance Profiling Points"></a>Performance Profiling Points</h2><p>The control flow includes strategic profiling points:</p>
+<pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx"><span class="token comment">// Performance measurement integration</span>
+<span class="token keyword">class</span> <span class="token class-name">PerformanceProfiler</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> <span class="token keyword">static</span> spans <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Map<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token punctuation">,</span> PerformanceSpan<span class="token operator">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">static</span> <span class="token generic-function"><span class="token function">instrument</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span> <span class="token keyword">extends</span> AsyncGenerator<span class="token operator">></span></span></span><span class="token punctuation">(</span>
+    name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+    generator<span class="token operator">:</span> <span class="token constant">T</span>
+  <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token keyword">function</span><span class="token operator">*</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">const</span> span <span class="token operator">=</span> tracer<span class="token punctuation">.</span><span class="token function">startSpan</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> start <span class="token operator">=</span> performance<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">let</span> itemCount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token keyword">await</span> <span class="token punctuation">(</span><span class="token keyword">const</span> item <span class="token keyword">of</span> generator<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          itemCount<span class="token operator">++</span><span class="token punctuation">;</span>
+
+          <span class="token comment">// Measure inter-yield time</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>itemCount <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            span<span class="token punctuation">.</span><span class="token function">addEvent</span><span class="token punctuation">(</span><span class="token string">'yield'</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+              <span class="token string-property property">'yield.latency'</span><span class="token operator">:</span> performance<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> lastYield
+            <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">&#125;</span>
+
+          <span class="token keyword">yield</span> item<span class="token punctuation">;</span>
+          lastYield <span class="token operator">=</span> performance<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        span<span class="token punctuation">.</span><span class="token function">setAttributes</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+          <span class="token string-property property">'generator.yield_count'</span><span class="token operator">:</span> itemCount<span class="token punctuation">,</span>
+          <span class="token string-property property">'generator.total_time'</span><span class="token operator">:</span> performance<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+        span<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token constant">T</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+                
+            </div>
+            <hr/>
+
+            
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/10/23/claude-code-gong-ju-yu-zhi-xing-yin-qing/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="claude-code工具与执行引擎">
+                        
+                        <span class="card-title">claude-code工具与执行引擎</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-10-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            寒霜
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/10/23/claude-code-shu-ju-jie-gou-yu-xiao-xi-jia-gou/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="claude-code数据结构与消息架构">
+                        
+                        <span class="card-title">claude-code数据结构与消息架构</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-10-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            寒霜
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('6'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            <!-- Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2025</span>
+             -->
+            <!-- <a href="/about" target="_blank">寒霜</a> -->
+            <!-- |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+             -->
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">83.2k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

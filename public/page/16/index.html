@@ -267,29 +267,31 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/01/05/cao-zuo-xi-tong-ming-ling-xing/">
+                    <a href="/2023/03/27/zhong-duan-shu-chu-luan-ma-wen-ti/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="命令行">
+                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="终端输出乱码问题">
                             
-                            <span class="card-title">命令行</span>
+                            <span class="card-title">终端输出乱码问题</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                1、windows 命令行1.1 打开文件或文件夹//在当前目录下打开本目录下的BLOG
-C:\Users\WTCL\Desktop\博客> start BLOG
+                                
 
-//打开指定目录 不区分大小写
-start C:\Users\WTCL\D
+
+终端默认936，如果出现乱码，我们可以通过chcp 65001来修复乱码。
+如果关闭终端后，再次打开又出现乱码，我们可以将这个命令添加在package文件内
+
+
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-27
                             </span>
                             <span class="publish-author">
                                 
@@ -307,67 +309,12 @@ start C:\Users\WTCL\D
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/">
-                            <span class="chip bg-color">命令行</span>
+                        <a href="/tags/%E5%AE%9E%E6%88%98/">
+                            <span class="chip bg-color">实战</span>
                         </a>
                         
-                        <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                            <span class="chip bg-color">操作系统</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/12/28/wen-jian-guan-li/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="文件管理">
-                            
-                            <span class="card-title">文件管理</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                1、el-upload formDat 上传header根据项目需求有所不同，本项目采用的是Cookie，另外，该封装内没有判断文件类型
-import Cookies from "_js-cookie@2.2.1@js-cookie";
-i
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-28
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%96%87%E4%BB%B6/" class="post-category">
-                                    文件
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91/">
-                            <span class="chip bg-color">日常开发</span>
-                        </a>
-                        
-                        <a href="/tags/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/">
-                            <span class="chip bg-color">文件管理</span>
+                        <a href="/tags/%E7%BB%88%E7%AB%AF/">
+                            <span class="chip bg-color">终端</span>
                         </a>
                         
                     </div>
@@ -379,29 +326,32 @@ i
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2022/12/27/suan-fa/">
+                    <a href="/2023/03/01/qian-duan-cuo-wu-jian-kong/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="算法">
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="前端错误监控">
                             
-                            <span class="card-title">算法</span>
+                            <span class="card-title">前端错误监控</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                1、js 树逆向查找利用递归，当最后找到当前节点后再一层层返回上来拿到整棵树从当前节点到根节点的id
-function findParentArr(targetId) &#123;
-  const ids = [];
-
-  function
+                                window.conf = &#123;
+	traceid: "",
+	errorList: [],
+	timeList: &#123;
+		httpts: [],
+	&#125;,
+&#125;;
+console.log("log/jsE
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-01
                             </span>
                             <span class="publish-author">
                                 
@@ -419,12 +369,8 @@ function findParentArr(targetId) &#123;
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/%E5%AE%9E%E6%88%98/">
-                            <span class="chip bg-color">实战</span>
-                        </a>
-                        
-                        <a href="/tags/%E7%AE%97%E6%B3%95/">
-                            <span class="chip bg-color">算法</span>
+                        <a href="/tags/%E8%BF%9B%E9%98%B6/">
+                            <span class="chip bg-color">进阶</span>
                         </a>
                         
                     </div>
@@ -436,35 +382,34 @@ function findParentArr(targetId) &#123;
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2022/12/05/wei-xin-xiao-cheng-xu-yun-kai-fa/">
+                    <a href="/2023/02/20/qian-duan-da-bao-xia-zai/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="微信小程序云开发">
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="前端打包下载">
                             
-                            <span class="card-title">微信小程序云开发</span>
+                            <span class="card-title">前端打包下载</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                
+                                本文代码以图片作为示例，进行文件批量下载
 
-微信小程序开发最主要的就是编写云函数、使用微信提供的功能与数据库，在存储与鉴权方面存在一定便利。实现方式最主要云函数的编写与调用，wx.cloud.callFunction(&#123;&#125;)
-1、定义云函数假如我们要在微信小程
+安装 axios，FileSaver，JSZip 三个插件初始化 new JSZip获取所有图片链接，并根据链接利用 axios 进行数据获取，blob 格式每条数据获取成功后，利用 zip.fi
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-20
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" class="post-category">
-                                    小程序
+                                <a href="/categories/%E6%96%87%E4%BB%B6/" class="post-category">
+                                    文件
                                 </a>
                                 
                                 
@@ -475,12 +420,12 @@ function findParentArr(targetId) &#123;
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
-                            <span class="chip bg-color">小程序</span>
+                        <a href="/tags/%E4%B8%8B%E8%BD%BD/">
+                            <span class="chip bg-color">下载</span>
                         </a>
                         
-                        <a href="/tags/%E4%BA%91%E5%BC%80%E5%8F%91/">
-                            <span class="chip bg-color">云开发</span>
+                        <a href="/tags/%E6%89%93%E5%8C%85%E4%B8%8B%E8%BD%BD/">
+                            <span class="chip bg-color">打包下载</span>
                         </a>
                         
                     </div>
@@ -492,38 +437,34 @@ function findParentArr(targetId) &#123;
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2022/12/05/wei-xin-xiao-cheng-xu-nei-shi-yong-echart/">
+                    <a href="/2023/02/16/electron-xiang-mu-guan-bi-kua-yu/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="微信小程序内使用echart">
+                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="electron项目关闭跨域">
                             
-                            <span class="card-title">微信小程序内使用echart</span>
+                            <span class="card-title">electron项目关闭跨域</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                
+                                在创建 electron 项目的时候，在 package.json 文件内指定入口文件是 background.js（任何名称都可以，确保引用正确就可以）
 
-1、下载代码后，拷贝ec-canvas到项目里
 
-2、在需要使用的页面内引入import * as echarts from '../../components/ec-canvas/echarts';
-
-3、定义方法和实例化let ch
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-16
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" class="post-category">
-                                    小程序
+                                <a href="/categories/electron/" class="post-category">
+                                    electron
                                 </a>
                                 
                                 
@@ -534,12 +475,8 @@ function findParentArr(targetId) &#123;
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/">
-                            <span class="chip bg-color">可视化</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
-                            <span class="chip bg-color">小程序</span>
+                        <a href="/tags/electron/">
+                            <span class="chip bg-color">electron</span>
                         </a>
                         
                     </div>
@@ -551,37 +488,35 @@ function findParentArr(targetId) &#123;
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2022/10/24/taro-xiao-cheng-xu-nei-shi-yong-rem/">
+                    <a href="/2023/02/16/electron-xiang-mu-vue-zi-ti-zi-yuan-jia-zai-cuo-wu/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="taro小程序内使用rem">
+                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="electron项目vue字体资源加载错误">
                             
-                            <span class="card-title">taro小程序内使用rem</span>
+                            <span class="card-title">electron项目vue字体资源加载错误</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                taro 官网说明taro官网明确表示暂时不支持rem
-
-
-由于项目内使用的 less，所以我们采用 less 变量声明的方式，曲线救国
-// base.less
-//基准的font-size是根据项目确定的，如果是老项目，则需要根据老代码
+                                electron + Vue 项目运行的时候，一切正常。使用 electronBuilder打包后，Vue的字体资源会加载错误，解决方法如下：
+//vue.config.js
+pluginOptions: &#123;
+        //
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-16
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" class="post-category">
-                                    小程序
+                                <a href="/categories/electron/" class="post-category">
+                                    electron
                                 </a>
                                 
                                 
@@ -592,12 +527,67 @@ function findParentArr(targetId) &#123;
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/taro/">
-                            <span class="chip bg-color">taro</span>
+                        <a href="/tags/electron/">
+                            <span class="chip bg-color">electron</span>
                         </a>
                         
-                        <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
-                            <span class="chip bg-color">小程序</span>
+                        <a href="/tags/vue/">
+                            <span class="chip bg-color">vue</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/16/vue-dai-li/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="vue代理">
+                            
+                            <span class="card-title">vue代理</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+vue-cli-service serve其实是开了一个node服务器，请求/api/bbb的时候，会被中转到https://aaa/bbb，简单理解就是根据vue.config.js的配置将/api替换为&#39;&#39;
+1. vu
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-16
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/vue/" class="post-category">
+                                    vue
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/vue/">
+                            <span class="chip bg-color">vue</span>
+                        </a>
+                        
+                        <a href="/tags/%E4%BB%A3%E7%90%86/">
+                            <span class="chip bg-color">代理</span>
                         </a>
                         
                     </div>
@@ -623,7 +613,7 @@ function findParentArr(targetId) &#123;
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">16 / 24</div>
+            <div class="center-align b-text-gray">16 / 26</div>
         </div>
         <div class="col s6 m4 l4">
             
@@ -656,7 +646,7 @@ function findParentArr(targetId) &#123;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">76.3k</span>
+                        class="white-color">83.2k</span>
             
             
             
