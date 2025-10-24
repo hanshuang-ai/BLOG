@@ -5,6 +5,4 @@ node_modules/
 .deploy/
 .deploy_git/
 themes/
-db.json
-public/
 download_images.py
