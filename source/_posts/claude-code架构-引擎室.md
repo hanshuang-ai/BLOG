@@ -5,25 +5,26 @@ tags:
 ---
 [参考链接](https://southbridge-research.notion.site/Architecture-The-Engine-Room-2055fec70db18192963cd6b3a5326476)
 # Architecture: The Engine Room
+# 架构：引擎室
 
 ```mermaid
 graph TB
-    subgraph "The Heart: tt Control Loop"
-        Start([User Input]) --> Init[Initialize Turn]
-        Init --> Compact{Need Compaction?}
-        Compact -->|Yes| CompactLLM[LLM Summarize]
+    subgraph "核心：tt控制循环"
+        Start([用户输入]) --> Init[初始化回合]
+        Init --> Compact{需要压缩？}
+        Compact -->|是| CompactLLM[LLM总结]
         CompactLLM --> Assembly
-        Compact -->|No| Assembly[Assemble Context]
+        Compact -->|否| Assembly[组装上下文]
 
-        Assembly --> Stream[Stream to LLM]
-        Stream --> Process[Process Events]
-        Process --> Tools{Tool Requests?}
+        Assembly --> Stream[流式传输到LLM]
+        Stream --> Process[处理事件]
+        Process --> Tools{工具请求？}
 
-        Tools -->|Yes| Execute[Execute Tools]
-        Execute --> Recurse[Recurse tt]
+        Tools -->|是| Execute[执行工具]
+        Execute --> Recurse[递归tt]
         Recurse --> Init
 
-        Tools -->|No| End([Complete])
+        Tools -->|否| End([完成])
     end
 
     style Init fill:#e1f5fe
@@ -33,37 +34,37 @@ graph TB
 
 ```
 ![](claude-code架构-引擎室/1.svg)
-## The `tt` Control Loop: The Beating Heart
+## `tt`控制循环：跳动的心脏
 
-The entire Claude Code system revolves around a single async generator function called `tt`. This function orchestrates every interaction, from user input to LLM communication to tool execution. Let's dissect this remarkable piece of engineering:
+整个Claude Code系统围绕一个名为`tt`的异步生成器函数运转。这个函数协调每一次交互，从用户输入到LLM通信再到工具执行。让我们剖析这个卓越的工程奇迹：
 
 ```tsx
-// The actual tt function signature from the codebase
+// 来自代码库的实际tt函数签名
 async function* tt(
-  currentMessages: CliMessage[],         // Full conversation history
-  baseSystemPromptString: string,        // Static system instructions
-  currentGitContext: GitContext,         // Real-time git state
-  currentClaudeMdContents: ClaudeMdContent[], // Project context
-  permissionGranterFn: PermissionGranter, // Permission callback
-  toolUseContext: ToolUseContext,         // Shared execution context
-  activeStreamingToolUse?: ToolUseBlock,  // Resume streaming state
+  currentMessages: CliMessage[],         // 完整的对话历史
+  baseSystemPromptString: string,        // 静态系统指令
+  currentGitContext: GitContext,         // 实时git状态
+  currentClaudeMdContents: ClaudeMdContent[], // 项目上下文
+  permissionGranterFn: PermissionGranter, // 权限回调
+  toolUseContext: ToolUseContext,         // 共享执行上下文
+  activeStreamingToolUse?: ToolUseBlock,  // 恢复流式状态
   loopState: {
-    turnId: string,        // UUID for this turn
-    turnCounter: number,   // Recursion depth tracker
-    compacted?: boolean,   // History compression flag
-    isResuming?: boolean   // Resume from saved state
+    turnId: string,        // 本回合的UUID
+    turnCounter: number,   // 递归深度跟踪器
+    compacted?: boolean,   // 历史压缩标志
+    isResuming?: boolean   // 从保存状态恢复
   }
 ): AsyncGenerator<CliMessage, void, void>
 
 ```
 
-This signature reveals the sophisticated state management at play. The function yields `CliMessage` objects that drive UI updates while maintaining conversation flow. Let's examine each phase:
+这个签名揭示了在起作用的复杂状态管理。该函数产生`CliMessage`对象，这些对象驱动UI更新，同时保持对话流程。让我们检查每个阶段：
 
-### Phase 1: Turn Initialization & Context Preparation
+### 阶段1：回合初始化和上下文准备
 
 ```tsx
 {
-  // Signal UI that processing has begun
+  // 通知UI处理已经开始
   yield {
     type: "ui_state_update",
     uuid: `uistate-${loopState.turnId}-${Date.now()}`,
@@ -71,14 +72,14 @@ This signature reveals the sophisticated state management at play. The function 
     data: { status: "thinking", turnId: loopState.turnId }
   };
 
-  // Check context window pressure
+  // 检查上下文窗口压力
   let messagesForLlm = currentMessages;
   let wasCompactedThisIteration = false;
 
   if (await shouldAutoCompact(currentMessages)) {
     yield {
       type: "ui_notification",
-      data: { message: "Context is large, attempting to compact..." }
+      data: { message: "上下文较大，尝试压缩..." }
     };
 
     try {
@@ -92,13 +93,13 @@ This signature reveals the sophisticated state management at play. The function 
       loopState.compacted = true;
 
       yield createSystemNotificationMessage(
-        `Conversation history automatically compacted. Summary: ${
+        `对话历史已自动压缩。摘要：${
           compactionResult.summaryMessage.message.content[0].text
         }`
       );
     } catch (compactionError) {
       yield createSystemErrorMessage(
-        `Failed to compact conversation: ${compactionError.message}`
+        `压缩对话失败：${compactionError.message}`
       );
     }
   }
@@ -106,43 +107,43 @@ This signature reveals the sophisticated state management at play. The function 
 
 ```
 
-**Performance Profile of Phase 1**:
+**阶段1性能概况**：
 
-| Operation | Typical Duration | Complexity |
+| 操作 | 典型持续时间 | 复杂度 |
 | --- | --- | --- |
-| Token counting | 10-50ms | O(n) messages |
-| Compaction decision | <1ms | O(1) |
-| LLM summarization | 2000-3000ms | One LLM call |
-| Message reconstruction | 5-10ms | O(n) messages |
+| Token计数 | 10-50ms | O(n) 消息 |
+| 压缩决策 | <1ms | O(1) |
+| LLM总结 | 2000-3000ms | 一次LLM调用 |
+| 消息重构 | 5-10ms | O(n) 消息 |
 
-### Phase 2: Dynamic System Prompt Assembly
+### 阶段2：动态系统提示组装
 
-The system prompt isn't static—it's assembled fresh for each turn:
+系统提示不是静态的——它是为每个回合新组装的：
 
 ```tsx
 {
-  // Parallel fetch of all context sources
+  // 并行获取所有上下文源
   const [toolSpecs, dirStructure] = await Promise.all([
-    // Convert tool definitions to LLM-compatible specs
+    // 将工具定义转换为LLM兼容的规格
     Promise.all(
       toolUseContext.options.tools
         .filter(tool => tool.isEnabled ? tool.isEnabled() : true)
         .map(async (tool) => convertToolDefinitionToToolSpecification(tool, toolUseContext))
     ),
-    // Get current directory structure
+    // 获取当前目录结构
     getDirectoryStructureSnapshot(toolUseContext)
   ]);
 
-  // Assemble the complete system prompt
+  // 组装完整的系统提示
   const systemPromptForLlm = assembleSystemPrompt(
-    baseSystemPromptString,      // Core instructions
-    currentClaudeMdContents,     // Project-specific context
-    currentGitContext,           // Git status/branch/commits
-    dirStructure,                // File tree
-    toolSpecs                    // Available tools
+    baseSystemPromptString,      // 核心指令
+    currentClaudeMdContents,     // 项目特定上下文
+    currentGitContext,           // Git状态/分支/提交
+    dirStructure,                // 文件树
+    toolSpecs                    // 可用工具
   );
 
-  // Prepare messages with cache control
+  // 准备带缓存控制的消息
   const apiMessages = prepareMessagesForApi(
     messagesForLlm,
     true // applyEphemeralCacheControl
@@ -151,28 +152,28 @@ The system prompt isn't static—it's assembled fresh for each turn:
 
 ```
 
-The assembly process follows a strict priority order:
+组装过程遵循严格的优先级顺序：
 
 ```
-Priority 1: Base Instructions (~2KB)
+优先级1：基础指令 (~2KB)
     ↓
-Priority 2: Model-Specific Adaptations (~500B)
+优先级2：模型特定适配 (~500B)
     ↓
-Priority 3: CLAUDE.md Content (Variable, typically 5-50KB)
+优先级3：CLAUDE.md内容 (可变，通常5-50KB)
     ↓
-Priority 4: Git Context (~1-5KB)
+优先级4：Git上下文 (~1-5KB)
     ↓
-Priority 5: Directory Structure (Truncated to fit)
+优先级5：目录结构 (截断以适应)
     ↓
-Priority 6: Tool Specifications (~10-20KB)
+优先级6：工具规格 (~10-20KB)
 
 ```
 
-### Phase 3: LLM Stream Initialization
+### 阶段3：LLM流初始化
 
 ```tsx
 {
-  // Initialize streaming call
+  // 初始化流式调用
   const llmStream = callLlmStreamApi(
     apiMessages,
     systemPromptForLlm,
@@ -181,7 +182,7 @@ Priority 6: Tool Specifications (~10-20KB)
     toolUseContext.abortController.signal
   );
 
-  // Initialize accumulators for streaming response
+  // 为流式响应初始化累加器
   let accumulatedAssistantMessage: Partial<CliMessage> & {
     message: Partial<ApiMessage> & { content: ContentBlock[] }
   } = {
@@ -198,16 +199,16 @@ Priority 6: Tool Specifications (~10-20KB)
 
 ```
 
-### Phase 4: Stream Event Processing State Machine
+### 阶段4：流事件处理状态机
 
-This is where the magic happens—processing streaming events in real-time:
+这就是魔法发生的地方——实时处理流事件：
 
 ```tsx
 {
   for await (const streamEvent of llmStream) {
-    // Abort check
+    // 中止检查
     if (toolUseContext.abortController.signal.aborted) {
-      yield createSystemNotificationMessage("LLM stream processing aborted by user.");
+      yield createSystemNotificationMessage("LLM流处理被用户中止。");
       return;
     }
 
@@ -228,7 +229,7 @@ This is where the magic happens—processing streaming events in real-time:
       case "content_block_start":
         const newBlockPlaceholder = { ...streamEvent.content_block };
 
-        // Initialize empty content based on block type
+        // 根据块类型初始化空内容
         if (streamEvent.content_block.type === "thinking") {
           currentThinkingContent = "";
           newBlockPlaceholder.thinking = "";
@@ -261,7 +262,7 @@ This is where the magic happens—processing streaming events in real-time:
           currentToolInputJsonBuffer += streamEvent.delta.partial_json;
           currentBlock.input = currentToolInputJsonBuffer;
 
-          // Try parsing incomplete JSON for preview
+          // 尝试解析不完整的JSON进行预览
           const parseAttempt = tryParsePartialJson(currentToolInputJsonBuffer);
           if (parseAttempt.complete) {
             yield {
@@ -289,9 +290,9 @@ This is where the magic happens—processing streaming events in real-time:
               input: parsedInput
             });
           } catch (e) {
-            // Handle malformed JSON from LLM
+            // 处理来自LLM的格式错误的JSON
             completedBlock.input = {
-              error: "Invalid JSON input from LLM",
+              error: "来自LLM的无效JSON输入",
               raw_json_string: currentToolInputJsonBuffer,
               parse_error: e.message
             };
@@ -306,7 +307,7 @@ This is where the magic happens—processing streaming events in real-time:
         break;
 
       case "message_stop":
-        // LLM generation complete
+        // LLM生成完成
         const finalAssistantMessage = finalizeCliMessage(
           accumulatedAssistantMessage,
           loopState.turnId,
@@ -314,7 +315,7 @@ This is where the magic happens—processing streaming events in real-time:
         );
         yield finalAssistantMessage;
 
-        // Move to Phase 5 or 6...
+        // 移动到阶段5或6...
         break;
     }
   }
@@ -322,16 +323,16 @@ This is where the magic happens—processing streaming events in real-time:
 
 ```
 
-**Stream Processing Performance**:
+**流处理性能**：
 
-- First token latency: 300-800ms (varies by model)
-- Token throughput: 50-100 tokens/second
-- UI update frequency: Every token for text, batched for tool inputs
-- Memory usage: Constant regardless of response length
+- 首个token延迟：300-800ms（因模型而异）
+- Token吞吐量：50-100 tokens/秒
+- UI更新频率：文本每个token更新，工具输入批量更新
+- 内存使用：无论响应长度如何都保持恒定
 
-### Phase 5: Tool Execution Orchestration
+### 阶段5：工具执行编排
 
-When the LLM requests tool use, the architecture shifts into execution mode:
+当LLM请求使用工具时，架构转换到执行模式：
 
 ```tsx
 {
@@ -341,7 +342,7 @@ When the LLM requests tool use, the architecture shifts into execution mode:
     yield { type: "ui_state_update", data: { status: "executing_tools" } };
     let toolResultMessages: CliMessage[] = [];
 
-    // Process tools with intelligent batching
+    // 智能批量处理工具
     for await (const toolOutcomeMessage of processToolCallsInParallelBatches(
       currentToolUsesFromLlm,
       finalAssistantMessage,
@@ -355,19 +356,19 @@ When the LLM requests tool use, the architecture shifts into execution mode:
       }
     }
 
-    // Check for abort during tool execution
+    // 检查工具执行期间的中止
     if (toolUseContext.abortController.signal.aborted) {
-      yield createSystemNotificationMessage("Tool execution aborted by user.");
+      yield createSystemNotificationMessage("工具执行被用户中止。");
       return;
     }
 
-    // Sort results to match LLM's request order
+    // 排序结果以匹配LLM的请求顺序
     const sortedToolResultMessages = sortToolResultsByOriginalRequestOrder(
       toolResultMessages,
       currentToolUsesFromLlm
     );
 
-    // Phase 6: Recurse with results
+    // 阶段6：递归处理结果
     yield* tt(
       [...messagesForLlm, finalAssistantMessage, ...sortedToolResultMessages],
       baseSystemPromptString,
@@ -384,78 +385,78 @@ When the LLM requests tool use, the architecture shifts into execution mode:
 
 ```
 
-### Phase 6: Recursion Control
+### 阶段6：递归控制
 
-The `tt` function is tail-recursive, allowing for unlimited conversation depth (bounded by safeguards):
+`tt`函数是尾递归的，允许无限的对话深度（由安全措施限制）：
 
 ```tsx
-// Recursion safeguards
+// 递归安全措施
 if (loopState.turnCounter >= 10) {
   yield createSystemMessage(
-    "Maximum conversation depth reached. Please start a new query."
+    "已达到最大对话深度。请开始新的查询。"
   );
   return;
 }
 
-// Memory pressure check before recursion
+// 递归前的内存压力检查
 const estimatedMemory = estimateConversationMemory(messagesForLlm);
 if (estimatedMemory > MEMORY_THRESHOLD) {
-  // Force compaction before continuing
+  // 继续前强制压缩
   const compacted = await forceCompaction(messagesForLlm);
   messagesForLlm = compacted;
 }
 
 ```
 
-## The Layered Architecture
+## 分层架构
 
-Claude Code implements a clean layered architecture where each layer has distinct responsibilities:
+Claude Code实现了一个清晰的分层架构，每一层都有明确的职责：
 
 ```mermaid
 graph TD
-    subgraph "Layer 1: User Interface"
-        React[React Components]
-        Ink[Ink Renderer]
-        Yoga[Yoga Layout Engine]
+    subgraph "第1层：用户界面"
+        React[React组件]
+        Ink[Ink渲染器]
+        Yoga[Yoga布局引擎]
 
         React --> Ink
         Ink --> Yoga
     end
 
-    subgraph "Layer 2: Agent Core"
-        TT[tt Control Loop]
-        Context[Context Assembly]
-        Permission[Permission System]
-        State[Session State]
+    subgraph "第2层：代理核心"
+        TT[tt控制循环]
+        Context[上下文组装]
+        Permission[权限系统]
+        State[会话状态]
 
         TT --> Context
         TT --> Permission
         TT --> State
     end
 
-    subgraph "Layer 3: LLM Interaction"
-        Stream[Stream Handler]
-        Retry[Retry Logic]
-        Token[Token Counter]
+    subgraph "第3层：LLM交互"
+        Stream[流处理器]
+        Retry[重试逻辑]
+        Token[Token计数器]
 
         Stream --> Retry
         Stream --> Token
     end
 
-    subgraph "Layer 4: Tool System"
-        Executor[Tool Executor]
-        Validator[Input Validator]
-        Sandbox[Sandbox Manager]
+    subgraph "第4层：工具系统"
+        Executor[工具执行器]
+        Validator[输入验证器]
+        Sandbox[沙箱管理器]
 
         Executor --> Validator
         Executor --> Sandbox
     end
 
-    subgraph "Layer 5: Infrastructure"
-        FS[File System]
-        Process[Process Manager]
-        Network[Network Client]
-        Telemetry[Telemetry]
+    subgraph "第5层：基础设施"
+        FS[文件系统]
+        Process[进程管理器]
+        Network[网络客户端]
+        Telemetry[遥测]
     end
 
     React -.-> TT
@@ -468,27 +469,27 @@ graph TD
 
 ```
 ![](claude-code架构-引擎室/2.svg)
-### Layer Communication Patterns
+### 层通信模式
 
-Communication between layers follows strict patterns:
+层之间的通信遵循严格的模式：
 
-1. **Downward Communication**: Direct function calls
-2. **Upward Communication**: Events and callbacks
-3. **Cross-Layer Communication**: Shared context objects
+1. **向下通信**：直接函数调用
+2. **向上通信**：事件和回调
+3. **跨层通信**：共享上下文对象
 
 ```tsx
-// Example: UI to Agent Core communication
+// 示例：UI到代理核心的通信
 class UIToAgentBridge {
   async handleUserInput(input: string) {
-    // Downward: Direct call
+    // 向下：直接调用
     const action = await pd(input, this.context);
 
-    // Process based on action type
+    // 根据操作类型处理
     switch (action.type) {
       case 'normal_prompt':
-        // Start new tt loop iteration
+        // 开始新的tt循环迭代
         for await (const message of tt(...)) {
-          // Upward: Yield events
+          // 向上：产生事件
           this.uiRenderer.handleMessage(message);
         }
         break;
@@ -496,13 +497,13 @@ class UIToAgentBridge {
   }
 }
 
-// Example: Tool to UI communication via progress
+// 示例：工具通过进度与UI通信
 class ToolToUIBridge {
   async *executeWithProgress(tool: ToolDefinition, input: any) {
-    // Tool yields progress
+    // 工具产生进度
     for await (const event of tool.call(input, this.context)) {
       if (event.type === 'progress') {
-        // Transform to UI event
+        // 转换为UI事件
         yield {
           type: 'ui_progress',
           toolName: tool.name,
@@ -515,33 +516,33 @@ class ToolToUIBridge {
 
 ```
 
-## Event-Driven & Streaming Architecture
+## 事件驱动和流式架构
 
-The entire system is built on streaming primitives:
+整个系统构建在流式原语之上：
 
-### Stream Backpressure Management
+### 流背压管理
 
 ```tsx
 class StreamBackpressureController {
   private queue: StreamEvent[] = [];
   private processing = false;
   private pressure = {
-    high: 1000,    // Start dropping non-critical events
-    critical: 5000 // Drop everything except errors
+    high: 1000,    // 开始丢弃非关键事件
+    critical: 5000 // 除错误外全部丢弃
   };
 
   async handleEvent(event: StreamEvent) {
     this.queue.push(event);
 
-    // Apply backpressure strategies
+    // 应用背压策略
     if (this.queue.length > this.pressure.critical) {
-      // Keep only critical events
+      // 只保留关键事件
       this.queue = this.queue.filter(e =>
         e.type === 'error' ||
         e.type === 'message_stop'
       );
     } else if (this.queue.length > this.pressure.high) {
-      // Drop text deltas, keep structure
+      // 丢弃文本增量，保留结构
       this.queue = this.queue.filter(e =>
         e.type !== 'content_block_delta' ||
         e.delta.type !== 'text_delta'
@@ -557,10 +558,10 @@ class StreamBackpressureController {
     this.processing = true;
 
     while (this.queue.length > 0) {
-      const batch = this.queue.splice(0, 100); // Process in batches
+      const batch = this.queue.splice(0, 100); // 批量处理
       await this.processBatch(batch);
 
-      // Yield to event loop
+      // 让出给事件循环
       await new Promise(resolve => setImmediate(resolve));
     }
 
@@ -570,9 +571,9 @@ class StreamBackpressureController {
 
 ```
 
-### Progress Event Aggregation
+### 进度事件聚合
 
-Multiple concurrent operations need coordinated progress reporting:
+多个并发操作需要协调的进度报告：
 
 ```tsx
 class ProgressAggregator {
@@ -581,12 +582,12 @@ class ProgressAggregator {
   async *aggregateProgress(
     operations: Array<{ id: string, operation: AsyncIterator<any> }>
   ): AsyncGenerator<AggregatedProgress> {
-    // Start all operations
+    // 启动所有操作
     for (const { id, operation } of operations) {
       this.progressStreams.set(id, operation);
     }
 
-    // Poll all streams
+    // 轮询所有流
     while (this.progressStreams.size > 0) {
       const promises = Array.from(this.progressStreams.entries()).map(
         async ([id, stream]) => {
@@ -595,7 +596,7 @@ class ProgressAggregator {
         }
       );
 
-      // Race for next event
+      // 竞争获取下一个事件
       const result = await Promise.race(promises);
 
       if (result.done) {
@@ -613,24 +614,24 @@ class ProgressAggregator {
 
 ```
 
-## State Management Architecture
+## 状态管理架构
 
-Claude Code uses a pragmatic approach to state management:
+Claude Code使用务实的方法进行状态管理：
 
-### The Global Session State
+### 全局会话状态
 
 ```tsx
-// Singleton session state with direct mutation
+// 带直接突变的单例会话状态
 class SessionState {
   private static instance: SessionState;
 
-  // Core state
+  // 核心状态
   sessionId: string = crypto.randomUUID();
   cwd: string = process.cwd();
   totalCostUSD: number = 0;
   totalAPIDuration: number = 0;
 
-  // Model usage tracking
+  // 模型使用跟踪
   modelTokens: Record<string, {
     inputTokens: number;
     outputTokens: number;
@@ -638,10 +639,10 @@ class SessionState {
     cacheCreationInputTokens: number;
   }> = {};
 
-  // Direct mutation methods
+  // 直接突变方法
   incrementCost(amount: number) {
     this.totalCostUSD += amount;
-    this.persistToDisk(); // Async, non-blocking
+    this.persistToDisk(); // 异步，非阻塞
   }
 
   updateTokenUsage(model: string, usage: TokenUsage) {
@@ -662,7 +663,7 @@ class SessionState {
   }
 
   private async persistToDisk() {
-    // Debounced write to avoid excessive I/O
+    // 防抖写入以避免过度I/O
     clearTimeout(this.persistTimer);
     this.persistTimer = setTimeout(async () => {
       await fs.writeFile(
@@ -675,13 +676,13 @@ class SessionState {
 
 ```
 
-### File State with Weak References
+### 带弱引用的文件状态
 
 ```tsx
 class ReadFileState {
   private cache = new Map<string, WeakRef<FileContent>>();
   private registry = new FinalizationRegistry((path: string) => {
-    // Cleanup when FileContent is garbage collected
+    // FileContent被垃圾回收时清理
     this.cache.delete(path);
   });
 
@@ -696,7 +697,7 @@ class ReadFileState {
     if (ref) {
       const content = ref.deref();
       if (!content) {
-        // Content was garbage collected
+        // 内容已被垃圾回收
         this.cache.delete(path);
         return undefined;
       }
@@ -719,11 +720,11 @@ class ReadFileState {
 
 ```
 
-## Security Architecture
+## 安全架构
 
-Security is implemented through multiple independent layers:
+安全通过多个独立层实现：
 
-### Layer 1: Permission System
+### 第1层：权限系统
 
 ```tsx
 class PermissionEvaluator {
@@ -734,13 +735,13 @@ class PermissionEvaluator {
     input: any,
     context: ToolPermissionContext
   ): Promise<PermissionDecision> {
-    // Priority order evaluation
+    // 优先级顺序评估
     const scopes: PermissionRuleScope[] = [
-      'cliArg',         // Highest: command line
-      'localSettings',  // Project-specific overrides
-      'projectSettings',// Shared project rules
-      'policySettings', // Organization policies
-      'userSettings'    // Lowest: user preferences
+      'cliArg',         // 最高优先级：命令行
+      'localSettings',  // 项目特定覆盖
+      'projectSettings',// 共享项目规则
+      'policySettings', // 组织策略
+      'userSettings'    // 最低优先级：用户偏好
     ];
 
     for (const scope of scopes) {
@@ -753,7 +754,7 @@ class PermissionEvaluator {
       }
     }
 
-    // No matching rule - ask user
+    // 没有匹配规则 - 询问用户
     return {
       behavior: 'ask',
       suggestions: this.generateSuggestions(tool, input)
@@ -765,9 +766,9 @@ class PermissionEvaluator {
       return this.ruleCache.get(rule)!;
     }
 
-    // Parse rule syntax: ToolName(glob/pattern)
+    // 解析规则语法：ToolName(glob/pattern)
     const match = rule.match(/^(\\w+)(?:\\((.+)\\))?$/);
-    if (!match) throw new Error(`Invalid rule: ${rule}`);
+    if (!match) throw new Error(`无效规则：${rule}`);
 
     const [, toolPattern, pathPattern] = match;
 
@@ -787,10 +788,10 @@ class PermissionEvaluator {
 
 ```
 
-### Layer 2: Sandbox Architecture
+### 第2层：沙箱架构
 
 ```tsx
-// macOS sandbox implementation
+// macOS沙箱实现
 class MacOSSandboxManager {
   generateProfile(
     command: string,
@@ -800,15 +801,15 @@ class MacOSSandboxManager {
 (version 1)
 (deny default)
 
-; Base permissions
+; 基础权限
 (allow process-exec (literal "/bin/bash"))
 (allow process-exec (literal "/usr/bin/env"))
 
-; File system access
+; 文件系统访问
 ${restrictions.allowRead ? '(allow file-read*)' : '(deny file-read*)'}
 ${restrictions.allowWrite ? '(allow file-write*)' : '(deny file-write*)'}
 
-; Network access
+; 网络访问
 ${restrictions.allowNetwork ? `
 (allow network-outbound)
 (allow network-inbound)
@@ -816,11 +817,11 @@ ${restrictions.allowNetwork ? `
 (deny network*)
 `}
 
-; System operations
+; 系统操作
 (allow sysctl-read)
 (allow mach-lookup)
 
-; Temporary files
+; 临时文件
 (allow file-write* (subpath "/tmp"))
 (allow file-write* (subpath "/var/tmp"))
     `.trim();
@@ -832,18 +833,18 @@ ${restrictions.allowNetwork ? `
     command: string,
     profile: string
   ): Promise<ExecutionResult> {
-    // Write profile to temporary file
+    // 将配置文件写入临时文件
     const profilePath = await this.writeTemporaryProfile(profile);
 
     try {
-      // Execute with sandbox-exec
+      // 使用sandbox-exec执行
       const result = await exec(
         `sandbox-exec -p '${profilePath}' ${command}`
       );
 
       return result;
     } finally {
-      // Cleanup
+      // 清理
       await fs.unlink(profilePath);
     }
   }
@@ -851,7 +852,7 @@ ${restrictions.allowNetwork ? `
 
 ```
 
-### Layer 3: Path Validation
+### 第3层：路径验证
 
 ```tsx
 class PathValidator {
@@ -865,17 +866,17 @@ class PathValidator {
     ]);
 
     this.deniedPatterns = [
-      /\\/\\.(ssh|gnupg)\\//,     // SSH/GPG keys
-      /\\/(etc|sys|proc)\\//,    // System directories
-      /\\.pem$|\\.key$/,         // Private keys
-      /\\.(env|envrc)$/         // Environment files
+      /\\/\\.(ssh|gnupg)\\//,     // SSH/GPG密钥
+      /\\/(etc|sys|proc)\\//,    // 系统目录
+      /\\.pem$|\\.key$/,         // 私钥
+      /\\.(env|envrc)$/         // 环境文件
     ];
   }
 
   validate(requestedPath: string): ValidationResult {
     const absolute = path.resolve(requestedPath);
 
-    // Check boundaries
+    // 检查边界
     const inBoundary = Array.from(this.boundaries).some(
       boundary => absolute.startsWith(boundary)
     );
@@ -883,16 +884,16 @@ class PathValidator {
     if (!inBoundary) {
       return {
         allowed: false,
-        reason: 'Path outside allowed directories'
+        reason: '路径在允许目录之外'
       };
     }
 
-    // Check denied patterns
+    // 检查被拒绝的模式
     for (const pattern of this.deniedPatterns) {
       if (pattern.test(absolute)) {
         return {
           allowed: false,
-          reason: `Path matches denied pattern: ${pattern}`
+          reason: `路径匹配被拒绝的模式：${pattern}`
         };
       }
     }
@@ -903,14 +904,14 @@ class PathValidator {
 
 ```
 
-## Performance Architecture
+## 性能架构
 
-### ANR (Application Not Responding) Detection
+### ANR（应用程序无响应）检测
 
-The ANR system uses a worker thread to monitor the main event loop:
+ANR系统使用工作线程监控主事件循环：
 
 ```tsx
-// Worker thread script (embedded as base64)
+// 工作线程脚本（嵌入为base64）
 const anrWorkerScript = `
 const { parentPort } = require('worker_threads');
 
@@ -922,7 +923,7 @@ function checkANR() {
   const elapsed = Date.now() - lastPing;
 
   if (elapsed > config.anrThreshold) {
-    // Main thread is not responding
+    // 主线程没有响应
     parentPort.postMessage({
       type: 'anr',
       payload: {
@@ -934,12 +935,12 @@ function checkANR() {
     });
   }
 
-  // Schedule next check
+  // 安排下次检查
   anrTimer = setTimeout(checkANR, 100);
 }
 
 async function captureMainThreadStack() {
-  // Use inspector protocol if available
+  // 如果可用，使用检查器协议
   try {
     const { Session } = require('inspector');
     const session = new Session();
@@ -959,23 +960,23 @@ parentPort.on('message', (msg) => {
   if (msg.type === 'config') {
     config = msg.payload;
     lastPing = Date.now();
-    checkANR(); // Start monitoring
+    checkANR(); // 开始监控
   } else if (msg.type === 'ping') {
     lastPing = Date.now();
   }
 });
 `;
 
-// Main thread ANR integration
+// 主线程ANR集成
 class ANRMonitor {
   private worker: Worker;
   private pingInterval: NodeJS.Timer;
 
   constructor(options: ANROptions = {}) {
-    // Create worker from embedded script
+    // 从嵌入脚本创建工作线程
     this.worker = new Worker(anrWorkerScript, { eval: true });
 
-    // Configure worker
+    // 配置工作线程
     this.worker.postMessage({
       type: 'config',
       payload: {
@@ -984,12 +985,12 @@ class ANRMonitor {
       }
     });
 
-    // Start heartbeat
+    // 开始心跳
     this.pingInterval = setInterval(() => {
       this.worker.postMessage({ type: 'ping' });
     }, options.pollInterval || 50);
 
-    // Handle ANR detection
+    // 处理ANR检测
     this.worker.on('message', (msg) => {
       if (msg.type === 'anr') {
         this.handleANR(msg.payload);
@@ -998,9 +999,9 @@ class ANRMonitor {
   }
 
   private handleANR(data: ANRData) {
-    // Log to telemetry
+    // 记录到遥测
     Sentry.captureException(new Error(
-      `Application not responding for ${data.elapsed}ms`
+      `应用程序无响应${data.elapsed}毫秒`
     ), {
       extra: {
         stackTrace: data.stackTrace,
@@ -1012,19 +1013,19 @@ class ANRMonitor {
 
 ```
 
-### Strategic Caching Layers
+### 战略性缓存层
 
 ```tsx
 class CacheArchitecture {
-  // L1: In-memory caches
+  // L1：内存缓存
   private schemaCache = new LRUCache<string, JSONSchema>(100);
   private patternCache = new LRUCache<string, CompiledPattern>(500);
-  private gitContextCache = new TTLCache<string, GitContext>(30_000); // 30s TTL
+  private gitContextCache = new TTLCache<string, GitContext>(30_000); // 30秒TTL
 
-  // L2: Weak reference caches
+  // L2：弱引用缓存
   private fileContentCache = new WeakRefCache<FileContent>();
 
-  // L3: Disk caches
+  // L3：磁盘缓存
   private diskCache = new DiskCache('.claude/cache');
 
   async get<T>(
@@ -1032,18 +1033,18 @@ class CacheArchitecture {
     generator: () => Promise<T>,
     options: CacheOptions = {}
   ): Promise<T> {
-    // Check L1
+    // 检查L1
     if (this.schemaCache.has(key)) {
       return this.schemaCache.get(key) as T;
     }
 
-    // Check L2
+    // 检查L2
     const weakRef = this.fileContentCache.get(key);
     if (weakRef) {
       return weakRef as T;
     }
 
-    // Check L3
+    // 检查L3
     if (options.persistent) {
       const diskValue = await this.diskCache.get(key);
       if (diskValue) {
@@ -1051,10 +1052,10 @@ class CacheArchitecture {
       }
     }
 
-    // Generate and cache
+    // 生成并缓存
     const value = await generator();
 
-    // Store in appropriate cache
+    // 存储在适当的缓存中
     if (options.weak) {
       this.fileContentCache.set(key, value);
     } else if (options.persistent) {
@@ -1069,11 +1070,11 @@ class CacheArchitecture {
 
 ```
 
-## Telemetry & Observability Design
+## 遥测和可观测性设计
 
-The three-pillar approach provides comprehensive visibility:
+三支柱方法提供全面的可见性：
 
-### Pillar 1: Error Tracking (Sentry)
+### 支柱1：错误跟踪（Sentry）
 
 ```tsx
 class ErrorBoundary {
@@ -1112,8 +1113,8 @@ class ErrorBoundary {
   private static captureState() {
     return {
       sessionId: SessionState.instance.sessionId,
-      conversationDepth: /* current depth */,
-      activeTools: /* currently executing */,
+      conversationDepth: /* 当前深度 */,
+      activeTools: /* 当前执行中 */,
       memoryUsage: process.memoryUsage(),
       eventLoopDelay: this.getEventLoopDelay()
     };
@@ -1122,7 +1123,7 @@ class ErrorBoundary {
 
 ```
 
-### Pillar 2: Metrics (OpenTelemetry)
+### 支柱2：指标（OpenTelemetry）
 
 ```tsx
 class MetricsCollector {
@@ -1150,14 +1151,14 @@ class MetricsCollector {
     this.meters.tools.record(duration, {
       tool,
       success: String(success),
-      concurrent: /* was parallel? */
+      concurrent: /* 是否并行？ */
     });
   }
 }
 
 ```
 
-### Pillar 3: Feature Flags (Statsig)
+### 支柱3：功能标志（Statsig）
 
 ```tsx
 class FeatureManager {
@@ -1186,9 +1187,9 @@ class FeatureManager {
 
 ```
 
-## Resource Management
+## 资源管理
 
-### Process Lifecycle Management
+### 进程生命周期管理
 
 ```tsx
 class ProcessManager {
@@ -1204,21 +1205,21 @@ class ProcessManager {
     command: string,
     options: SpawnOptions
   ): Promise<ManagedProcess> {
-    // Check limits
+    // 检查限制
     if (this.processes.size >= this.limits.maxProcesses) {
       await this.killOldestProcess();
     }
 
     const child = spawn('bash', ['-c', command], {
       ...options,
-      // Resource limits
+      // 资源限制
       env: {
         ...options.env,
         NODE_OPTIONS: `--max-old-space-size=${this.limits.maxMemoryPerProcess / 1024 / 1024}`
       }
     });
 
-    // Monitor resources
+    // 监控资源
     const monitor = setInterval(() => {
       this.checkProcessHealth(id, child);
     }, 1000);
@@ -1233,11 +1234,11 @@ class ProcessManager {
       const usage = await pidusage(proc.pid);
 
       if (usage.memory > this.limits.maxMemoryPerProcess) {
-        console.warn(`Process ${id} exceeding memory limit`);
+        console.warn(`进程${id}超出内存限制`);
         proc.kill('SIGTERM');
       }
     } catch (e) {
-      // Process might have exited
+      // 进程可能已退出
       this.processes.delete(id);
     }
   }
@@ -1245,7 +1246,7 @@ class ProcessManager {
 
 ```
 
-### Network Connection Pooling
+### 网络连接池
 
 ```tsx
 class NetworkPool {
@@ -1282,4 +1283,151 @@ class NetworkPool {
 
 ---
 
-*This architecture analysis is based on reverse engineering and decompilation. The actual implementation may vary. The patterns presented represent inferred architectural decisions based on observable behavior and common practices in high-performance Node.js applications.*
+*本架构分析基于逆向工程和反编译。实际实现可能有所不同。所呈现的模式代表了基于可观察行为和高性能Node.js应用程序常见实践推断出的架构决策。*
+
+# 文件总结
+
+## 概述
+本文档深入分析了Claude Code的核心架构，揭示了其高性能响应背后的精密设计。通过反编译和逆向工程分析，文档详细展示了Claude Code如何通过分层架构、流式处理、智能状态管理等技术实现卓越的用户体验。
+
+## 核心架构特点
+
+### 1. tt控制循环：系统的心脏
+- **六阶段处理流程**：
+  1. 回合初始化和上下文准备（10-50ms token计数，2000-3000ms LLM压缩）
+  2. 动态系统提示组装（并行获取上下文源）
+  3. LLM流初始化（异步生成器设置）
+  4. 流事件处理状态机（实时事件驱动处理）
+  5. 工具执行编排（智能批量处理）
+  6. 递归控制（尾递归，深度限制10轮）
+- **性能特征**：首个token延迟300-800ms，token吞吐量50-100/秒，恒定内存使用
+
+### 2. 分层架构设计
+- **第1层：用户界面**：React组件 + Ink渲染器 + Yoga布局引擎
+- **第2层：代理核心**：tt控制循环 + 上下文组装 + 权限系统 + 会话状态
+- **第3层：LLM交互**：流处理器 + 重试逻辑 + Token计数器
+- **第4层：工具系统**：工具执行器 + 输入验证器 + 沙箱管理器
+- **第5层：基础设施**：文件系统 + 进程管理器 + 网络客户端 + 遥测
+
+### 3. 通信模式
+- **向下通信**：直接函数调用
+- **向上通信**：事件和回调
+- **跨层通信**：共享上下文对象
+
+## 事件驱动和流式架构
+
+### 流背压管理
+- **压力阈值**：高压力1000事件（丢弃非关键），临界压力5000事件（仅保留错误）
+- **批处理策略**：100个事件为一批，让出事件循环
+- **智能过滤**：文本增量可过滤，结构事件保留
+
+### 进度事件聚合
+- **多操作协调**：并发进度报告的统一管理
+- **竞态机制**：Promise.race获取下一个事件
+- **超时保护**：100ms超时防止挂起
+
+## 状态管理架构
+
+### 全局会话状态
+- **单例模式**：直接突变方法，异步磁盘持久化
+- **令牌跟踪**：详细的模型使用统计
+- **防抖写入**：1秒延迟避免过度I/O
+
+### 文件状态管理
+- **弱引用缓存**：WeakRef + FinalizationRegistry自动清理
+- **新鲜度检查**：基于修改时间的缓存失效
+- **内存安全**：防止悬挂引用和内存泄漏
+
+## 安全架构
+
+### 三层防护体系
+1. **权限系统**：
+   - 五级优先级评估（CLI参数 > 本地设置 > 项目设置 > 策略设置 > 用户设置）
+   - 规则编译缓存，JIT优化
+   - 智能建议生成
+
+2. **沙箱架构**：
+   - macOS专用sandbox-exec集成
+   - 动态配置文件生成
+   - 文件系统、网络、系统操作精细控制
+
+3. **路径验证**：
+   - 边界检查（项目根目录 + 额外工作目录）
+   - 敏感模式拒绝（SSH/GPG密钥、系统目录、私钥文件）
+   - 实时验证结果
+
+## 性能架构
+
+### ANR检测系统
+- **工作线程监控**：独立线程监控主事件循环
+- **5秒阈值检测**：超时自动触发堆栈捕获
+- **检查器协议集成**：使用inspector模块获取调用栈
+- **遥测报告**：Sentry集成自动上报
+
+### 三级缓存架构
+- **L1缓存**：内存缓存（LRU 100个schema，TTL 30秒git上下文）
+- **L2缓存**：弱引用缓存（文件内容自动垃圾回收）
+- **L3缓存**：磁盘缓存（'.claude/cache'持久化存储）
+
+## 遥测和可观测性
+
+### 三支柱方法
+1. **错误跟踪（Sentry）**：
+   - 事务边界包装
+   - 状态捕获（会话ID、对话深度、内存使用）
+   - 指纹生成和错误分类
+
+2. **指标收集（OpenTelemetry）**：
+   - API调用计数器
+   - Token使用直方图
+   - 工具执行持续时间
+   - 流延迟监控
+
+3. **功能标志（Statsig）**：
+   - 动态特性开关
+   - 配置管理
+   - A/B测试支持
+
+## 资源管理
+
+### 进程生命周期管理
+- **资源限制**：最大10个进程，每进程512MB，总计2GB
+- **健康监控**：1秒间隔检查进程内存使用
+- **自动清理**：超限进程自动终止
+- **NODE_OPTIONS控制**：动态设置内存限制
+
+### 网络连接池
+- **提供商隔离**：Anthropic 10连接，其他5连接
+- **连接复用**：30秒空闲时间，keep-alive支持
+- **获取释放**：自动连接管理
+
+## 技术创新点
+
+### 架构创新
+1. **异步生成器管道**：tt函数的流式处理架构
+2. **分层权限系统**：多维度安全控制机制
+3. **事件驱动设计**：响应式状态更新
+4. **智能缓存策略**：多层次缓存优化
+
+### 性能创新
+1. **ANR检测机制**：工作线程监控主线程
+2. **背压控制系统**：防止内存溢出的流控制
+3. **弱引用缓存**：自动内存管理
+4. **连接池优化**：网络资源高效利用
+
+### 工程实践
+1. **模块化设计**：清晰的职责分离
+2. **错误边界处理**：全面的异常捕获和报告
+3. **资源监控**：实时性能和资源使用追踪
+4. **可观测性**：三支柱监控体系
+
+## 结论
+
+Claude Code的架构体现了现代软件工程的最佳实践，通过精密的分层设计和创新的技术实现，构建了高性能、高可靠性的AI开发工具。其核心价值在于：
+
+- **卓越性能**：多层次的优化策略确保快速响应
+- **可靠安全**：三层防护体系保障系统安全
+- **可扩展性**：模块化架构支持功能扩展
+- **可观测性**：全面的监控体系确保运维效率
+
+这种架构设计为现代AI工具的开发提供了优秀的参考模板，特别是在需要处理复杂流式数据、保证系统响应性和维护高度安全性的场景中。文档的深入分析为理解高性能AI系统的架构设计提供了宝贵的技术参考。

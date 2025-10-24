@@ -2,5 +2,9 @@
 Thumbs.db
 *.log
 node_modules/
-.deploy*/
+.deploy/
+.deploy_git/
 themes/
+db.json
+public/
+download_images.py
