@@ -351,33 +351,34 @@ The tool execution system implements a sophisticated parallel/sequential executi
 
 ```mermaid
 graph TB
-    subgraph "Tool Request Analysis" // 工具请求分析
-        ToolRequests[Tool Use Blocks] // 工具使用块 --> Categorize{Categorize by Type} // 按类型分类
-        Categorize -->|Read-Only| ReadQueue[Read Queue] // 只读队列
-        Categorize -->|Write/Side-Effect| WriteQueue[Write Queue] // 写入队列
+    subgraph "Tool Request Analysis"
+        ToolRequests[Tool Use Blocks] --> Categorize{Categorize by Type}
+        Categorize -->|Read-Only| ReadQueue[Read Queue]
+        Categorize -->|Write/Side-Effect| WriteQueue[Write Queue]
     end
 
-    subgraph "Parallel Execution Pool" // 并行执行池
-        ReadQueue --> ParallelPool[Parallel Executor] // 并行执行器
-        ParallelPool --> Worker1[Worker 1] // 工作器1
-        ParallelPool --> Worker2[Worker 2] // 工作器2
-        ParallelPool --> WorkerN[Worker N] // 工作器N
+    subgraph "Parallel Execution Pool"
+        ReadQueue --> ParallelPool[Parallel Executor]
+        ParallelPool --> Worker1[Worker 1]
+        ParallelPool --> Worker2[Worker 2]
+        ParallelPool --> WorkerN[Worker N]
 
-        Worker1 --> Results1[Result 1] // 结果1
-        Worker2 --> Results2[Result 2] // 结果2
-        WorkerN --> ResultsN[Result N] // 结果N
+        Worker1 --> Results1[Result 1]
+        Worker2 --> Results2[Result 2]
+        WorkerN --> ResultsN[Result N]
     end
 
-    subgraph "Sequential Execution" // 顺序执行
-        WriteQueue --> SeqExecutor[Sequential Executor] // 顺序执行器
+    subgraph "Sequential Execution"
+        WriteQueue --> SeqExecutor[Sequential Executor]
         Results1 --> SeqExecutor
         Results2 --> SeqExecutor
         ResultsN --> SeqExecutor
 
-        SeqExecutor --> WriteTool1[Write Tool 1] // 写入工具1
-        WriteTool1 --> WriteTool2[Write Tool 2] // 写入工具2
-        WriteTool2 --> FinalResults[All Results] // 所有结果
+        SeqExecutor --> WriteTool1[Write Tool 1]
+        WriteTool1 --> WriteTool2[Write Tool 2]
+        WriteTool2 --> FinalResults[All Results]
     end
+
 
 ```
 ![](claude-code控制流与编排引擎/2.svg)
@@ -821,37 +822,37 @@ AgentTool实现了一个引人入胜的父子控制结构：
 
 ```mermaid
 graph TB
-    subgraph "Main Agent" // 主代理
-        MainTT[Main tt Loop] // 主tt循环
-        MainContext[Main Context] // 主上下文
-        MainTools[All Tools] // 所有工具
+    subgraph "Main Agent"
+        MainTT[Main tt Loop]
+        MainContext[Main Context]
+        MainTools[All Tools]
     end
 
-    subgraph "AgentTool Invocation" // AgentTool调用
-        AgentRequest[AgentTool Request] // AgentTool请求
-        TaskSplitter[Task Splitter] // 任务分割器
+    subgraph "AgentTool Invocation"
+        AgentRequest[AgentTool Request]
+        TaskSplitter[Task Splitter]
 
-        TaskSplitter --> SubTask1[Sub-task 1] // 子任务1
-        TaskSplitter --> SubTask2[Sub-task 2] // 子任务2
-        TaskSplitter --> SubTaskN[Sub-task N] // 子任务N
+        TaskSplitter --> SubTask1[Sub-task 1]
+        TaskSplitter --> SubTask2[Sub-task 2]
+        TaskSplitter --> SubTaskN[Sub-task N]
     end
 
-    subgraph "Sub-Agent 1" // 子代理1
-        SubLoop1[Sub tt Loop] // 子tt循环
-        SubContext1[Filtered Context] // 过滤上下文
-        SubTools1[Tools - AgentTool] // 工具 - AgentTool
+    subgraph "Sub-Agent 1"
+        SubLoop1[Sub tt Loop]
+        SubContext1[Filtered Context]
+        SubTools1[Tools - AgentTool]
     end
 
-    subgraph "Sub-Agent 2" // 子代理2
-        SubLoop2[Sub tt Loop] // 子tt循环
-        SubContext2[Filtered Context] // 过滤上下文
-        SubTools2[Tools - AgentTool] // 工具 - AgentTool
+    subgraph "Sub-Agent 2"
+        SubLoop2[Sub tt Loop]
+        SubContext2[Filtered Context]
+        SubTools2[Tools - AgentTool]
     end
 
-    subgraph "Synthesis" // 合成
-        Collector[Result Collector] // 结果收集器
-        Synthesizer[LLM Synthesizer] // LLM合成器
-        FinalResult[Synthesized Result] // 合成结果
+    subgraph "Synthesis"
+        Collector[Result Collector]
+        Synthesizer[LLM Synthesizer]
+        FinalResult[Synthesized Result]
     end
 
     MainTT --> AgentRequest
