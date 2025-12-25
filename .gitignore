@@ -6,3 +6,4 @@ node_modules/
 .deploy_git/
 themes/
 download_images.py
+public/
