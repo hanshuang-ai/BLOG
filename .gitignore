@@ -4,6 +4,4 @@ Thumbs.db
 node_modules/
 .deploy/
 .deploy_git/
-themes/
 download_images.py
-public/
