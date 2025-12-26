@@ -1,7 +1,8 @@
 ---
 title: python进行视频格式转换
+categories: 后端开发
 date: 2025-06-10 15:30:47
-tags: [python, video]
+tags: [python, 视频, 格式转换, ffmpeg]
 ---
 ```python
 import os

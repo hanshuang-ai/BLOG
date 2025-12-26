@@ -1,8 +1,8 @@
 ---
 title: audio标签所有事件
 date: 2023-08-01 11:29:25
-tags: ["实战", 音频]
-categories: [js]
+tags: [html, audio, 音频, 事件监听, 媒体标签]
+categories: 前端开发
 ---
 
 > onplay：当音频开始播放时触发此事件。

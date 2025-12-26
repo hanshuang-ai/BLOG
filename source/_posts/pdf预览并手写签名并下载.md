@@ -1,7 +1,8 @@
 ---
 title: pdf预览并手写签名并下载
+categories: 前端开发
 date: 2024-07-22 23:38:44
-tags: [实战]
+tags: [pdf, 签名, 预览, 下载, canvas]
 ---
 
 ```html

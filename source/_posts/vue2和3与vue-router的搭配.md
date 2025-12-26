@@ -1,8 +1,8 @@
 ---
 title: vue2和3与vue-router的搭配
 date: 2022-08-30 16:10:27
-tags: ['vue','vue-router']
-categories: ['vue']
+tags: [vue, vue-router, 路由, 版本升级]
+categories: 前端开发
 ---
 
 

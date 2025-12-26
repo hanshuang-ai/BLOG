@@ -1,8 +1,8 @@
 ---
 title: echart纵轴y数据值问题
 date: 2023-12-29 10:10:52
-tags: [可视化, echart]
-categories: [ 可视化 ]
+tags: [echart, 图表, y轴, 数据可视化]
+categories: 前端开发
 ---
 
 `y周数据值过小，折线走势不明显`

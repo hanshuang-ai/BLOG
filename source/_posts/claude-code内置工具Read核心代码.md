@@ -1,7 +1,8 @@
 ---
 title: claude-code内置工具Read核心代码
+categories: 大模型与AI
 date: 2025-10-29 13:37:30
-tags:
+tags: [claude-code, read工具, 源码, 组件]
 ---
 
 ### 核心算法实现

@@ -1,8 +1,8 @@
 ---
 title: 判断浏览器/webview进入前后台
 date: 2023-05-16 10:15:54
-tags: ["奇淫技巧"]
-categories: [js]
+tags: [浏览器, webview, 前后台, 页面可见性]
+categories: 前端开发
 ---
 
 当其选项卡的内容变得可见或被隐藏时，会在文档上触发 visibilitychange (能见度更改) 事件。

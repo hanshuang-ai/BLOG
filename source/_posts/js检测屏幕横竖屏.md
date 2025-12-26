@@ -1,8 +1,8 @@
 ---
 title: js检测屏幕横竖屏
 date: 2024-01-12 10:01:19
-tags: [js,横竖屏]
-categories: [js]
+tags: [javascript, 横竖屏, 屏幕方向, 移动端]
+categories: 前端开发
 ---
 ```javascript
  // 页面加载进来的时候检测屏幕方向

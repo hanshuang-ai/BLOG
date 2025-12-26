@@ -1,8 +1,8 @@
 ---
 title: Python实用工具脚本汇总
 date: 2025-12-26 12:30:00
-tags: ['python', '工具脚本', '自动化']
-categories: ['python']
+tags: [python, 工具脚本, 自动化, 实用工具]
+categories: 后端开发
 ---
 
 # Python实用工具脚本汇总

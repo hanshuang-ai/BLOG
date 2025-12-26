@@ -1,8 +1,8 @@
 ---
 title: localstorage存储在什么地方
 date: 2023-06-14 14:33:34
-tags: []
-categories: ["文件"]
+tags: [localstorage, 存储, 浏览器, 缓存]
+categories: 前端开发
 ---
 只读的localStorage 属性允许你访问一个Document 源（origin）的对象 Storage；存储的数据将保存在浏览器会话中。localStorage 类似 sessionStorage，但其区别在于：存储在 localStorage 的数据可以长期保留；而当页面会话结束——也就是说，当页面被关闭时，存储在 sessionStorage 的数据会被清除。
 

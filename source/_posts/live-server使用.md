@@ -1,7 +1,8 @@
 ---
 uuid: 561cf221-3cfc-fe4b-716b-8ed42fc23dbf
 title: live-server使用
-categories: ["库"]
+categories: 前端开发
+tags: [live-server, 开发工具, 本地服务器]
 ---
 
 ``本文适用于使用cnpm下载的live-server，使用npm或者其他方式下载的安装包未做测试``

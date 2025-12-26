@@ -1,8 +1,8 @@
 ---
 title: 记录一次taro项目安装问题
 date: 2023-10-08 14:09:13
-tags: [实战]
-categories: [库]
+tags: [taro, 小程序, 问题解决, 安装]
+categories: 移动端开发
 ---
 
 ```json

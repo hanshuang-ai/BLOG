@@ -1,8 +1,8 @@
 ---
 title: react父组件获取子组件的值
 date: 2024-03-27 14:47:15
-tags: [ react,父子组件 ]
-categories: [ react ]
+tags: [react, 组件, 父子组件, ref, 状态管理]
+categories: 前端开发
 ---
 
 ## 1. 

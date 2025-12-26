@@ -1,8 +1,8 @@
 ---
 title: vue过滤器
 date: 2022-10-11 22:19:03
-tags: ["vue",'过滤器']
-categories: ['vue']
+tags: [vue, 过滤器, 数据处理]
+categories: 前端开发
 ---
 
 ### 1、全局过滤器

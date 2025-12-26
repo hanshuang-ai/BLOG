@@ -1,8 +1,8 @@
 ---
 title: pc端高分屏自适应
 date: 2022-03-07 10:45:27
-tags: ["自适应", "vue"]
-categories: ["库"]
+tags: [高分屏, 自适应, css, 缩放, 响应式]
+categories: 前端开发
 ---
 
 `vue项目内`

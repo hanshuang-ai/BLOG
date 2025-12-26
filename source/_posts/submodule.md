@@ -1,8 +1,8 @@
 ---
 title: submodule
 date: 2023-08-02 00:15:23
-tags: ['实战']
-categories: [git]
+tags: [git, submodule, 子模块, 版本管理]
+categories: 工具与效率
 ---
 Git 子模块（submodule）是 Git 中用于管理项目依赖的一种机制。它允许将一个 Git 仓库作为另一个仓库的子目录，使得一个仓库可以引用另一个仓库的特定版本，而不是将其完整地复制到主仓库中。
 

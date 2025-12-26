@@ -1,8 +1,8 @@
 ---
 title: video标签所有事件
 date: 2023-07-28 09:59:09
-tags: ["实战"]
-categories: [js]
+tags: [html, video, 视频, 事件监听, 媒体标签]
+categories: 前端开发
 ---
 
 > onabort: 当视频加载被中止时触发。

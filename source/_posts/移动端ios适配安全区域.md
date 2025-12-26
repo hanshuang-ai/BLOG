@@ -1,8 +1,8 @@
 ---
 title: 移动端ios适配安全区域
 date: 2024-01-11 20:00:16
-tags: [移动端,ios,安全区域,适配]
-categories: [css]
+tags: [移动端, ios, 安全区域, 适配, css]
+categories: 移动端开发
 ---
 
 安全区域横屏适配

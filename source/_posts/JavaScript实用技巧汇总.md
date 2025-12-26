@@ -1,8 +1,8 @@
 ---
 title: JavaScript实用技巧汇总
 date: 2025-12-26 11:00:00
-tags: ['javascript', 'js', '实用技巧']
-categories: ['js']
+tags: [javascript, js, 实用技巧, 防抖, 节流]
+categories: 前端开发
 ---
 
 # JavaScript实用技巧汇总

@@ -1,8 +1,8 @@
 ---
 title: imagemogr2
 date: 2023-06-20 10:40:49
-tags: ['实战']
-categories: ["图片"]
+tags: [图片处理, imagemogr2, 七牛云, 图片压缩]
+categories: 前端开发
 ---
 
 ### 参考链接

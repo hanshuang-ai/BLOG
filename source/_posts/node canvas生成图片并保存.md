@@ -1,7 +1,8 @@
 ---
 title: node canvas生成图片并保存
 tag: ['可视化','node']
-categories: ['可视化']
+categories: 后端开发
+tags: [nodejs, canvas, 图片生成, 绘图]
 ---
 
 `canvas可以将画布转为base64，而base64就是该图片的信息，但是node保存文件的时候需要buffer格式的信息，所以只需要将canvas转成的base64处理成buffer，就可以保存`

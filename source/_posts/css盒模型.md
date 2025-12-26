@@ -1,8 +1,8 @@
 ---
 title: css盒模型
 date: 2022-04-24 18:53:43
-tags: ['css']
-categories: [ css ]
+tags: [css, 盒模型, 布局]
+categories: 前端开发
 ---
 
 ![盒模型](css盒模型/1.png)

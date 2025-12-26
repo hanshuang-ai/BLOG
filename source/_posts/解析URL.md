@@ -1,8 +1,8 @@
 ---
 title: 解析URL
 date: 2022-09-08 10:23:15
-tags: ['实战']
-categories: ['封装函数']
+tags: [url, 解析, 参数, querystring]
+categories: 前端开发
 ---
 
 在日常研发过程中，我们通常会根据URL地址以及参数进行业务判断，所以做了一下封装，方便使用

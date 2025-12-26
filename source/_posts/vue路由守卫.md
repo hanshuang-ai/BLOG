@@ -1,7 +1,8 @@
 ---
 title: vue路由守卫
+categories: 前端开发
 date: 2022-03-04 10:43:36
-tags: ["vue"]
+tags: [vue, vue-router, 路由守卫, 导航守卫, 权限控制]
 ---
 
 [vue 路由守卫](vue路由守卫/https://router.vuejs.org/zh/guide/advanced/navigation-guards.html)

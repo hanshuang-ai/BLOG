@@ -1,8 +1,8 @@
 ---
 title: 判断设备是否支持touchstart
 date: 2023-07-26 15:24:52
-tags: ["实战"]
-categories: [js]
+tags: [javascript, touchstart, 移动端, 触摸事件]
+categories: 前端开发
 ---
 
 在项目中，遇到一段代码，同一个元素同时绑定了 touchstart 和 click 两种事件，且同时指向了同一个函数，示例代码如下

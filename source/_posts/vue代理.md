@@ -1,8 +1,8 @@
 ---
 title: vue代理
 date: 2023-02-16 17:08:01
-tags: ["vue", "代理"]
-categories: ["vue"]
+tags: [vue, 代理, 跨域, 开发环境]
+categories: 前端开发
 ---
 
 ![vue代理](vue代理/1.png)

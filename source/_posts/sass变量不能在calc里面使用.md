@@ -1,8 +1,8 @@
 ---
 title: sass变量不能在calc里面使用
 date: 2023-08-03 14:38:18
-tags: ['实战','scss','css']
-categories: [css]
+tags: [sass, scss, css, calc, 变量]
+categories: 前端开发
 ---
 ```css
 $fontSize: 1.4rem;

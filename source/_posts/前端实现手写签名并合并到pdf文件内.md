@@ -1,7 +1,8 @@
 ---
 title: 前端实现手写签名并合并到pdf文件内
+categories: 前端开发
 date: 2024-08-08 14:16:54
-tags: [ canvas,pdf ]
+tags: [签名, pdf, canvas, 手写, 文件合并]
 ---
 ```html
 <!DOCTYPE html>

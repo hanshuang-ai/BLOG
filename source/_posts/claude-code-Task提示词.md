@@ -1,7 +1,8 @@
 ---
 title: claude-code-Task提示词
+categories: 大模型与AI
 date: 2025-10-29 15:12:51
-tags:
+tags: [claude-code, task, 提示词, 工具]
 ---
 # Task
 

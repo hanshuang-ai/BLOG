@@ -1,8 +1,8 @@
 ---
 title: vuex的持久化
 date: 2022-03-04 16:11:33
-tags: ["vue"]
-categories: [vue]
+tags: [vue, vuex, 状态管理, 持久化, 本地存储]
+categories: 前端开发
 summary: vuex的持久化解决的就是页面刷新时vuex数据还原的问题
 ---
 

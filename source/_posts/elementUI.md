@@ -1,8 +1,8 @@
 ---
 title: elementUI
 date: 2022-09-26 17:51:46
-tags: [ "elementUI" ]
-categories: [ 库 ]
+tags: [element, ui组件, vue, 组件库]
+categories: 前端开发
 ---
 
 ### 1、表格表头居中

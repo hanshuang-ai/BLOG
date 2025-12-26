@@ -1,8 +1,8 @@
 ---
 title: JavaScript核心概念与实战技巧
 date: 2025-11-20 18:00:00
-tags: ['javascript', '事件循环', '正则', '打印', '横竖屏检测']
-categories: ['javascript']
+tags: [javascript, 事件循环, 正则, dom, 事件处理, 打印]
+categories: 前端开发
 ---
 
 # JavaScript核心概念与实战技巧

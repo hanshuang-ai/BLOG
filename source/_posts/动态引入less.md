@@ -1,8 +1,8 @@
 ---
 title: 动态引入less
 date: 2023-07-25 16:39:22
-tags: ['实战']
-categories: [css]
+tags: [less, css预处理器, 动态加载, 样式]
+categories: 前端开发
 ---
 
 动态引入css（less/sass）文件，在保证功能不变的前提下，适配不同的UI。

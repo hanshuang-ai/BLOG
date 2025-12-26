@@ -1,8 +1,8 @@
 ---
 title: Flex布局完全指南
 date: 2025-12-26 10:30:00
-tags: ['css', 'flex', '布局']
-categories: ['css']
+tags: [css, flex, 布局, 弹性盒子, 响应式]
+categories: 前端开发
 ---
 
 # Flex布局完全指南
@@ -107,7 +107,7 @@ Flexbox（弹性盒子布局）是CSS中一种强大的布局方式，能够轻�
 
 在实际项目中，我们经常需要实现一个自适应的卡片布局，让卡片根据容器宽度自动调整大小。
 
-![Flex自适应布局演示](/2023/10/08/flex-zi-gua-ying-bu-ju/动态flex.mp4)
+![Flex自适应布局演示](flex自适应布局/动态flex.mp4)
 
 #### 实现思路
 

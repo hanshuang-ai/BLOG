@@ -1,8 +1,8 @@
 ---
 title: taro小程序内使用rem
 date: 2022-10-24 19:42:47
-tags: ["taro", "小程序"]
-categories: ["小程序"]
+tags: [taro, 小程序, rem, 响应式, 样式适配]
+categories: 移动端开发
 ---
 
 [taro 官网说明](taro小程序内使用rem/https://taro-docs.jd.com/docs/next/use-h5#%E4%B8%8D%E6%94%AF%E6%8C%81%E4%BD%BF%E7%94%A8-rem)

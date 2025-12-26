@@ -1,8 +1,8 @@
 ---
 title: js中this指向性问题
 date: 2022-02-16 13:47:04
-tags: ['js','专题']
-categories: ["js"]
+tags: [javascript, this, 指向性, 作用域, 闭包]
+categories: 前端开发
 ---
 
 **`this的指向是由上下文环境动态决定的`**
@@ -14,7 +14,7 @@ categories: ["js"]
 > 构造函数调用
 > 箭头函数
 
-![this指向性问题](js中this指向性问题 /1.png)
+![this指向性问题](js中this指向性问题/1.png)
 
 [示例代码链接](js中this指向性问题 /https://github.com/hanshuang-ai/code/blob/master/this%E6%8C%87%E5%90%91%E6%80%A7%E9%97%AE%E9%A2%98.html)
 ### 1、全局环境 指向window

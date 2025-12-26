@@ -1,8 +1,8 @@
 ---
 title: js基础操作
 date: 2022-10-14 18:23:41
-tags: ["开发", "代码片段"]
-categories: ["封装函数"]
+tags: [javascript, 基础操作, 工具函数, 代码片段]
+categories: 前端开发
 ---
 
 ### 1、将中国标准时间转为 yyyymmdd

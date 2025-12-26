@@ -1,8 +1,8 @@
 ---
 title: 获取浏览器js代码运行时间
 date: 2023-09-26 11:49:46
-tags: ["实战"]
-categories: [js]
+tags: [javascript, 性能, 运行时间, performance]
+categories: 前端开发
 ---
 
 ### 1. console.time

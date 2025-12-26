@@ -1,8 +1,8 @@
 ---
 title: css自定义滚动条
 date: 2023-08-15 17:35:01
-tags: [css, "浏览器"]
-categories: [ css ]
+tags: [css, 滚动条, 样式, 浏览器兼容]
+categories: 前端开发
 ---
 
 [参考链接](https://developer.mozilla.org/zh-CN/docs/Web/CSS/::-webkit-scrollbar)

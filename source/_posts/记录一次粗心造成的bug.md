@@ -1,8 +1,8 @@
 ---
 title: 记录一次粗心造成的bug
 date: 2023-08-09 16:24:09
-tags: [bug]
-categories: [vue]
+tags: [bug, 问题解决, 经验教训]
+categories: 其他
 ---
 
 ### v-if 与 v-show

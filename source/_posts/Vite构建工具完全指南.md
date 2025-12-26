@@ -1,8 +1,8 @@
 ---
 title: Vite构建工具完全指南
 date: 2025-12-26 12:00:00
-tags: ['vite', '构建工具', '配置']
-categories: ['vite']
+tags: [vite, 构建工具, 配置, 性能优化, 开发]
+categories: 前端开发
 ---
 
 # Vite构建工具完全指南

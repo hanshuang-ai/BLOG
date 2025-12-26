@@ -1,8 +1,8 @@
 ---
 title: vue一键换肤
 date: 2023-02-01 17:26:23
-tags: ["vue"]
-categories: [vue]
+tags: [vue, 主题, 换肤, css变量, 样式切换]
+categories: 前端开发
 ---
 
 ![vue一键换肤](vue一键换肤/1.png)

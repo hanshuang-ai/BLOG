@@ -1,7 +1,8 @@
 ---
 title: 把table转化为div
+categories: 前端开发
 date: 2025-05-28 15:05:28
-tags: [实战]
+tags: [html, table, div, 布局, 重构]
 ---
 ```javascript
   nextTick(() => {

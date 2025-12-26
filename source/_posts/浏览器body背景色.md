@@ -1,8 +1,8 @@
 ---
 title: 浏览器body背景色
 date: 2023-05-25 14:43:16
-tags: ["浏览器"]
-categories: [html]
+tags: [css, 浏览器, 背景色, body, 样式]
+categories: 前端开发
 ---
 
 我们给 body 设置背景色，实际我们看见的未必是 body 上的背景色：

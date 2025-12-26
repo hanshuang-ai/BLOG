@@ -1,8 +1,8 @@
 ---
 title: git基本命令
 date: 2022-09-26 15:59:56
-tags: ["git", "基本命令"]
-categories: ["git"]
+tags: [git, 版本控制, 基本命令, 协作]
+categories: 工具与效率
 ---
 
 ### 1、查看项目远程仓库地址

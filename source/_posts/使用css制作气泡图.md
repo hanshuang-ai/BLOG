@@ -1,8 +1,8 @@
 ---
 title: 使用css制作气泡图
 date: 2022-01-28 16:11:35
-tags: ["特效", "点九图"]
-categories: [css]
+tags: [css, 气泡图, ui特效, 点九图]
+categories: 前端开发
 ---
 
 https://developer.mozilla.org/zh-CN/docs/Web/CSS/border-image-slice

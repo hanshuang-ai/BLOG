@@ -1,8 +1,9 @@
 ---
 title: claude-code解析
+categories: 大模型与AI
 date: 2025-10-22 11:21:42
 top: true
-tags:
+tags: [claude-code, 解析, 工具]
 img: /medias/featureimages/0.jpg
 ---
 [参考链接](https://zhuanlan.zhihu.com/c_1378680688061952000)

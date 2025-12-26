@@ -1,7 +1,8 @@
 ---
 title: claude-code控制流与编排引擎
+categories: 大模型与AI
 date: 2025-10-23 14:04:29
-tags:
+tags: [claude-code, 控制流, 编排引擎, 架构]
 ---
 [参考链接](https://southbridge-research.notion.site/Control-Flow-The-Orchestration-Engine-2055fec70db181d0b215e1b8584d03fa)
 # Control Flow & The Orchestration Engine

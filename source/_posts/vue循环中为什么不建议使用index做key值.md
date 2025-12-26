@@ -1,7 +1,8 @@
 ---
 title: vue循环中为什么不建议使用index做key值
+categories: 前端开发
 date: 2022-03-01 15:32:30
-tags: ["vue"]
+tags: [vue, key, v-for, 列表渲染, 性能优化]
 ---
 
 [vue2 中对循环的解释](vue循环中为什么不建议使用index做key值/https://cn.vuejs.org/v2/guide/list.html)

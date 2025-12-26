@@ -1,8 +1,8 @@
 ---
 title: 服务器安装docker
 date: 2024-03-20 10:40:12
-tags: ['docker', '服务器']
-categories: [系统]
+tags: [docker, 服务器, linux, 容器化]
+categories: 部署与运维
 ---
 ![服务器安装docker](服务器安装docker/1.png)
 

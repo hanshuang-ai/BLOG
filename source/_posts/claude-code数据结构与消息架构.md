@@ -1,7 +1,8 @@
 ---
 title: claude-code数据结构与消息架构
+categories: 大模型与AI
 date: 2025-10-23 13:56:48
-tags:
+tags: [claude-code, 数据结构, 消息, 架构]
 ---
 [参考链接](https://southbridge-research.notion.site/Data-Structures-The-Information-Architecture-2055fec70db1814ba2a7c5fa2879ac21)
 # Data Structures & The Information Architecture

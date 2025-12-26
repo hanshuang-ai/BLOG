@@ -1,7 +1,8 @@
 ---
 title: claude-code系统提示词
+categories: 大模型与AI
 date: 2025-10-29 15:15:13
-tags:
+tags: [claude-code, 系统提示词, ai, 提示词]
 ---
 ```javascript
 function ws0() {

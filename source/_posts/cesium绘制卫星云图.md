@@ -1,7 +1,7 @@
 ---
 title: cesium绘制卫星云图
-tags: [ 'cesium' ]
-categories: [ 可视化 ]
+tags: [cesium, 地图, 可视化, 3d, 卫星云图]
+categories: 前端开发
 ---
 
 ### 加载卫星云图（同样使用polygon来加载）

@@ -1,7 +1,7 @@
 ---
 title: macOS安装homebrew
-tags: ['macOs']
-categories: ["系统"]
+tags: [macos, homebrew, 包管理, 安装]
+categories: 工具与效率
 ---
 
 Homebrew是一款Mac OS平台下的软件包管理工具，拥有安装、卸载、更新、查看、搜索等很多实用的功能。简单的一条指令，就可以实现包管理，而不用你关心各种依赖和文件路径的情况，十分方便快捷。

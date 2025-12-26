@@ -1,7 +1,8 @@
 ---
 title: canvas绘图
 tag: [ 'canvas' ]
-categories: [ 可视化 ]
+categories: 前端开发
+tags: [canvas, 绘图, 图形, 动画, 可视化]
 ---
 
 ### 1、canvas点连线生成图片

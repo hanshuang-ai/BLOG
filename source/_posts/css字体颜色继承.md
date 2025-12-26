@@ -1,8 +1,8 @@
 ---
 title: css字体颜色继承
 date: 2024-02-27 13:46:47
-tags: [css]
-categories: [ css ]
+tags: [css, 样式继承, 颜色]
+categories: 前端开发
 ---
 
 `默认情况下，css color是不继承的`

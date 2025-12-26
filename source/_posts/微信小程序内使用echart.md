@@ -1,8 +1,8 @@
 ---
 title: 微信小程序内使用echart
 date: 2022-12-05 21:47:14
-tags: ['小程序','可视化']
-categories: ["小程序"]
+tags: [小程序, echart, 可视化, 图表]
+categories: 移动端开发
 ---
 
 ![微信小程序内使用echart](微信小程序内使用echart/1.png)

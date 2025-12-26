@@ -1,8 +1,8 @@
 ---
 title: HTML基础
 date: 2022-02-12 23:55:21
-tags: ["HTML基础"]
-categories: ["html"]
+tags: [html, 基础, 标签, 语义化]
+categories: 前端开发
 ---
 
 ## 1、浏览器基础

@@ -1,8 +1,8 @@
 ---
 title: base64转文件
 date: 2022-09-28 14:21:52
-tags: ["base64"]
-categories: ["封装函数"]
+tags: [base64, 文件转换, blob, 文件下载]
+categories: 前端开发
 ---
 
 ### base64 转文件

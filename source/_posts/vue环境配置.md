@@ -1,8 +1,8 @@
 ---
 title: vue环境配置
 date: 2022-10-11 22:32:01
-tags: ["vue"]
-categories: ['vue']
+tags: [vue, 环境配置, 开发环境, 环境变量]
+categories: 前端开发
 ---
 
 > 根据项目需求创建.env.XXX 环境文件

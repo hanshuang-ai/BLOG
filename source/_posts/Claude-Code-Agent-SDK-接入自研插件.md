@@ -2,12 +2,12 @@
 title: Claude Code Agent SDK 接入自研插件
 date: 2024-12-16 10:20:00
 author: 寒霜
-tags:
+tags: [claude-code, sdk, 插件开发, ai工具]
   - Claude
   - SDK
   - 插件开发
   - AI
-categories:
+categories: 大模型与AI
   - 技术教程
 ---
 

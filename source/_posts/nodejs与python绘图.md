@@ -1,7 +1,8 @@
 ---
 title: nodejs与python绘图
+categories: 后端开发
 date: 2025-08-01 17:52:22
-tags:
+tags: [nodejs, python, 绘图, canvas, 图表]
 ---
 ```python
 from PIL import Image, ImageDraw, ImageFont

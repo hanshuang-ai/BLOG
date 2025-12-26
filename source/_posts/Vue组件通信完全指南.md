@@ -1,8 +1,8 @@
 ---
 title: Vue组件通信完全指南
 date: 2025-12-26 10:00:00
-tags: ['vue', '组件', '通信']
-categories: ['vue']
+tags: [vue, 组件, 通信, props, emit, vuex]
+categories: 前端开发
 ---
 
 # Vue组件通信完全指南

@@ -1,8 +1,8 @@
 ---
 title: 输入url到页面显示经历的事
 date: 2022-04-23 22:51:09
-tags: ['浏览器']
-categories: [html]
+tags: [浏览器, 网络, http, dns, 渲染流程]
+categories: 网络与协议
 ---
 
 > 1. 开启线程处理请求，分析url，根据协议处理
