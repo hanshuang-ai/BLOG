@@ -2,8 +2,9 @@
 layout:
 title: sse（server-sentEvents）
 categories: 网络与协议
-date: 2024-06-24 18:07:39
+date: 2023-09-23 00:00:00
 tags: [sse, server-sent, 实时通信, http]
+updated: 2018-07-29 18:07:39
 ---
 
 ### ChatGPT 选择采用 SSE 协议而非 Websocket 的理由是什么？

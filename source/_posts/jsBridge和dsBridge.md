@@ -1,8 +1,9 @@
 ---
 title: jsBridge和dsBridge
-date: 2023-08-01 15:40:03
+date: 2022-02-26 00:00:00
 tags: [jsbridge, dsbridge, 混合开发, 原生交互]
 categories: 移动端开发
+updated: 2020-01-19 15:40:03
 ---
 JS Bridge（JavaScript Bridge）是指在移动应用开发中，通过在原生代码（如Android或iOS）和JavaScript代码之间建立桥梁，实现它们之间的相互通信。这样，原生代码和JavaScript代码就能够互相调用对方的方法和获取对方的数据，从而实现混合开发。
 

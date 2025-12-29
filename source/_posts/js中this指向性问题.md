@@ -1,8 +1,9 @@
 ---
 title: js中this指向性问题
-date: 2022-02-16 13:47:04
+date: 2022-01-02 00:00:00
 tags: [javascript, this, 指向性, 作用域, 闭包]
 categories: 前端开发
+updated: 2020-12-08 13:47:04
 ---
 
 **`this的指向是由上下文环境动态决定的`**

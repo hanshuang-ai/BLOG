@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "bc525727f387607c",
+        "id": "78a506f92977a811",
         "type": "tabs",
         "children": [
           {
-            "id": "da7c904eaecf1417",
+            "id": "bbb4d5ec90615ac4",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "vue代理.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "vue代理"
+              "title": "新标签页"
             }
           }
         ]
@@ -113,12 +109,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "vue代理.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "vue代理 的出链列表"
+              "title": "出链"
             }
           },
           {
@@ -170,8 +165,10 @@
       "obsidian-importer:Open Importer": false
     }
   },
-  "active": "da7c904eaecf1417",
+  "active": "bbb4d5ec90615ac4",
   "lastOpenFiles": [
+    "Claude-Code-Router完全分析.md",
+    "vue代理.md",
     "js正则/正则.png",
     "flex自适应布局/动态flex.mp4",
     "Flex布局完全指南.md",
@@ -210,7 +207,6 @@
     "vue循环中为什么不建议使用index做key值.md",
     "车机系统前端应用播放音视频焦点问题/1.png",
     "记录一次taro项目安装问题/1.png",
-    "编辑器正则表达式搜索.md",
-    "鸿蒙专题.md"
+    "编辑器正则表达式搜索.md"
   ]
 }

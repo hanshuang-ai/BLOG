@@ -1,8 +1,9 @@
 ---
 title: js基础操作
-date: 2022-10-14 18:23:41
+date: 2022-04-26 00:00:00
 tags: [javascript, 基础操作, 工具函数, 代码片段]
 categories: 前端开发
+updated: 2021-01-11 18:23:41
 ---
 
 ### 1、将中国标准时间转为 yyyymmdd

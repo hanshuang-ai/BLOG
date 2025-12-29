@@ -1,8 +1,9 @@
 ---
 title: 判断浏览器/webview进入前后台
-date: 2023-05-16 10:15:54
+date: 2022-12-17 00:00:00
 tags: [浏览器, webview, 前后台, 页面可见性]
 categories: 前端开发
+updated: 2019-12-08 10:15:54
 ---
 
 当其选项卡的内容变得可见或被隐藏时，会在文档上触发 visibilitychange (能见度更改) 事件。

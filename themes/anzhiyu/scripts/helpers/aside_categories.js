@@ -19,8 +19,8 @@ hexo.extend.helper.register('aside_categories', function (categories, options) {
     ? options.show_count
     : true
   const depth = options.depth ? parseInt(options.depth, 10) : 0
-  const orderby = options.orderby || 'name'
-  const order = options.order || 1
+  const orderby = options.orderby || 'length'
+  const order = options.order || -1
   const categoryDir = this.url_for(config.category_dir)
   const limit = options.limit === 0 ? categories.length : options.limit
   const isExpand = options.expand !== 'none'

@@ -1,8 +1,9 @@
 ---
 title: js中的事件循环
-date: 2022-03-02 15:54:45
+date: 2023-08-29 00:00:00
 tags: [javascript, 事件循环, 宏任务, 微任务, 异步]
 categories: 前端开发
+updated: 2019-09-27 15:54:45
 ---
 
 js 中的事件循环 event loop

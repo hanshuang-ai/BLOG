@@ -1,7 +1,7 @@
 ---
 title: claude-code TodoRead提示词
 categories: 大模型与AI
-date: 2025-10-29 15:15:13
+date: 2025-11-18 00:00:00
 tags: [claude-code, todoread, 提示词, 工具]
 ---
 # TodoRead

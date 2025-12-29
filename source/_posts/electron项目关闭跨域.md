@@ -1,8 +1,9 @@
 ---
 title: electron项目关闭跨域
-date: 2023-02-16 17:30:37
+date: 2022-12-17 00:00:00
 tags: [electron, 跨域, 安全策略]
 categories: 桌面应用开发
+updated: 2019-08-08 17:30:37
 ---
 
 `在创建 electron 项目的时候，在 package.json 文件内指定入口文件是 background.js（任何名称都可以，确保引用正确就可以）`

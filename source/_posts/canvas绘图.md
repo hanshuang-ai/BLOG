@@ -1,5 +1,6 @@
 ---
 title: canvas绘图
+date: 2023-01-11 00:00:00
 tag: [ 'canvas' ]
 categories: 前端开发
 tags: [canvas, 绘图, 图形, 动画, 可视化]

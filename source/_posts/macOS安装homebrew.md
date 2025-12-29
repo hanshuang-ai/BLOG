@@ -1,5 +1,6 @@
 ---
 title: macOS安装homebrew
+date: 2023-05-15 00:00:00
 tags: [macos, homebrew, 包管理, 安装]
 categories: 工具与效率
 ---

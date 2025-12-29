@@ -1,8 +1,9 @@
 ---
 title: docker部署nodejs服务需要注意的问题
 categories: 部署与运维
-date: 2025-07-04 16:53:33
+date: 2022-09-24 00:00:00
 tags: [docker, nodejs, 部署, 容器化]
+updated: 2018-11-24 16:53:33
 ---
 
 # 无头浏览器完成任务后关闭浏览器

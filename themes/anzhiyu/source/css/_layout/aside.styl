@@ -211,7 +211,7 @@
         padding-left: 10px
         word-break: break-all
         width: 4.2em;
-        
+
 
         & > .name
           @extend .limit-more-line
@@ -266,6 +266,11 @@
     .card-category-list
       &.child
         padding: 0 0 0 16px
+        display: none
+      // 默认折叠：子级列表初始隐藏，点击父级后再展开
+      > .parent
+        > a + .child
+          display: none
 
       > .parent
         > a

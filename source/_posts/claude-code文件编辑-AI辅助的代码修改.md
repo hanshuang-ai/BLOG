@@ -1,7 +1,7 @@
 ---
 title: claude-code文件编辑-AI辅助的代码修改
 categories: 大模型与AI
-date: 2025-10-23 14:30:36
+date: 2025-12-03 00:00:00
 tags: [claude-code, 文件编辑, ai, 代码生成]
 ---
 [参考链接](https://southbridge-research.notion.site/File-Editing-AI-Assisted-Code-Modification-2055fec70db18100803ff7287c24c6cc)

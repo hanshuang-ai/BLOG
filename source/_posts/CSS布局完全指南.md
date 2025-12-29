@@ -1,8 +1,9 @@
 ---
 title: CSS布局完全指南
-date: 2025-11-20 17:30:00
+date: 2022-09-01 00:00:00
 tags: [css, 布局, 盒模型, flex, position, 网格]
 categories: 前端开发
+updated: 2021-04-03 17:30:00
 ---
 
 # CSS布局完全指南

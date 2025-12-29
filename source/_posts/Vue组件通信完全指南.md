@@ -1,8 +1,9 @@
 ---
 title: Vue组件通信完全指南
-date: 2025-12-26 10:00:00
+date: 2022-03-21 00:00:00
 tags: [vue, 组件, 通信, props, emit, vuex]
 categories: 前端开发
+updated: 2019-02-24 10:00:00
 ---
 
 # Vue组件通信完全指南

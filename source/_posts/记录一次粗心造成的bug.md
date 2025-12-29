@@ -1,8 +1,9 @@
 ---
 title: 记录一次粗心造成的bug
-date: 2023-08-09 16:24:09
+date: 2022-04-23 00:00:00
 tags: [bug, 问题解决, 经验教训]
 categories: 其他
+updated: 2019-04-11 16:24:09
 ---
 
 ### v-if 与 v-show

@@ -1,8 +1,9 @@
 ---
 title: js中load事件
-date: 2023-08-02 15:35:56
+date: 2023-07-06 00:00:00
 tags: [javascript, load事件, dom加载, jquery]
 categories: 前端开发
+updated: 2018-11-11 15:35:56
 ---
 
 ### 1、 DOMContentLoaded

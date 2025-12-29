@@ -4,7 +4,7 @@ if home_top_config.enable
   #home_top
     .swiper_container_card(style='height: auto;width: 100%')
       #bannerGroup
-        #random-banner
+        #random-banner.always-hover
           if theme.peoplecanvas.enable
             canvas#peoplecanvas
           else 
@@ -132,4 +132,3 @@ if home_top_config.enable
       setTimeout(()=>{
         initBlogSlider()
       }, 100)
-

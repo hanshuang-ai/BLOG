@@ -1,8 +1,9 @@
 ---
 title: React核心基础与实践指南
-date: 2025-11-20 18:30:00
+date: 2023-09-10 00:00:00
 tags: [react, hooks, 组件, 状态管理, jsx]
 categories: 前端开发
+updated: 2019-12-06 18:30:00
 ---
 
 # React核心基础与实践指南

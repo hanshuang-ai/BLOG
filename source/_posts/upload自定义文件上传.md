@@ -1,9 +1,10 @@
 ---
 layout: element
 title: upload自定义文件上传
-date: 2023-06-06 21:35:17
+date: 2023-01-05 00:00:00
 tags: [文件上传, upload, element, 组件]
 categories: 前端开发
+updated: 2018-10-20 21:35:17
 ---
 
 ### 1、组件封装

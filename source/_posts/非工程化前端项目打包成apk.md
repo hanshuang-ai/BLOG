@@ -1,8 +1,9 @@
 ---
 title: 非工程化前端项目打包成apk
 categories: 移动端开发
-date: 2024-09-04 17:23:43
+date: 2023-06-23 00:00:00
 tags: [apk, 打包, 安卓, 混合应用]
+updated: 2018-09-04 17:23:43
 ---
 使用 Cordova 打包 HTML 文件为 APK
 

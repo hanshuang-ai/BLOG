@@ -1,8 +1,9 @@
 ---
 title: vue管理后台动态路由
-date: 2023-01-12 10:03:08
+date: 2023-08-12 00:00:00
 tags: [vue, vue-router, 动态路由, 权限管理, 后台]
 categories: 前端开发
+updated: 2018-05-20 10:03:08
 ---
 
 ```javascript

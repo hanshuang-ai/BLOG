@@ -1,7 +1,7 @@
 ---
 title: mcp的开发与连接
 categories: 大模型与AI
-date: 2025-11-20 11:37:27
+date: 2023-09-01 00:00:00
 tags: [mcp, 开发, 连接, ai工具, 协议]
 ---
 ```typescript

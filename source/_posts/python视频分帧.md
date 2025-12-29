@@ -1,8 +1,9 @@
 ---
 title: python视频分帧
 categories: 后端开发
-date: 2025-06-10 15:25:28
+date: 2023-02-13 00:00:00
 tags: [python, 视频处理, 分帧, opencv]
+updated: 2019-10-06 15:25:28
 ---
 ```python
 import cv2

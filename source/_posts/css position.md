@@ -1,8 +1,9 @@
 ---
 title: css position
-date: 2023-06-14 14:11:32
+date: 2022-01-21 00:00:00
 tags: [css, position, 定位, 布局]
 categories: 前端开发
+updated: 2020-03-30 14:11:32
 ---
 [参考链接](https://developer.mozilla.org/zh-CN/docs/Web/CSS/position)
 

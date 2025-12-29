@@ -1,5 +1,6 @@
 ---
 title: node canvas生成图片并保存
+date: 2023-12-22 00:00:00
 tag: ['可视化','node']
 categories: 后端开发
 tags: [nodejs, canvas, 图片生成, 绘图]

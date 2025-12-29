@@ -1,9 +1,10 @@
 ---
 title: 同一台电脑配置多个git密匙
-date: 2022-10-14 18:10:42
+date: 2022-07-31 00:00:00
 tag: ['实战','git']
 categories: 工具与效率
 tags: [git, ssh, 密钥, 配置]
+updated: 2019-06-08 18:10:42
 ---
 
 首先由于需要配置多个git账户，可能是github、gitlab、gitee等等，所以

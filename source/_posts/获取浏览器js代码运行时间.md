@@ -1,8 +1,9 @@
 ---
 title: 获取浏览器js代码运行时间
-date: 2023-09-26 11:49:46
+date: 2022-06-16 00:00:00
 tags: [javascript, 性能, 运行时间, performance]
 categories: 前端开发
+updated: 2020-11-11 11:49:46
 ---
 
 ### 1. console.time

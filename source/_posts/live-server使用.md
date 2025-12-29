@@ -1,6 +1,7 @@
 ---
 uuid: 561cf221-3cfc-fe4b-716b-8ed42fc23dbf
 title: live-server使用
+date: 2023-06-29 00:00:00
 categories: 前端开发
 tags: [live-server, 开发工具, 本地服务器]
 ---

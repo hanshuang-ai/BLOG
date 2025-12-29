@@ -1,8 +1,9 @@
 ---
 title: JavaScript核心概念与实战技巧
-date: 2025-11-20 18:00:00
+date: 2022-09-10 00:00:00
 tags: [javascript, 事件循环, 正则, dom, 事件处理, 打印]
 categories: 前端开发
+updated: 2021-01-03 18:00:00
 ---
 
 # JavaScript核心概念与实战技巧

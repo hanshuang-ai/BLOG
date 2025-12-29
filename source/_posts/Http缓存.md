@@ -1,8 +1,9 @@
 ---
 title: Http缓存
-date: 2023-02-03 10:36:52
+date: 2023-06-13 00:00:00
 tags: [http, 缓存, 浏览器, 强缓存, 协商缓存]
 categories: 网络与协议
+updated: 2019-10-13 10:36:52
 ---
 
 ![http缓存](Http缓存/1.png)

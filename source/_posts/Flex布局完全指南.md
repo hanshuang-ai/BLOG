@@ -1,8 +1,9 @@
 ---
 title: Flex布局完全指南
-date: 2025-12-26 10:30:00
+date: 2022-08-02 00:00:00
 tags: [css, flex, 布局, 弹性盒子, 响应式]
 categories: 前端开发
+updated: 2018-12-06 10:30:00
 ---
 
 # Flex布局完全指南

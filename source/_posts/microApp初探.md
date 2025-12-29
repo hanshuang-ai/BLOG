@@ -1,8 +1,9 @@
 ---
 title: microApp初探
-date: 2022-08-31 20:59:28
+date: 2022-07-21 00:00:00
 tags: [微前端, microapp, 组件化, 架构]
 categories: 前端开发
+updated: 2020-05-25 20:59:28
 ---
 
 `本项目采用microApp进行前端微服务的搭建，父应用采用的是vue3，子应用有2个，分别为vue2和vue3`
